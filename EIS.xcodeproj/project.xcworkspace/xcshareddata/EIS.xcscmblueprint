@@ -1,21 +1,28 @@
 {
-  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "51b62266-b93b-dc4c-83e0-30dc32bd8359",
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "4C28BF06BD0EA2B2574D94151B47E588018E4782",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
     "51b62266-b93b-dc4c-83e0-30dc32bd8359" : {
 
     }
   },
   "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "4C28BF06BD0EA2B2574D94151B47E588018E4782" : 0,
     "51b62266-b93b-dc4c-83e0-30dc32bd8359" : 0
   },
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "E8CB8FB6-F1E5-4567-809E-A9524F9925DF",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "4C28BF06BD0EA2B2574D94151B47E588018E4782" : "EISIOSJSON\/",
     "51b62266-b93b-dc4c-83e0-30dc32bd8359" : "EIS%20\/"
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "EIS",
   "DVTSourceControlWorkspaceBlueprintVersion" : 204,
   "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "EIS.xcodeproj",
   "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/EISNJ1\/EISIOS.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "4C28BF06BD0EA2B2574D94151B47E588018E4782"
+    },
     {
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "http:\/\/192.168.2.5:18080\/svn\/EISIOSApp",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Subversion",
