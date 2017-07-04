@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>E5756D4E-5BCD-4043-A860-31F928194A66</string>
+	<key>IDESourceControlProjectName</key>
+	<string>EISIOSApp</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>51b62266-b93b-dc4c-83e0-30dc32bd8359</key>
+		<string>http://192.168.2.5:18080/svn/EISIOSApp</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>EISIOSApp.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>51b62266-b93b-dc4c-83e0-30dc32bd8359</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>51b62266-b93b-dc4c-83e0-30dc32bd8359</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.subversion</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>51b62266-b93b-dc4c-83e0-30dc32bd8359</string>
+			<key>IDESourceControlWCCName</key>
+			<string>EISIOSApp</string>
+		</dict>
+	</array>
+</dict>
+</plist>

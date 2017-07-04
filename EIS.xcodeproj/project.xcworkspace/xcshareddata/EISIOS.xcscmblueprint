@@ -1,0 +1,25 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "51b62266-b93b-dc4c-83e0-30dc32bd8359",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+    "51b62266-b93b-dc4c-83e0-30dc32bd8359" : {
+
+    }
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "51b62266-b93b-dc4c-83e0-30dc32bd8359" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "BAF638E3-DDE7-4751-AEDA-AF5C54D02E6B",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "51b62266-b93b-dc4c-83e0-30dc32bd8359" : "EISIOS%20\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "EISIOS",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "EISIOS.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "http:\/\/192.168.2.5:18080\/svn\/EISIOSApp",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Subversion",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "51b62266-b93b-dc4c-83e0-30dc32bd8359"
+    }
+  ]
+}
