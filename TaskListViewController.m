@@ -24,10 +24,10 @@
     
     NSMutableArray *expireTaskPriorityArraySearch,*expireTaskDescriptionArraySearch,*expireAssignedArraySearch,*expireCreatedBySearchArray1,*expireTaskIdArraySearch,*expireProjectNameArraySearch,*expireHarddependencyArraySearch,*expireHoursPerDayArraySearch,*expireCategoryArraySearch,*expireAssogmedByIdArraySearch,*expireStartDateArraySearch,*expireEndDateArraySearch,*expireTaskEffortArraySearch,*expireResourceArraySearch,*expireStatusArraySearch;
     
-     NSMutableArray *expireTaskPriorityArraySearch1,*expireTaskDescriptionArraySearch1,*expireAssignedArraySearch1,*expireCreatedBySearchArray2,*expireTaskIdArraySearch1,*expireProjectNameArraySearch1,*expireHarddependencyArraySearch1,*expireHoursPerDayArraySearch1,*expireCategoryArraySearch1,*expireAssogmedByIdArraySearch1,*expireStartDateArraySearch1,*expireEndDateArraySearch1,*expireTaskEffortArraySearch1,*expireResourceArraySearch1,*expireStatusArraySearch1;
-
+    NSMutableArray *expireTaskPriorityArraySearch1,*expireTaskDescriptionArraySearch1,*expireAssignedArraySearch1,*expireCreatedBySearchArray2,*expireTaskIdArraySearch1,*expireProjectNameArraySearch1,*expireHarddependencyArraySearch1,*expireHoursPerDayArraySearch1,*expireCategoryArraySearch1,*expireAssogmedByIdArraySearch1,*expireStartDateArraySearch1,*expireEndDateArraySearch1,*expireTaskEffortArraySearch1,*expireResourceArraySearch1,*expireStatusArraySearch1;
+    
     NSMutableArray *expireTaskPriorityArraySearch2,*expireTaskDescriptionArraySearch2,*expireAssignedArraySearch2,*expireCreatedBySearchArray3,*expireTaskIdArraySearch2,*expireProjectNameArraySearch2,*expireHarddependencyArraySearch2,*expireHoursPerDayArraySearch2,*expireCategoryArraySearch2,*expireAssogmedByIdArraySearch2,*expireStartDateArraySearch2,*expireEndDateArraySearch2,*expireTaskEffortArraySearch2,*expireResourceArraySearch2,*expireStatusArraySearch2;
-
+    
     
     NSArray *TaskSplitArray,*serchfieldArray,*searchFieldArray1,*searcharray1,*refarray1,*searcharray2,*refarray2,*refarray3,*searchArray3,*refarray4;
     
@@ -49,11 +49,11 @@
     tempArray2=[[NSMutableArray alloc]init];
     tempArray1=[[NSMutableArray alloc]init];
     tempArray3=[[NSMutableArray alloc]init];
-     tempArray4=[[NSMutableArray alloc]init];
-     tempArray5=[[NSMutableArray alloc]init];
-     tempArray6=[[NSMutableArray alloc]init];
-     tempArray7=[[NSMutableArray alloc]init];
-     tempArray8=[[NSMutableArray alloc]init];
+    tempArray4=[[NSMutableArray alloc]init];
+    tempArray5=[[NSMutableArray alloc]init];
+    tempArray6=[[NSMutableArray alloc]init];
+    tempArray7=[[NSMutableArray alloc]init];
+    tempArray8=[[NSMutableArray alloc]init];
     tempArray9=[[NSMutableArray alloc]init];
     tempArray10=[[NSMutableArray alloc]init];
     tempArray11=[[NSMutableArray alloc]init];
@@ -79,7 +79,7 @@
     hardDependencyArray2=[[NSMutableArray alloc]init];
     hoursPerDay1=[[NSMutableArray alloc]init];
     hoursPerDay2=[[NSMutableArray alloc]init];
-   equalTempArray=[[NSMutableArray alloc]init];
+    equalTempArray=[[NSMutableArray alloc]init];
     equalTempArray1=[[NSMutableArray alloc]init];
     dessearchArray=[[NSMutableArray alloc]init];
     projectNameSearchArray=[[NSMutableArray alloc]init];
@@ -191,7 +191,7 @@
     expireTaskEffortArraySearch2=[[NSMutableArray alloc]init];
     expireResourceArraySearch2=[[NSMutableArray alloc]init];
     expireStatusArraySearch2=[[NSMutableArray alloc]init];
-
+    
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     Usernamestr = [defaults objectForKey:@"UserName"];
@@ -201,28 +201,28 @@
     
     [searchBar1 resignFirstResponder];
     [Serchbar resignFirstResponder];
-  
+    
     Expirelabel.text=@"All";
     
     FilterArray=[[NSMutableArray alloc]initWithObjects:@"All",@"Expired",nil];
-
+    
     NSLog(@"user details %@ %@ %@ ",Useridstr,orgIdstr,Usertypestr,Usernamestr);
     [self LoadINFO];
     
-  
-//    UITapGestureRecognizer *tapgesture=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(gestureclicked)];
-//    [self.view addGestureRecognizer:tapgesture];
-   
+    
+    //    UITapGestureRecognizer *tapgesture=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(gestureclicked)];
+    //    [self.view addGestureRecognizer:tapgesture];
+    
 }
 -(void)LoadINFO
 {
-
+    
     self.navigationController.navigationBar.barTintColor=[UIColor colorWithRed:0.52 green:0.77 blue:0.77 alpha:1.0];
-//    UIButton* Eisimage = [UIButton buttonWithType:UIButtonTypeCustom];
-//    [Eisimage setImage:[UIImage imageNamed:@"homeicon.png"] forState:UIControlStateNormal];
-//    [Eisimage sizeToFit];
-//    UIBarButtonItem *eisimagebtn = [[UIBarButtonItem alloc] initWithCustomView:Eisimage];
-   // self.navigationItem.leftBarButtonItem = eisimagebtn;
+    //    UIButton* Eisimage = [UIButton buttonWithType:UIButtonTypeCustom];
+    //    [Eisimage setImage:[UIImage imageNamed:@"homeicon.png"] forState:UIControlStateNormal];
+    //    [Eisimage sizeToFit];
+    //    UIBarButtonItem *eisimagebtn = [[UIBarButtonItem alloc] initWithCustomView:Eisimage];
+    // self.navigationItem.leftBarButtonItem = eisimagebtn;
     UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
     [button setImage:[UIImage imageNamed:@"homeicon.png"] forState:UIControlStateNormal];
     //[button addTarget:target action:@selector(buttonAction:)forControlEvents:UIControlEventTouchUpInside];
@@ -239,7 +239,7 @@
     UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
     self.navigationItem.leftBarButtonItem = barButton;
     
-
+    
     
     UIButton* Homepagebtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [Homepagebtn setImage:[UIImage imageNamed:@"expenses_home_icon.png"] forState:UIControlStateNormal];
@@ -261,18 +261,18 @@
     self.navigationItem.rightBarButtonItems = [[NSArray alloc] initWithObjects:Logoutpagebatbtn,Homepagebatbtn,Creatpagebatbtn,nil];
     
     
-//    Serchpickertxtfiled = (UITextField *)[self.view viewWithTag:11];
-//    Serchpickertxtfiled.layer.cornerRadius = 15;
-//    Serchpickertxtfiled.layer.borderWidth  = 2;
-//    Serchpickertxtfiled.layer.borderColor  = [UIColor colorWithRed:(240/255.0) green:(82/255.0) blue:(41/255.0) alpha:1.0f].CGColor;
-//    //Serchpickertxtfiled.delegate = self;
-//    UIButton *Prioritybtnpkr = [UIButton buttonWithType:UIButtonTypeCustom];
-//    [Prioritybtnpkr setImage:[UIImage imageNamed:@"down_arrow_small.png"] forState:UIControlStateNormal];
-//    Prioritybtnpkr.imageEdgeInsets = UIEdgeInsetsMake(20, -5, 20, 30);
-//   // [Prioritybtnpkr addTarget:self action:@selector(priorityPickerTapped) forControlEvents:UIControlEventTouchUpInside];
-//    Serchpickertxtfiled.rightView = Prioritybtnpkr;
-//    Serchpickertxtfiled.rightViewMode = UITextFieldViewModeAlways;
-//    [Serchpickertxtfiled addSubview:Prioritybtnpkr];
+    //    Serchpickertxtfiled = (UITextField *)[self.view viewWithTag:11];
+    //    Serchpickertxtfiled.layer.cornerRadius = 15;
+    //    Serchpickertxtfiled.layer.borderWidth  = 2;
+    //    Serchpickertxtfiled.layer.borderColor  = [UIColor colorWithRed:(240/255.0) green:(82/255.0) blue:(41/255.0) alpha:1.0f].CGColor;
+    //    //Serchpickertxtfiled.delegate = self;
+    //    UIButton *Prioritybtnpkr = [UIButton buttonWithType:UIButtonTypeCustom];
+    //    [Prioritybtnpkr setImage:[UIImage imageNamed:@"down_arrow_small.png"] forState:UIControlStateNormal];
+    //    Prioritybtnpkr.imageEdgeInsets = UIEdgeInsetsMake(20, -5, 20, 30);
+    //   // [Prioritybtnpkr addTarget:self action:@selector(priorityPickerTapped) forControlEvents:UIControlEventTouchUpInside];
+    //    Serchpickertxtfiled.rightView = Prioritybtnpkr;
+    //    Serchpickertxtfiled.rightViewMode = UITextFieldViewModeAlways;
+    //    [Serchpickertxtfiled addSubview:Prioritybtnpkr];
     
     [self TasksHPList];
     
@@ -285,11 +285,11 @@
 }
 -(void)TasksHPList
 {
-        NSString *TaskListUrl = @"TasksHPListService";
-        NSDictionary *credentials = @{@"orgVp":orgIdstr,@"userId":Useridstr,@"userType":Usertypestr};
-        [Servicecall TasksHPListServiceurl:TaskListUrl TaskListParameters:credentials];
-        [Servicecall setDelegate:self];
-  
+    NSString *TaskListUrl = @"TasksHPListService";
+    NSDictionary *credentials = @{@"orgVp":orgIdstr,@"userId":Useridstr,@"userType":Usertypestr};
+    [Servicecall TasksHPListServiceurl:TaskListUrl TaskListParameters:credentials];
+    [Servicecall setDelegate:self];
+    
 }
 
 -(void)didFinishService:(id)Userlogindetails
@@ -328,7 +328,7 @@
             createdByString            =[NSMutableString new];
             AssignedByIdStr            =[NSMutableString new];
             taskStatusArray            =[NSMutableArray new];
-           
+            
         }
     }
 }
@@ -398,39 +398,39 @@
                 [taskStatusArray addObject:[[TaskSplitArray objectAtIndex:16]stringByReplacingOccurrencesOfString:@"taskStatus==" withString:@""]];
                 
                 
-//                
-//                NSLog(@"hard dependecy array is %@",hardDependencyArray);
-//                NSLog(@"start date str is %@",startDateStr1);
-//                NSLog(@"end date str is %@",endDateStr2);
-               
-//                NSDateFormatter *format = [[NSDateFormatter alloc] init];
-//                [format setDateFormat:@"dd/MM/yyyy"];
-//                NSDate *date = [format dateFromString:startDateStr1];
-//                [format setDateFormat:@"yyyy-MM-dd"];
-//                NSString* finalDateString = [format stringFromDate:date];
-//                NSLog(@"the changed date is %@",finalDateString);//                //[dateFormat setDateFormat:@"yyyy-MM-dd"];
-////                NSString *startdate1=[dateFormat stringFromDate:startdate];
-//                
-//                
-//                NSDateFormatter *format1 = [[NSDateFormatter alloc] init];
-//                [format1 setDateFormat:@"dd/MM/yyyy"];
-//                NSDate *date1 = [format1 dateFromString:endDateStr2];
-//                [format1 setDateFormat:@"yyyy-MM-dd"];
-//                NSString* finalDateString2 = [format1 stringFromDate:date1];
-//                NSLog(@"the changed date is %@",finalDateString2);
-               
+                //
+                //                NSLog(@"hard dependecy array is %@",hardDependencyArray);
+                //                NSLog(@"start date str is %@",startDateStr1);
+                //                NSLog(@"end date str is %@",endDateStr2);
+                
+                //                NSDateFormatter *format = [[NSDateFormatter alloc] init];
+                //                [format setDateFormat:@"dd/MM/yyyy"];
+                //                NSDate *date = [format dateFromString:startDateStr1];
+                //                [format setDateFormat:@"yyyy-MM-dd"];
+                //                NSString* finalDateString = [format stringFromDate:date];
+                //                NSLog(@"the changed date is %@",finalDateString);//                //[dateFormat setDateFormat:@"yyyy-MM-dd"];
+                ////                NSString *startdate1=[dateFormat stringFromDate:startdate];
+                //
+                //
+                //                NSDateFormatter *format1 = [[NSDateFormatter alloc] init];
+                //                [format1 setDateFormat:@"dd/MM/yyyy"];
+                //                NSDate *date1 = [format1 dateFromString:endDateStr2];
+                //                [format1 setDateFormat:@"yyyy-MM-dd"];
+                //                NSString* finalDateString2 = [format1 stringFromDate:date1];
+                //                NSLog(@"the changed date is %@",finalDateString2);
+                
                 [StartDateArray addObject:startDateStr1];
                 [EndDateArray addObject:endDateStr2];
                 [TaskAssgndByIdArray addObject:createdByString];
                 [taskCreatedByArray addObject:AssignedByIdStr];
                 
-//                
-//                NSLog(@"task created by array %@",taskCreatedByArray);
-//                
-//                NSLog(@"the start is %@",StartDateArray);
-//                NSLog(@"the end id %@",EndDateArray);
-//                NSLog(@"task assigned id is %@",taskAssignedArray);
-//                NSLog(@"task status array is %@",taskStatusArray);
+                //
+                //                NSLog(@"task created by array %@",taskCreatedByArray);
+                //
+                //                NSLog(@"the start is %@",StartDateArray);
+                //                NSLog(@"the end id %@",EndDateArray);
+                //                NSLog(@"task assigned id is %@",taskAssignedArray);
+                //                NSLog(@"task status array is %@",taskStatusArray);
                 
             }
             
@@ -442,14 +442,14 @@
             [uniqueDescriptionArray addObject:@"PriorityAll"];
             
             
-                A=[[NSMutableArray alloc]init];
+            A=[[NSMutableArray alloc]init];
             
-                refarray1=[[NSMutableArray alloc]initWithArray:PriortyArray];
-                A=PriortyArray;
+            refarray1=[[NSMutableArray alloc]initWithArray:PriortyArray];
+            A=PriortyArray;
             
             B=[[NSMutableArray alloc]init];
             
-               // NSLog(@"the ref1 array is %@",A);
+            // NSLog(@"the ref1 array is %@",A);
             
             
             
@@ -464,16 +464,16 @@
             }
             searcharray2=[[NSMutableArray alloc]init];
             refarray4=[[NSMutableArray alloc]initWithArray:ResourceNameArray];
-             E=[[NSMutableArray alloc]init];
+            E=[[NSMutableArray alloc]init];
             F=[[NSMutableArray alloc]init];
             E=ResourceNameArray;
-           // NSLog(@"ref 4 array is %@",refarray4);
+            // NSLog(@"ref 4 array is %@",refarray4);
             
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 [TaskListTV reloadData];
             });
-          
+            
             //[TaskListTV reloadData];
         }
     }
@@ -505,23 +505,23 @@
         NSLog(@"knjhbmhjnkml");
     }
     
-  if (![searchBar1.text isEqualToString:@"All"]&&[Serchbar.text isEqualToString:@"PriorityAll"]&&![Expirelabel.text isEqualToString:@"Expired"])
+    if (![searchBar1.text isEqualToString:@"All"]&&[Serchbar.text isEqualToString:@"PriorityAll"]&&![Expirelabel.text isEqualToString:@"Expired"])
     {
-      return [createdBySearchArray count];
+        return [createdBySearchArray count];
         NSLog(@" created by values are");
         
     }
- if (![searchBar1.text isEqualToString:@"All"]&&![Serchbar.text isEqualToString:@"PriorityAll"]&&![Expirelabel.text isEqualToString:@"Expired"])
+    if (![searchBar1.text isEqualToString:@"All"]&&![Serchbar.text isEqualToString:@"PriorityAll"]&&![Expirelabel.text isEqualToString:@"Expired"])
     {
         return [dessearchArray1 count];
         NSLog(@" assigned to array ");
     }
-   if (![Serchbar.text isEqualToString:@"PriorityAll"]&&[searchBar1.text isEqualToString:@"All"]&&[Expirelabel.text isEqualToString:@"Expired"])
+    if (![Serchbar.text isEqualToString:@"PriorityAll"]&&[searchBar1.text isEqualToString:@"All"]&&[Expirelabel.text isEqualToString:@"Expired"])
     {
         return [expireStatusArray count];
         NSLog(@" assigned to array ");
     }
- if (![searchBar1.text isEqualToString:@"All"]&&[Serchbar.text isEqualToString:@"PriorityAll"]&&[Expirelabel.text isEqualToString:@"Expired"])
+    if (![searchBar1.text isEqualToString:@"All"]&&[Serchbar.text isEqualToString:@"PriorityAll"]&&[Expirelabel.text isEqualToString:@"Expired"])
     {
         return [expireStatusArraySearch count];
         NSLog(@" created by values are");
@@ -531,17 +531,17 @@
         return [expireStatusArraySearch1 count];
         NSLog(@" assigned to array ");
     }
-  if ([searchBar1.text isEqualToString:@"All"] &&[Serchbar.text isEqualToString:@"PriorityAll"]&&[Expirelabel.text isEqualToString:@"Expired"])
-   {
-       return [expireStatusArraySearch2 count];
-       NSLog(@" assigned to array ");
-   }
-
+    if ([searchBar1.text isEqualToString:@"All"] &&[Serchbar.text isEqualToString:@"PriorityAll"]&&[Expirelabel.text isEqualToString:@"Expired"])
+    {
+        return [expireStatusArraySearch2 count];
+        NSLog(@" assigned to array ");
+    }
+    
     else
     {
-       return [PriortyArray count];
+        return [PriortyArray count];
         NSLog(@"asdfdsfdsfdfdssfdsafsfsafdsf");
-
+        
     }
     
 }
@@ -552,13 +552,13 @@
 {
     if(![Serchbar.text isEqualToString:@"PriorityAll"]&&[searchBar1.text isEqualToString:@"All"]&&![Expirelabel.text isEqualToString:@"Expired"])
     {
-
-//        UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc]
-//                                            initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-//        spinner.center = CGPointMake(160, 240);
-//        spinner.hidesWhenStopped = YES;
-//        [self.view addSubview:spinner];
-//        [spinner startAnimating];
+        
+        //        UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc]
+        //                                            initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        //        spinner.center = CGPointMake(160, 240);
+        //        spinner.hidesWhenStopped = YES;
+        //        [self.view addSubview:spinner];
+        //        [spinner startAnimating];
         
         static NSString *CellIdentifier = @"EIS";
         
@@ -566,7 +566,7 @@
         
         if (cell == nil)
         {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         }
         //tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectZero];
         tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
@@ -634,20 +634,20 @@
         NSLog(@"total count of priority search is %@",totaltask);
         [self.view makeToast:totaltask duration:2.0 position:[NSValue valueWithCGPoint:CGPointMake(450, 450)]
                        title:@"Total Tasks"];
-    
+        
         UILongPressGestureRecognizer *longPressGesture =
-[[UILongPressGestureRecognizer alloc]
+        [[UILongPressGestureRecognizer alloc]
          initWithTarget:self action:@selector(longPress:)];
         [cell addGestureRecognizer:longPressGesture];
         
         return cell;
-
+        
     }
-   
-   if (![searchBar1.text isEqualToString:@"All"]&& [Serchbar.text isEqualToString:@"PriorityAll"]&&![Expirelabel.text isEqualToString:@"Expired"])
+    
+    if (![searchBar1.text isEqualToString:@"All"]&& [Serchbar.text isEqualToString:@"PriorityAll"]&&![Expirelabel.text isEqualToString:@"Expired"])
     {
         
-    
+        
         static NSString *CellIdentifier = @"EIS";
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         if (cell == nil)
@@ -716,11 +716,11 @@
         CreatedByLbl.text=[AssignedToSearchArray objectAtIndex:indexPath.row];
         
         
-       // int total=[tempArray8 count];
-//        NSString *totaltask=[NSString stringWithFormat:@"%d",total];
-//        NSLog(@"total count of task created by search is %@",totaltask);
-//        [self.view makeToast:totaltask duration:2.0 position:[NSValue valueWithCGPoint:CGPointMake(450, 450)]
-//                       title:@"Total Tasks"];
+        // int total=[tempArray8 count];
+        //        NSString *totaltask=[NSString stringWithFormat:@"%d",total];
+        //        NSLog(@"total count of task created by search is %@",totaltask);
+        //        [self.view makeToast:totaltask duration:2.0 position:[NSValue valueWithCGPoint:CGPointMake(450, 450)]
+        //                       title:@"Total Tasks"];
         //
         UILongPressGestureRecognizer *longPressGesture =
         [[UILongPressGestureRecognizer alloc]
@@ -814,89 +814,6 @@
         
     }
     if(![Serchbar.text isEqualToString:@"PriorityAll"]&&[searchBar1.text isEqualToString:@"All"]&&[Expirelabel.text isEqualToString:@"Expired"])
-   {
-       static NSString *CellIdentifier = @"EIS";
-       UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-       if (cell == nil)
-       {
-           
-           cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-       }
-       //tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectZero];
-       tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-       [tableView.layer setBorderColor:[UIColor colorWithRed:(240/255.0) green:(82/255.0) blue:(41/255.0) alpha:1.0f].CGColor];
-       [tableView.layer setBorderWidth:2.0f];
-       tableView.layer.cornerRadius = 12;
-       tableView.clipsToBounds = YES;
-       [cell.contentView.layer setBorderColor:[UIColor colorWithRed:(240/255.0) green:(82/255.0) blue:(41/255.0) alpha:1.0f].CGColor];
-       [cell.contentView.layer setBorderWidth:1.0f];
-       cell.contentView.layer.cornerRadius = 8;
-       cell.contentView.clipsToBounds = YES;
-       
-       
-       //UILabel *DiscriptionLbl = (UILabel*)[cell viewWithTag:1];
-       //DiscriptionLbl.font=[UIFont systemFontOfSize:15];
-       
-       
-       
-       UILabel *DiscriptionDataLbl = (UILabel*)[cell viewWithTag:6];
-       DiscriptionDataLbl.font=[UIFont systemFontOfSize:15];
-       
-       DiscriptionDataLbl.text = [expireTaskDescriptionArray objectAtIndex:indexPath.row];
-       
-       
-       //UILabel *StartTimelbl = (UILabel*)[cell viewWithTag:2];
-       //StartTimelbl.font=[UIFont systemFontOfSize:15];
-       
-       UILabel *StartTimeDatalbl = (UILabel*)[cell viewWithTag:7];
-       StartTimeDatalbl.font=[UIFont systemFontOfSize:15];
-       StartTimeDatalbl.text= [expireStartDateArray objectAtIndex:indexPath.row];
-       
-       //UILabel *EndTimeLbl = (UILabel*)[cell viewWithTag:3];
-       // EndTimeLbl.font=[UIFont systemFontOfSize:15];
-       
-       UILabel *EndTimeDataLbl = (UILabel*)[cell viewWithTag:8];
-       EndTimeDataLbl.font=[UIFont systemFontOfSize:15];
-       EndTimeDataLbl.text= [expireEndDateArray objectAtIndex:indexPath.row];
-       
-       // UILabel *EffortLbl = (UILabel*)[cell viewWithTag:4];
-       //EffortLbl.font=[UIFont systemFontOfSize:15];
-       
-       UILabel *EffortDataLbl = (UILabel*)[cell viewWithTag:9];
-       EffortDataLbl.font=[UIFont systemFontOfSize:15];
-       EffortDataLbl.text= [expireTaskEffortArray objectAtIndex:indexPath.row];
-       
-       // UILabel *PriorityLbl = (UILabel*)[cell viewWithTag:5];
-       //PriorityLbl.font=[UIFont systemFontOfSize:15];
-       
-       UILabel *PriorityDataLbl = (UILabel*)[cell viewWithTag:10];
-       PriorityDataLbl.font=[UIFont systemFontOfSize:15];
-       PriorityDataLbl.text= [expireTaskPriorityArray objectAtIndex:indexPath.row];
-       
-       
-       UILabel *AssignedLbl=(UILabel *)[cell viewWithTag:13];
-       AssignedLbl.font=[UIFont systemFontOfSize:15];
-       AssignedLbl.text=[expireAssignedArray objectAtIndex:indexPath.row];
-       
-       UILabel *CreatedByLbl=(UILabel *)[cell viewWithTag:14];
-       CreatedByLbl.font=[UIFont systemFontOfSize:15];
-       CreatedByLbl.text=[expireResourceArray objectAtIndex:indexPath.row];
-       
-       
-       int total=[expireStatusArray count];
-               NSString *totaltask=[NSString stringWithFormat:@"%d",total];
-               NSLog(@"total count of task created by search is %@",totaltask);
-               [self.view makeToast:totaltask duration:2.0 position:[NSValue valueWithCGPoint:CGPointMake(450, 450)]
-                              title:@"Total Tasks"];
-       
-       UILongPressGestureRecognizer *longPressGesture =
-       [[UILongPressGestureRecognizer alloc]
-        initWithTarget:self action:@selector(longPress:)];
-       [cell addGestureRecognizer:longPressGesture];
-       
-       return cell;
-   }
-     if ([Expirelabel.text isEqualToString:@"Expired"]&&![searchBar1.text isEqualToString:@"All"] && [Serchbar.text isEqualToString:@"PriorityAll"])
     {
         static NSString *CellIdentifier = @"EIS";
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -905,7 +822,90 @@
             
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         }
-
+        //tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectZero];
+        tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+        [tableView.layer setBorderColor:[UIColor colorWithRed:(240/255.0) green:(82/255.0) blue:(41/255.0) alpha:1.0f].CGColor];
+        [tableView.layer setBorderWidth:2.0f];
+        tableView.layer.cornerRadius = 12;
+        tableView.clipsToBounds = YES;
+        [cell.contentView.layer setBorderColor:[UIColor colorWithRed:(240/255.0) green:(82/255.0) blue:(41/255.0) alpha:1.0f].CGColor];
+        [cell.contentView.layer setBorderWidth:1.0f];
+        cell.contentView.layer.cornerRadius = 8;
+        cell.contentView.clipsToBounds = YES;
+        
+        
+        //UILabel *DiscriptionLbl = (UILabel*)[cell viewWithTag:1];
+        //DiscriptionLbl.font=[UIFont systemFontOfSize:15];
+        
+        
+        
+        UILabel *DiscriptionDataLbl = (UILabel*)[cell viewWithTag:6];
+        DiscriptionDataLbl.font=[UIFont systemFontOfSize:15];
+        
+        DiscriptionDataLbl.text = [expireTaskDescriptionArray objectAtIndex:indexPath.row];
+        
+        
+        //UILabel *StartTimelbl = (UILabel*)[cell viewWithTag:2];
+        //StartTimelbl.font=[UIFont systemFontOfSize:15];
+        
+        UILabel *StartTimeDatalbl = (UILabel*)[cell viewWithTag:7];
+        StartTimeDatalbl.font=[UIFont systemFontOfSize:15];
+        StartTimeDatalbl.text= [expireStartDateArray objectAtIndex:indexPath.row];
+        
+        //UILabel *EndTimeLbl = (UILabel*)[cell viewWithTag:3];
+        // EndTimeLbl.font=[UIFont systemFontOfSize:15];
+        
+        UILabel *EndTimeDataLbl = (UILabel*)[cell viewWithTag:8];
+        EndTimeDataLbl.font=[UIFont systemFontOfSize:15];
+        EndTimeDataLbl.text= [expireEndDateArray objectAtIndex:indexPath.row];
+        
+        // UILabel *EffortLbl = (UILabel*)[cell viewWithTag:4];
+        //EffortLbl.font=[UIFont systemFontOfSize:15];
+        
+        UILabel *EffortDataLbl = (UILabel*)[cell viewWithTag:9];
+        EffortDataLbl.font=[UIFont systemFontOfSize:15];
+        EffortDataLbl.text= [expireTaskEffortArray objectAtIndex:indexPath.row];
+        
+        // UILabel *PriorityLbl = (UILabel*)[cell viewWithTag:5];
+        //PriorityLbl.font=[UIFont systemFontOfSize:15];
+        
+        UILabel *PriorityDataLbl = (UILabel*)[cell viewWithTag:10];
+        PriorityDataLbl.font=[UIFont systemFontOfSize:15];
+        PriorityDataLbl.text= [expireTaskPriorityArray objectAtIndex:indexPath.row];
+        
+        
+        UILabel *AssignedLbl=(UILabel *)[cell viewWithTag:13];
+        AssignedLbl.font=[UIFont systemFontOfSize:15];
+        AssignedLbl.text=[expireAssignedArray objectAtIndex:indexPath.row];
+        
+        UILabel *CreatedByLbl=(UILabel *)[cell viewWithTag:14];
+        CreatedByLbl.font=[UIFont systemFontOfSize:15];
+        CreatedByLbl.text=[expireResourceArray objectAtIndex:indexPath.row];
+        
+        
+        int total=[expireStatusArray count];
+        NSString *totaltask=[NSString stringWithFormat:@"%d",total];
+        NSLog(@"total count of task created by search is %@",totaltask);
+        [self.view makeToast:totaltask duration:2.0 position:[NSValue valueWithCGPoint:CGPointMake(450, 450)]
+                       title:@"Total Tasks"];
+        
+        UILongPressGestureRecognizer *longPressGesture =
+        [[UILongPressGestureRecognizer alloc]
+         initWithTarget:self action:@selector(longPress:)];
+        [cell addGestureRecognizer:longPressGesture];
+        
+        return cell;
+    }
+    if ([Expirelabel.text isEqualToString:@"Expired"]&&![searchBar1.text isEqualToString:@"All"] && [Serchbar.text isEqualToString:@"PriorityAll"])
+    {
+        static NSString *CellIdentifier = @"EIS";
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if (cell == nil)
+        {
+            
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        }
+        
         tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
         [tableView.layer setBorderColor:[UIColor colorWithRed:(240/255.0) green:(82/255.0) blue:(41/255.0) alpha:1.0f].CGColor];
         [tableView.layer setBorderWidth:2.0f];
@@ -1063,7 +1063,7 @@
         return cell;
         
     }
-     if ([Expirelabel.text isEqualToString:@"Expired"]&&[searchBar1.text isEqualToString:@"All"] &&[Serchbar.text isEqualToString:@"PriorityAll"])
+    if ([Expirelabel.text isEqualToString:@"Expired"]&&[searchBar1.text isEqualToString:@"All"] &&[Serchbar.text isEqualToString:@"PriorityAll"])
     {
         static NSString *CellIdentifier = @"EIS";
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -1218,9 +1218,9 @@
         
         
         int total=[TaskEffortArray count];
-//        NSString *totaltask=[NSString stringWithFormat:@"%d",total];
-//        [self.view makeToast:totaltask duration:2.0 position:[NSValue valueWithCGPoint:CGPointMake(450, 450)]
-//                       title:@"Total Tasks"];
+        //        NSString *totaltask=[NSString stringWithFormat:@"%d",total];
+        //        [self.view makeToast:totaltask duration:2.0 position:[NSValue valueWithCGPoint:CGPointMake(450, 450)]
+        //                       title:@"Total Tasks"];
         UILongPressGestureRecognizer *longPressGesture =
         [[UILongPressGestureRecognizer alloc]
          initWithTarget:self action:@selector(longPress:)];
@@ -1234,96 +1234,96 @@
 }
 - (void)longPress:(UILongPressGestureRecognizer *)gesture
 {
-	
     
-  
+    
+    
     if (![Serchbar.text isEqualToString:@"PriorityAll"]&&[searchBar1.text isEqualToString:@"All"]&&![Expirelabel.text isEqualToString:@"Expired"])
-
+        
     {
         
         
         
-    CGPoint p = [gesture locationInView:TaskListTV];
-    UITableViewCell *cell = (UITableViewCell *)[gesture view];
-    NSIndexPath *indexPath = [TaskListTV indexPathForRowAtPoint:p];
-    taskidstr = [tempArray17 objectAtIndex:indexPath.row];
+        CGPoint p = [gesture locationInView:TaskListTV];
+        UITableViewCell *cell = (UITableViewCell *)[gesture view];
+        NSIndexPath *indexPath = [TaskListTV indexPathForRowAtPoint:p];
+        taskidstr = [tempArray17 objectAtIndex:indexPath.row];
         
-          NSLog(@" task1 are %@",taskidstr);
-    if (indexPath == nil) {
-       //cell.backgroundColor = [UIColor clearColor];
-    }  else
-    {
-       
-         if (gesture.state == UIGestureRecognizerStateBegan)
-         {
-            cell.backgroundColor = [UIColor redColor];
-            NSLog(@"UIGestureRecognizerStateBegan.");
+        NSLog(@" task1 are %@",taskidstr);
+        if (indexPath == nil) {
+            //cell.backgroundColor = [UIColor clearColor];
+        }  else
+        {
             
-             self.navigationController.navigationBar.barTintColor=[UIColor grayColor];
-             
-             UIButton* Done = [UIButton buttonWithType:UIButtonTypeCustom];
-             [Done setTitle:@"DONE" forState:UIControlStateNormal];
-             [Done addTarget:self action:@selector(DoneButtonTapped) forControlEvents:UIControlEventTouchUpInside];
-             [Done sizeToFit];
-             UIBarButtonItem *eisimagebtn = [[UIBarButtonItem alloc] initWithCustomView:Done];
-             self.navigationItem.leftBarButtonItem = eisimagebtn;
-             
-             
-             UIButton* UPLOADAUDIO = [UIButton buttonWithType:UIButtonTypeCustom];
-             [UPLOADAUDIO setTitle:@"UploadAudio" forState:UIControlStateNormal];
-             [UPLOADAUDIO addTarget:self action:@selector(AudioBtnTapped) forControlEvents:UIControlEventTouchUpInside];
-             [UPLOADAUDIO sizeToFit];
-             UIBarButtonItem *audio = [[UIBarButtonItem alloc] initWithCustomView:UPLOADAUDIO];
-             
-             UIButton* UPLOADVIDEO = [UIButton buttonWithType:UIButtonTypeCustom];
-             [UPLOADVIDEO setTitle:@"UploadVideo" forState:UIControlStateNormal];
-             [UPLOADVIDEO addTarget:self action:@selector(VideoBtnTapped) forControlEvents:UIControlEventTouchUpInside];
-             [UPLOADVIDEO sizeToFit];
-             UIBarButtonItem *video = [[UIBarButtonItem alloc] initWithCustomView:UPLOADVIDEO];
-             
-             UIButton* UPLOADFILE = [UIButton buttonWithType:UIButtonTypeCustom];
-             [UPLOADFILE setTitle:@"UploadFile" forState:UIControlStateNormal];
-             [UPLOADFILE addTarget:self action:@selector(FileUploadbtnTapped) forControlEvents:UIControlEventTouchUpInside];
-             [UPLOADFILE sizeToFit];
-             UIBarButtonItem *file = [[UIBarButtonItem alloc] initWithCustomView:UPLOADFILE];
-             
-             UIButton* TEXTUPLOAD = [UIButton buttonWithType:UIButtonTypeCustom];
-             //TEXTUPLOAD.layer.borderWidth = 2.0f;
-             
-             //TEXTUPLOAD.layer.cornerRadius = 10;
-             //TEXTUPLOAD.backgroundColor = [UIColor grayColor];
-
-             [TEXTUPLOAD setTitle:@"UplaodText" forState:UIControlStateNormal];
-             
-             [TEXTUPLOAD addTarget:self action:@selector(TextUploadbtnTapped) forControlEvents:UIControlEventTouchUpInside];
-             [TEXTUPLOAD sizeToFit];
-             UIBarButtonItem *text = [[UIBarButtonItem alloc] initWithCustomView:TEXTUPLOAD];
-             
-             self.navigationItem.rightBarButtonItems = [[NSArray alloc] initWithObjects:text,file,video,audio,nil];
-            NSLog(@"long press on table view at row %d", indexPath.row);
-            //[TaskListTV reloadData];
-        
+            if (gesture.state == UIGestureRecognizerStateBegan)
+            {
+                cell.backgroundColor = [UIColor redColor];
+                NSLog(@"UIGestureRecognizerStateBegan.");
+                
+                self.navigationController.navigationBar.barTintColor=[UIColor grayColor];
+                
+                UIButton* Done = [UIButton buttonWithType:UIButtonTypeCustom];
+                [Done setTitle:@"DONE" forState:UIControlStateNormal];
+                [Done addTarget:self action:@selector(DoneButtonTapped) forControlEvents:UIControlEventTouchUpInside];
+                [Done sizeToFit];
+                UIBarButtonItem *eisimagebtn = [[UIBarButtonItem alloc] initWithCustomView:Done];
+                self.navigationItem.leftBarButtonItem = eisimagebtn;
+                
+                
+                UIButton* UPLOADAUDIO = [UIButton buttonWithType:UIButtonTypeCustom];
+                [UPLOADAUDIO setTitle:@"UploadAudio" forState:UIControlStateNormal];
+                [UPLOADAUDIO addTarget:self action:@selector(AudioBtnTapped) forControlEvents:UIControlEventTouchUpInside];
+                [UPLOADAUDIO sizeToFit];
+                UIBarButtonItem *audio = [[UIBarButtonItem alloc] initWithCustomView:UPLOADAUDIO];
+                
+                UIButton* UPLOADVIDEO = [UIButton buttonWithType:UIButtonTypeCustom];
+                [UPLOADVIDEO setTitle:@"UploadVideo" forState:UIControlStateNormal];
+                [UPLOADVIDEO addTarget:self action:@selector(VideoBtnTapped) forControlEvents:UIControlEventTouchUpInside];
+                [UPLOADVIDEO sizeToFit];
+                UIBarButtonItem *video = [[UIBarButtonItem alloc] initWithCustomView:UPLOADVIDEO];
+                
+                UIButton* UPLOADFILE = [UIButton buttonWithType:UIButtonTypeCustom];
+                [UPLOADFILE setTitle:@"UploadFile" forState:UIControlStateNormal];
+                [UPLOADFILE addTarget:self action:@selector(FileUploadbtnTapped) forControlEvents:UIControlEventTouchUpInside];
+                [UPLOADFILE sizeToFit];
+                UIBarButtonItem *file = [[UIBarButtonItem alloc] initWithCustomView:UPLOADFILE];
+                
+                UIButton* TEXTUPLOAD = [UIButton buttonWithType:UIButtonTypeCustom];
+                //TEXTUPLOAD.layer.borderWidth = 2.0f;
+                
+                //TEXTUPLOAD.layer.cornerRadius = 10;
+                //TEXTUPLOAD.backgroundColor = [UIColor grayColor];
+                
+                [TEXTUPLOAD setTitle:@"UplaodText" forState:UIControlStateNormal];
+                
+                [TEXTUPLOAD addTarget:self action:@selector(TextUploadbtnTapped) forControlEvents:UIControlEventTouchUpInside];
+                [TEXTUPLOAD sizeToFit];
+                UIBarButtonItem *text = [[UIBarButtonItem alloc] initWithCustomView:TEXTUPLOAD];
+                
+                self.navigationItem.rightBarButtonItems = [[NSArray alloc] initWithObjects:text,file,video,audio,nil];
+                NSLog(@"long press on table view at row %d", indexPath.row);
+                //[TaskListTV reloadData];
+                
+            }
+            else if (gesture.state == UIGestureRecognizerStateEnded)
+            {
+                NSLog(@"UIGestureRecognizerStateEnded");
+                cell.backgroundColor = [UIColor clearColor];
+                //Do Whatever You want on End of Gesture
+            }
         }
-       else if (gesture.state == UIGestureRecognizerStateEnded)
-       {
-            NSLog(@"UIGestureRecognizerStateEnded");
-            cell.backgroundColor = [UIColor clearColor];
-            //Do Whatever You want on End of Gesture
-        }
+        //	if (gesture.state == UIGestureRecognizerStateBegan)
+        //	{
+        //		// get affected cell
+        //		UITableViewCell *cell = (UITableViewCell *)[gesture view];
+        //
+        //		// get indexPath of cell
+        //		NSIndexPath *indexPath = [TaskListTV indexPathForCell:cell];
+        //       //cell.backgroundColor = [UIColor redColor];
+        //    }
+        //
+        [TaskListTV reloadData];
     }
-    //	if (gesture.state == UIGestureRecognizerStateBegan)
-//	{
-//		// get affected cell
-//		UITableViewCell *cell = (UITableViewCell *)[gesture view];
-//        
-//		// get indexPath of cell
-//		NSIndexPath *indexPath = [TaskListTV indexPathForCell:cell];
-//       //cell.backgroundColor = [UIColor redColor];
-//    }
-//    
-    [TaskListTV reloadData];
-    }
- else if (![searchBar1.text isEqualToString:@"All"]&& [Serchbar.text isEqualToString:@"PriorityAll"]&&![Expirelabel.text isEqualToString:@"Expired"])
+    else if (![searchBar1.text isEqualToString:@"All"]&& [Serchbar.text isEqualToString:@"PriorityAll"]&&![Expirelabel.text isEqualToString:@"Expired"])
     {
         CGPoint p = [gesture locationInView:TaskListTV];
         UITableViewCell *cell = (UITableViewCell *)[gesture view];
@@ -1397,17 +1397,17 @@
         //	{
         //		// get affected cell
         //		UITableViewCell *cell = (UITableViewCell *)[gesture view];
-        //        
+        //
         //		// get indexPath of cell
         //		NSIndexPath *indexPath = [TaskListTV indexPathForCell:cell];
         //       //cell.backgroundColor = [UIColor redColor];
         //    }
-        //    
+        //
         [TaskListTV reloadData];
-
+        
         
     }
-  else  if(![searchBar1.text isEqualToString:@"All"]&&![Serchbar.text isEqualToString:@"PriorityAll"]&&![Expirelabel.text isEqualToString:@"Expired"])
+    else  if(![searchBar1.text isEqualToString:@"All"]&&![Serchbar.text isEqualToString:@"PriorityAll"]&&![Expirelabel.text isEqualToString:@"Expired"])
     {
         CGPoint p = [gesture locationInView:TaskListTV];
         UITableViewCell *cell = (UITableViewCell *)[gesture view];
@@ -1489,166 +1489,166 @@
         
         
     }
-   else if(![Serchbar.text isEqualToString:@"PriorityAll"]&&[searchBar1.text isEqualToString:@"All"]&&[Expirelabel.text isEqualToString:@"Expired"])
-   {
-       CGPoint p = [gesture locationInView:TaskListTV];
-       UITableViewCell *cell = (UITableViewCell *)[gesture view];
-       NSIndexPath *indexPath = [TaskListTV indexPathForRowAtPoint:p];
-       taskidstr = [expireTaskIdArray objectAtIndex:indexPath.row];
-       if (indexPath == nil) {
-           //cell.backgroundColor = [UIColor clearColor];
-       }  else
-       {
-           
-           if (gesture.state == UIGestureRecognizerStateBegan)
-           {
-               cell.backgroundColor = [UIColor redColor];
-               NSLog(@"UIGestureRecognizerStateBegan.");
-               
-               self.navigationController.navigationBar.barTintColor=[UIColor grayColor];
-               
-               UIButton* Done = [UIButton buttonWithType:UIButtonTypeCustom];
-               [Done setTitle:@"DONE" forState:UIControlStateNormal];
-               [Done addTarget:self action:@selector(DoneButtonTapped) forControlEvents:UIControlEventTouchUpInside];
-               [Done sizeToFit];
-               UIBarButtonItem *eisimagebtn = [[UIBarButtonItem alloc] initWithCustomView:Done];
-               self.navigationItem.leftBarButtonItem = eisimagebtn;
-               
-               
-               UIButton* UPLOADAUDIO = [UIButton buttonWithType:UIButtonTypeCustom];
-               [UPLOADAUDIO setTitle:@"UploadAudio" forState:UIControlStateNormal];
-               [UPLOADAUDIO addTarget:self action:@selector(AudioBtnTapped) forControlEvents:UIControlEventTouchUpInside];
-               [UPLOADAUDIO sizeToFit];
-               UIBarButtonItem *audio = [[UIBarButtonItem alloc] initWithCustomView:UPLOADAUDIO];
-               
-               UIButton* UPLOADVIDEO = [UIButton buttonWithType:UIButtonTypeCustom];
-               [UPLOADVIDEO setTitle:@"UploadVideo" forState:UIControlStateNormal];
-               [UPLOADVIDEO addTarget:self action:@selector(VideoBtnTapped) forControlEvents:UIControlEventTouchUpInside];
-               [UPLOADVIDEO sizeToFit];
-               UIBarButtonItem *video = [[UIBarButtonItem alloc] initWithCustomView:UPLOADVIDEO];
-               
-               UIButton* UPLOADFILE = [UIButton buttonWithType:UIButtonTypeCustom];
-               [UPLOADFILE setTitle:@"UploadFile" forState:UIControlStateNormal];
-               [UPLOADFILE addTarget:self action:@selector(FileUploadbtnTapped) forControlEvents:UIControlEventTouchUpInside];
-               [UPLOADFILE sizeToFit];
-               UIBarButtonItem *file = [[UIBarButtonItem alloc] initWithCustomView:UPLOADFILE];
-               
-               UIButton* TEXTUPLOAD = [UIButton buttonWithType:UIButtonTypeCustom];
-               //TEXTUPLOAD.layer.borderWidth = 2.0f;
-               
-               //TEXTUPLOAD.layer.cornerRadius = 10;
-               //TEXTUPLOAD.backgroundColor = [UIColor grayColor];
-               
-               [TEXTUPLOAD setTitle:@"UplaodText" forState:UIControlStateNormal];
-               
-               [TEXTUPLOAD addTarget:self action:@selector(TextUploadbtnTapped) forControlEvents:UIControlEventTouchUpInside];
-               [TEXTUPLOAD sizeToFit];
-               UIBarButtonItem *text = [[UIBarButtonItem alloc] initWithCustomView:TEXTUPLOAD];
-               
-               self.navigationItem.rightBarButtonItems = [[NSArray alloc] initWithObjects:text,file,video,audio,nil];
-               NSLog(@"long press on table view at row %d", indexPath.row);
-               //[TaskListTV reloadData];
-               
-           }
-           else if (gesture.state == UIGestureRecognizerStateEnded)
-           {
-               NSLog(@"UIGestureRecognizerStateEnded");
-               cell.backgroundColor = [UIColor clearColor];
-               //Do Whatever You want on End of Gesture
-           }
-       }
-       //	if (gesture.state == UIGestureRecognizerStateBegan)
-       //	{
-       //		// get affected cell
-       //		UITableViewCell *cell = (UITableViewCell *)[gesture view];
-       //
-       //		// get indexPath of cell
-       //		NSIndexPath *indexPath = [TaskListTV indexPathForCell:cell];
-       //       //cell.backgroundColor = [UIColor redColor];
-       //    }
-       //
-       [TaskListTV reloadData];
-   }
+    else if(![Serchbar.text isEqualToString:@"PriorityAll"]&&[searchBar1.text isEqualToString:@"All"]&&[Expirelabel.text isEqualToString:@"Expired"])
+    {
+        CGPoint p = [gesture locationInView:TaskListTV];
+        UITableViewCell *cell = (UITableViewCell *)[gesture view];
+        NSIndexPath *indexPath = [TaskListTV indexPathForRowAtPoint:p];
+        taskidstr = [expireTaskIdArray objectAtIndex:indexPath.row];
+        if (indexPath == nil) {
+            //cell.backgroundColor = [UIColor clearColor];
+        }  else
+        {
+            
+            if (gesture.state == UIGestureRecognizerStateBegan)
+            {
+                cell.backgroundColor = [UIColor redColor];
+                NSLog(@"UIGestureRecognizerStateBegan.");
+                
+                self.navigationController.navigationBar.barTintColor=[UIColor grayColor];
+                
+                UIButton* Done = [UIButton buttonWithType:UIButtonTypeCustom];
+                [Done setTitle:@"DONE" forState:UIControlStateNormal];
+                [Done addTarget:self action:@selector(DoneButtonTapped) forControlEvents:UIControlEventTouchUpInside];
+                [Done sizeToFit];
+                UIBarButtonItem *eisimagebtn = [[UIBarButtonItem alloc] initWithCustomView:Done];
+                self.navigationItem.leftBarButtonItem = eisimagebtn;
+                
+                
+                UIButton* UPLOADAUDIO = [UIButton buttonWithType:UIButtonTypeCustom];
+                [UPLOADAUDIO setTitle:@"UploadAudio" forState:UIControlStateNormal];
+                [UPLOADAUDIO addTarget:self action:@selector(AudioBtnTapped) forControlEvents:UIControlEventTouchUpInside];
+                [UPLOADAUDIO sizeToFit];
+                UIBarButtonItem *audio = [[UIBarButtonItem alloc] initWithCustomView:UPLOADAUDIO];
+                
+                UIButton* UPLOADVIDEO = [UIButton buttonWithType:UIButtonTypeCustom];
+                [UPLOADVIDEO setTitle:@"UploadVideo" forState:UIControlStateNormal];
+                [UPLOADVIDEO addTarget:self action:@selector(VideoBtnTapped) forControlEvents:UIControlEventTouchUpInside];
+                [UPLOADVIDEO sizeToFit];
+                UIBarButtonItem *video = [[UIBarButtonItem alloc] initWithCustomView:UPLOADVIDEO];
+                
+                UIButton* UPLOADFILE = [UIButton buttonWithType:UIButtonTypeCustom];
+                [UPLOADFILE setTitle:@"UploadFile" forState:UIControlStateNormal];
+                [UPLOADFILE addTarget:self action:@selector(FileUploadbtnTapped) forControlEvents:UIControlEventTouchUpInside];
+                [UPLOADFILE sizeToFit];
+                UIBarButtonItem *file = [[UIBarButtonItem alloc] initWithCustomView:UPLOADFILE];
+                
+                UIButton* TEXTUPLOAD = [UIButton buttonWithType:UIButtonTypeCustom];
+                //TEXTUPLOAD.layer.borderWidth = 2.0f;
+                
+                //TEXTUPLOAD.layer.cornerRadius = 10;
+                //TEXTUPLOAD.backgroundColor = [UIColor grayColor];
+                
+                [TEXTUPLOAD setTitle:@"UplaodText" forState:UIControlStateNormal];
+                
+                [TEXTUPLOAD addTarget:self action:@selector(TextUploadbtnTapped) forControlEvents:UIControlEventTouchUpInside];
+                [TEXTUPLOAD sizeToFit];
+                UIBarButtonItem *text = [[UIBarButtonItem alloc] initWithCustomView:TEXTUPLOAD];
+                
+                self.navigationItem.rightBarButtonItems = [[NSArray alloc] initWithObjects:text,file,video,audio,nil];
+                NSLog(@"long press on table view at row %d", indexPath.row);
+                //[TaskListTV reloadData];
+                
+            }
+            else if (gesture.state == UIGestureRecognizerStateEnded)
+            {
+                NSLog(@"UIGestureRecognizerStateEnded");
+                cell.backgroundColor = [UIColor clearColor];
+                //Do Whatever You want on End of Gesture
+            }
+        }
+        //	if (gesture.state == UIGestureRecognizerStateBegan)
+        //	{
+        //		// get affected cell
+        //		UITableViewCell *cell = (UITableViewCell *)[gesture view];
+        //
+        //		// get indexPath of cell
+        //		NSIndexPath *indexPath = [TaskListTV indexPathForCell:cell];
+        //       //cell.backgroundColor = [UIColor redColor];
+        //    }
+        //
+        [TaskListTV reloadData];
+    }
     else if ([Expirelabel.text isEqualToString:@"Expired"]&&![searchBar1.text isEqualToString:@"All"] && [Serchbar.text isEqualToString:@"PriorityAll"])
-     {
-         CGPoint p = [gesture locationInView:TaskListTV];
-         UITableViewCell *cell = (UITableViewCell *)[gesture view];
-         NSIndexPath *indexPath = [TaskListTV indexPathForRowAtPoint:p];
-         taskidstr = [expireTaskIdArraySearch objectAtIndex:indexPath.row];
-         if (indexPath == nil) {
-             //cell.backgroundColor = [UIColor clearColor];
-         }  else
-         {
-             
-             if (gesture.state == UIGestureRecognizerStateBegan)
-             {
-                 cell.backgroundColor = [UIColor redColor];
-                 NSLog(@"UIGestureRecognizerStateBegan.");
-                 
-                 self.navigationController.navigationBar.barTintColor=[UIColor grayColor];
-                 
-                 UIButton* Done = [UIButton buttonWithType:UIButtonTypeCustom];
-                 [Done setTitle:@"DONE" forState:UIControlStateNormal];
-                 [Done addTarget:self action:@selector(DoneButtonTapped) forControlEvents:UIControlEventTouchUpInside];
-                 [Done sizeToFit];
-                 UIBarButtonItem *eisimagebtn = [[UIBarButtonItem alloc] initWithCustomView:Done];
-                 self.navigationItem.leftBarButtonItem = eisimagebtn;
-                 
-                 
-                 UIButton* UPLOADAUDIO = [UIButton buttonWithType:UIButtonTypeCustom];
-                 [UPLOADAUDIO setTitle:@"UploadAudio" forState:UIControlStateNormal];
-                 [UPLOADAUDIO addTarget:self action:@selector(AudioBtnTapped) forControlEvents:UIControlEventTouchUpInside];
-                 [UPLOADAUDIO sizeToFit];
-                 UIBarButtonItem *audio = [[UIBarButtonItem alloc] initWithCustomView:UPLOADAUDIO];
-                 
-                 UIButton* UPLOADVIDEO = [UIButton buttonWithType:UIButtonTypeCustom];
-                 [UPLOADVIDEO setTitle:@"UploadVideo" forState:UIControlStateNormal];
-                 [UPLOADVIDEO addTarget:self action:@selector(VideoBtnTapped) forControlEvents:UIControlEventTouchUpInside];
-                 [UPLOADVIDEO sizeToFit];
-                 UIBarButtonItem *video = [[UIBarButtonItem alloc] initWithCustomView:UPLOADVIDEO];
-                 
-                 UIButton* UPLOADFILE = [UIButton buttonWithType:UIButtonTypeCustom];
-                 [UPLOADFILE setTitle:@"UploadFile" forState:UIControlStateNormal];
-                 [UPLOADFILE addTarget:self action:@selector(FileUploadbtnTapped) forControlEvents:UIControlEventTouchUpInside];
-                 [UPLOADFILE sizeToFit];
-                 UIBarButtonItem *file = [[UIBarButtonItem alloc] initWithCustomView:UPLOADFILE];
-                 
-                 UIButton* TEXTUPLOAD = [UIButton buttonWithType:UIButtonTypeCustom];
-                 //TEXTUPLOAD.layer.borderWidth = 2.0f;
-                 
-                 //TEXTUPLOAD.layer.cornerRadius = 10;
-                 //TEXTUPLOAD.backgroundColor = [UIColor grayColor];
-                 
-                 [TEXTUPLOAD setTitle:@"UplaodText" forState:UIControlStateNormal];
-                 
-                 [TEXTUPLOAD addTarget:self action:@selector(TextUploadbtnTapped) forControlEvents:UIControlEventTouchUpInside];
-                 [TEXTUPLOAD sizeToFit];
-                 UIBarButtonItem *text = [[UIBarButtonItem alloc] initWithCustomView:TEXTUPLOAD];
-                 
-                 self.navigationItem.rightBarButtonItems = [[NSArray alloc] initWithObjects:text,file,video,audio,nil];
-                 NSLog(@"long press on table view at row %d", indexPath.row);
-                 //[TaskListTV reloadData];
-                 
-             }
-             else if (gesture.state == UIGestureRecognizerStateEnded)
-             {
-                 NSLog(@"UIGestureRecognizerStateEnded");
-                 cell.backgroundColor = [UIColor clearColor];
-                 //Do Whatever You want on End of Gesture
-             }
-         }
-         //	if (gesture.state == UIGestureRecognizerStateBegan)
-         //	{
-         //		// get affected cell
-         //		UITableViewCell *cell = (UITableViewCell *)[gesture view];
-         //
-         //		// get indexPath of cell
-         //		NSIndexPath *indexPath = [TaskListTV indexPathForCell:cell];
-         //       //cell.backgroundColor = [UIColor redColor];
-         //    }
-         //
-         [TaskListTV reloadData];
-     }
+    {
+        CGPoint p = [gesture locationInView:TaskListTV];
+        UITableViewCell *cell = (UITableViewCell *)[gesture view];
+        NSIndexPath *indexPath = [TaskListTV indexPathForRowAtPoint:p];
+        taskidstr = [expireTaskIdArraySearch objectAtIndex:indexPath.row];
+        if (indexPath == nil) {
+            //cell.backgroundColor = [UIColor clearColor];
+        }  else
+        {
+            
+            if (gesture.state == UIGestureRecognizerStateBegan)
+            {
+                cell.backgroundColor = [UIColor redColor];
+                NSLog(@"UIGestureRecognizerStateBegan.");
+                
+                self.navigationController.navigationBar.barTintColor=[UIColor grayColor];
+                
+                UIButton* Done = [UIButton buttonWithType:UIButtonTypeCustom];
+                [Done setTitle:@"DONE" forState:UIControlStateNormal];
+                [Done addTarget:self action:@selector(DoneButtonTapped) forControlEvents:UIControlEventTouchUpInside];
+                [Done sizeToFit];
+                UIBarButtonItem *eisimagebtn = [[UIBarButtonItem alloc] initWithCustomView:Done];
+                self.navigationItem.leftBarButtonItem = eisimagebtn;
+                
+                
+                UIButton* UPLOADAUDIO = [UIButton buttonWithType:UIButtonTypeCustom];
+                [UPLOADAUDIO setTitle:@"UploadAudio" forState:UIControlStateNormal];
+                [UPLOADAUDIO addTarget:self action:@selector(AudioBtnTapped) forControlEvents:UIControlEventTouchUpInside];
+                [UPLOADAUDIO sizeToFit];
+                UIBarButtonItem *audio = [[UIBarButtonItem alloc] initWithCustomView:UPLOADAUDIO];
+                
+                UIButton* UPLOADVIDEO = [UIButton buttonWithType:UIButtonTypeCustom];
+                [UPLOADVIDEO setTitle:@"UploadVideo" forState:UIControlStateNormal];
+                [UPLOADVIDEO addTarget:self action:@selector(VideoBtnTapped) forControlEvents:UIControlEventTouchUpInside];
+                [UPLOADVIDEO sizeToFit];
+                UIBarButtonItem *video = [[UIBarButtonItem alloc] initWithCustomView:UPLOADVIDEO];
+                
+                UIButton* UPLOADFILE = [UIButton buttonWithType:UIButtonTypeCustom];
+                [UPLOADFILE setTitle:@"UploadFile" forState:UIControlStateNormal];
+                [UPLOADFILE addTarget:self action:@selector(FileUploadbtnTapped) forControlEvents:UIControlEventTouchUpInside];
+                [UPLOADFILE sizeToFit];
+                UIBarButtonItem *file = [[UIBarButtonItem alloc] initWithCustomView:UPLOADFILE];
+                
+                UIButton* TEXTUPLOAD = [UIButton buttonWithType:UIButtonTypeCustom];
+                //TEXTUPLOAD.layer.borderWidth = 2.0f;
+                
+                //TEXTUPLOAD.layer.cornerRadius = 10;
+                //TEXTUPLOAD.backgroundColor = [UIColor grayColor];
+                
+                [TEXTUPLOAD setTitle:@"UplaodText" forState:UIControlStateNormal];
+                
+                [TEXTUPLOAD addTarget:self action:@selector(TextUploadbtnTapped) forControlEvents:UIControlEventTouchUpInside];
+                [TEXTUPLOAD sizeToFit];
+                UIBarButtonItem *text = [[UIBarButtonItem alloc] initWithCustomView:TEXTUPLOAD];
+                
+                self.navigationItem.rightBarButtonItems = [[NSArray alloc] initWithObjects:text,file,video,audio,nil];
+                NSLog(@"long press on table view at row %d", indexPath.row);
+                //[TaskListTV reloadData];
+                
+            }
+            else if (gesture.state == UIGestureRecognizerStateEnded)
+            {
+                NSLog(@"UIGestureRecognizerStateEnded");
+                cell.backgroundColor = [UIColor clearColor];
+                //Do Whatever You want on End of Gesture
+            }
+        }
+        //	if (gesture.state == UIGestureRecognizerStateBegan)
+        //	{
+        //		// get affected cell
+        //		UITableViewCell *cell = (UITableViewCell *)[gesture view];
+        //
+        //		// get indexPath of cell
+        //		NSIndexPath *indexPath = [TaskListTV indexPathForCell:cell];
+        //       //cell.backgroundColor = [UIColor redColor];
+        //    }
+        //
+        [TaskListTV reloadData];
+    }
     else  if ([Expirelabel.text isEqualToString:@"Expired"]&&![searchBar1.text isEqualToString:@"All"] &&![Serchbar.text isEqualToString:@"PriorityAll"])
     {
         CGPoint p = [gesture locationInView:TaskListTV];
@@ -1729,7 +1729,7 @@
         //
         [TaskListTV reloadData];
     }
-   else if ([Expirelabel.text isEqualToString:@"Expired"]&&[searchBar1.text isEqualToString:@"All"] &&[Serchbar.text isEqualToString:@"PriorityAll"])
+    else if ([Expirelabel.text isEqualToString:@"Expired"]&&[searchBar1.text isEqualToString:@"All"] &&[Serchbar.text isEqualToString:@"PriorityAll"])
     {
         CGPoint p = [gesture locationInView:TaskListTV];
         UITableViewCell *cell = (UITableViewCell *)[gesture view];
@@ -1808,7 +1808,7 @@
         //    }
         //
         [TaskListTV reloadData];
-
+        
     }
     else
     {
@@ -1897,36 +1897,36 @@
 {
     if (![Serchbar.text isEqualToString:@"PriorityAll"]&&[searchBar1.text isEqualToString:@"All"]&&![Expirelabel.text isEqualToString:@"Expired"])
     {
-    [PrirotyPickerview removeFromSuperview];
-    //Serchbar.text=[uniqueDescriptionArray objectAtIndex:indexPath.row];
-    CreatTaskVC = [self.storyboard instantiateViewControllerWithIdentifier:@"CreatTaskVC"];
-    CreatTaskVC.navigationTitlestr        = @"Modify Task";
-    CreatTaskVC.SavebtnTitlestr           = @"Update";
-    CreatTaskVC.locationUseBool           = YES;
-    CreatTaskVC.Descriptionstr  =[tempArray2 objectAtIndex:indexPath.row];
-    CreatTaskVC.Effortstr       =[tempArray5 objectAtIndex:indexPath.row];
-    CreatTaskVC.EndDatestr      =[tempArray4 objectAtIndex:indexPath.row];
-    CreatTaskVC.StartDatestr    =[tempArray3 objectAtIndex:indexPath.row];
-    CreatTaskVC.UpDTaskId       =[tempArray17 objectAtIndex:indexPath.row];
-    CreatTaskVC.categorynamestr =[categorySearchArray1 objectAtIndex:indexPath.row];
-    CreatTaskVC.Projectnamestr  = [projectNameArray1 objectAtIndex:indexPath.row];
-    CreatTaskVC.Resourcenamestr =[tempArray7 objectAtIndex:indexPath.row];
+        [PrirotyPickerview removeFromSuperview];
+        //Serchbar.text=[uniqueDescriptionArray objectAtIndex:indexPath.row];
+        CreatTaskVC = [self.storyboard instantiateViewControllerWithIdentifier:@"CreatTaskVC"];
+        CreatTaskVC.navigationTitlestr        = @"Modify Task";
+        CreatTaskVC.SavebtnTitlestr           = @"Update";
+        CreatTaskVC.locationUseBool           = YES;
+        CreatTaskVC.Descriptionstr  =[tempArray2 objectAtIndex:indexPath.row];
+        CreatTaskVC.Effortstr       =[tempArray5 objectAtIndex:indexPath.row];
+        CreatTaskVC.EndDatestr      =[tempArray4 objectAtIndex:indexPath.row];
+        CreatTaskVC.StartDatestr    =[tempArray3 objectAtIndex:indexPath.row];
+        CreatTaskVC.UpDTaskId       =[tempArray17 objectAtIndex:indexPath.row];
+        CreatTaskVC.categorynamestr =[categorySearchArray1 objectAtIndex:indexPath.row];
+        CreatTaskVC.Projectnamestr  = [projectNameArray1 objectAtIndex:indexPath.row];
+        CreatTaskVC.Resourcenamestr =[tempArray7 objectAtIndex:indexPath.row];
         
-    CreatTaskVC.Prioritynamestr  =[A objectAtIndex:indexPath.row];
-    CreatTaskVC.hardDependencystr=[hardDependencyArray1 objectAtIndex:indexPath.row];
-    CreatTaskVC.hoursPerdayStr=[hoursPerDay1 objectAtIndex:indexPath.row];
-    [CreatTaskVC.datePickerBtn setEnabled:NO];
+        CreatTaskVC.Prioritynamestr  =[A objectAtIndex:indexPath.row];
+        CreatTaskVC.hardDependencystr=[hardDependencyArray1 objectAtIndex:indexPath.row];
+        CreatTaskVC.hoursPerdayStr=[hoursPerDay1 objectAtIndex:indexPath.row];
+        [CreatTaskVC.datePickerBtn setEnabled:NO];
         
-    
-    NSLog(@"task is %@",taskidstr);
-    
-    
-    [self.navigationController pushViewController:CreatTaskVC animated:YES];
-    
-       // [TaskListTV reloadData];
+        
+        NSLog(@"task is %@",taskidstr);
+        
+        
+        [self.navigationController pushViewController:CreatTaskVC animated:YES];
+        
+        // [TaskListTV reloadData];
     }
-else  if (![searchBar1.text isEqualToString:@"All"]&&[Serchbar.text isEqualToString:@"PriorityAll"]&&![Expirelabel.text isEqualToString:@"Expired"])
-   {
+    else  if (![searchBar1.text isEqualToString:@"All"]&&[Serchbar.text isEqualToString:@"PriorityAll"]&&![Expirelabel.text isEqualToString:@"Expired"])
+    {
         [PrirotyPickerview removeFromSuperview];
         //Serchbar.text=[uniqueDescriptionArray objectAtIndex:indexPath.row];
         CreatTaskVC = [self.storyboard instantiateViewControllerWithIdentifier:@"CreatTaskVC"];
@@ -1953,7 +1953,7 @@ else  if (![searchBar1.text isEqualToString:@"All"]&&[Serchbar.text isEqualToStr
         
         [self.navigationController pushViewController:CreatTaskVC animated:YES];
     }
- else if (![searchBar1.text isEqualToString:@"All"]&&![Serchbar.text isEqualToString:@"PriorityAll"]&&![Expirelabel.text isEqualToString:@"Expired"])
+    else if (![searchBar1.text isEqualToString:@"All"]&&![Serchbar.text isEqualToString:@"PriorityAll"]&&![Expirelabel.text isEqualToString:@"Expired"])
     {
         [PrirotyPickerview removeFromSuperview];
         //Serchbar.text=[uniqueDescriptionArray objectAtIndex:indexPath.row];
@@ -1975,7 +1975,7 @@ else  if (![searchBar1.text isEqualToString:@"All"]&&[Serchbar.text isEqualToStr
         CreatTaskVC.hoursPerdayStr            =[taskHoursPerdaySearchArray1 objectAtIndex:indexPath.row];
         [CreatTaskVC.datePickerBtn setEnabled:NO];
         
-       [self.navigationController pushViewController:CreatTaskVC animated:YES];
+        [self.navigationController pushViewController:CreatTaskVC animated:YES];
     }
     else if (![Serchbar.text isEqualToString:@"PriorityAll"]&&[searchBar1.text isEqualToString:@"All"]&&[Expirelabel.text isEqualToString:@"Expired"])
     {
@@ -2000,11 +2000,11 @@ else  if (![searchBar1.text isEqualToString:@"All"]&&[Serchbar.text isEqualToStr
         [CreatTaskVC.datePickerBtn setEnabled:NO];
         NSLog(@"task is %@",taskidstr);
         [self.navigationController pushViewController:CreatTaskVC animated:YES];
-
-   
+        
+        
     }
-
-else if(![searchBar1.text isEqualToString:@"All"]&&[Serchbar.text isEqualToString:@"PriorityAll"]&&[Expirelabel.text isEqualToString:@"Expired"])
+    
+    else if(![searchBar1.text isEqualToString:@"All"]&&[Serchbar.text isEqualToString:@"PriorityAll"]&&[Expirelabel.text isEqualToString:@"Expired"])
     {
         CreatTaskVC = [self.storyboard instantiateViewControllerWithIdentifier:@"CreatTaskVC"];
         CreatTaskVC.navigationTitlestr        = @"Modify Task";
@@ -2026,9 +2026,9 @@ else if(![searchBar1.text isEqualToString:@"All"]&&[Serchbar.text isEqualToStrin
         NSLog(@"task is %@",taskidstr);
         [self.navigationController pushViewController:CreatTaskVC animated:YES];
         
-
+        
     }
-   else if (![searchBar1.text isEqualToString:@"All"] &&![Serchbar.text isEqualToString:@"PriorityAll"]&&[Expirelabel.text isEqualToString:@"Expired"])
+    else if (![searchBar1.text isEqualToString:@"All"] &&![Serchbar.text isEqualToString:@"PriorityAll"]&&[Expirelabel.text isEqualToString:@"Expired"])
     {
         CreatTaskVC = [self.storyboard instantiateViewControllerWithIdentifier:@"CreatTaskVC"];
         CreatTaskVC.navigationTitlestr        = @"Modify Task";
@@ -2050,7 +2050,7 @@ else if(![searchBar1.text isEqualToString:@"All"]&&[Serchbar.text isEqualToStrin
         NSLog(@"task is %@",taskidstr);
         [self.navigationController pushViewController:CreatTaskVC animated:YES];
     }
-   else if ([searchBar1.text isEqualToString:@"All"] &&[Serchbar.text isEqualToString:@"PriorityAll"]&&[Expirelabel.text isEqualToString:@"Expired"])
+    else if ([searchBar1.text isEqualToString:@"All"] &&[Serchbar.text isEqualToString:@"PriorityAll"]&&[Expirelabel.text isEqualToString:@"Expired"])
     {
         CreatTaskVC = [self.storyboard instantiateViewControllerWithIdentifier:@"CreatTaskVC"];
         CreatTaskVC.navigationTitlestr        = @"Modify Task";
@@ -2096,7 +2096,7 @@ else if(![searchBar1.text isEqualToString:@"All"]&&[Serchbar.text isEqualToStrin
         NSLog(@"task is %@",taskidstr);
         [self.navigationController pushViewController:CreatTaskVC animated:YES];
     }
-
+    
     
 }
 //filter for expired tasks
@@ -2177,7 +2177,7 @@ else if(![searchBar1.text isEqualToString:@"All"]&&[Serchbar.text isEqualToStrin
     {
         [searchBar1 resignFirstResponder];
     }
-
+    
     return NO;
 }
 -(void)searchBarTextDidEndEditing:(UISearchBar *)searchBar
@@ -2190,19 +2190,19 @@ else if(![searchBar1.text isEqualToString:@"All"]&&[Serchbar.text isEqualToStrin
     if (searchBar==searchBar1)
     {
         [searchBar1 resignFirstResponder];
-       
+        
     }
-
+    
 }
 
 //- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar;
 //{
-//    
+//
 //}
 - (void)searchBar:(UISearchBar *)searchBar
     textDidChange:(NSString *)searchTerm
 {
-   
+    
     if (searchBar==Serchbar)
     {
         [Serchbar resignFirstResponder];
@@ -2217,11 +2217,11 @@ else if(![searchBar1.text isEqualToString:@"All"]&&[Serchbar.text isEqualToStrin
         PrirotyPickerview.backgroundColor=[UIColor grayColor];
         [self.view addSubview:PrirotyPickerview];
         Serchbar.delegate=self;
-       // [Serchbar resignFirstResponder];
+        // [Serchbar resignFirstResponder];
         [self.view endEditing:YES];
         searchBar1.text=@"All";
         return;
-    
+        
     }
     else
     {
@@ -2235,9 +2235,9 @@ else if(![searchBar1.text isEqualToString:@"All"]&&[Serchbar.text isEqualToStrin
         [self.view addSubview:ResourcePickerview];
         Serchbar.delegate=self;
         [searchBar1 resignFirstResponder];
-         [self.view endEditing:YES];
-         return;
-
+        [self.view endEditing:YES];
+        return;
+        
         
         
     }
@@ -2247,24 +2247,24 @@ else if(![searchBar1.text isEqualToString:@"All"]&&[Serchbar.text isEqualToStrin
 
 - (void)search
 {
-        [B removeAllObjects];
+    [B removeAllObjects];
     //[equalTempArray1 removeAllObjects];
-        NSPredicate *predicate=[NSPredicate predicateWithFormat:@"SELF contains[c] %@",Serchbar.text];
-        sercharray=(NSMutableArray*)[refarray1 filteredArrayUsingPredicate:predicate];
-        NSLog(@"search text is %@",Serchbar.text);
-        NSLog(@"habgfhfhfh %@",sercharray);
-        if ([sercharray count] > 0)
-        {
-            [B addObjectsFromArray:sercharray];
-            A=B;
-            
-            NSLog(@"a is %@",B);
-            
-             NSLog(@"%d",[A count]);
-            
-        }
+    NSPredicate *predicate=[NSPredicate predicateWithFormat:@"SELF contains[c] %@",Serchbar.text];
+    sercharray=(NSMutableArray*)[refarray1 filteredArrayUsingPredicate:predicate];
+    NSLog(@"search text is %@",Serchbar.text);
+    NSLog(@"habgfhfhfh %@",sercharray);
+    if ([sercharray count] > 0)
+    {
+        [B addObjectsFromArray:sercharray];
+        A=B;
         
-        [TaskListTV reloadData];
+        NSLog(@"a is %@",B);
+        
+        NSLog(@"%d",[A count]);
+        
+    }
+    
+    [TaskListTV reloadData];
     
 }
 //-(void)search1
@@ -2274,12 +2274,12 @@ else if(![searchBar1.text isEqualToString:@"All"]&&[Serchbar.text isEqualToStrin
 //       [C removeAllObjects];
 //       NSLog(@"welcome to eis");
 //    NSLog(@"ref array 3 is %@",refarray3);
-//       
+//
 //       //NSLog(@"task created array is %@",C);
-//       
+//
 //       NSPredicate *pedicate=[NSPredicate predicateWithFormat:@"SELF contains[c] %@",Useridstr];
 //       searcharray1=(NSMutableArray *)[refarray3 filteredArrayUsingPredicate:pedicate];
-//       
+//
 //       if ([searcharray1 count]>0)
 //       {
 //           [D addObjectsFromArray:searcharray1];
@@ -2290,23 +2290,23 @@ else if(![searchBar1.text isEqualToString:@"All"]&&[Serchbar.text isEqualToStrin
 //       NSLog(@"cout is %d",C.count);
 //        [ResourcePickerview removeFromSuperview];
 //        [TaskListTV reloadData];
-//        
+//
 //    }
 //  if ([searchBar1.text isEqualToString:@"Assigned To"])
 //    {
 //        [E removeAllObjects];
 //        NSLog(@"welcome to eis sheik1223");
 //        NSLog(@"ref array 3 is %@",refarray4);
-//        
-//        
+//
+//
 //        NSPredicate *pedicate=[NSPredicate predicateWithFormat:@"SELF contains[c] %@",Usernamestr];
 //        searcharray2=(NSMutableArray *)[refarray4 filteredArrayUsingPredicate:pedicate];
-//        
+//
 //        if ([searcharray2 count]>0)
 //        {
 //            [F addObjectsFromArray:searcharray2];
 //            E=F;
-//           
+//
 //        }
 //        NSLog(@"task asigned to search array is %@",E);
 //        NSLog(@"cout is %d",E.count);
@@ -2314,7 +2314,7 @@ else if(![searchBar1.text isEqualToString:@"All"]&&[Serchbar.text isEqualToStrin
 //        [TaskListTV reloadData];
 //
 //    }
-//    
+//
 //}
 -(void)didFinishData:(id)Data
 {
@@ -2369,7 +2369,7 @@ else if(![searchBar1.text isEqualToString:@"All"]&&[Serchbar.text isEqualToStrin
 {
     if (pickerView==PrirotyPickerview)
     {
-         return 1;
+        return 1;
     }
     else if(pickerView==ResourcePickerview)
     {
@@ -2379,7 +2379,7 @@ else if(![searchBar1.text isEqualToString:@"All"]&&[Serchbar.text isEqualToStrin
     {
         return 1;
     }
-   
+    
 }
 
 -(NSInteger)pickerView:(UIPickerView *)picker numberOfRowsInComponent:(NSInteger)component
@@ -2411,17 +2411,17 @@ else if(![searchBar1.text isEqualToString:@"All"]&&[Serchbar.text isEqualToStrin
     }
     else
     {
-      return  [FilterArray objectAtIndex:row];
+        return  [FilterArray objectAtIndex:row];
     }
-   
+    
 }
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component;
 {
- 
-if (pickerView==PrirotyPickerview)
+    
+    if (pickerView==PrirotyPickerview)
     {
         [tempArray2 removeAllObjects];
-         [tempArray1 removeAllObjects];
+        [tempArray1 removeAllObjects];
         [tempArray3 removeAllObjects];
         
         [tempArray4 removeAllObjects];
@@ -2441,7 +2441,7 @@ if (pickerView==PrirotyPickerview)
         [hardDependencyArray1 removeAllObjects];
         [hoursPerDay1 removeAllObjects];
         [tempStatusArray removeAllObjects];
-
+        
         
         Serchbar.text=[uniqueDescriptionArray objectAtIndex:row];
         Expirelabel.text=@"All";
@@ -2452,7 +2452,7 @@ if (pickerView==PrirotyPickerview)
             {
                 
                 NSLog(@"asdfffff");
-               // NSLog(@"task created  by array is %@",PriortyArray);
+                // NSLog(@"task created  by array is %@",PriortyArray);
                 
                 [tempArray1 addObject:[PriortyArray objectAtIndex:i]];
                 [tempArray2 addObject:[DescriptionArray objectAtIndex:i]];
@@ -2470,24 +2470,24 @@ if (pickerView==PrirotyPickerview)
                 [hoursPerDay1 addObject:[hoursPerDayArray objectAtIndex:i]];
                 [tempStatusArray addObject:[taskStatusArray objectAtIndex:i]];
                 
-            
-
+                
+                
             }
             
             
         }
         
-//        
-//        NSLog(@"temp array2 %@",tempArray2);
-//        NSLog(@"start date is 123%@",tempArray3);
-//        NSLog(@"temp array2 %@",tempArray15);
-//        NSLog(@"start date is 123%@",tempArray16);
-//        NSLog(@"temp array 1 %@",tempArray1);
-//        NSLog(@"status array is %@",tempStatusArray);
+        //
+        //        NSLog(@"temp array2 %@",tempArray2);
+        //        NSLog(@"start date is 123%@",tempArray3);
+        //        NSLog(@"temp array2 %@",tempArray15);
+        //        NSLog(@"start date is 123%@",tempArray16);
+        //        NSLog(@"temp array 1 %@",tempArray1);
+        //        NSLog(@"status array is %@",tempStatusArray);
         [PrirotyPickerview removeFromSuperview];
         NSLog(@"temp array %@",C);
-       
-  }
+        
+    }
     if (pickerView==ResourcePickerview)
     {
         [dessearchArray removeAllObjects];
@@ -2514,7 +2514,7 @@ if (pickerView==PrirotyPickerview)
         
         [prioritysearchArray1 removeAllObjects];
         [taskStatusSearchArray removeAllObjects];
-
+        
         
         //[tempArray15 removeAllObjects];
         
@@ -2528,7 +2528,7 @@ if (pickerView==PrirotyPickerview)
             [ResourcePickerview removeFromSuperview];
             [TaskListTV reloadData];
         }
-      if([searchBar1.text isEqualToString:@"Created By"])
+        if([searchBar1.text isEqualToString:@"Created By"])
         {
             for(int i=0; i<[TaskAssgndByIdArray count];i++)
             {
@@ -2553,18 +2553,18 @@ if (pickerView==PrirotyPickerview)
                     [ExpiredTaskPickerView removeFromSuperview];
                 }
                 [TaskListTV reloadData];
-
+                
             }
             
             [ResourcePickerview removeFromSuperview];
-//            NSLog(@"description array is %@",dessearchArray);
-//            NSLog(@"start date array is %@",startDateSearchArray);
-//            NSLog(@"end date array is %@",enddateSearchArray);
-//            NSLog(@"effort  array is %@",effortSearchArray);
-//            NSLog(@"assigned to array is %@",AssignedToSearchArray);
-//            NSLog(@"created by array is %@",createdBySearchArray);
-//            NSLog(@"priority array is %@",prioritySearchArray);
-        
+            //            NSLog(@"description array is %@",dessearchArray);
+            //            NSLog(@"start date array is %@",startDateSearchArray);
+            //            NSLog(@"end date array is %@",enddateSearchArray);
+            //            NSLog(@"effort  array is %@",effortSearchArray);
+            //            NSLog(@"assigned to array is %@",AssignedToSearchArray);
+            //            NSLog(@"created by array is %@",createdBySearchArray);
+            //            NSLog(@"priority array is %@",prioritySearchArray);
+            
             for (int i=0; i<[tempArray15 count];i++)
             {
                 if ([Useridstr isEqualToString:[tempArray15 objectAtIndex:i]])
@@ -2583,104 +2583,104 @@ if (pickerView==PrirotyPickerview)
                     [taskHoursPerdaySearchArray1 addObject:[hoursPerDay1 objectAtIndex:i]];
                     [taskStatusSearchArray1 addObject:[tempStatusArray objectAtIndex:i]];
                     [ExpiredTaskPickerView removeFromSuperview];
-
+                    
                     
                 }
             }
             [TaskListTV reloadData];
-//             NSLog(@"description array is1245 %@",dessearchArray1);
-//            NSLog(@"start date array is %@",startdatesearchArray1);
-//            NSLog(@"end date array is %@",enddatesearchArray1);
-//            NSLog(@"effort  array is %@",effortsearchArray1);
-//            NSLog(@"assigned to array is %@",assignedsearchArray1);
-//            NSLog(@"created by array is %@",createdbysearchArray1);
-//            NSLog(@"priority array is %@",prioritysearchArray1);
+            //             NSLog(@"description array is1245 %@",dessearchArray1);
+            //            NSLog(@"start date array is %@",startdatesearchArray1);
+            //            NSLog(@"end date array is %@",enddatesearchArray1);
+            //            NSLog(@"effort  array is %@",effortsearchArray1);
+            //            NSLog(@"assigned to array is %@",assignedsearchArray1);
+            //            NSLog(@"created by array is %@",createdbysearchArray1);
+            //            NSLog(@"priority array is %@",prioritysearchArray1);
         }
         
-     if([searchBar1.text isEqualToString:@"Assigned To"])
-          {
-              NSLog(@"Resource name array is %@",TaskAssgndByIdArray);
+        if([searchBar1.text isEqualToString:@"Assigned To"])
+        {
+            NSLog(@"Resource name array is %@",TaskAssgndByIdArray);
             for (int i=0;i<[taskCreatedByArray count];i++)
-               {
-                    if ([Useridstr isEqualToString:[taskCreatedByArray objectAtIndex:i]])
-                    {
-                        [dessearchArray addObject:[DescriptionArray objectAtIndex:i]];
-                        [startDateSearchArray addObject:[StartDateArray objectAtIndex:i]];
-                        [enddateSearchArray addObject:[EndDateArray objectAtIndex:i]];
-                        [effortSearchArray addObject:[TaskEffortArray objectAtIndex:i]];
-                        [AssignedToSearchArray addObject:[taskAssignedArray objectAtIndex:i]];
-                        [createdBySearchArray addObject:[ResourceNameArray objectAtIndex:i]];
-                        [prioritySearchArray addObject:[PriortyArray objectAtIndex:i]];
-                        [taskIdSearchArray addObject:[TaskIdArray objectAtIndex:i]];
-                        [taskProjectNameSearchArray addObject:[ProjectNamearray objectAtIndex:i]];
-                        [taskHarddependencySearchArray addObject:[hardDependencyArray objectAtIndex:i]];
-                        [taskHoursperdaySearchArray addObject:[hoursPerDayArray objectAtIndex:i]];
-                        [taskCategorySearchArray addObject:[CatogeryArray objectAtIndex:i]];
-                        [taskStatusSearchArray addObject:[taskStatusArray objectAtIndex:i]];
-                        
-                        [ExpiredTaskPickerView removeFromSuperview];
-
-                       [ResourcePickerview removeFromSuperview];
-                  }
-                  
-
+            {
+                if ([Useridstr isEqualToString:[taskCreatedByArray objectAtIndex:i]])
+                {
+                    [dessearchArray addObject:[DescriptionArray objectAtIndex:i]];
+                    [startDateSearchArray addObject:[StartDateArray objectAtIndex:i]];
+                    [enddateSearchArray addObject:[EndDateArray objectAtIndex:i]];
+                    [effortSearchArray addObject:[TaskEffortArray objectAtIndex:i]];
+                    [AssignedToSearchArray addObject:[taskAssignedArray objectAtIndex:i]];
+                    [createdBySearchArray addObject:[ResourceNameArray objectAtIndex:i]];
+                    [prioritySearchArray addObject:[PriortyArray objectAtIndex:i]];
+                    [taskIdSearchArray addObject:[TaskIdArray objectAtIndex:i]];
+                    [taskProjectNameSearchArray addObject:[ProjectNamearray objectAtIndex:i]];
+                    [taskHarddependencySearchArray addObject:[hardDependencyArray objectAtIndex:i]];
+                    [taskHoursperdaySearchArray addObject:[hoursPerDayArray objectAtIndex:i]];
+                    [taskCategorySearchArray addObject:[CatogeryArray objectAtIndex:i]];
+                    [taskStatusSearchArray addObject:[taskStatusArray objectAtIndex:i]];
+                    
+                    [ExpiredTaskPickerView removeFromSuperview];
+                    
+                    [ResourcePickerview removeFromSuperview];
                 }
-               [TaskListTV reloadData];
-          
-        
-              for (int i=0; i<[tempArray16 count];i++)
-              {
-                  if ([Useridstr isEqualToString:[tempArray16 objectAtIndex:i]])
-                  {
-                      [dessearchArray1 addObject:[tempArray2 objectAtIndex:i]];
-                      [startdatesearchArray1 addObject:[tempArray3 objectAtIndex:i]];
-                      [enddatesearchArray1 addObject:[tempArray4 objectAtIndex:i]];
-                      [effortsearchArray1 addObject:[tempArray5 objectAtIndex:i]];
-                      [assignedsearchArray1 addObject:[tempArray6 objectAtIndex:i]];
-                      [createdbysearchArray1 addObject:[tempArray7 objectAtIndex:i]];
-                      [prioritysearchArray1 addObject:[tempArray1 objectAtIndex:i]];
-                      [taskIdSearchArray1 addObject:[tempArray17 objectAtIndex:i]];
-                      [taskProjectNameSearchArray1 addObject:[projectNameArray1 objectAtIndex:i]];
-                      [taskCategorySearchArray1 addObject:[categorySearchArray1 objectAtIndex:i]];
-                      [taskHardDependencySearchArray1 addObject:[hardDependencyArray1 objectAtIndex:i]];
-                      [taskHoursPerdaySearchArray1 addObject:[hoursPerDay1 objectAtIndex:i]];
-                      [taskStatusSearchArray1 addObject:[tempStatusArray objectAtIndex:i]];
-                      [ResourcePickerview removeFromSuperview];
-                  }
-                  
-              }
-                 [TaskListTV reloadData];
-
-               [ResourcePickerview removeFromSuperview];
-                NSLog(@"Hello %@",tempArray15);
-             
-              
+                
+                
             }
+            [TaskListTV reloadData];
+            
+            
+            for (int i=0; i<[tempArray16 count];i++)
+            {
+                if ([Useridstr isEqualToString:[tempArray16 objectAtIndex:i]])
+                {
+                    [dessearchArray1 addObject:[tempArray2 objectAtIndex:i]];
+                    [startdatesearchArray1 addObject:[tempArray3 objectAtIndex:i]];
+                    [enddatesearchArray1 addObject:[tempArray4 objectAtIndex:i]];
+                    [effortsearchArray1 addObject:[tempArray5 objectAtIndex:i]];
+                    [assignedsearchArray1 addObject:[tempArray6 objectAtIndex:i]];
+                    [createdbysearchArray1 addObject:[tempArray7 objectAtIndex:i]];
+                    [prioritysearchArray1 addObject:[tempArray1 objectAtIndex:i]];
+                    [taskIdSearchArray1 addObject:[tempArray17 objectAtIndex:i]];
+                    [taskProjectNameSearchArray1 addObject:[projectNameArray1 objectAtIndex:i]];
+                    [taskCategorySearchArray1 addObject:[categorySearchArray1 objectAtIndex:i]];
+                    [taskHardDependencySearchArray1 addObject:[hardDependencyArray1 objectAtIndex:i]];
+                    [taskHoursPerdaySearchArray1 addObject:[hoursPerDay1 objectAtIndex:i]];
+                    [taskStatusSearchArray1 addObject:[tempStatusArray objectAtIndex:i]];
+                    [ResourcePickerview removeFromSuperview];
+                }
+                
+            }
+            [TaskListTV reloadData];
+            
+            [ResourcePickerview removeFromSuperview];
+            NSLog(@"Hello %@",tempArray15);
+            
+            
+        }
         else
         {
-             [TaskListTV reloadData];
+            [TaskListTV reloadData];
             
             [ResourcePickerview removeFromSuperview];
             [ExpiredTaskPickerView removeFromSuperview];
-           
+            
             
         }
-
-//        for (int i=0; i<[tempArray7 count];i++)
-//        {
-//            if ([use isEqualToString:[tempArray7 objectAtIndex:i]])
-//            {
-//                [dessearchArray1 addObject:[tempArray2 objectAtIndex:i]];
-//                [startdatesearchArray1 addObject:[tempArray3 objectAtIndex:i]];
-//                [enddatesearchArray1 addObject:[tempArray4 objectAtIndex:i]];
-//                [effortsearchArray1 addObject:[tempArray5 objectAtIndex:i]];
-//                [assignedsearchArray1 addObject:[tempArray6 objectAtIndex:i]];
-//                [createdbysearchArray1 addObject:[tempArray7 objectAtIndex:i]];
-//                [prioritysearchArray1 addObject:[tempArray1 objectAtIndex:i]];
-//            }
-//        }
-     //[TaskListTV reloadData];
-       
+        
+        //        for (int i=0; i<[tempArray7 count];i++)
+        //        {
+        //            if ([use isEqualToString:[tempArray7 objectAtIndex:i]])
+        //            {
+        //                [dessearchArray1 addObject:[tempArray2 objectAtIndex:i]];
+        //                [startdatesearchArray1 addObject:[tempArray3 objectAtIndex:i]];
+        //                [enddatesearchArray1 addObject:[tempArray4 objectAtIndex:i]];
+        //                [effortsearchArray1 addObject:[tempArray5 objectAtIndex:i]];
+        //                [assignedsearchArray1 addObject:[tempArray6 objectAtIndex:i]];
+        //                [createdbysearchArray1 addObject:[tempArray7 objectAtIndex:i]];
+        //                [prioritysearchArray1 addObject:[tempArray1 objectAtIndex:i]];
+        //            }
+        //        }
+        //[TaskListTV reloadData];
+        
     }
     
     if (pickerView==ExpiredTaskPickerView)
@@ -2752,12 +2752,12 @@ if (pickerView==PrirotyPickerview)
         [expireHoursPerDayArraySearch1 removeAllObjects];
         [expireCreatedBySearchArray2 removeAllObjects];
         
-
         
-
-
         
-       Expirelabel=[[UILabel alloc]init];
+        
+        
+        
+        Expirelabel=[[UILabel alloc]init];
         Expirelabel.text=[FilterArray objectAtIndex:row];
         NSLog(@"label text is %@",Expirelabel.text);
         [ExpiredTaskPickerView removeFromSuperview];
@@ -2765,16 +2765,16 @@ if (pickerView==PrirotyPickerview)
         for (int i=0; i<[tempStatusArray count];i++)
         {
             
-           
-                if (![Serchbar.text isEqualToString:@"PriorityAll"])
+            
+            if (![Serchbar.text isEqualToString:@"PriorityAll"])
+            {
+                if ([Expirelabel.text isEqualToString:[tempStatusArray objectAtIndex:i]] )
                 {
-                    if ([Expirelabel.text isEqualToString:[tempStatusArray objectAtIndex:i]] )
-                    {
-                [expireTaskPriorityArray addObject:[tempArray1 objectAtIndex:i]];
-                [expireTaskDescriptionArray addObject:[tempArray2 objectAtIndex:i]];
-              
-                [expireStartDateArray addObject:[tempArray3 objectAtIndex:i]];
-                
+                    [expireTaskPriorityArray addObject:[tempArray1 objectAtIndex:i]];
+                    [expireTaskDescriptionArray addObject:[tempArray2 objectAtIndex:i]];
+                    
+                    [expireStartDateArray addObject:[tempArray3 objectAtIndex:i]];
+                    
                     [expireEndDateArray addObject:[tempArray4 objectAtIndex:i]];
                     [expireTaskEffortArray addObject:[tempArray5 objectAtIndex:i]];
                     [expireAssignedArray addObject:[tempArray6 objectAtIndex:i]];
@@ -2787,47 +2787,47 @@ if (pickerView==PrirotyPickerview)
                     [expireHarddependencyArray addObject:[hardDependencyArray objectAtIndex:i]];
                     [expireHoursPerDayArray addObject:[hoursPerDayArray objectAtIndex:i]];
                     [expireStatusArray addObject:[tempStatusArray objectAtIndex:i]];
-
-
-                [ExpiredTaskPickerView removeFromSuperview];
+                    
+                    
+                    [ExpiredTaskPickerView removeFromSuperview];
+                }
+                
             }
-             
+            [TaskListTV reloadData];
         }
-           [TaskListTV reloadData];
-    }
-    
-    
-//        NSLog(@"priority array is %@",expireTaskPriorityArray);
-//        NSLog(@"expire task description array is %@",expireTaskDescriptionArray);
-//        NSLog(@"priority array is %@",expireStatusArray);
-//        NSLog(@"expire task description array is %@",expireHoursPerDayArray);
-//        NSLog(@"priority array is %@",expireHarddependencyArray);
-//        NSLog(@"expire task description array is %@",expireProjectNameArray);
-//        NSLog(@"priority array is %@",expireCategoryArray);
-//        NSLog(@"expire task description array is %@",expireTaskIdArray);
-//        NSLog(@"priority array is %@",expireAssogmedByIdArray);
-//        NSLog(@"expire task description array is %@",expireAssignedArray);
-//        NSLog(@"priority array is %@",expireProjectNameArray);
-//        NSLog(@"expire task description array is %@",expireResourceArray);
-//        NSLog(@"priority array is %@",expireTaskEffortArray);
-//        NSLog(@"expire task description array is %@",expireStartDateArray);
-//        NSLog(@"expire task description array is %@",expireEndDateArray);
-//        
+        
+        
+        //        NSLog(@"priority array is %@",expireTaskPriorityArray);
+        //        NSLog(@"expire task description array is %@",expireTaskDescriptionArray);
+        //        NSLog(@"priority array is %@",expireStatusArray);
+        //        NSLog(@"expire task description array is %@",expireHoursPerDayArray);
+        //        NSLog(@"priority array is %@",expireHarddependencyArray);
+        //        NSLog(@"expire task description array is %@",expireProjectNameArray);
+        //        NSLog(@"priority array is %@",expireCategoryArray);
+        //        NSLog(@"expire task description array is %@",expireTaskIdArray);
+        //        NSLog(@"priority array is %@",expireAssogmedByIdArray);
+        //        NSLog(@"expire task description array is %@",expireAssignedArray);
+        //        NSLog(@"priority array is %@",expireProjectNameArray);
+        //        NSLog(@"expire task description array is %@",expireResourceArray);
+        //        NSLog(@"priority array is %@",expireTaskEffortArray);
+        //        NSLog(@"expire task description array is %@",expireStartDateArray);
+        //        NSLog(@"expire task description array is %@",expireEndDateArray);
+        //
         if ([searchBar1.text isEqualToString:@"All"])
         {
             //[self TasksHPList];
             [ResourcePickerview removeFromSuperview];
             [TaskListTV reloadData];
         }
-
+        
         if ([searchBar1.text isEqualToString:@"Created By"])
         {
-       
+            
             for (int i=0; i<[taskStatusSearchArray count];i++)
-           {
-                 if ([Expirelabel.text isEqualToString:[taskStatusSearchArray objectAtIndex:i]])
-                   {
-               
+            {
+                if ([Expirelabel.text isEqualToString:[taskStatusSearchArray objectAtIndex:i]])
+                {
+                    
                     [expireTaskPriorityArraySearch addObject:[prioritySearchArray objectAtIndex:i]];
                     [expireTaskDescriptionArraySearch addObject:[dessearchArray objectAtIndex:i]];
                     
@@ -2848,36 +2848,36 @@ if (pickerView==PrirotyPickerview)
                     
                     
                     [ExpiredTaskPickerView removeFromSuperview];
-
+                    
                 }
             }
-        
-         [TaskListTV reloadData];
-        
-        for (int i=0; i<[taskStatusSearchArray1 count];i++)
-        {
-            if ([Expirelabel.text isEqualToString:[taskStatusSearchArray1 objectAtIndex:i]])
-            {
-                [expireTaskDescriptionArraySearch1 addObject:[dessearchArray1 objectAtIndex:i]];
-                [expireStartDateArraySearch1 addObject:[startdatesearchArray1 objectAtIndex:i]];
-                [expireEndDateArraySearch1 addObject:[enddatesearchArray1 objectAtIndex:i]];
-                [expireTaskEffortArraySearch1 addObject:[effortsearchArray1 objectAtIndex:i]];
-                [expireAssignedArraySearch1 addObject:[assignedsearchArray1 objectAtIndex:i]];
-                [expireCreatedBySearchArray2 addObject:[createdbysearchArray1 objectAtIndex:i]];
-                [expireTaskPriorityArraySearch1 addObject:[prioritysearchArray1 objectAtIndex:i]];
-                [expireTaskIdArraySearch1 addObject:[taskIdSearchArray1 objectAtIndex:i]];
-                [expireProjectNameArraySearch1 addObject:[taskProjectNameSearchArray1 objectAtIndex:i]];
-                [expireCategoryArraySearch1 addObject:[taskCategorySearchArray1 objectAtIndex:i]];
-                [expireHarddependencyArraySearch1 addObject:[taskHardDependencySearchArray1 objectAtIndex:i]];
-                [expireHoursPerDayArraySearch1 addObject:[taskHoursPerdaySearchArray1 objectAtIndex:i]];
-                [expireStatusArraySearch1 addObject:[taskStatusSearchArray1 objectAtIndex:i]];
-                
-            }
-                    }
+            
             [TaskListTV reloadData];
- 
-    }
-      else if ([searchBar1.text isEqualToString:@"Assigned To"])
+            
+            for (int i=0; i<[taskStatusSearchArray1 count];i++)
+            {
+                if ([Expirelabel.text isEqualToString:[taskStatusSearchArray1 objectAtIndex:i]])
+                {
+                    [expireTaskDescriptionArraySearch1 addObject:[dessearchArray1 objectAtIndex:i]];
+                    [expireStartDateArraySearch1 addObject:[startdatesearchArray1 objectAtIndex:i]];
+                    [expireEndDateArraySearch1 addObject:[enddatesearchArray1 objectAtIndex:i]];
+                    [expireTaskEffortArraySearch1 addObject:[effortsearchArray1 objectAtIndex:i]];
+                    [expireAssignedArraySearch1 addObject:[assignedsearchArray1 objectAtIndex:i]];
+                    [expireCreatedBySearchArray2 addObject:[createdbysearchArray1 objectAtIndex:i]];
+                    [expireTaskPriorityArraySearch1 addObject:[prioritysearchArray1 objectAtIndex:i]];
+                    [expireTaskIdArraySearch1 addObject:[taskIdSearchArray1 objectAtIndex:i]];
+                    [expireProjectNameArraySearch1 addObject:[taskProjectNameSearchArray1 objectAtIndex:i]];
+                    [expireCategoryArraySearch1 addObject:[taskCategorySearchArray1 objectAtIndex:i]];
+                    [expireHarddependencyArraySearch1 addObject:[taskHardDependencySearchArray1 objectAtIndex:i]];
+                    [expireHoursPerDayArraySearch1 addObject:[taskHoursPerdaySearchArray1 objectAtIndex:i]];
+                    [expireStatusArraySearch1 addObject:[taskStatusSearchArray1 objectAtIndex:i]];
+                    
+                }
+            }
+            [TaskListTV reloadData];
+            
+        }
+        else if ([searchBar1.text isEqualToString:@"Assigned To"])
         {
             for (int i=0; i<[taskStatusSearchArray count]; i++)
             {
@@ -2954,15 +2954,15 @@ if (pickerView==PrirotyPickerview)
                 }
             }
             [TaskListTV reloadData];
-//            NSLog(@"description array is1245 %@",expireTaskDescriptionArraySearch2);
-//            NSLog(@"start date array is %@",expireStatusArraySearch2);
-//            NSLog(@"end date array is %@",expireEndDateArraySearch2);
-//            NSLog(@"effort  array is %@",expireTaskEffortArraySearch2);
-//            
-
+            //            NSLog(@"description array is1245 %@",expireTaskDescriptionArraySearch2);
+            //            NSLog(@"start date array is %@",expireStatusArraySearch2);
+            //            NSLog(@"end date array is %@",expireEndDateArraySearch2);
+            //            NSLog(@"effort  array is %@",expireTaskEffortArraySearch2);
+            //            
+            
         }
-
-
+        
+        
     }
     [TaskListTV reloadData];
 }
@@ -3017,8 +3017,8 @@ if (pickerView==PrirotyPickerview)
     [ResourcePickerview removeFromSuperview];
     Serchbar.text=@"PriorityAll";
     searchBar1.text=@"All";
-        [self viewDidLoad];
-        self.navigationController.navigationBar.barTintColor=[UIColor colorWithRed:(240/255.0) green:(82/255.0) blue:(41/255.0) alpha:1.0f];
+    [self viewDidLoad];
+    self.navigationController.navigationBar.barTintColor=[UIColor colorWithRed:(240/255.0) green:(82/255.0) blue:(41/255.0) alpha:1.0f];
     
 }
 -(void)gestureclicked

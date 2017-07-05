@@ -231,14 +231,14 @@
     [Servicecall setDelegate:self];
     
     //    NSLog(@"flagstr is %@",flagstr);
-//    
-//    
-//    NSLog(@"user id str is %@",Useridstr);
-//    Servicecall = [[Webservices alloc]init];
-//    NSString *marketlist = @"MeetingsListService";
-//    NSDictionary *credentials = @{@"userid":Useridstr,@"flag":flagstr};
-//    [Servicecall MeetingListurl:marketlist Listparameters:credentials];
-//    [Servicecall setDelegate:self];
+    //
+    //
+    //    NSLog(@"user id str is %@",Useridstr);
+    //    Servicecall = [[Webservices alloc]init];
+    //    NSString *marketlist = @"MeetingsListService";
+    //    NSDictionary *credentials = @{@"userid":Useridstr,@"flag":flagstr};
+    //    [Servicecall MeetingListurl:marketlist Listparameters:credentials];
+    //    [Servicecall setDelegate:self];
 }
 
 // agenda list service
@@ -312,7 +312,7 @@
         }
         [ActionItemListTV reloadData];
         
-            }
+    }
 }
 
 //-(void)DatafromDB
@@ -352,27 +352,27 @@
     }
     else
     {
-                    //MeetingListArray   = [[NSMutableArray alloc] init];
-                    //SplitmeetingList   = [[NSArray alloc] init];
-                    MeetingIdArray     = [[NSMutableArray alloc] init];
-                    StartTimeArray     = [[NSMutableArray alloc] init];
-                    ProjectIdArray     = [[NSMutableArray alloc] init];
-                    MeetingtitleArray  = [NSMutableArray new];
-                    HoursArrray        = [NSMutableArray new];
-                    MeetingDescriptionArray= [NSMutableArray new];
-                    MeetingTypeArray   = [NSMutableArray new];
-                    ProjectNameArray   = [NSMutableArray new];
-                    MeetingDateArray   = [NSMutableArray new];
-                    ConferenceRoomNameArray= [[NSMutableArray alloc]init];
-                    MeetingTypeIdArray  = [NSMutableArray new];
-                    OwnerIDArray       = [NSMutableArray new];
-                    OwnerNameArray=[NSMutableArray new];
-                    meetingidStr=[NSString new];
-                    meetingdateArray=[NSMutableArray new];
-                    AssendingDateArray=[NSMutableArray new];
+        //MeetingListArray   = [[NSMutableArray alloc] init];
+        //SplitmeetingList   = [[NSArray alloc] init];
+        MeetingIdArray     = [[NSMutableArray alloc] init];
+        StartTimeArray     = [[NSMutableArray alloc] init];
+        ProjectIdArray     = [[NSMutableArray alloc] init];
+        MeetingtitleArray  = [NSMutableArray new];
+        HoursArrray        = [NSMutableArray new];
+        MeetingDescriptionArray= [NSMutableArray new];
+        MeetingTypeArray   = [NSMutableArray new];
+        ProjectNameArray   = [NSMutableArray new];
+        MeetingDateArray   = [NSMutableArray new];
+        ConferenceRoomNameArray= [[NSMutableArray alloc]init];
+        MeetingTypeIdArray  = [NSMutableArray new];
+        OwnerIDArray       = [NSMutableArray new];
+        OwnerNameArray=[NSMutableArray new];
+        meetingidStr=[NSString new];
+        meetingdateArray=[NSMutableArray new];
+        AssendingDateArray=[NSMutableArray new];
         
         resultarray=[[NSMutableArray alloc]init];
-         resultarray = [dict objectForKey:@"resAL"];
+        resultarray = [dict objectForKey:@"resAL"];
         for (NSDictionary *fidd in resultarray)
         {
             [MeetingIdArray addObject:[fidd valueForKey:@"meetingId"]];
@@ -390,19 +390,19 @@
             
         }
         [MeetingListTV reloadData];
-       
+        
         NSLog(@"hai %@",MeetingIdArray);
-         NSLog(@"meetingtitle %@",MeetingtitleArray);
-         NSLog(@"starttime %@",StartTimeArray);
-         NSLog(@"Projectid %@",ProjectIdArray);
-         NSLog(@"Meetingdesc %@",MeetingDescriptionArray);
-         NSLog(@"Meetingtype %@",MeetingTypeArray);
+        NSLog(@"meetingtitle %@",MeetingtitleArray);
+        NSLog(@"starttime %@",StartTimeArray);
+        NSLog(@"Projectid %@",ProjectIdArray);
+        NSLog(@"Meetingdesc %@",MeetingDescriptionArray);
+        NSLog(@"Meetingtype %@",MeetingTypeArray);
         NSLog(@"hours array is %@",HoursArrray);
         
-//         NSLog(@"hai %@",MeetingIdArray);
-//         NSLog(@"hai %@",MeetingIdArray);
+        //         NSLog(@"hai %@",MeetingIdArray);
+        //         NSLog(@"hai %@",MeetingIdArray);
         
-//    
+        //
     }
     
 }
@@ -419,17 +419,17 @@
     }
     else
     {
-                    //Actionitemsarray= [NSMutableArray new];
-                    //ActionitemsSplitarray   = [NSArray new];
-                    ActitemlisttitleArray   = [NSMutableArray new];
-                    MeetingdesArray         = [NSMutableArray new];
-                    //ObjeIdArray             = [NSMutableArray new];
-                    AgendaMeetingIdArray    = [NSMutableArray new];
-                    agendaMeetingIdStr      =[NSMutableString new];
-                    AgendaTimeBudgetedAray    =[NSMutableArray new];
-                    AgendaMeetingDate=[NSMutableArray new];
-                    AgendaMeetingProjId=[NSMutableArray new];
-                    AgendaMeetingMeetingID=[NSMutableArray new];
+        //Actionitemsarray= [NSMutableArray new];
+        //ActionitemsSplitarray   = [NSArray new];
+        ActitemlisttitleArray   = [NSMutableArray new];
+        MeetingdesArray         = [NSMutableArray new];
+        //ObjeIdArray             = [NSMutableArray new];
+        AgendaMeetingIdArray    = [NSMutableArray new];
+        agendaMeetingIdStr      =[NSMutableString new];
+        AgendaTimeBudgetedAray    =[NSMutableArray new];
+        AgendaMeetingDate=[NSMutableArray new];
+        AgendaMeetingProjId=[NSMutableArray new];
+        AgendaMeetingMeetingID=[NSMutableArray new];
         ActionItemMeetingTitleArray=[NSMutableArray new];
         resultarray2=[[NSMutableArray alloc]init];
         resultarray2=[dict objectForKey:@"resAL"];
@@ -443,7 +443,7 @@
             [AgendaMeetingMeetingID addObject:[fid valueForKey:@"meetingId"]];
             [ActionItemMeetingTitleArray addObject:[fid valueForKey:@"meetingTitle"]];
             [ProjectIdArray addObject:[fid valueForKey:@"projectId"]];
-    }
+        }
         
         [AgendaListTv reloadData];
         NSLog(@"meetind id str is %@",MeetingdesArray);
@@ -462,14 +462,14 @@
     }
     else
     {
-//                NotesListresponce      = [NSMutableArray new];
-//                ActionitemCountArray   = [NSMutableArray new];
-//                FeedbackCountArray     = [NSMutableArray new];
-//                NotesListresponce      = [NSMutableArray new];
-//                NotesSplitarray        = [NSArray new];
-                actionlistcountstr     = [[NSMutableString alloc] init];
-                noteslistcountstr      = [[NSMutableString alloc] init];
-                Feedbackcountstr       = [[NSMutableString alloc] init];
+        //                NotesListresponce      = [NSMutableArray new];
+        //                ActionitemCountArray   = [NSMutableArray new];
+        //                FeedbackCountArray     = [NSMutableArray new];
+        //                NotesListresponce      = [NSMutableArray new];
+        //                NotesSplitarray        = [NSArray new];
+        actionlistcountstr     = [[NSMutableString alloc] init];
+        noteslistcountstr      = [[NSMutableString alloc] init];
+        Feedbackcountstr       = [[NSMutableString alloc] init];
         actionlistcountstr=[dict valueForKey:@"actionItemCount"];
         noteslistcountstr=[dict valueForKey:@"notesCount"];
         Feedbackcountstr=[dict valueForKey:@"feedbackCount"];
@@ -499,29 +499,29 @@
         for (NSDictionary *fid in resultarray4)
         {
             [PublicNote_DescriptionArray addObject:[fid valueForKey:@"notesDescription"]];
-
-    }
+            
+        }
         NSLog(@"note des is %@:",PublicNote_DescriptionArray);
         [PublicCountTV reloadData];
-
+        
     }
 }
 //-(void)didFinishService:(id)Userlogindetails
 //{
-//    
+//
 //    xmlParser = [[NSXMLParser alloc]initWithData:Userlogindetails];
 //    xmlParser.delegate = self;
 //    [xmlParser parse];
-//    
+//
 //    actionItemKillXmlParser=[[NSXMLParser alloc]initWithData:Userlogindetails];
 //    actionItemKillXmlParser.delegate=self;
 //    [actionItemKillXmlParser parse];
-//    
+//
 //    xmlParser1 = [[NSXMLParser alloc]initWithData:Userlogindetails];
 //    xmlParser1.delegate = self;
 //    [xmlParser1 parse];
-//    
-//    
+//
+//
 //}
 ////-(void)didfinishactionitemlist:(id)actionitemlist
 ////{
@@ -531,7 +531,7 @@
 //    xmlParser2 = [[NSXMLParser alloc]initWithData:Notescountlist];
 //    xmlParser2.delegate = self;
 //    [xmlParser2 parse];
-//    
+//
 //}
 //
 //-(void)Serviceactiondone:(id)result
@@ -545,7 +545,7 @@
 //    xmlParser4 =[[NSXMLParser alloc]initWithData:result];
 //    xmlParser4.delegate = self;
 //    [xmlParser4 parse];
-//    
+//
 //    xmlParser5=[[NSXMLParser alloc]initWithData:result];
 //    xmlParser5.delegate=self;
 //    [xmlParser5 parse];
@@ -559,7 +559,7 @@
 //    {
 //        if([elementName isEqualToString:@"userMeetingsListResponse"])
 //        {
-//            
+//
 //            MeetingListArray   = [[NSMutableArray alloc] init];
 //            SplitmeetingList   = [[NSArray alloc] init];
 //            MeetingIdArray     = [[NSMutableArray alloc] init];
@@ -578,17 +578,17 @@
 //            meetingidStr=[NSString new];
 //            meetingdateArray=[NSMutableArray new];
 //            AssendingDateArray=[NSMutableArray new];
-//            
-//            
-//            
+//
+//
+//
 //        }
 //    }
-//    
+//
 //    if (parser==xmlParser1)
 //    {
 //        if([elementName isEqualToString:@"agendaListDataResponse"])
 //        {
-//            
+//
 //            Actionitemsarray        = [NSMutableArray new];
 //            ActionitemsSplitarray   = [NSArray new];
 //            ActitemlisttitleArray   = [NSMutableArray new];
@@ -644,55 +644,55 @@
 //            ActionITemMeetingOwnerNameArray=[NSMutableArray new];
 //        }
 //    }
-//    
-//    
+//
+//
 //}
 //- (void)parser:(NSXMLParser *)parser foundCharacters:(NSMutableString *)string
 //{
 //    if (parser == xmlParser)
 //    {
 //        if ([string isEqualToString:@"Flase"])
-//            
+//
 //        {
 ////            UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"List Empty" message:@"Meeting List Empty" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:nil, nil];
-////            
+////
 ////            [alert show];
-//            
+//
 //        }
-//        
+//
 //        else
 //        {
-//            
+//
 //            [MeetingListArray addObject:string];
 //        }
-//        
-//        
+//
+//
 //    }
 //   else if (parser == xmlParser1)
 //    {
 //        if ([string isEqualToString:@"Flase"])
-//            
+//
 //        {
 //            UIAlertView *alert3=[[UIAlertView alloc] initWithTitle:@"" message:@"Agenda List Empty" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:nil, nil];
-//            
+//
 //            [alert3 show];
 //            NSLog(@"action items list is");
-//            
+//
 //        }
-//        
+//
 //        else
 //        {
-//            
+//
 //            [Actionitemsarray addObject:string];
-//            
+//
 //        }
 //    }
-//    
+//
 //    if (parser == xmlParser2)
 //    {
 //        [NotesListresponce addObject:string];
 //        // NSLog(@"notescount LIST %@" ,NotesListresponce);
-//        
+//
 //    }
 //    if (parser == xmlParser3)
 //    {
@@ -713,14 +713,14 @@
 //            [PublicNoteslistarray addObject:string];
 //            NSLog(@"publicdis LIST %@" ,PublicNoteslistarray);
 //        }
-//        
+//
 //    }
 //    if(parser==xmlParser5)
 //    {
 //        if ([string isEqualToString:@"Flase"])
 //        {
 //            NSLog(@"response is Flase");
-//            
+//
 //        }
 //        else
 //        {
@@ -737,10 +737,10 @@
 //        }
 //        else
 //        {
-//            
+//
 //        }
-//        
-//        
+//
+//
 //    }
 //}
 //
@@ -754,8 +754,8 @@
 //            for (int i = 0; i<[MeetingListArray count]; i++)
 //            {
 //                SplitmeetingList=[[MeetingListArray objectAtIndex:i] componentsSeparatedByString:@"###"];
-//                
-//                
+//
+//
 //                [MeetingtitleArray addObject:[[SplitmeetingList objectAtIndex:2] stringByReplacingOccurrencesOfString: @"MeetingTitle==" withString:@""]];
 //                meetingidStr =[[SplitmeetingList objectAtIndex:1] stringByReplacingOccurrencesOfString: @"MeetingId==" withString:@""];
 //                [StartTimeArray addObject:[[SplitmeetingList objectAtIndex:3] stringByReplacingOccurrencesOfString: @"StartTime==" withString:@""]];
@@ -765,16 +765,16 @@
 //                [ProjectNameArray addObject:[[SplitmeetingList objectAtIndex:6] stringByReplacingOccurrencesOfString: @"ProjectName=" withString:@""]];
 //                [MeetingDateArray addObject:[[SplitmeetingList objectAtIndex:7] stringByReplacingOccurrencesOfString: @"MeetingDate=" withString:@""]];
 //                [ConferenceRoomNameArray addObject:[[SplitmeetingList objectAtIndex:9] stringByReplacingOccurrencesOfString: @"ConferenceRoom=" withString:@""]];
-//                
+//
 //                [MeetingDescriptionArray addObject:[[SplitmeetingList objectAtIndex:14] stringByReplacingOccurrencesOfString: @"MeetingDescription=" withString:@""]];
-//                
+//
 //                [MeetingTypeIdArray addObject:[[SplitmeetingList objectAtIndex:13]
 //                                               stringByReplacingOccurrencesOfString: @"MeetingTypeId=" withString:@""]];
-//                
+//
 //                [OwnerIDArray addObject:[[SplitmeetingList objectAtIndex:10] stringByReplacingOccurrencesOfString: @"OwnerId=" withString:@""]];
 //                [OwnerNameArray addObject:[[SplitmeetingList objectAtIndex:15]stringByReplacingOccurrencesOfString:@"meetingOwnerName==" withString:@""]];
-//                
-//                
+//
+//
 //                [MeetingIdArray addObject:meetingidStr];
 //                NSLog(@"date array is %@",MeetingDateArray);
 //                NSLog(@"start time array is %@",StartTimeArray);
@@ -783,46 +783,46 @@
 //                NSLog(@"meeting type id are %@",MeetingTypeIdArray);
 //                NSLog(@"meeting description array is %@",MeetingDescriptionArray);
 //                NSLog(@"meeting id developing array is %@",meetingidStr);
-//                
+//
 //            }
-//            
+//
 //            NSLog(@"meeing idstrrrrr12222 %@",meetingidStr);
 //            int totalList=[MeetingTypeIdArray count];
-//            
+//
 //            NSString *meetingList=[NSString stringWithFormat:@"%d",totalList];
-//            
+//
 //            totalListLabel.text=meetingList;
-//            
-//            
-//            
-//            
+//
+//
+//
+//
 //            uniqueMeetingDateArray = [[NSMutableArray alloc]init];
-//            
+//
 //            [uniqueMeetingDateArray addObjectsFromArray:[[NSSet setWithArray:MeetingDateArray] allObjects]];
 //            [uniqueMeetingDateArray insertObject:@"All" atIndex:0];
-//            
-//            
-//            
+//
+//
+//
 //            NSLog(@"unique meeting date array %@",uniqueMeetingDateArray);
-//            
-//            
-//            
-//            
+//
+//
+//
+//
 //            A=[[NSMutableArray alloc]init];
 //            searcharray1=[[NSMutableArray alloc]init];
 //            refarray1=[[NSMutableArray alloc]initWithArray:MeetingDateArray];
 //            A=MeetingDateArray;
-//            
+//
 //            B=[[NSMutableArray alloc]init];
-//            
+//
 //            [MeetingListTV reloadData];
-//            
-//            
+//
+//
 //        }
-//        
-//        
+//
+//
 //    }
-//    
+//
 //    if (parser == xmlParser1)
 //    {
 //        if([elementName isEqualToString:@"agendaListDataResponse"])
@@ -830,22 +830,22 @@
 //            for (int i = 0; i<[Actionitemsarray count]; i++)
 //            {
 //                ActionitemsSplitarray=[[Actionitemsarray objectAtIndex:i] componentsSeparatedByString:@"###"];
-//                
+//
 //                //[ActitemlisttitleArray addObject:[[ActionitemsSplitarray objectAtIndex:2] stringByReplacingOccurrencesOfString: @"MeetingTitle==" withString:@""]];
-//                
+//
 //                [MeetingdesArray addObject:[[ActionitemsSplitarray objectAtIndex:2]stringByReplacingOccurrencesOfString: @"ObjectiveDescription==" withString:@""]];
-//                
+//
 //                agendaIdStr=[[ActionitemsSplitarray objectAtIndex:1]stringByReplacingOccurrencesOfString: @"ObjectiveId==" withString:@""];
-//                
+//
 //                agendaMeetingIdStr=[[ActionitemsSplitarray objectAtIndex:4] stringByReplacingOccurrencesOfString: @"meetingOwnerId==" withString:@""];
-//                
+//
 //                [AgendaTimeBudgetedAray addObject:[[ActionitemsSplitarray objectAtIndex:3]stringByReplacingOccurrencesOfString:@"TimeBudgeted==" withString:@""]];
-//                
+//
 //                [AgendaMeetingDate addObject:[[ActionitemsSplitarray objectAtIndex:5]stringByReplacingOccurrencesOfString:@"meetingDate==" withString:@""]];
 //                [AgendaMeetingMeetingID addObject:[[ActionitemsSplitarray objectAtIndex:8]stringByReplacingOccurrencesOfString:@"meetingId==" withString:@""]];
 //                [AgendaMeetingProjId addObject:[[ActionitemsSplitarray objectAtIndex:7]stringByReplacingOccurrencesOfString:@"meetingProjectid==" withString:@""]];
 //                NSLog(@"data %@" ,MeetingIdArray);
-//                
+//
 //                [ObjeIdArray addObject:agendaIdStr];
 //                [AgendaMeetingIdArray addObject:agendaMeetingIdStr];
 //                NSLog(@"object id str is %@",ObjeIdArray);
@@ -853,20 +853,20 @@
 //                NSLog(@"object description is %@",MeetingdesArray);
 //                NSLog(@"agenda project id array is %@",AgendaTimeBudgetedAray);
 //                NSLog(@"agenda meeting date is %@",AgendaMeetingDate);
-//                
-//                
-//                
+//
+//
+//
 //            }
 //            NSLog(@"the object id str is 1111111%@",agendaIdStr);
-//            
-//            
+//
+//
 //            [AgendaListTv reloadData];
-//            
-//            
-//            
+//
+//
+//
 //        }
-//        
-//        
+//
+//
 //    }
 //    if (parser == xmlParser2)
 //    {
@@ -875,18 +875,18 @@
 //            Feedbacklbl.text = @"0";
 //            Notescountlbl.text = @"0";
 //            Actionitemlbl.text = @"0";
-//            
+//
 //            NSString *splitcountstr;
 //            for (int i = 0; i<[NotesListresponce count]; i++)
 //            {
-//                
+//
 //                // NotesSplitarray = [[NotesListresponce objectAtIndex:i]componentsSeparatedByString:@"###"];
 //                //NSLog(@"notes data %@",NotesSplitarray);
 //                splitcountstr =[NotesListresponce objectAtIndex:i];
 //                if ([splitcountstr rangeOfString:@"###actionItem"].location != NSNotFound)
 //                {
-//                    
-//                    
+//
+//
 //                    [actionlistcountstr  appendString:splitcountstr];
 //                    if ([actionlistcountstr length]==0)
 //                    {
@@ -896,8 +896,8 @@
 //                    }
 //                    else
 //                    {
-//                        
-//                        
+//
+//
 //                        actionlistcountstr = [actionlistcountstr stringByReplacingOccurrencesOfString:@"###actionItem==" withString:@""];
 //                        // NSLog(@"avtion is the %@",actionlistcountstr);
 //                        Actionitemlbl.text =actionlistcountstr;
@@ -909,8 +909,8 @@
 //                    if ([noteslistcountstr length]==0)
 //                    {
 //                        [noteslistcountstr appendString:@"0"];
-//                        
-//                        
+//
+//
 //                        Notescountlbl.text = noteslistcountstr;
 //                    }
 //                    else
@@ -919,15 +919,15 @@
 //                        //NSLog(@"action is ddd %@",noteslistcountstr);
 //                        Notescountlbl.text = noteslistcountstr ;
 //                    }
-//                    
-//                    
-//                    
-//                    
-//                    
-//                    
+//
+//
+//
+//
+//
+//
 //                }
-//                
-//                
+//
+//
 //                else if ([splitcountstr rangeOfString:@"###feedback"].location != NSNotFound)
 //                {
 //                    [Feedbackcountstr appendString:splitcountstr];
@@ -935,7 +935,7 @@
 //                    {
 //                        [Feedbackcountstr appendString:@"0"];
 //                        NSLog(@"action is ddd%@",Feedbackcountstr);
-//                        
+//
 //                        Feedbacklbl.text = Feedbackcountstr;
 //                    }
 //                    else
@@ -944,13 +944,13 @@
 //                        NSLog(@"feedback is the %@",Feedbackcountstr);
 //                        Feedbacklbl.text = Feedbackcountstr;
 //                    }
-//                    
+//
 //                }
 //            }
-//            
+//
 //        }
 //    }
-//    
+//
 //    if (parser == xmlParser4)
 //    {
 //        if([elementName isEqualToString:@"descriptionResponse"])
@@ -958,18 +958,18 @@
 //            for (int i = 0; i<[PublicNoteslistarray count]; i++)
 //            {
 //                PublicNotesSplitarray=[[PublicNoteslistarray objectAtIndex:i]componentsSeparatedByString:@"###"];
-//                
+//
 //                NSLog(@"the%@",PublicNotesSplitarray);
 //                publicdescString=[[PublicNotesSplitarray objectAtIndex:1]stringByReplacingOccurrencesOfString: @"Note_Description=" withString:@""];
-//                
+//
 //                [PublicNote_DescriptionArray addObject:publicdescString];
 //                NSLog(@"public description array is %@",PublicNote_DescriptionArray);
 //            }
-//            
+//
 //            [PublicCountTV reloadData];
-//            
+//
 //        }
-//        
+//
 //    }
 //    if (parser==xmlParser5)
 //    {
@@ -979,34 +979,34 @@
 //            {
 //                ActionItemTabListSplitArray=[[ActionItemTabListArray objectAtIndex:i]componentsSeparatedByString:@"###"];
 //                [ActionItemTabListDisplayArray addObject:[[ActionItemTabListSplitArray objectAtIndex:3]stringByReplacingOccurrencesOfString:@"Description==" withString:@""]];
-//                
+//
 //                actionItemCreatedIdStr=[[ActionItemTabListSplitArray objectAtIndex:6]stringByReplacingOccurrencesOfString:@"createdBy==" withString:@""];
-//                
+//
 //                actionItemAssignedIdStr=[[ActionItemTabListSplitArray objectAtIndex:5]stringByReplacingOccurrencesOfString:@"assignedTo==" withString:@""];
-//                
+//
 //                actionItemIdStr=[[ActionItemTabListSplitArray objectAtIndex:1]stringByReplacingOccurrencesOfString:@"ActionItemId==" withString:@""];
-//                
+//
 //                actionItemStatusStr=[[ActionItemTabListSplitArray objectAtIndex:4]stringByReplacingOccurrencesOfString:@"actionItemStatus==" withString:@""];
 //                [actionItemStausArray addObject:actionItemStatusStr];
-//                
+//
 //                actionItemMeetingTitleStr=[[ActionItemTabListSplitArray objectAtIndex:8]stringByReplacingOccurrencesOfString:@"meetingTitle==" withString:@""];
 //                [ActionItemMeetingTitleArray addObject:actionItemMeetingTitleStr];
-//                
+//
 //                ActionItemOwnernameStr=[[ActionItemTabListSplitArray objectAtIndex:10]stringByReplacingOccurrencesOfString:@"meetingOwnerName==" withString:@""];
-//                
+//
 //                [ActionITemMeetingOwnerNameArray addObject:ActionItemOwnernameStr];
 //            }
 //            NSLog(@"action item description array is %@",ActionItemTabListDisplayArray);
 //            NSLog(@"action item status array is %@",actionItemStausArray);
-//            
-//            
-//            
-//            
+//
+//
+//
+//
 //            [ActionItemListTV reloadData];
 //        }
-//        
-//        
-//        
+//
+//
+//
 //    }
 //}
 
@@ -1095,15 +1095,15 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     
-   
+    
     meetingTypeLabel.text=@"Today";
-   // [self agendaBtnClicked];
+    // [self agendaBtnClicked];
     
     [ActionItemListTV reloadData];
     [AgendaListTv reloadData];
     
     [MeetingListTV reloadData];
-     [self viewDidLoad];
+    [self viewDidLoad];
     
 }
 
@@ -1123,7 +1123,7 @@
     }
     
     return [PublicNote_DescriptionArray count];
-        //NSLog(@"public note description array is %@",PublicNote_DescriptionArray);
+    //NSLog(@"public note description array is %@",PublicNote_DescriptionArray);
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -1148,7 +1148,7 @@
             [agendaBtn addTarget:self
                           action:@selector(agendaBtnClicked:)
                 forControlEvents:UIControlEventTouchUpInside];
-           
+            
             
         }
         
@@ -1454,14 +1454,14 @@
         statusTxtFld.text =statusStr;
         [cell.contentView addSubview:statusTxtFld];
         
-                UITextField *meetingTitleTxtFld = [[UITextField alloc] initWithFrame:CGRectMake(220,300,50,30)];
-                meetingTitleTxtFld = (UITextField*)[cell viewWithTag:2011];
-                meetingTitleTxtFld.textColor = [UIColor blackColor];
-                //[meetingTitleTxtFld setBackgroundColor:[UIColor blueColor]];
-                meetingTitleTxtFld.font = [UIFont systemFontOfSize:18];
-                meetingTitleTxtFld.userInteractionEnabled=NO;
-                meetingTitleTxtFld.text = [ActionItemMeetingTitleArray objectAtIndex:indexPath.row];
-                [cell.contentView addSubview:meetingTitleTxtFld];
+        UITextField *meetingTitleTxtFld = [[UITextField alloc] initWithFrame:CGRectMake(220,300,50,30)];
+        meetingTitleTxtFld = (UITextField*)[cell viewWithTag:2011];
+        meetingTitleTxtFld.textColor = [UIColor blackColor];
+        //[meetingTitleTxtFld setBackgroundColor:[UIColor blueColor]];
+        meetingTitleTxtFld.font = [UIFont systemFontOfSize:18];
+        meetingTitleTxtFld.userInteractionEnabled=NO;
+        meetingTitleTxtFld.text = [ActionItemMeetingTitleArray objectAtIndex:indexPath.row];
+        [cell.contentView addSubview:meetingTitleTxtFld];
         
         UITextField *ownernameTxtfld = [[UITextField alloc] initWithFrame:CGRectMake(260,300,50,30)];
         ownernameTxtfld = (UITextField*)[cell viewWithTag:2012];
@@ -1485,7 +1485,7 @@
         tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
         if (cell == nil)
         {
-cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
                                           reuseIdentifier:MyIdentifier];
         }
         cell.contentView.backgroundColor = [UIColor whiteColor];
@@ -1526,28 +1526,28 @@ cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
     Servicecall=[[Webservices alloc]init];
     [Servicecall publicnotesdecurl:encode1];
     [Servicecall setDelegate:self];
-
     
     
-//    NSString *Notescountservice = @"NotesActionItemsCountService";
-//    NSDictionary *Notescountcredentials = @{@"meetingId":MeetingId,@"userId":Useridstr};
-//    [Servicecall NotesCountlisturl:Notescountservice CountListparameters:Notescountcredentials];
-//    [Servicecall setDelegate:self];
-//    NSLog(@"meeting count is");
     
-//    NSString *publiccountdisurl = @"PublicCountDescriptionService";
-//    NSDictionary *Publiccountcredentials =@{@"meetingId":MeetingId};
-//    [Servicecall PublicCountlisturl:publiccountdisurl Publiccountcredentilas:Publiccountcredentials];
-//    [Servicecall setDelegate:self];
-//    NSLog(@"meeting count2 is");
-//    
-//    
-//    NSLog(@"meeting id str is sheikkkkk %@",meetingidStr);
-//    Servicecall=[[Webservices alloc]init];
-//    NSString *publicnotesList=@"PublicCountDescriptionService";
-//    NSDictionary *publicNotesDictionary=@{@"meetingId":MeetingId};
-//    [Servicecall PublicDislisturl:publicnotesList PublicDiscredentilas:publicNotesDictionary];
-//    [Servicecall setDelegate:self];
+    //    NSString *Notescountservice = @"NotesActionItemsCountService";
+    //    NSDictionary *Notescountcredentials = @{@"meetingId":MeetingId,@"userId":Useridstr};
+    //    [Servicecall NotesCountlisturl:Notescountservice CountListparameters:Notescountcredentials];
+    //    [Servicecall setDelegate:self];
+    //    NSLog(@"meeting count is");
+    
+    //    NSString *publiccountdisurl = @"PublicCountDescriptionService";
+    //    NSDictionary *Publiccountcredentials =@{@"meetingId":MeetingId};
+    //    [Servicecall PublicCountlisturl:publiccountdisurl Publiccountcredentilas:Publiccountcredentials];
+    //    [Servicecall setDelegate:self];
+    //    NSLog(@"meeting count2 is");
+    //
+    //
+    //    NSLog(@"meeting id str is sheikkkkk %@",meetingidStr);
+    //    Servicecall=[[Webservices alloc]init];
+    //    NSString *publicnotesList=@"PublicCountDescriptionService";
+    //    NSDictionary *publicNotesDictionary=@{@"meetingId":MeetingId};
+    //    [Servicecall PublicDislisturl:publicnotesList PublicDiscredentilas:publicNotesDictionary];
+    //    [Servicecall setDelegate:self];
 }
 //    else
 //    {
@@ -1585,22 +1585,22 @@ cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
 {
     CGPoint buttonPosition = [sender convertPoint:CGPointZero toView:MeetingListTV];
     NSIndexPath *indexPath = [MeetingListTV indexPathForRowAtPoint:buttonPosition];
-        NSString *meetingidstr=[MeetingIdArray objectAtIndex:indexPath.row];
+    NSString *meetingidstr=[MeetingIdArray objectAtIndex:indexPath.row];
     NSLog(@"meetind id str is : %@",meetingidstr);
     
     NSString *agendaurl=[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/meeting/v1/agendaList?meetingId=%@",meetingidstr];
     
-        NSString *encode=[agendaurl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        Servicecall=[[Webservices alloc]init];
-        [Servicecall agendaUrl:encode];
-        [Servicecall setDelegate:self];
-
-    }
+    NSString *encode=[agendaurl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    Servicecall=[[Webservices alloc]init];
+    [Servicecall agendaUrl:encode];
+    [Servicecall setDelegate:self];
+    
+}
 
 //    CGPoint buttonPosition = [sender convertPoint:CGPointZero toView:MeetingListTV];
 //    NSIndexPath *indexPath = [MeetingListTV indexPathForRowAtPoint:buttonPosition];
 //    NSString *meetingidstr=[MeetingIdArray objectAtIndex:indexPath.row];
-//    
+//
 //    if (indexPath != nil)
 //    {
 //        NSLog(@"meeting id str is %@",meetingidStr);
@@ -1608,16 +1608,16 @@ cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
 //        NSString *AgendaListurl = @"AgendaListDataService";
 //        NSDictionary *credentials = @{@"meetingId":meetingidstr};
 //        [Servicecall AgendaListurl:AgendaListurl AgendaListParameters:credentials];
-//        
+//
 //        [Servicecall setDelegate:self];
-//        
-//       
+//
+//
 //        //[agendaBtn setBackgroundColor:[UIColor blueColor]];
-//        
+//
 //    }
 //    if (sender.selected)
 //    {
-//       
+//
 //    }
 
 
@@ -1812,20 +1812,20 @@ cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
     }
     else
     {
-//        NSString *MeetingId = [MeetingIdArray objectAtIndex:sender.tag];
-//        NSLog(@"arow tag is %@",MeetingId);
-//        [sender setImage:[UIImage imageNamed:@"btnclick.png"] forState:UIControlStateSelected];
-//        [sender setSelected:YES];
-//        NSString *Notescountservice = @"NotesActionItemsCountService";
-//        NSString *publiccountdisurl = @"PublicCountDescriptionService";
-//        
-//        NSDictionary *Publiccountcredentials =@{@"meetingId":MeetingId};
-//        NSDictionary *Notescountcredentials = @{@"meetingId":MeetingId,@"userid":Useridstr};
-//        [Servicecall NotesCountlisturl:Notescountservice CountListparameters:Notescountcredentials];
-//        [Servicecall PublicCountlisturl:publiccountdisurl Publiccountcredentilas:Publiccountcredentials];
-//        
-//        [Servicecall setDelegate:self];
-//        
+        //        NSString *MeetingId = [MeetingIdArray objectAtIndex:sender.tag];
+        //        NSLog(@"arow tag is %@",MeetingId);
+        //        [sender setImage:[UIImage imageNamed:@"btnclick.png"] forState:UIControlStateSelected];
+        //        [sender setSelected:YES];
+        //        NSString *Notescountservice = @"NotesActionItemsCountService";
+        //        NSString *publiccountdisurl = @"PublicCountDescriptionService";
+        //
+        //        NSDictionary *Publiccountcredentials =@{@"meetingId":MeetingId};
+        //        NSDictionary *Notescountcredentials = @{@"meetingId":MeetingId,@"userid":Useridstr};
+        //        [Servicecall NotesCountlisturl:Notescountservice CountListparameters:Notescountcredentials];
+        //        [Servicecall PublicCountlisturl:publiccountdisurl Publiccountcredentilas:Publiccountcredentials];
+        //
+        //        [Servicecall setDelegate:self];
+        //
         
     }
     
