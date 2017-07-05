@@ -88,7 +88,7 @@
 		841363FE1F0CA48C00194679 /* TWRDataSet+Strings.m in Sources */ = {isa = PBXBuildFile; fileRef = 841363F41F0CA48C00194679 /* TWRDataSet+Strings.m */; };
 		841363FF1F0CA48C00194679 /* TWRLineChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 841363F61F0CA48C00194679 /* TWRLineChart.m */; };
 		841364001F0CA48C00194679 /* UIColor+HexString.m in Sources */ = {isa = PBXBuildFile; fileRef = 841363F81F0CA48C00194679 /* UIColor+HexString.m */; };
-		841364031F0CA4B300194679 /* DSBarChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 841364021F0CA4B300194679 /* DSBarChart.m */; };
+		841364061F0CA86300194679 /* DSBarChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 841364051F0CA86300194679 /* DSBarChart.m */; };
 		8443D9C51E9F85A100A0233D /* NSAttributedString+Attributes.m in Sources */ = {isa = PBXBuildFile; fileRef = 8443D9C41E9F85A100A0233D /* NSAttributedString+Attributes.m */; };
 		8443D9C81E9F864000A0233D /* OHParagraphStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 8443D9C71E9F864000A0233D /* OHParagraphStyle.m */; };
 		8444D9F01EFA40310043ACA0 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 8444D9EF1EFA40310043ACA0 /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -288,8 +288,8 @@
 		841363F61F0CA48C00194679 /* TWRLineChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TWRLineChart.m; path = "../../Downloads/TWRCharts-master/TWRCharts/TWRLineChart.m"; sourceTree = "<group>"; };
 		841363F71F0CA48C00194679 /* UIColor+HexString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIColor+HexString.h"; path = "../../Downloads/TWRCharts-master/TWRCharts/UIColor+HexString.h"; sourceTree = "<group>"; };
 		841363F81F0CA48C00194679 /* UIColor+HexString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIColor+HexString.m"; path = "../../Downloads/TWRCharts-master/TWRCharts/UIColor+HexString.m"; sourceTree = "<group>"; };
-		841364011F0CA4B300194679 /* DSBarChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DSBarChart.h; path = "../../Downloads/EIS  /DSBarChart.h"; sourceTree = "<group>"; };
-		841364021F0CA4B300194679 /* DSBarChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DSBarChart.m; path = "../../Downloads/EIS  /DSBarChart.m"; sourceTree = "<group>"; };
+		841364041F0CA86300194679 /* DSBarChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DSBarChart.h; path = "../../Downloads/DSBarChart-master/DSBarChart/DSBarChart.h"; sourceTree = "<group>"; };
+		841364051F0CA86300194679 /* DSBarChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DSBarChart.m; path = "../../Downloads/DSBarChart-master/DSBarChart/DSBarChart.m"; sourceTree = "<group>"; };
 		8443D9C31E9F85A100A0233D /* NSAttributedString+Attributes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSAttributedString+Attributes.h"; sourceTree = "<group>"; };
 		8443D9C41E9F85A100A0233D /* NSAttributedString+Attributes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSAttributedString+Attributes.m"; sourceTree = "<group>"; };
 		8443D9C61E9F864000A0233D /* OHParagraphStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OHParagraphStyle.h; sourceTree = "<group>"; };
@@ -668,8 +668,8 @@
 				841363F61F0CA48C00194679 /* TWRLineChart.m */,
 				841363F71F0CA48C00194679 /* UIColor+HexString.h */,
 				841363F81F0CA48C00194679 /* UIColor+HexString.m */,
-				841364011F0CA4B300194679 /* DSBarChart.h */,
-				841364021F0CA4B300194679 /* DSBarChart.m */,
+				841364041F0CA86300194679 /* DSBarChart.h */,
+				841364051F0CA86300194679 /* DSBarChart.m */,
 			);
 			name = TWRCharts;
 			sourceTree = "<group>";
@@ -787,6 +787,7 @@
 				2348F1C31AA579F7003111B7 /* NSBubbleData.m in Sources */,
 				2348F2181AA57A1B003111B7 /* Base64.m in Sources */,
 				2348F1C21AA579F7003111B7 /* FileUploadViewController.m in Sources */,
+				841364061F0CA86300194679 /* DSBarChart.m in Sources */,
 				2348F23B1AA57A1B003111B7 /* tabViewController.m in Sources */,
 				2348F2361AA57A1B003111B7 /* requirementViewController.m in Sources */,
 				5769CC341A01FF6D0069A432 /* LoginAppDelegate.m in Sources */,
@@ -823,7 +824,6 @@
 				841363FA1F0CA48C00194679 /* TWRChartBuilder.m in Sources */,
 				841363E51F0CA45100194679 /* UIProgressView+AFNetworking.m in Sources */,
 				840C53961E81455200F41273 /* XYPieChart.m in Sources */,
-				841364031F0CA4B300194679 /* DSBarChart.m in Sources */,
 				2348F2171AA57A1B003111B7 /* barChartViewController.m in Sources */,
 				2348F2381AA57A1B003111B7 /* SimpleBarChart.m in Sources */,
 				570DEADA1A021AFA0077C779 /* Webservices.m in Sources */,
