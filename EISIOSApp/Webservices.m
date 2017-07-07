@@ -316,7 +316,7 @@
     //NSString *post =post_string;
     //NSURL *url=[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",kBaseURL,post_url]];
     NSError *error;
-    NSData *postData = [NSJSONSerialization dataWithJSONObject:actionitemkillparams options:NSJSONWritingPrettyPrinted error:&error];
+    NSMutableData *postData = [NSJSONSerialization dataWithJSONObject:actionitemkillparams options:NSJSONWritingPrettyPrinted error:&error];
     NSString *postLength = [NSString stringWithFormat:@"%d", [postData length]];
     NSURL *ulr=[NSURL URLWithString:actionitemclose];
     
