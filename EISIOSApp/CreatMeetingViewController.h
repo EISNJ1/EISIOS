@@ -28,6 +28,7 @@
     
     NSString *timeLength1,*MeetingResponseStr;
     UIButton *ProjectListbtn;
+    
 }
 @property (nonatomic,strong)NSString *navigationTitlestr,*SavebtnTitlestr;
 @property (assign) BOOL locationUseBool;

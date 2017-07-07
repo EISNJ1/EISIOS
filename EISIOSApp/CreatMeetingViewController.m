@@ -584,9 +584,9 @@
         NSLog(@"Save");
         NSLog(@"meetin type id is %@",_MeetingTypeId);
         NSString *meetDate=[dateSplitArray objectAtIndex:0];
-    NSString *SaveMeetingurl= @"SaveMeetingService";
+        NSString *SaveMeetingurl= [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/meeting/v1/saveMeeting"];
     NSDictionary *credentials = @{@"meetingTyp":_MeetingTypeId,@"meetinTitle":Meetingtitletxtfld.text,@"meetDescription":Meetingdistxtfld.text,@"startTym":_Starttimestr,@"hours":Meetinglengthtxtfld.text,@"meetOwnId":Useridstr,@"projectId":_ProjId,@"meetDate":[[meetDate componentsSeparatedByString: @" "] objectAtIndex:0],@"ConferRoomId":_ConfOwnerId};
-    [Servicecall SaveMeetingurl:SaveMeetingurl SaveMeetingDetails:credentials];
+        [Servicecall savemeeting:SaveMeetingurl meetingparams:credentials];
     [Servicecall setDelegate:self];
    
        // _locationUseBool = YES;
@@ -735,13 +735,17 @@
 
 -(void)MeetingUpdate
 {
-    NSString *meetDate=[dateSplitArray objectAtIndex:0];
+    NSString *meetdate=[[NSString alloc]init];
+    
+    meetdate=[dateSplitArray objectAtIndex:0];
     
 NSLog(@"meeting length text field 1235124is %@",Meetinglengthtxtfld.text);
-NSString *updateMeetingurl=[NSString stringWithFormat:@"https//192.168.2.114:8817/_ah/api/meeting/v1/updateMeeting"];
+NSString *updateMeetingurl=[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/meeting/v1/updateMeeting"];
     
-
-    NSDictionary *dictionary=[[NSDictionary alloc]initWithObjectsAndKeys:_MeetingTypeId,@"meetingTyp",Meetingtitletxtfld.text,@"meetinTitle",Meetingdistxtfld.text,@"meetDescription",_Starttimestr,@"startTym",Meetinglengthtxtfld.text,@"hours",Useridstr,@"meetOwnId",_ProjId,@"projectId",[[meetDate componentsSeparatedByString: @" "]objectAtIndex:0],@"meetDate",_MeetingId,@"meetingId",_ConfOwnerId,@"ConferRoomId",nil];
+    
+    NSDictionary *dictionary=@{@"meetingTyp":@"10",@"meetinTitle":@"HELLO",@"meetDescription":@"IOS",@"startTym":@"09:30 PM",@"hours":@"25",@"meetOwnId":@"2",@"projectId":@"5",@"meetDate":@"07/06/2017",@"meetingId":@"10",@"ConferRoomId":@"5"};
+    
+//    NSDictionary *dictionary=@{@"meetingTyp":_MeetingTypeId,@"meetinTitle":Meetingtitletxtfld.text,@"meetDescription":Meetingdistxtfld.text,@"startTym":_Starttimestr,@"hours":Meetinglengthtxtfld.text,@"meetOwnId":Useridstr,@"projectId":_ProjId,@"meetDate":meetdate,@"meetingId":_MeetingId,@"ConferRoomId":_ConfOwnerId};
     
     NSLog(@"all key values are %@",dictionary);
     
@@ -829,10 +833,12 @@ NSString *updateMeetingurl=[NSString stringWithFormat:@"https//192.168.2.114:881
 
 -(NSString *) pickerView:(UIPickerView *)picker titleForRow:(NSInteger)row forComponent:(NSInteger)component
 {
-    if (picker.tag==1) {
+    if (picker.tag==1)
+    {
         return [PROJECT_NAMEArray objectAtIndex:row];
     }
-    if (picker.tag==2) {
+    if (picker.tag==2)
+    {
         return [MeetingVALUEArray objectAtIndex:row];
     }
     else{

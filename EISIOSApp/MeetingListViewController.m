@@ -383,7 +383,20 @@
             [MeetingTypeArray addObject:[fidd valueForKey:@"meetingType"]];
             [ProjectNameArray addObject:[fidd valueForKey:@"projectName"]];
             [MeetingDateArray addObject:[fidd valueForKey:@"meetingDate"]];
-            [ConferenceRoomNameArray addObject:[fidd valueForKey:@"conferenceRoom"]];
+            
+            if ([fidd valueForKey:@"conferenceRoom"]!=nil)
+            {
+                [ConferenceRoomNameArray addObject:[fidd valueForKey:@"conferenceRoom"]];
+                NSLog(@"conference room array is %@",ConferenceRoomNameArray);
+
+            }
+            else
+            {
+                [ConferenceRoomNameArray addObject:@"no conferenceroom"];
+                NSLog(@"conference room array is %@",ConferenceRoomNameArray);
+
+            }
+            
             [MeetingTypeIdArray addObject:[fidd valueForKey:@"meetingTypeId"]];
             [OwnerIDArray addObject:[fidd valueForKey:@"meetingOwnerId"]];
             [HoursArrray addObject:[fidd valueForKey:@"meetingDuration"]];

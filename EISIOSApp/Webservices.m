@@ -13,6 +13,7 @@
 #import "AFHTTPSessionManager.h"
 //#import "AFURLConnectionOperation.h"
 #import <Foundation/Foundation.h>
+#import "JSONKit.h"
 
 
 
@@ -203,29 +204,47 @@
 }
 -(void)meetingupdate:(NSString *)meetingupdateurlparams meetingupdatedict:(NSDictionary *)meetingdictparams
 {
-    //NSString *postMsg =meetingdictparams;
-    NSDictionary * callDict = meetingdictparams;
+    NSError *error;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:meetingdictparams options:NSJSONWritingPrettyPrinted error:&error];
     
-    // convert your dictionary to NSData
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:callDict options:kNilOptions error:nil];
-    // this is your service request url
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:meetingupdateurlparams]];
-    // set the content as format
-    [request setHTTPMethod:@"POST"];
-    [request setHTTPBody: jsonData];
-    // this is your response type
-    [request setValue:@"application/json;charset=UTF-8" forHTTPHeaderField:@"content-type"];
-    NSError *err;
-    NSURLResponse *response;
-    // send the synchronous connection
-    NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&err];
-    // here add your server response NSJSONSerialization
-    NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData:responseData options: NSJSONReadingMutableContainers error: &err];
-    NSLog(@"json array is %@",jsonArray);
+    NSString *jsonString=[[NSString alloc]initWithData:jsonData encoding:NSASCIIStringEncoding];
     
-    // if u want to check the data in console
-    NSString *tmp=[[NSString alloc]initWithData:responseData encoding:NSUTF8StringEncoding];
-    NSLog(@"%@", tmp);
+    
+    
+    NSString *stringencode=[jsonString stringByReplacingOccurrencesOfString:@"\\" withString:@""];
+    NSLog(@"json string is %@",stringencode);
+    
+    AFURLSessionManager *manager = [[AFURLSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+   
+    AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
+    responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
+
+    
+    NSMutableURLRequest *req = [[AFJSONRequestSerializer serializer]requestWithMethod:@"POST" URLString:meetingupdateurlparams parameters:nil error:nil];
+    
+   
+    req.timeoutInterval= [[[NSUserDefaults standardUserDefaults] valueForKey:@"timeoutInterval"] longValue];
+    [req setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [req setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [req setHTTPBody:[stringencode dataUsingEncoding:NSASCIIStringEncoding]];
+    manager.responseSerializer=responseSerializer;
+    
+    
+    [[manager dataTaskWithRequest:req completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error)
+    {
+        
+        if (!error)
+        {
+            NSLog(@"Reply JSON:%@",responseObject);
+            
+           
+        } else
+        {
+            
+            NSLog(@"Error: %@, %@, %@", error, response, responseObject);
+        }
+    }] resume];
+
 }
 -(void)agendacount:(NSString *)agendacounturl
 
@@ -246,6 +265,50 @@
          NSLog(@"Error: %@", error);
      }];
 
+}
+
+-(void)savemeeting:(NSString *)savemeetingurl meetingparams:(NSDictionary *)meetingsavedict
+{
+    NSError *error;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:meetingsavedict options:NSJSONWritingPrettyPrinted error:&error];
+    
+    NSString *jsonString=[[NSString alloc]initWithData:jsonData encoding:NSASCIIStringEncoding];
+    
+    
+    
+    NSString *stringencode=[jsonString stringByReplacingOccurrencesOfString:@"\\" withString:@""];
+    NSLog(@"json string is %@",stringencode);
+    
+    AFURLSessionManager *manager = [[AFURLSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+    
+    AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
+    responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
+    
+    
+    NSMutableURLRequest *req = [[AFJSONRequestSerializer serializer]requestWithMethod:@"POST" URLString:savemeetingurl parameters:nil error:nil];
+    
+    
+    req.timeoutInterval= [[[NSUserDefaults standardUserDefaults] valueForKey:@"timeoutInterval"] longValue];
+    [req setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [req setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [req setHTTPBody:[stringencode dataUsingEncoding:NSASCIIStringEncoding]];
+    manager.responseSerializer=responseSerializer;
+    
+    
+    [[manager dataTaskWithRequest:req completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error)
+      {
+          
+          if (!error)
+          {
+              NSLog(@"Reply JSON:%@",responseObject);
+              
+              
+          } else
+          {
+              
+              NSLog(@"Error: %@, %@, %@", error, response, responseObject);
+          }
+      }] resume];
 }
 
 //-(void)Loginserviceurl:(NSString *)Loginurl Loginparameters:(NSDictionary *)LoginCredentials

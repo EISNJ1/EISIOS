@@ -42,6 +42,8 @@
 {
     NSMutableString *BaseURL;
     UIActivityIndicatorView *act;
+    NSString *exp;
+
 }
 @property(nonatomic,weak)id <WebserviceownProtocal> delegate;
 #define POST
@@ -58,6 +60,7 @@
 -(void)meetingTypeUrl:(NSString *)Meetingtypeurlparams;
 -(void)meetingupdate:(NSString *)meetingupdateurlparams meetingupdatedict:(NSDictionary *)meetingdictparams;
 -(void)agendacount:(NSString *)agendacounturl;
+-(void)savemeeting :(NSString *)savemeetingurl meetingparams:(NSDictionary *)meetingsavedict;
 
 
 -(void)Loginserviceurl: (NSString *)Loginurl Loginparameters : (NSDictionary *)LoginCredentials;
