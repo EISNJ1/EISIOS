@@ -310,6 +310,11 @@
             [ActionItemMeetingTitleArray addObject:[fidd2 valueForKey:@"meetingTitle"]];
             
         }
+        
+        for (int i=0; i<[actionitemidarray count]; i++)
+        {
+            actionItemIdStr=[actionitemidarray objectAtIndex:i];
+        }
         [ActionItemListTV reloadData];
         
     }
@@ -1907,12 +1912,12 @@
     NSLog(@"status str is %@",statusStr);
     Servicecall=[[Webservices alloc]init];
     
-    NSString *ActionItemKillClassName=@"SaveNotesTabService";
+    NSString *ActionItemKillClassName=[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/meeting/v1/approveActionItemStatus"];
     
     NSDictionary *ActionItemKillParametersList=@{@"noteLineId":actionItemIdStr,@"actionItemStatus":statusStr};
     
     
-    [Servicecall ActionItemListKill:ActionItemKillClassName ActionItemListKillParameters:ActionItemKillParametersList];
+    [Servicecall actionitemkill:ActionItemKillClassName actionitemkillurl:ActionItemKillParametersList];
     [Servicecall setDelegate:self];
     
     NSLog(@"welcome");

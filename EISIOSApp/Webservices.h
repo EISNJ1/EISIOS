@@ -61,6 +61,7 @@
 -(void)meetingupdate:(NSString *)meetingupdateurlparams meetingupdatedict:(NSDictionary *)meetingdictparams;
 -(void)agendacount:(NSString *)agendacounturl;
 -(void)savemeeting :(NSString *)savemeetingurl meetingparams:(NSDictionary *)meetingsavedict;
+-(void)actionitemkill :(NSString *)actionitemclose actionitemkillurl:(NSDictionary *)actionitemkillparams;
 
 
 -(void)Loginserviceurl: (NSString *)Loginurl Loginparameters : (NSDictionary *)LoginCredentials;

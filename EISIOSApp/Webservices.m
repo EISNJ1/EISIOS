@@ -311,6 +311,40 @@
       }] resume];
 }
 
+-(void)actionitemkill:(NSString *)actionitemclose actionitemkillurl:(NSDictionary *)actionitemkillparams
+{
+    //NSString *post =post_string;
+    //NSURL *url=[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",kBaseURL,post_url]];
+    NSError *error;
+    NSData *postData = [NSJSONSerialization dataWithJSONObject:actionitemkillparams options:NSJSONWritingPrettyPrinted error:&error];
+    NSString *postLength = [NSString stringWithFormat:@"%d", [postData length]];
+    NSURL *ulr=[NSURL URLWithString:actionitemclose];
+    
+    
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc]initWithURL:ulr cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:30.0];
+    //[request setURL:url];
+    [request setHTTPMethod:@"POST"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [request setValue:[NSString stringWithFormat:@"%d",[postData length]] forHTTPHeaderField:@"Content-Length"];
+    [request setHTTPBody:postData];
+    
+    [NSURLConnection sendAsynchronousRequest:request queue:[[NSOperationQueue alloc] init] completionHandler:^(NSURLResponse* response,NSData* data,NSError* error)
+    {
+        if ([data length]>0 && error == nil) {
+          NSDictionary  *resultsDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:&error];
+            NSLog(@"resultsDictionary is %@",resultsDictionary);
+            
+        } else if ([data length]==0 && error ==nil)
+        {
+            NSLog(@" download data is null");
+        } else if( error!=nil) {
+            NSLog(@" error is %@",error);
+        }
+    }];
+}
+
+
 //-(void)Loginserviceurl:(NSString *)Loginurl Loginparameters:(NSDictionary *)LoginCredentials
 //{
 //    BaseURL = [[NSMutableString alloc]initWithString:ParentUrl];
