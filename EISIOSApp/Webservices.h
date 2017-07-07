@@ -19,6 +19,7 @@
 -(void)meetingType:(id)meetingTypeSpinner;
 -(void)meetingupdate:(id)meetingUpdateurl;
 -(void)agendaGoalcount:(id)agnedacounturl;
+-(void)AgendaList:(id)Agendalist;
 
 
 //soap methods
@@ -60,6 +61,7 @@
 -(void)meetingTypeUrl:(NSString *)Meetingtypeurlparams;
 -(void)meetingupdate:(NSString *)meetingupdateurlparams meetingupdatedict:(NSDictionary *)meetingdictparams;
 -(void)agendacount:(NSString *)agendacounturl;
+-(void)AgendaListUrl:(NSString *)AgendalistUrl;
 -(void)savemeeting :(NSString *)savemeetingurl meetingparams:(NSDictionary *)meetingsavedict;
 -(void)actionitemkill :(NSString *)actionitemclose actionitemkillurl:(NSDictionary *)actionitemkillparams;
 
