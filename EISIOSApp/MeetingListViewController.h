@@ -11,7 +11,7 @@
 #import "CreatMeetingViewController.h"
 #import "ActionItemsViewController.h"
 #import "UserbasedMeetingsViewController.h"
-@interface MeetingListViewController : UIViewController<WebserviceownProtocal,NSXMLParserDelegate,UITextFieldDelegate,UIGestureRecognizerDelegate,UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate,UIPickerViewDelegate,UIPickerViewDataSource>
+@interface MeetingListViewController : UIViewController<WebserviceownProtocal,NSXMLParserDelegate,UITextFieldDelegate,UIGestureRecognizerDelegate,UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate,UIPickerViewDelegate,UIPickerViewDataSource,NSURLConnectionDelegate>
 
 {
     CreatMeetingViewController *CreatMeetingtV ;
@@ -43,6 +43,7 @@
 }
 @property (strong, nonatomic) IBOutlet UIButton *agendaButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *sidebarButton;
+@property (nonatomic, strong) NSMutableData *responseData;
 @property(nonatomic)IBOutlet  UIButton *bn;
 - (IBAction)agendaBtnClicked:(id)sender;
 @end

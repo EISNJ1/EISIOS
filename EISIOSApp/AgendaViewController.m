@@ -145,14 +145,6 @@
 }
 -(void)AgendaList
 {
-//    NSLog(@"meeting id is %@",_MeetingId);
-//    NSString *AgendaListurl = @"AgendaListDataService";
-//    NSDictionary *credentials = @{@"meetingId":_MeetingId};
-//    [Servicecall AgendaListurl:AgendaListurl AgendaListParameters:credentials];
-//    NSString *AgendaGoalscounturl = @"AgendaGoalCountService";
-//    [Servicecall AgendaGoalsCounturl:AgendaGoalscounturl AgendaGoalParameters:credentials];
-//    [Servicecall setDelegate:self];
-//    [Servicecall setDelegate:self];
 
     NSLog(@"meeting id is %@",_MeetingId);
     NSString *credentials1 = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/meeting/v1/agendaGoalCount?meetingId=%@",_MeetingId];

@@ -291,7 +291,7 @@
     req.timeoutInterval= [[[NSUserDefaults standardUserDefaults] valueForKey:@"timeoutInterval"] longValue];
     [req setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     [req setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    [req setHTTPBody:[stringencode dataUsingEncoding:NSASCIIStringEncoding]];
+    [req setHTTPBody:[stringencode dataUsingEncoding:NSUTF8StringEncoding]];
     manager.responseSerializer=responseSerializer;
     
     
@@ -313,37 +313,25 @@
 
 -(void)actionitemkill:(NSString *)actionitemclose actionitemkillurl:(NSDictionary *)actionitemkillparams
 {
-    //NSString *post =post_string;
-    //NSURL *url=[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",kBaseURL,post_url]];
+    
+    //NSString *jsonRequest = jsonInputString;
     NSError *error;
-    NSMutableData *postData = [NSJSONSerialization dataWithJSONObject:actionitemkillparams options:NSJSONWritingPrettyPrinted error:&error];
-    NSString *postLength = [NSString stringWithFormat:@"%d", [postData length]];
-    NSURL *ulr=[NSURL URLWithString:actionitemclose];
     
+    NSData* jsonData = [NSJSONSerialization dataWithJSONObject:actionitemkillparams options:kNilOptions error:&error];
     
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc]initWithURL:ulr cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:30.0];
-    //[request setURL:url];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+    [request setURL:[NSURL URLWithString:actionitemclose]];
     [request setHTTPMethod:@"POST"];
-    [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-    [request setValue:[NSString stringWithFormat:@"%d",[postData length]] forHTTPHeaderField:@"Content-Length"];
-    [request setHTTPBody:postData];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [request setHTTPBody:jsonData];
     
-    [NSURLConnection sendAsynchronousRequest:request queue:[[NSOperationQueue alloc] init] completionHandler:^(NSURLResponse* response,NSData* data,NSError* error)
-    {
-        if ([data length]>0 && error == nil) {
-          NSDictionary  *resultsDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:&error];
-            NSLog(@"resultsDictionary is %@",resultsDictionary);
-            
-        } else if ([data length]==0 && error ==nil)
-        {
-            NSLog(@" download data is null");
-        } else if( error!=nil) {
-            NSLog(@" error is %@",error);
-        }
-    }];
+    // print json:
+    NSLog(@"JSON summary: %@", [[NSString alloc]initWithData:jsonData
+                                                     encoding:NSUTF8StringEncoding]);
+    NSURLConnection *connection = [[NSURLConnection alloc]initWithRequest:request delegate:self];
+    [connection start];
 }
-
 -(void)AgendaListUrl:(NSString *)AgendalistUrl
 {
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
