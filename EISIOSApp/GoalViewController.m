@@ -17,7 +17,7 @@
     
     //-------------GoalsList---------------------
     NSString *_MeetingId;
-    NSMutableArray *GoalsListArray,*GoalsDisArray,*GoalsTimeBudgetArray;
+    NSMutableArray *GoalsListArray,*GoalsDisArray,*GoalsTimeBudgetArray,*GoalsIdArray,*resultarray;
     NSArray *GoalsSplitArray;
     int agendagoalstimebudgetint;
 }
@@ -154,13 +154,52 @@
 
 -(void)GolasList
 {
-    NSString *GoalsListurl = @"GoalsListDataService";
-     NSDictionary *credentials = @{@"meetingId":_MeetingId};
-    [Servicecall GoalsListurl:GoalsListurl GoalsListParameters:credentials];
-    NSString *AgendaGoalscounturl = @"AgendaGoalCountService";
-    [Servicecall AgendaGoalsCounturl:AgendaGoalscounturl AgendaGoalParameters:credentials];
+//    NSString *GoalsListurl = @"GoalsListDataService";
+//     NSDictionary *credentials = @{@"meetingId":_MeetingId};
+//    [Servicecall GoalsListurl:GoalsListurl GoalsListParameters:credentials];
+//    NSString *AgendaGoalscounturl = @"AgendaGoalCountService";
+//    [Servicecall AgendaGoalsCounturl:AgendaGoalscounturl AgendaGoalParameters:credentials];
+//    [Servicecall setDelegate:self];
+//    [Servicecall setDelegate:self];
+    
+    NSString *publicnotesdec =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/meeting/v1/goalsList?meetingId=%@",_MeetingId];
+    NSString *encode1=[publicnotesdec stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    Servicecall=[[Webservices alloc]init];
+    [Servicecall goallistUrl:encode1];
     [Servicecall setDelegate:self];
-    [Servicecall setDelegate:self];
+  
+}
+
+-(void)GoalList:(id)Goallist
+{
+    NSDictionary *dict=Goallist;
+    NSLog(@"dict is: %@",dict);
+    
+    if ([[dict objectForKey:@"StatusMessage"]isEqualToString:@"No Data"])
+    {
+        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Warning" message:@"Goals are empty" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+        [alert show];
+    }
+    else
+    {
+        GoalsIdArray          =[NSMutableArray new];
+        GoalsTimeBudgetArray  =[NSMutableArray new];
+        GoalsDisArray         =[NSMutableArray new];
+        resultarray=[[NSMutableArray alloc]init];
+        resultarray=[dict objectForKey:@"resAL"];
+        
+        for (NSDictionary *fid in resultarray)
+        {
+            [GoalsIdArray addObject:[fid valueForKey:@"goalId"]];
+            [GoalsDisArray addObject:[fid valueForKey:@"goalDesc"]];
+            [GoalsTimeBudgetArray addObject:[fid valueForKey:@"goalTime"]];
+            
+        }
+        NSLog(@"goal id is : %@",GoalsIdArray);
+        NSLog(@"goal time is : %@",GoalsTimeBudgetArray);
+        NSLog(@"goal desc is : %@",GoalsDisArray);
+        [GoalsTV reloadData];
+    }
 }
 -(IBAction)SaveGoalsTapped:(id)sender
 {
