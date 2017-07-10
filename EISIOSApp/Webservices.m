@@ -311,27 +311,43 @@
       }] resume];
 }
 
--(void)actionitemkill:(NSString *)actionitemclose actionitemkillurl:(NSDictionary *)actionitemkillparams
+-(void)actionitemkill:(NSString *)actionitemclose actionitemkillurl:(NSString *)actionitemkillparams
 {
+    NSURL *urlstr=[NSURL URLWithString:actionitemclose];
+    NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:urlstr];
+    //sets the receiver’s timeout interval, in seconds
+    [urlRequest setTimeoutInterval:30.0f];
+    //sets the receiver’s HTTP request method
+    [urlRequest setHTTPMethod:@"POST"];
+    //sets the request body of the receiver to the specified data.
+    [urlRequest setHTTPBody:[actionitemkillparams dataUsingEncoding:NSUTF8StringEncoding]];
     
-    //NSString *jsonRequest = jsonInputString;
-    NSError *error;
-    
-    NSData* jsonData = [NSJSONSerialization dataWithJSONObject:actionitemkillparams options:kNilOptions error:&error];
-    
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
-    [request setURL:[NSURL URLWithString:actionitemclose]];
-    [request setHTTPMethod:@"POST"];
-    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-    [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    [request setHTTPBody:jsonData];
-    
-    // print json:
-    NSLog(@"JSON summary: %@", [[NSString alloc]initWithData:jsonData
-                                                     encoding:NSUTF8StringEncoding]);
-    NSURLConnection *connection = [[NSURLConnection alloc]initWithRequest:request delegate:self];
-    [connection start];
+    //allocate a new operation queue
+    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
+    //Loads the data for a URL request and executes a handler block on an
+    //operation queue when the request completes or fails.
+    [NSURLConnection
+     sendAsynchronousRequest:urlRequest
+     queue:queue
+     completionHandler:^(NSURLResponse *response,
+                         NSData *data,
+                         NSError *error) {
+         if ([data length] >0 && error == nil){
+             //process the JSON response
+             //use the main queue so that we can interact with the screen
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 [delegate actionitemkill:data];             });
+         }
+         else if ([data length] == 0 && error == nil){
+             NSLog(@"Empty Response, not sure why?");
+         }
+         else if (error != nil){
+             NSLog(@"Not again, what is the error = %@", error);
+         }
+     }];
 }
+
+
 -(void)AgendaListUrl:(NSString *)AgendalistUrl
 {
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];

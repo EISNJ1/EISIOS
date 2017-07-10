@@ -316,7 +316,6 @@
             actionItemIdStr=[actionitemidarray objectAtIndex:i];
         }
         [ActionItemListTV reloadData];
-        
     }
 }
 
@@ -1881,7 +1880,7 @@
             
             
             [self actionItemListKill];
-            //[ActionItemListTV reloadData];
+            [ActionItemListTV reloadData];
         }
         
     }
@@ -1898,7 +1897,7 @@
             
             
             [self actionItemListKill];
-            //[ActionItemListTV reloadData];
+            [ActionItemListTV reloadData];
         }
         
     }
@@ -1912,19 +1911,38 @@
     NSLog(@"status str is %@",statusStr);
     Servicecall=[[Webservices alloc]init];
     
-    NSString *ActionItemKillClassName=[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/meeting/v1/approveActionItemStatus"];
+    NSString *ActionItemKillClassName=@"https://2-dot-eiswebservice1.appspot.com/_ah/api/meeting/v1/approveActionItemStatus";
     
-    NSDictionary *ActionItemKillParametersList=@{@"noteLineId":actionItemIdStr,@"actionItemStatus":statusStr};
-    
+    NSString *ActionItemKillParametersList=[NSString stringWithFormat:@"noteLineId=%@&actionItemStatus=%@",actionItemIdStr,statusStr];
     
     [Servicecall actionitemkill:ActionItemKillClassName actionitemkillurl:ActionItemKillParametersList];
     [Servicecall setDelegate:self];
     
-    NSLog(@"welcome");
-    [self actionItemTab];
+    NSLog(@"welcome %@",ActionItemKillParametersList);
+    //[self actionItemTab];
 }
 
-
+-(void)actionitemkill:(id)actionitemkillstatus
+{
+    NSString *myData = [[NSString alloc] initWithData:actionitemkillstatus
+                                             encoding:NSUTF8StringEncoding];
+   
+    NSError *error;
+    NSData *jsonData = [myData dataUsingEncoding:NSUTF8StringEncoding];
+    NSDictionary *json = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                         options:NSJSONReadingMutableContainers
+                                                           error:&error];
+    //NSLog(@"my data is %@",json);
+    
+    if ([[json valueForKey:@"statusMessage"]isEqualToString:@"Inserted"])
+    {
+         [self actionItemTab];
+        [ActionItemListTV reloadData];
+        NSLog(@"status message ise is %@",[json valueForKey:@"statusMessage"]);
+       
+        
+    }
+}
 
 
 -(void)touchesEnded: (NSSet *) touches withEvent: (UIEvent *) event
