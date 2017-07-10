@@ -16,7 +16,7 @@
     //-------------Agenda List--------------
     
     
-    NSMutableArray *AgendaListArray,*AgendaDisArray,*AgendaTimeBudgetArray;
+    NSMutableArray *AgendaListArray,*AgendaDisArray,*AgendaTimeBudgetArray,*resultarray,*AgendaIdArray;
     NSArray *AgendaSplitArray;
     int agendagoalstimebudgetint;
 }
@@ -160,9 +160,76 @@
     [Servicecall setDelegate:self];
 }
 
+
+//
+//NSDictionary *dict=AgendaList;
+//NSLog(@"dict is %@",dict);
+//
+//if ([[dict objectForKey:@"statusMessage"]isEqualToString:@"No Data"])
+//{
+//    UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Warning" message:@"Empty list" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:nil, nil];
+//    [alert show];
+//}
+//else
+//{
+//    //Actionitemsarray= [NSMutableArray new];
+//    //ActionitemsSplitarray   = [NSArray new];
+//    ActitemlisttitleArray   = [NSMutableArray new];
+//    MeetingdesArray         = [NSMutableArray new];
+//    //ObjeIdArray             = [NSMutableArray new];
+//    AgendaMeetingIdArray    = [NSMutableArray new];
+//    agendaMeetingIdStr      =[NSMutableString new];
+//    AgendaTimeBudgetedAray    =[NSMutableArray new];
+//    AgendaMeetingDate=[NSMutableArray new];
+//    AgendaMeetingProjId=[NSMutableArray new];
+//    AgendaMeetingMeetingID=[NSMutableArray new];
+//    ActionItemMeetingTitleArray=[NSMutableArray new];
+//    resultarray2=[[NSMutableArray alloc]init];
+//    resultarray2=[dict objectForKey:@"resAL"];
+//    
+//    for (NSDictionary *fid in resultarray2)
+//    {
+//        [MeetingdesArray addObject:[fid valueForKey:@"agendaDescription"]];
+//        [AgendaMeetingIdArray addObject:[fid valueForKey:@"agendaId"]];
+//        [AgendaTimeBudgetedAray addObject:[fid valueForKey:@"agendaTime"]];
+//        [AgendaMeetingDate addObject:[fid valueForKey:@"meetingDate"]];
+//        [AgendaMeetingMeetingID addObject:[fid valueForKey:@"meetingId"]];
+//        [ActionItemMeetingTitleArray addObject:[fid valueForKey:@"meetingTitle"]];
+//        [ProjectIdArray addObject:[fid valueForKey:@"projectId"]];
+//    }
+//    
+//    [AgendaListTv reloadData];
+//    NSLog(@"meetind id str is %@",MeetingdesArray);
+
+
 -(void)AgendaList:(id)Agendalist
 {
-
+    NSDictionary *dict=Agendalist;
+    NSLog(@"dict is :%@",dict);
+    if ([[dict objectForKey:@"statusMessage"]isEqualToString:@"No Data"])
+        {
+            UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Warning" message:@"Empty list" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:nil, nil];
+            [alert show];
+        }
+        else
+        {
+            AgendaIdArray          =[NSMutableArray new];
+            AgendaTimeBudgetArray  =[NSMutableArray new];
+            AgendaDisArray         =[NSMutableArray new];
+            resultarray            =[NSMutableArray new];
+            resultarray            =[dict objectForKey:@"resAL"];
+            
+            for (NSDictionary *fid in resultarray)
+            {
+                [AgendaIdArray addObject:[fid valueForKey:@"agendaId"]];
+                [AgendaTimeBudgetArray addObject:[fid valueForKey:@"agendaTime"]];
+                [AgendaDisArray addObject:[fid valueForKey:@"agendaDescription"]];
+            }
+            NSLog(@"agenda id is%@",AgendaIdArray);
+            NSLog(@"description is %@",AgendaDisArray);
+            NSLog(@"agenda time is %@",AgendaTimeBudgetArray);
+            
+}
 }
 -(void)agendaGoalcount:(id)agnedacounturl
 {
