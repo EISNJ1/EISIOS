@@ -20,7 +20,7 @@
     NSXMLParser *ParticipantsListxmlParser,*ParticipantsNamexmlParser,*RolexmlParser,*SavexmlParser;
     //---------------Participants List-------------
     NSString *MeetingId,*ProjectId;
-    NSMutableArray *ParticipantsListArray,*ParticipantResourceNameArray,*ParticipantResourceRoleArray,*ParticipantResourceIdArray;
+    NSMutableArray *ParticipantsListArray,*ParticipantResourceNameArray,*ParticipantResourceRoleArray,*ParticipantResourceIdArray,*ParticipantFlagArray,*resultarray;
     NSArray *ParticipantSplitArray;
     
     //--------------ParticipantsResource----------------
@@ -226,12 +226,51 @@
 {
     
     
-    NSString *ParticipantsListurl = @"ParticipantsListService";
-    NSDictionary *credentials = @{@"meetingId":MeetingId};
-    [Servicecall ParticipantsListurl:ParticipantsListurl ParticipantsListParameters:credentials];
+//    NSString *ParticipantsListurl = @"ParticipantsListService";
+//    NSDictionary *credentials = @{@"meetingId":MeetingId};
+//    [Servicecall ParticipantsListurl:ParticipantsListurl ParticipantsListParameters:credentials];
+//    [Servicecall setDelegate:self];
+
+    NSString *publicnotesdec =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/meeting/v1/participantsList?meetingId=%@",MeetingId];
+    NSString *encode1=[publicnotesdec stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    Servicecall=[[Webservices alloc]init];
+    [Servicecall ParticipantlistUrl:encode1];
     [Servicecall setDelegate:self];
     
 }
+
+-(void)ParticipantList:(id)Participantlist
+{
+    
+    NSDictionary *dict=Participantlist;
+    NSLog(@"dict is %@",dict);
+    
+    if ([[dict objectForKey:@"statusMessage"]isEqualToString:@"No Data"])
+    {
+        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Warning" message:@"counts are empty" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:nil, nil];
+        [alert show];
+    }
+    else
+    {
+        ParticipantResourceNameArray  =[NSMutableArray new];
+        ParticipantFlagArray    =[NSMutableArray new];
+        ParticipantResourceRoleArray  =[NSMutableArray new];
+        resultarray = [dict objectForKey:@"resAL"];
+        for (NSDictionary *fid in resultarray)
+        {
+            [ParticipantResourceNameArray addObject:[fid valueForKey:@"participantName"]];
+            [ParticipantFlagArray addObject:[fid valueForKey:@"flag"]];
+            [ParticipantResourceRoleArray addObject:[fid valueForKey:@"role"]];
+            
+        }
+        NSLog(@"participant name is  %@:",ParticipantResourceNameArray);
+        NSLog(@"participant role is %@",ParticipantResourceRoleArray);
+        NSLog(@"participant flag is %@",ParticipantFlagArray);
+        [ParticipantTV reloadData];
+        
+    }
+}
+
 
 
 -(void)FlagButtonPkrTapped
