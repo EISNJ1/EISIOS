@@ -202,48 +202,42 @@
      }];
  
 }
--(void)meetingupdate:(NSString *)meetingupdateurlparams meetingupdatedict:(NSDictionary *)meetingdictparams
+-(void)meetingupdate:(NSString *)meetingupdateurlparams meetingupdatedict:(NSString *)meetingdictparams
 {
-    NSError *error;
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:meetingdictparams options:NSJSONWritingPrettyPrinted error:&error];
     
-    NSString *jsonString=[[NSString alloc]initWithData:jsonData encoding:NSASCIIStringEncoding];
+    NSURL *urlstr=[NSURL URLWithString:meetingupdateurlparams];
+    NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:urlstr];
+    //sets the receiver’s timeout interval, in seconds
+    [urlRequest setTimeoutInterval:30.0f];
+    //sets the receiver’s HTTP request method
+    [urlRequest setHTTPMethod:@"POST"];
+    //sets the request body of the receiver to the specified data.
+    [urlRequest setHTTPBody:[meetingdictparams dataUsingEncoding:NSUTF8StringEncoding]];
     
-    
-    
-    NSString *stringencode=[jsonString stringByReplacingOccurrencesOfString:@"\\" withString:@""];
-    NSLog(@"json string is %@",stringencode);
-    
-    AFURLSessionManager *manager = [[AFURLSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
-   
-    AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
-    responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
+    //allocate a new operation queue
+    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
+    //Loads the data for a URL request and executes a handler block on an
+    //operation queue when the request completes or fails.
+    [NSURLConnection
+     sendAsynchronousRequest:urlRequest
+     queue:queue
+     completionHandler:^(NSURLResponse *response,
+                         NSData *data,
+                         NSError *error) {
+         if ([data length] >0 && error == nil){
+             //process the JSON response
+             //use the main queue so that we can interact with the screen
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 [delegate meetingupdate:data];             });
+         }
+         else if ([data length] == 0 && error == nil){
+             NSLog(@"Empty Response, not sure why?");
+         }
+         else if (error != nil){
+             NSLog(@"Not again, what is the error = %@", error);
+         }
+     }];
 
-    
-    NSMutableURLRequest *req = [[AFJSONRequestSerializer serializer]requestWithMethod:@"POST" URLString:meetingupdateurlparams parameters:nil error:nil];
-    
-   
-    req.timeoutInterval= [[[NSUserDefaults standardUserDefaults] valueForKey:@"timeoutInterval"] longValue];
-    [req setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-    [req setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    [req setHTTPBody:[stringencode dataUsingEncoding:NSASCIIStringEncoding]];
-    manager.responseSerializer=responseSerializer;
-    
-    
-    [[manager dataTaskWithRequest:req completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error)
-    {
-        
-        if (!error)
-        {
-            NSLog(@"Reply JSON:%@",responseObject);
-            
-           
-        } else
-        {
-            
-            NSLog(@"Error: %@, %@, %@", error, response, responseObject);
-        }
-    }] resume];
 
 }
 -(void)agendacount:(NSString *)agendacounturl
@@ -267,48 +261,40 @@
 
 }
 
--(void)savemeeting:(NSString *)savemeetingurl meetingparams:(NSDictionary *)meetingsavedict
+-(void)savemeeting:(NSString *)savemeetingurl meetingparams:(NSString *)meetingsavedict
 {
-    NSError *error;
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:meetingsavedict options:NSJSONWritingPrettyPrinted error:&error];
+    NSURL *urlstr=[NSURL URLWithString:savemeetingurl];
+    NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:urlstr];
+    //sets the receiver’s timeout interval, in seconds
+    [urlRequest setTimeoutInterval:30.0f];
+    //sets the receiver’s HTTP request method
+    [urlRequest setHTTPMethod:@"POST"];
+    //sets the request body of the receiver to the specified data.
+    [urlRequest setHTTPBody:[meetingsavedict dataUsingEncoding:NSUTF8StringEncoding]];
     
-    NSString *jsonString=[[NSString alloc]initWithData:jsonData encoding:NSASCIIStringEncoding];
-    
-    
-    
-    NSString *stringencode=[jsonString stringByReplacingOccurrencesOfString:@"\\" withString:@""];
-    NSLog(@"json string is %@",stringencode);
-    
-    AFURLSessionManager *manager = [[AFURLSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
-    
-    AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
-    responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
-    
-    
-    NSMutableURLRequest *req = [[AFJSONRequestSerializer serializer]requestWithMethod:@"POST" URLString:savemeetingurl parameters:nil error:nil];
-    
-    
-    req.timeoutInterval= [[[NSUserDefaults standardUserDefaults] valueForKey:@"timeoutInterval"] longValue];
-    [req setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-    [req setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    [req setHTTPBody:[stringencode dataUsingEncoding:NSUTF8StringEncoding]];
-    manager.responseSerializer=responseSerializer;
-    
-    
-    [[manager dataTaskWithRequest:req completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error)
-      {
-          
-          if (!error)
-          {
-              NSLog(@"Reply JSON:%@",responseObject);
-              
-              
-          } else
-          {
-              
-              NSLog(@"Error: %@, %@, %@", error, response, responseObject);
-          }
-      }] resume];
+    //allocate a new operation queue
+    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
+    //Loads the data for a URL request and executes a handler block on an
+    //operation queue when the request completes or fails.
+    [NSURLConnection
+     sendAsynchronousRequest:urlRequest
+     queue:queue
+     completionHandler:^(NSURLResponse *response,
+                         NSData *data,
+                         NSError *error) {
+         if ([data length] >0 && error == nil){
+             //process the JSON response
+             //use the main queue so that we can interact with the screen
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 [delegate savemeeting:data];             });
+         }
+         else if ([data length] == 0 && error == nil){
+             NSLog(@"Empty Response, not sure why?");
+         }
+         else if (error != nil){
+             NSLog(@"Not again, what is the error = %@", error);
+         }
+     }];
 }
 
 -(void)actionitemkill:(NSString *)actionitemclose actionitemkillurl:(NSString *)actionitemkillparams

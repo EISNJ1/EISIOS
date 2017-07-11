@@ -585,8 +585,8 @@
         NSLog(@"meetin type id is %@",_MeetingTypeId);
         NSString *meetDate=[dateSplitArray objectAtIndex:0];
         NSString *SaveMeetingurl= [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/meeting/v1/saveMeeting"];
-    NSDictionary *credentials = @{@"meetingTyp":_MeetingTypeId,@"meetinTitle":Meetingtitletxtfld.text,@"meetDescription":Meetingdistxtfld.text,@"startTym":_Starttimestr,@"hours":Meetinglengthtxtfld.text,@"meetOwnId":Useridstr,@"projectId":_ProjId,@"meetDate":[[meetDate componentsSeparatedByString: @" "] objectAtIndex:0],@"ConferRoomId":_ConfOwnerId};
-        [Servicecall savemeeting:SaveMeetingurl meetingparams:credentials];
+        NSString *dictionary=[NSString stringWithFormat:@"meetingTyp=%@&meetinTitle=%@&meetDescription=%@&startTym=%@&hours=%@&meetOwnId=%@&projectId=%@&meetDate=%@&ConferRoomId=%@",_MeetingTypeId,Meetingtitletxtfld.text,Meetingdistxtfld.text,_Starttimestr,Meetinglengthtxtfld.text,Useridstr,_ProjId,meetDate,_ConfOwnerId];
+        [Servicecall savemeeting:SaveMeetingurl meetingparams:dictionary];
     [Servicecall setDelegate:self];
    
        // _locationUseBool = YES;
@@ -732,6 +732,28 @@
    
     }
     }
+-(void)savemeeting:(id)savemeetingurl
+{
+    NSData *data1=[[NSData alloc]initWithData:savemeetingurl];
+    NSError *error;
+    
+    NSDictionary *dict=[NSJSONSerialization JSONObjectWithData:data1 options:NSJSONReadingMutableContainers error:&error];
+    NSLog(@"dict is %@",dict);
+    
+    if ([[dict valueForKey:@"statusMessage"]isEqualToString:@"CREATED"])
+    {
+        UIAlertView *alertview=[[UIAlertView alloc]initWithTitle:@"Alert" message:@"meeting created successfully" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:nil, nil];
+        [alertview show];
+        
+        [Savebtn setTitle:@"Update" forState:UIControlStateNormal];
+        _locationUseBool=YES;
+    }
+    else
+    {
+        UIAlertView *alertview=[[UIAlertView alloc]initWithTitle:@"Alert" message:@"meeting not created successfully" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:nil, nil];
+        [alertview show];
+    }
+}
 
 -(void)MeetingUpdate
 {
@@ -739,15 +761,13 @@
     
     meetdate=[dateSplitArray objectAtIndex:0];
     
+    Servicecall=[[Webservices alloc]init];
+    
 NSLog(@"meeting length text field 1235124is %@",Meetinglengthtxtfld.text);
 NSString *updateMeetingurl=[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/meeting/v1/updateMeeting"];
     
     
-    NSDictionary *dictionary=@{@"meetingTyp":@"10",@"meetinTitle":@"HELLO",@"meetDescription":@"IOS",@"startTym":@"09:30 PM",@"hours":@"25",@"meetOwnId":@"2",@"projectId":@"5",@"meetDate":@"07/06/2017",@"meetingId":@"10",@"ConferRoomId":@"5"};
-    
-//    NSDictionary *dictionary=@{@"meetingTyp":_MeetingTypeId,@"meetinTitle":Meetingtitletxtfld.text,@"meetDescription":Meetingdistxtfld.text,@"startTym":_Starttimestr,@"hours":Meetinglengthtxtfld.text,@"meetOwnId":Useridstr,@"projectId":_ProjId,@"meetDate":meetdate,@"meetingId":_MeetingId,@"ConferRoomId":_ConfOwnerId};
-    
-    NSLog(@"all key values are %@",dictionary);
+    NSString *dictionary=[NSString stringWithFormat:@"meetingTyp=%@&meetinTitle=%@&meetDescription=%@&startTym=%@&hours=%@&meetOwnId=%@&projectId=%@&meetDate=%@&meetingId=%@&ConferRoomId=%@",_MeetingTypeId,Meetingtitletxtfld.text,Meetingdistxtfld.text,_Starttimestr,Meetinglengthtxtfld.text,Useridstr,_ProjId,meetdate,_MeetingId,_ConfOwnerId];
     
     [Servicecall meetingupdate:updateMeetingurl meetingupdatedict:dictionary];
     [Servicecall setDelegate:self];
@@ -755,6 +775,22 @@ NSString *updateMeetingurl=[NSString stringWithFormat:@"https://2-dot-eiswebserv
 }
 -(void)meetingupdate:(id)meetingUpdateurl
 {
+    NSData *resdata=[[NSData alloc]initWithData:meetingUpdateurl];
+    NSError *error;
+    
+    NSDictionary *dict=[NSJSONSerialization JSONObjectWithData:resdata options:NSJSONReadingMutableContainers error:&error];
+    NSLog(@"meeting update is %@",dict);
+    
+    if ([[dict valueForKey:@"statusMessage"] isEqualToString:@"CREATED"])
+    {
+        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Alert" message:@"meeting updated successfully" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:nil, nil];
+        [alert show];
+    }
+    else
+    {
+        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Alert" message:@"meeting not updated" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:nil,nil];
+        [alert show];
+    }
     
 }
 //-(void)agendaTimeValidation:(NSNotification *)obj

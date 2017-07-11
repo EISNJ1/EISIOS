@@ -18,8 +18,10 @@
 -(void)conferencermspinner:(id)conferenceroomSpinner;
 -(void)meetingType:(id)meetingTypeSpinner;
 -(void)meetingupdate:(id)meetingUpdateurl;
+-(void)savemeeting:(id)savemeetingurl;
 -(void)agendaGoalcount:(id)agnedacounturl;
 -(void)AgendaList:(id)Agendalist;
+-(void)GoalList: (id)Goallist;
 -(void)actionitemkill:(id)actionitemkillstatus;
 
 
@@ -60,10 +62,11 @@
 -(void)projectlstspinrurl:(NSString *)projectlstspinrUrl;
 -(void)conferencermspinrurl:(NSString *)conferencermspinrUrl;
 -(void)meetingTypeUrl:(NSString *)Meetingtypeurlparams;
--(void)meetingupdate:(NSString *)meetingupdateurlparams meetingupdatedict:(NSDictionary *)meetingdictparams;
+-(void)meetingupdate:(NSString *)meetingupdateurlparams meetingupdatedict:(NSString *)meetingdictparams;
 -(void)agendacount:(NSString *)agendacounturl;
 -(void)AgendaListUrl:(NSString *)AgendalistUrl;
--(void)savemeeting :(NSString *)savemeetingurl meetingparams:(NSDictionary *)meetingsavedict;
+-(void)savemeeting :(NSString *)savemeetingurl meetingparams:(NSString *)meetingsavedict;
+-(void)goallistUrl:(NSString *)GoallistUrl;
 -(void)actionitemkill :(NSString *)actionitemclose actionitemkillurl:(NSString *)actionitemkillparams;
 
 
