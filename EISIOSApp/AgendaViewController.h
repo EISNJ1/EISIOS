@@ -22,7 +22,7 @@
     UIAlertView *LogoutAlert;
     IBOutlet UIView *ContentView;
     
-    NSString *agendatime;
+    NSString *agendatime,*agendaorgoalFlag;
     
     CreatMeetingViewController *cvc;
 }

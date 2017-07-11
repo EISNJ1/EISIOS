@@ -225,20 +225,22 @@
         NSLog(@"the agenda time length is %@",Agendtimetxtfld.text);
         
         
-        
+        agendaorgoalFlag=@"Agenda";
         agendatimestr=Agendtimetxtfld.text;
-        NSString *AgendaSaveurl = @"SaveAgendaListSerivece";
-     NSDictionary *credentials = @{@"meetingId":_MeetingId,@"objectDesc":AgendaDistextView.text,@"budgetedTym":Agendtimetxtfld.text};
-    [Servicecall agendaSavedurl:AgendaSaveurl AgendaSavedParameters:credentials];
+        NSString *AgendaSaveurl =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/meeting/v1/saveAgendaGoal"];
+     NSString *credentials=[NSString stringWithFormat:@"meetingId=%@&objectDesc=%@&budgetedTym=%@&agendaGoalFlag=%@",_MeetingId,AgendaDistextView.text,Agendtimetxtfld.text,agendaorgoalFlag];
+        
+        NSLog(@"credentials is %@",credentials);
+        [Servicecall agendameeting:AgendaSaveurl agendameetingparams:credentials];
     [Servicecall setDelegate:self];
     
         
     
-    NSDictionary *credentials1 = @{@"meetingId":_MeetingId};
-    NSString *AgendaGoalscounturl = @"AgendaGoalCountService";
-    [Servicecall AgendaGoalsCounturl:AgendaGoalscounturl AgendaGoalParameters:credentials1];
-    [Servicecall setDelegate:self];
-    NSLog(@"ahendagosl %d",agendagoalstimebudgetint);
+        NSString *credentials2=[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/meeting/v1/agendaList?meetingId=%@",_MeetingId];
+        NSString *encode1=[credentials2 stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        Servicecall=[[Webservices alloc]init];
+        [Servicecall AgendaListUrl:encode1];
+        [Servicecall setDelegate:self];
     AgendaDistextView.text = nil;
     Agendtimetxtfld.text   = nil;
     [Agendtimetxtfld setBackgroundColor:[UIColor clearColor]];
@@ -247,6 +249,21 @@
         
     }
     
+}
+
+-(void)saveagenda:(id)saveagendameeting
+{
+    NSData *agendadata=[[NSData alloc]initWithData:saveagendameeting];
+    NSError *error;
+    
+    NSDictionary *jsondict=[NSJSONSerialization JSONObjectWithData:agendadata options:NSJSONReadingMutableContainers error:&error];
+    NSLog(@"save agneda meeting dict is %@",jsondict);
+    
+    if ([[jsondict valueForKey:@"statusMessage"]isEqualToString:@"Inserted"])
+    {
+        [self AgendaList];
+        [AgendaTV reloadData];
+    }
 }
 
 -(void) parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName
