@@ -1116,7 +1116,7 @@
     meetingTypeLabel.text=@"Today";
     // [self agendaBtnClicked];
     
-    //[ActionItemListTV reloadData];
+    [ActionItemListTV reloadData];
     [AgendaListTv reloadData];
     
     [MeetingListTV reloadData];
@@ -1461,6 +1461,10 @@
         {
             statusStr=@"Created";
         }
+        if ([[actionItemStausArray objectAtIndex:indexPath.row]isEqualToString:@"D"])
+        {
+            statusStr=@"Close";
+        }
         
         UITextField *statusTxtFld = [[UITextField alloc] initWithFrame:CGRectMake(280,300,30,30)];
         statusTxtFld = (UITextField*)[cell viewWithTag:2010];
@@ -1491,7 +1495,7 @@
         
         return  cell;
         
-        //[ActionItemListTV reloadData];
+        [ActionItemListTV reloadData];
     }
     
     else
