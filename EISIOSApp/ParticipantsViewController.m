@@ -239,10 +239,10 @@
     
 }
 
--(void)ParticipantList:(id)Participantlist
+-(void)participantslist:(id)participantslisturl
 {
     
-    NSDictionary *dict=Participantlist;
+    NSDictionary *dict=participantslisturl;
     NSLog(@"dict is %@",dict);
     
     if ([[dict objectForKey:@"statusMessage"]isEqualToString:@"No Data"])
@@ -321,9 +321,9 @@
 -(void)ParticipantNameButtonPkrTapped
 {NSLog(@"project id is 25145122222%@",_ProjectIdStr);
     
-    NSString *ParticipantNameurl = @"ParicipantsResListService";
-    NSDictionary *credentials = @{@"projectId":_ProjectIdStr};
-    [Servicecall ParticipantsResourceName:ParticipantNameurl ParticipantsResourceParameters:credentials];
+    NSString *ParticipantNameurl = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/meeting/v1/participantResourceSpinner?projectId=%@",_ProjectIdStr];
+    //NSDictionary *credentials = @{@"projectId":_ProjectIdStr};
+    [Servicecall participantsresourcename:ParticipantNameurl];
     [Servicecall setDelegate:self];
     
     [ParticipantsPicker reloadAllComponents];
@@ -343,6 +343,17 @@
     ParticipantsPicker.transform = transfrom;
     ParticipantsPicker.alpha = ParticipantsPicker.alpha * (-1) + 1;
     [UIView commitAnimations];
+}
+
+-(void)participantresourcename:(id)participantsreslist
+{
+    NSDictionary *dict=[[NSDictionary alloc]init];
+    dict=participantsreslist;
+    
+    NSLog(@"dict is %@",dict);
+    ResourceIdArray=[[NSMutableArray alloc]init];
+    ResourceNameArray=[[NSMutableArray alloc]init];
+    
 }
 
 -(IBAction)SaveParticipants:(id)sender

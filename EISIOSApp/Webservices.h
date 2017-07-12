@@ -24,6 +24,8 @@
 -(void)GoalList: (id)Goallist;
 -(void)actionitemkill:(id)actionitemkillstatus;
 -(void)saveagenda:(id)saveagendameeting;
+-(void)participantslist:(id)participantslisturl;
+-(void)participantresourcename:(id)participantsreslist;
 
 
 //soap methods
@@ -70,6 +72,8 @@
 -(void)goallistUrl:(NSString *)GoallistUrl;
 -(void)actionitemkill :(NSString *)actionitemclose actionitemkillurl:(NSString *)actionitemkillparams;
 -(void)agendameeting:(NSString *)saveagenda agendameetingparams:(NSString *)saveagendameeting;
+-(void)ParticipantlistUrl:(NSString *)ParticipantListUrl;
+-(void)participantsresourcename:(NSString *)participantsresourcenamelist;
 
 
 -(void)Loginserviceurl: (NSString *)Loginurl Loginparameters : (NSDictionary *)LoginCredentials;
