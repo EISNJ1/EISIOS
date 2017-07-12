@@ -10,7 +10,7 @@
 #import "LoginAppDelegate.h"
 #import "UserData.h"
 #import "Toast+UIView.h"
-@interface ParticipantsViewController ()
+@interface ParticipantsViewController()
 
 
 {
@@ -295,9 +295,9 @@
 }
 -(void)RoleButtonPkrTapped
 {
-    NSString *Rolenameturl = @"RoleListService";
-    NSDictionary *credentials = @{@"orgId":orgIdstr};
-    [Servicecall RoleName:Rolenameturl RoleParameters:credentials];
+    NSString *Rolenameturl =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/meeting/v1/participantRoleSpinner?orgId=%@",orgIdstr];
+   
+    [Servicecall participantrole:Rolenameturl];
     [Servicecall setDelegate:self];
     
     [ParticipantsPicker removeFromSuperview];
@@ -316,6 +316,33 @@
     ParticipantsPicker.transform = transfrom;
     ParticipantsPicker.alpha = ParticipantsPicker.alpha * (-1) + 1;
     [UIView commitAnimations];
+}
+-(void)participantsrole:(id)participantsroleresponse
+{
+    NSDictionary *dict=[[NSDictionary alloc]init];
+    
+    dict=participantsroleresponse;
+    
+    NSLog(@"the result is %@",dict);
+    
+    NSArray *reultarray2=[dict objectForKey:@"resAL"];
+    RoleCodeIdaArray    =[NSMutableArray new];
+    RoleValueArray      =[NSMutableArray new];
+    
+    for (NSDictionary *fidd in reultarray2)
+    {
+        [RoleCodeIdaArray addObject:[fidd valueForKey:@"roleId"]];
+        [RoleValueArray addObject:[fidd valueForKey:@"role"]];
+        
+        NSLog(@"role name is  %@:",RoleCodeIdaArray);
+        NSLog(@"role id role is %@",RoleValueArray);
+        [ParticipantsPicker reloadAllComponents];
+    }
+    
+    for (int i=0; i<[RoleCodeIdaArray count]; i++)
+    {
+        RoleCodestr=[RoleCodeIdaArray objectAtIndex:i];
+    }
 }
 
 -(void)ParticipantNameButtonPkrTapped
@@ -354,6 +381,22 @@
     ResourceIdArray=[[NSMutableArray alloc]init];
     ResourceNameArray=[[NSMutableArray alloc]init];
     
+    NSArray *resultarray1=[dict objectForKey:@"resAL"];
+    NSLog(@"result array is %@",resultarray1);
+    for (NSDictionary *fidd in resultarray1)
+    {
+        [ResourceIdArray addObject:[fidd valueForKey:@"participantId"]];
+        [ResourceNameArray addObject:[fidd valueForKey:@"participantName"]];
+    }
+    
+    for (int i=0; i<[ResourceIdArray count]; i++)
+    {
+        ResourceIdstr=[ResourceIdArray objectAtIndex:i];
+    }
+    [ParticipantsPicker reloadAllComponents];
+    NSLog(@"resource id array is %@",ResourceIdArray);
+    NSLog(@"rsource name array is %@",ResourceNameArray);
+    
 }
 
 -(IBAction)SaveParticipants:(id)sender
@@ -380,9 +423,9 @@
         
         NSLog(@"meeting id is %@",MeetingId);
         NSLog(@"resource id is %@",ResourceIdstr);
-    NSString *ParticipantSaveurl = @"SaveParticipants";
-    NSDictionary *credentials = @{@"meetingId":MeetingId,@"resourceId":ResourceIdstr,@"participantRole":RoleCodestr,@"flag":Flagstr,};
-    [Servicecall SaveParticipantsurl:ParticipantSaveurl SaveParticipantsParameters:credentials];
+    NSString *ParticipantSaveurl = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/meeting/v1/saveParticipant"];
+    NSString *credentials = [NSString stringWithFormat:@"meetingId=%@&resourceId=%@&participantRole=%@&flag=%@",MeetingId,ResourceIdstr,RoleCodestr,Flagstr];
+    [Servicecall saveparticipant:ParticipantSaveurl saveparticipantparams:credentials];
     [Servicecall setDelegate:self];
         
     ParticipantsNametxtfld.text = nil;
@@ -395,7 +438,27 @@
     }
 }
 
-
+-(void)saveparticipants:(id)saveparticipantsresource
+{
+    NSData *data=[[NSData alloc]initWithData:saveparticipantsresource];
+    NSError *error;
+    
+    NSDictionary *dict=[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
+    NSLog(@"dict is %@",dict);
+    
+    if ([[dict valueForKey:@"statusMessage"]isEqualToString:@"Inserted"])
+    {
+        UIAlertView *alet=[[UIAlertView alloc]initWithTitle:@"Alert" message:@"Participant saved successfully" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+        [alet show];
+        [self ParticipantsList];
+    }
+    else
+    {
+        UIAlertView *alet=[[UIAlertView alloc]initWithTitle:@"Alert" message:@"Participant not saved successfully" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+        [alet show];
+    }
+    
+}
 
 
 //Tableview Delagates

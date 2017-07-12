@@ -26,6 +26,8 @@
 -(void)saveagenda:(id)saveagendameeting;
 -(void)participantslist:(id)participantslisturl;
 -(void)participantresourcename:(id)participantsreslist;
+-(void)participantsrole:(id)participantsroleresponse;
+-(void)saveparticipants:(id)saveparticipantsresource;
 
 
 //soap methods
@@ -74,6 +76,8 @@
 -(void)agendameeting:(NSString *)saveagenda agendameetingparams:(NSString *)saveagendameeting;
 -(void)ParticipantlistUrl:(NSString *)ParticipantListUrl;
 -(void)participantsresourcename:(NSString *)participantsresourcenamelist;
+-(void)participantrole:(NSString *)participantsrolestring;
+-(void)saveparticipant:(NSString *)saveparticipantmeeting saveparticipantparams:(NSString *)saveparticipantsurl;
 
 
 -(void)Loginserviceurl: (NSString *)Loginurl Loginparameters : (NSDictionary *)LoginCredentials;
