@@ -28,7 +28,10 @@
 -(void)participantresourcename:(id)participantsreslist;
 -(void)participantsrole:(id)participantsroleresponse;
 -(void)saveparticipants:(id)saveparticipantsresource;
-
+-(void)noteslist:(id)notesList;
+-(void)actionItemList:(id)actionItemlist;
+-(void)feedbackList:(id)feedbacklist;
+-(void)saveNoteslist:(id)savenotesList;
 
 //soap methods
 -(void)didfinishactionitemlist :(id)actionitemlist;
@@ -78,6 +81,10 @@
 -(void)participantsresourcename:(NSString *)participantsresourcenamelist;
 -(void)participantrole:(NSString *)participantsrolestring;
 -(void)saveparticipant:(NSString *)saveparticipantmeeting saveparticipantparams:(NSString *)saveparticipantsurl;
+-(void)noteslistUrl:(NSString *)notesListUrl;
+-(void)actionItemListUrl:(NSString *)actionItemlistUrl;
+-(void)feedbackListUrl:(NSString *)feedbacklistUrl;
+-(void)savenotesUrl:(NSString *)savenoteslist savenotesparams:(NSString *)savenotesurl;
 
 
 -(void)Loginserviceurl: (NSString *)Loginurl Loginparameters : (NSDictionary *)LoginCredentials;

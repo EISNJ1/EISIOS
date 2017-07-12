@@ -459,13 +459,13 @@
             [AgendaMeetingDate addObject:[fid valueForKey:@"meetingDate"]];
             [AgendaMeetingMeetingID addObject:[fid valueForKey:@"meetingId"]];
             [ActionItemMeetingTitleArray addObject:[fid valueForKey:@"meetingTitle"]];
-            [ProjectIdArray addObject:[fid valueForKey:@"projectId"]];
+            [AgendaMeetingProjId addObject:[fid valueForKey:@"projectId"]];
         }
         
         [AgendaListTv reloadData];
         NSLog(@"meetind id str is %@",MeetingdesArray);
         NSLog(@"agenda descr is :%@",ActionItemMeetingTitleArray);
-        NSLog(@"project id is :%@",ProjectIdArray);
+        NSLog(@"project id is :%@",AgendaMeetingProjId);
     }
 }
 -(void)notesactionfbcount:(id)notesactionfbCount
@@ -1762,8 +1762,9 @@
         ActionItemsVC  = [self.storyboard instantiateViewControllerWithIdentifier:@"ActionitemView"];
         ActionItemsVC.ObjDistr                = [MeetingdesArray objectAtIndex:indexPath.row];
         ActionItemsVC.ObjIdstr                =[ObjeIdArray objectAtIndex:indexPath.row];
-        ActionItemsVC.AgendaBasedMeetingIdstr =[AgendaMeetingMeetingID objectAtIndex:indexPath.row];
+        ActionItemsVC.AgendaBasedMeetingIdstr =[AgendaMeetingIdArray objectAtIndex:indexPath.row];
         ActionItemsVC.projectId=[AgendaMeetingProjId objectAtIndex:indexPath.row];
+        ActionItemsVC.meetingid=[AgendaMeetingMeetingID objectAtIndex:indexPath.row];
         [self.navigationController pushViewController:ActionItemsVC animated:YES];
     }
     if (tableView==ActionItemListTV)

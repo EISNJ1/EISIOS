@@ -30,7 +30,7 @@
     NSArray *AssignedTosplitArray;
     
     //--------------------SaveAction items-------------------
-    NSMutableArray *SavedActionitemDescriptionArray,*SavedPriorityArray,*SavedAssignedToArray,*ActionitemSavedList;
+    NSMutableArray *SavedActionitemDescriptionArray,*SavedPriorityArray,*SavedAssignedToArray,*ActionitemSavedList,*SavedStatusArray,*resultarray,*resultarray2,*resultarray3;
     NSArray *SavedSplitArray;
     
     //-------------------Notes----------------------
@@ -283,27 +283,138 @@
 }
 -(void)ActionitemsList
 {
- NSString *Saveactionitemsurl = @"ActionItemsTabListService";
- NSDictionary *credentials = @{@"userId":Useridstr,@"agendaId":_ObjIdstr};
-    [Servicecall SaveActionItemTablist:Saveactionitemsurl ActionItemListDictionary:credentials];
-[Servicecall setDelegate:self];
+    NSString *publicnotesdec =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/meeting/v1/actionItemsTabList?agendaId=%@&userId=%@",_AgendaBasedMeetingIdstr,Useridstr];
+    NSString *encode1=[publicnotesdec stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    Servicecall=[[Webservices alloc]init];
+    [Servicecall actionItemListUrl:encode1];
+    [Servicecall setDelegate:self];
 }
+
+-(void)actionItemList:(id)actionItemlist
+{
+    NSDictionary *dict=actionItemlist;
+    NSLog(@"dict is %@",dict);
+    
+    if ([[dict objectForKey:@"statusMessage"]isEqualToString:@"No Data"])
+    {
+        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Warning" message:@"counts are empty" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:nil, nil];
+        [alert show];
+    }
+    else
+    {
+        SavedActionitemDescriptionArray       =[NSMutableArray new];
+        SavedAssignedToArray                  =[NSMutableArray new];
+        SavedPriorityArray                    =[NSMutableArray new];
+        SavedStatusArray                      =[NSMutableArray new];
+        resultarray=[[NSMutableArray alloc]init];
+        resultarray = [dict objectForKey:@"resAL"];
+        for (NSDictionary *fid in resultarray)
+        {
+            [SavedActionitemDescriptionArray addObject:[fid valueForKey:@"notesDescription"]];
+            [SavedAssignedToArray addObject:[fid valueForKey:@"assignToName"]];
+            [SavedPriorityArray addObject:[fid valueForKey:@"priority"]];
+            [SavedStatusArray addObject:[fid valueForKey:@"actionItemStatus"]];
+        }
+        NSLog(@"action item des is %@:",SavedActionitemDescriptionArray);
+        NSLog(@"action item assigned to is %@",SavedAssignedToArray);
+        NSLog(@"action item priority is %@",SavedPriorityArray);
+        NSLog(@"action item status is %@",SavedStatusArray);
+        [ActionitemsTV reloadData];
+        
+    }
+    }
 
 -(void)NotesList
 {
-    NSString *Saveactionitemsurl = @"NotesTabDisplayService";
-    NSDictionary *credentials = @{@"objectId":_ObjIdstr,@"userId":Useridstr};
-    [Servicecall NotesList:Saveactionitemsurl NotesListParametrs:credentials];
+//    NSString *Saveactionitemsurl = @"NotesTabDisplayService";
+//    NSDictionary *credentials = @{@"objectId":_ObjIdstr,@"userId":Useridstr};
+//    [Servicecall NotesList:Saveactionitemsurl NotesListParametrs:credentials];
+//    [Servicecall setDelegate:self];
+    
+    NSString *publicnotesdec =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/meeting/v1/notesTabList?agendaId=%@&userId=%@",_AgendaBasedMeetingIdstr,Useridstr];
+    NSString *encode1=[publicnotesdec stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    Servicecall=[[Webservices alloc]init];
+    [Servicecall noteslistUrl:encode1];
     [Servicecall setDelegate:self];
+
 }
+
+-(void)noteslist:(id)notesList
+{
+    NSDictionary *dict=notesList;
+    NSLog(@"dict is %@",dict);
+    
+    if ([[dict objectForKey:@"statusMessage"]isEqualToString:@"No Data"])
+    {
+        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Warning" message:@"counts are empty" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:nil, nil];
+        [alert show];
+    }
+    else
+    {
+        NoteRefrenceArray          =[NSMutableArray new];
+        NoteDescriptionArray       =[NSMutableArray new];
+        NotePublicArray            =[NSMutableArray new];
+        resultarray2=[[NSMutableArray alloc]init];
+        resultarray2 = [dict objectForKey:@"resAL"];
+        for (NSDictionary *fidd in resultarray2)
+        {
+            [NoteRefrenceArray addObject:[fidd valueForKey:@"noteReference"]];
+            [NoteDescriptionArray addObject:[fidd valueForKey:@"notesDescription"]];
+            [NotePublicArray addObject:[fidd valueForKey:@"notePublicPrivate"]];
+            
+        }
+        NSLog(@"note reference is %@:",NoteRefrenceArray);
+        NSLog(@"note des is %@",NoteDescriptionArray);
+        NSLog(@"note public is %@",NotePublicArray);
+        [ActionitemsTV reloadData];
+        
+    }
+
+   }
 -(void)FeedbackList
 {
-    NSLog(@"agenda meeting id is %@",_AgendaBasedMeetingIdstr);
-    NSString *Feedbackurl = @"FeedbackListService";
-    NSDictionary *credentials = @{@"userId":Useridstr,@"meetingId":_AgendaBasedMeetingIdstr};
-    [Servicecall Feedbacklisturl:Feedbackurl FeedbackCredentials:credentials];
+   // NSLog(@"agenda meeting id is %@",_AgendaBasedMeetingIdstr);
+//    NSString *Feedbackurl = @"FeedbackListService";
+//    NSDictionary *credentials = @{@"userId":Useridstr,@"meetingId":_AgendaBasedMeetingIdstr};
+//    [Servicecall Feedbacklisturl:Feedbackurl FeedbackCredentials:credentials];
+//    [Servicecall setDelegate:self];
+
+    NSString *publicnotesdec =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/meeting/v1/feedabackTabList?meetingId=%@&userId=%@",_meetingid,Useridstr];
+    NSString *encode1=[publicnotesdec stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    Servicecall=[[Webservices alloc]init];
+    [Servicecall feedbackListUrl:encode1];
     [Servicecall setDelegate:self];
+}
+
+-(void)feedbackList:(id)feedbacklist
+{
+    NSDictionary *dict=feedbacklist;
+    NSLog(@"dict is %@",dict);
+    
+    if ([[dict objectForKey:@"statusMessage"]isEqualToString:@"No Data"])
+    {
+        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Warning" message:@"counts are empty" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:nil, nil];
+        [alert show];
     }
+    else
+    {
+        PositiveDescArray          =[NSMutableArray new];
+        NegativeDescArray          =[NSMutableArray new];
+        resultarray3=[[NSMutableArray alloc]init];
+        resultarray3 = [dict objectForKey:@"resAL"];
+        for (NSDictionary *fiddd in resultarray3)
+        {
+            [PositiveDescArray addObject:[fiddd valueForKey:@"positiveFeedback"]];
+            [NegativeDescArray addObject:[fiddd valueForKey:@"negativeFeedback"]];
+           
+        }
+        NSLog(@"positive feedback is %@:",PositiveDescArray);
+        NSLog(@"negative feedback is %@",NegativeDescArray);
+        [ActionitemsTV reloadData];
+        
+    }
+
+}
 -(void)AssignToPickerTapped
 {
     [DatePicker removeFromSuperview];
@@ -507,6 +618,12 @@
         [Servicecall SaveActionitemsList:Saveactionitemsurl SaveActionItemParametres:credentials];
         [Servicecall setDelegate:self];
             
+//            
+//            NSString *actionitemsaveurl = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/meeting/v1/saveactionItems"];
+//            NSString *credentials = [NSString stringWithFormat:@"ObjId=%@&ObjDesc=%@&category=%@&actionItemDesc=%@assignedId=%@&dueDate=%@&priority=%@&effortReq=%@&effortUom=%@&created_by=%@",_ObjIdstr,_ObjDistr,];
+//            [Servicecall saveparticipant:ParticipantSaveurl saveparticipantparams:credentials];
+//            [Servicecall setDelegate:self];
+//            
             [ActiondisTextView setBackgroundColor:[UIColor whiteColor]];
             [assigntoTxtfld setBackgroundColor:[UIColor whiteColor]];
             [Duedatetxtfld setBackgroundColor:[UIColor whiteColor]];
@@ -1016,11 +1133,7 @@
 //            [cell.contentView addSubview:Positivelbl];
         
         
-        
-            
-            
-        
-        
+
             
         
         return cell;
@@ -1030,9 +1143,6 @@
     
 }
  
-    
-
-
 
 
 
