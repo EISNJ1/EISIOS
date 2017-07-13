@@ -326,44 +326,121 @@
     NSArray *resultarray=[dict1 valueForKey:@"resAL"];
     
     NSLog(@"result array is %@",resultarray);
+    statusnameArray   = [[NSMutableArray alloc]init];
+    STATUS_IDArray =  [[NSMutableArray alloc]init];
+    
+    for (NSDictionary *fidd in resultarray)
+    {
+        [statusnameArray addObject:[fidd valueForKey:@"issueStatus"]];
+        [STATUS_IDArray addObject:[fidd valueForKey:@"issueStatusId"]];
+    }
 }
 
 -(void)typeService
 {
     Servicecall = [[Webservices alloc]init];
-    NSString *projectLstForTask = @"TasksSpinnersListsService";
-    NSDictionary *credentials = @{ @"orgId":OrgIdStr};
-    [Servicecall createIssueIssueTypeSpinner:projectLstForTask ParticipantsListParameters:credentials];
+    NSString *projectLstForTask =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/issues/v1/issueTypeSpinner?orgId=%@",OrgIdStr];
+    [Servicecall issuetypeservice:projectLstForTask];
     [Servicecall setDelegate:self];
 
+}
+-(void)issuetype:(id)issuetyperesponse
+{
+    NSDictionary *dict=[[NSDictionary alloc]init];
+    
+    dict=issuetyperesponse;
+    
+    NSArray *resultarray=[dict valueForKey:@"resAL"];
+    NSLog(@"result array is %@",resultarray);
+    statustypeArray   = [[NSMutableArray alloc]init];
+    TypESTATUS_IDArray   = [[NSMutableArray alloc]init];
+    
+    for (NSDictionary *fidd in resultarray)
+    {
+        [statustypeArray addObject:[fidd valueForKey:@"issueType"]];
+        [TypESTATUS_IDArray addObject:[fidd valueForKey:@"issueTypeId"]];
+    }
+    
 }
 -(void)assignToService
 {
     Servicecall = [[Webservices alloc]init];
-    NSString *projectLstForTask = @"TasksSpinnersListsService";
-    NSDictionary *credentials = @{ @"prjctId":projectIdStr};
-    [Servicecall createIssueAssighToeSpinner:projectLstForTask ParticipantsListParameters:credentials];
+    NSString *projectLstForTask =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/task/v1/taskResourceSpinner?projectId=%@",projectIdStr];
+   // NSDictionary *credentials = @{ @"prjctId":projectIdStr};
+    [Servicecall assigntoservice:projectLstForTask];
     [Servicecall setDelegate:self];
+}
+-(void)assigntoservice:(id)assigntoserviceresponse
+{
+    NSDictionary *dict=[[NSDictionary alloc]init];
+    
+    dict=assigntoserviceresponse;
+    
+    NSArray *resultarray=[dict valueForKey:@"resAL"];
+    
+    NSLog(@"the result array is %@",resultarray);
+    resourcenamearray = [[NSMutableArray alloc]init];
+    ResourceIdArray   = [[NSMutableArray alloc]init];
+    
+    for (NSDictionary *fidd in resultarray)
+    {
+        [resourcenamearray addObject:[fidd valueForKey:@"resourceName"]];
+        [ResourceIdArray addObject:[fidd valueForKey:@"resourceId"]];
+    }
 }
 
 -(void)teamSubmittedService
 {
     Servicecall = [[Webservices alloc]init];
-    NSString *projectLstForTask = @"TasksSpinnersListsService";
-    NSDictionary *credentials = @{ @"prjctId":projectIdStr};
-    [Servicecall createIssueTeamSubmittedeSpinner:projectLstForTask ParticipantsListParameters:credentials];
+    NSString *projectLstForTask = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/issues/v1/issueteamSubmittedSpinner?projectId=%@",projectIdStr];
+    [Servicecall teamsubmittedservice:projectLstForTask];
     [Servicecall setDelegate:self];
 }
 
+-(void)teamsubmittedservice:(id)teamsubmittedresponse
+{
+    NSDictionary *dict=[[NSDictionary alloc]init];
+    
+    dict=teamsubmittedresponse;
+    
+    NSArray *resultarray=[dict valueForKey:@"resAL"];
+    NSLog(@"the result array is %@",resultarray);
+    
+    TeamnameArray    = [[NSMutableArray alloc]init];
+    TeamIdArray      = [[NSMutableArray alloc]init];
+    
+    for (NSDictionary *fidd in resultarray)
+    {
+        [TeamnameArray addObject:[fidd valueForKey:@"teamName"]];
+        [TeamIdArray addObject:[fidd valueForKey:@"teamId"]];
+    }
+}
 
 -(void)severityService
 {
     Servicecall = [[Webservices alloc]init];
-    NSString *projectLstForTask = @"TasksSpinnersListsService";
-    NSDictionary *credentials = @{ @"orgId":OrgIdStr};
-    [Servicecall createIssueSeveritySpinner:projectLstForTask ParticipantsListParameters:credentials];
+    NSString *projectLstForTask = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/issues/v1/issueBusinessPrioritySpinner?orgId=%@",OrgIdStr];
+    [Servicecall servityservice:projectLstForTask];
     [Servicecall setDelegate:self];
 
+}
+-(void)servityservice:(id)servityserviceresponse
+{
+    NSDictionary *dict=[[NSDictionary alloc]init];
+    
+    dict=servityserviceresponse;
+    
+    NSArray *resultaray=[dict valueForKey:@"resAL"];
+    NSLog(@"the result array is %@",resultaray);
+    
+    businessnameArray    = [[NSMutableArray alloc]init];
+    BUSINESS_PRIORITY_IDArray      = [[NSMutableArray alloc]init];
+    
+    for (NSDictionary *fidd in resultaray)
+    {
+        [businessnameArray addObject:[fidd valueForKey:@"businessPriority"]];
+        [BUSINESS_PRIORITY_IDArray addObject:[fidd valueForKey:@"businessPriorityId"]];
+    }
 }
 
 -(IBAction)uploadButtonClicked:(id)sender

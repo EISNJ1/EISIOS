@@ -38,6 +38,10 @@
 
 -(void)issuelist:(id)issuesresponse;
 -(void)issuestatus:(id)issuestatusresponse;
+-(void)issuetype:(id)issuetyperesponse;
+-(void)assigntoservice:(id)assigntoserviceresponse;
+-(void)teamsubmittedservice:(id)teamsubmittedresponse;
+-(void)servityservice:(id)servityserviceresponse;
 
 //soap methods
 -(void)didfinishactionitemlist :(id)actionitemlist;
@@ -101,6 +105,10 @@
 // Issues Json
 -(void)issueslist:(NSString *)issueslistclass;
 -(void)issuestatusclass:(NSString *)issuestatusparams;
+-(void)issuetypeservice:(NSString *)issuetypeserviceclass;
+-(void)assigntoservice:(NSString *)assigntoserviceclass;
+-(void)teamsubmittedservice:(NSString *)teamsubmittedserviceclass;
+-(void)servityservice:(NSString *)servityserviceclass;
 
 
 
