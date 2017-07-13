@@ -1761,8 +1761,8 @@
         NSLog(@"agenda meeting id str is %@",agendaMeetingIdStr);
         ActionItemsVC  = [self.storyboard instantiateViewControllerWithIdentifier:@"ActionitemView"];
         ActionItemsVC.ObjDistr                = [MeetingdesArray objectAtIndex:indexPath.row];
-        ActionItemsVC.ObjIdstr                =[ObjeIdArray objectAtIndex:indexPath.row];
-        ActionItemsVC.AgendaBasedMeetingIdstr =[AgendaMeetingIdArray objectAtIndex:indexPath.row];
+        ActionItemsVC.ObjIdstr                =[AgendaMeetingIdArray objectAtIndex:indexPath.row];
+        //ActionItemsVC.AgendaBasedMeetingIdstr =[AgendaMeetingIdArray objectAtIndex:indexPath.row];
         ActionItemsVC.projectId=[AgendaMeetingProjId objectAtIndex:indexPath.row];
         ActionItemsVC.meetingid=[AgendaMeetingMeetingID objectAtIndex:indexPath.row];
         [self.navigationController pushViewController:ActionItemsVC animated:YES];
