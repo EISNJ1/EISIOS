@@ -283,7 +283,7 @@
 }
 -(void)ActionitemsList
 {
-    NSString *publicnotesdec =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/meeting/v1/actionItemsTabList?agendaId=%@&userId=%@",_AgendaBasedMeetingIdstr,Useridstr];
+    NSString *publicnotesdec =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/meeting/v1/actionItemsTabList?agendaId=%@&userId=%@",_ObjIdstr,Useridstr];
     NSString *encode1=[publicnotesdec stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     Servicecall=[[Webservices alloc]init];
     [Servicecall actionItemListUrl:encode1];
@@ -418,10 +418,9 @@
 -(void)AssignToPickerTapped
 {
     [DatePicker removeFromSuperview];
-    NSString *AssignedTourl = @"ActionItemsTabAssignedToService";
-    NSDictionary *credentials = @{@"projectId":projectId1};
-    NSLog(@"hai%@",projectId1);
-    [Servicecall AssignedTourl:AssignedTourl AssignedValues:credentials];
+    NSString *AssignedTourl = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/meeting/v1/actionItemAssignToSpinner?projectId=%@",projectId1];
+        NSLog(@"hai%@",projectId1);
+    [Servicecall actionitemassignedto:AssignedTourl];
     [Servicecall setDelegate:self];
     
     [PickerView removeFromSuperview];
@@ -440,6 +439,24 @@
     PickerView.transform = transfrom;
     PickerView.alpha = PickerView.alpha * (-1) + 1;
     [UIView commitAnimations];
+}
+-(void)actionitemassigned:(id)actionitemassignedto
+{
+    NSDictionary *dict=[[NSDictionary alloc]init];
+    
+    dict=actionitemassignedto;
+    NSLog(@"dict is %@",dict);
+    
+    NSArray *resultarray3=[dict valueForKey:@"resAL"];
+    ResourceIdArray      =[NSMutableArray new];
+    ResourceNameArray    =[NSMutableArray new];
+    
+   for (NSDictionary *fidd in resultarray3)
+    {
+        [ResourceIdArray addObject:[fidd valueForKey:@"resourceId"]];
+        [ResourceNameArray addObject:[fidd valueForKey:@"resourceName"]];
+    }
+    [PickerView reloadAllComponents];
 }
 -(void)DatePickerTapped
 
@@ -613,16 +630,18 @@
 
         else{
         NSString *category = @"actionItem";
-        NSString *Saveactionitemsurl = @"ActionItemsTabSaveService";
-        NSDictionary *credentials = @{@"ObjId":_ObjIdstr,@"ObjDesc":_ObjDistr,@"category":category,@"actionItemDesc":ActiondisTextView.text,@"assignedId":ResourceIdstr,@"dueDate":Duedatetxtfld.text,@"priority":Prioritytxtfld.text,@"effortReq":Effortrequiredtxtfld.text,@"effortUom":EffortUomtxtfld.text,@"created_by":Useridstr};
-        [Servicecall SaveActionitemsList:Saveactionitemsurl SaveActionItemParametres:credentials];
-        [Servicecall setDelegate:self];
+//        NSString *Saveactionitemsurl = @"ActionItemsTabSaveService";
+//        NSDictionary *credentials = @{@"ObjId":_ObjIdstr,@"ObjDesc":_ObjDistr,@"category":category,@"actionItemDesc":ActiondisTextView.text,@"assignedId":ResourceIdstr,@"dueDate":Duedatetxtfld.text,@"priority":Prioritytxtfld.text,@"effortReq":Effortrequiredtxtfld.text,@"effortUom":EffortUomtxtfld.text,@"created_by":Useridstr};
+//        [Servicecall SaveActionitemsList:Saveactionitemsurl SaveActionItemParametres:credentials];
+//        [Servicecall setDelegate:self];
             
 
-//            NSString *actionitemsaveurl = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/meeting/v1/saveactionItems"];
-//            NSString *credentials = [NSString stringWithFormat:@"ObjId=%@&ObjDesc=%@&category=%@&actionItemDesc=%@assignedId=%@&dueDate=%@&priority=%@&effortReq=%@&effortUom=%@&created_by=%@",_ObjIdstr,_ObjDistr,cate];
-//            [Servicecall saveparticipant:ParticipantSaveurl saveparticipantparams:credentials];
-//            [Servicecall setDelegate:self];
+            NSString *actionitemsaveurl = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/meeting/v1/saveactionItems"];
+NSString *credentials = [NSString stringWithFormat:@"ObjId=%@&ObjDesc=%@&category=%@&actionItemDesc=%@&assignedId=%@&dueDate=%@&priority=%@&effortReq=%@&effortUom=%@&created_by=%@",_ObjIdstr,_ObjDistr,category,ActiondisTextView.text,ResourceIdstr,Duedatetxtfld.text,Prioritytxtfld.text,Effortrequiredtxtfld.text,EffortUomtxtfld.text,Useridstr];
+            
+            NSLog(@"params are %@",credentials);
+            [Servicecall saveactionitemUrl:actionitemsaveurl saveactionitemparams:credentials];
+            [Servicecall setDelegate:self];
             
             [ActiondisTextView setBackgroundColor:[UIColor whiteColor]];
             [assigntoTxtfld setBackgroundColor:[UIColor whiteColor]];
@@ -690,6 +709,24 @@
     
     
 
+}
+-(void)saveactionitem:(id)actionitemresponse
+{
+    NSData *data=[[NSData alloc]initWithData:actionitemresponse];
+    NSError *error;
+    
+    NSDictionary *dict=[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
+    NSLog(@"dict is %@",dict);
+    
+    if ([[dict valueForKey:@"statusMessage"]isEqualToString:@"Inserted"])
+    {
+       UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Alert" message:@"actionitem saved successfully" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+        [alert show];
+        
+        [self ActionitemsList];
+    }
+    
+    
 }
 
 -(void)SegmentIndexTapped
