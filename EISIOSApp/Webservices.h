@@ -28,6 +28,10 @@
 -(void)participantresourcename:(id)participantsreslist;
 -(void)participantsrole:(id)participantsroleresponse;
 -(void)saveparticipants:(id)saveparticipantsresource;
+-(void)actionItemList:(id)actionItemlist;
+-(void)noteslist:(id)notesList;
+-(void)feedbackList:(id)feedbacklist;
+
 //Timesheet
 
 -(void)timesheetlist:(id)timesheetresponse;

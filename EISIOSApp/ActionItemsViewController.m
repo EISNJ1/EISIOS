@@ -618,12 +618,12 @@
         [Servicecall SaveActionitemsList:Saveactionitemsurl SaveActionItemParametres:credentials];
         [Servicecall setDelegate:self];
             
-//            
+
 //            NSString *actionitemsaveurl = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/meeting/v1/saveactionItems"];
-//            NSString *credentials = [NSString stringWithFormat:@"ObjId=%@&ObjDesc=%@&category=%@&actionItemDesc=%@assignedId=%@&dueDate=%@&priority=%@&effortReq=%@&effortUom=%@&created_by=%@",_ObjIdstr,_ObjDistr,];
+//            NSString *credentials = [NSString stringWithFormat:@"ObjId=%@&ObjDesc=%@&category=%@&actionItemDesc=%@assignedId=%@&dueDate=%@&priority=%@&effortReq=%@&effortUom=%@&created_by=%@",_ObjIdstr,_ObjDistr,cate];
 //            [Servicecall saveparticipant:ParticipantSaveurl saveparticipantparams:credentials];
 //            [Servicecall setDelegate:self];
-//            
+            
             [ActiondisTextView setBackgroundColor:[UIColor whiteColor]];
             [assigntoTxtfld setBackgroundColor:[UIColor whiteColor]];
             [Duedatetxtfld setBackgroundColor:[UIColor whiteColor]];
