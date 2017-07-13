@@ -28,10 +28,16 @@
 -(void)participantresourcename:(id)participantsreslist;
 -(void)participantsrole:(id)participantsroleresponse;
 -(void)saveparticipants:(id)saveparticipantsresource;
--(void)noteslist:(id)notesList;
--(void)actionItemList:(id)actionItemlist;
--(void)feedbackList:(id)feedbacklist;
--(void)saveNoteslist:(id)savenotesList;
+//Timesheet
+
+-(void)timesheetlist:(id)timesheetresponse;
+-(void)approvetimesheet:(id)approvetimesheetresponse;
+-(void)tasklistfortimesheet:(id)tasklistfortimesheetresponse;
+
+// Issues
+
+-(void)issuelist:(id)issuesresponse;
+-(void)issuestatus:(id)issuestatusresponse;
 
 //soap methods
 -(void)didfinishactionitemlist :(id)actionitemlist;
@@ -85,6 +91,18 @@
 -(void)actionItemListUrl:(NSString *)actionItemlistUrl;
 -(void)feedbackListUrl:(NSString *)feedbacklistUrl;
 -(void)savenotesUrl:(NSString *)savenoteslist savenotesparams:(NSString *)savenotesurl;
+
+// TimeSheet Json
+
+-(void)timesheet:(NSString *)timesheetlist;
+-(void)approvetimesheet:(NSString *)approvetimesheetclass approvetimesheetparams:(NSString *)approvetimesheetprameters;
+-(void)tasklistfortimesheet:(NSString *)tasklistfortimesheetclass;
+
+// Issues Json
+-(void)issueslist:(NSString *)issueslistclass;
+-(void)issuestatusclass:(NSString *)issuestatusparams;
+
+
 
 
 -(void)Loginserviceurl: (NSString *)Loginurl Loginparameters : (NSDictionary *)LoginCredentials;

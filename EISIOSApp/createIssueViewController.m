@@ -121,10 +121,10 @@
     
     //------------Project Spinner  Calling-------------//
     
-    Servicecall = [[Webservices alloc]init];
-    NSString *projectLstForTask = @"TasksSpinnersListsService";
-    NSDictionary *credentials = @{ @"usertype":UserTypestr,@"userID":Useridstr,@"orgId":OrgIdStr};
-    [Servicecall createIssueProjectSpinner:projectLstForTask ParticipantsListParameters:credentials];
+    NSString *projectListurl=[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/meeting/v1/projectListSpinner?usertype=%@&userId=%@&orgId=%@",UserTypestr,Useridstr,OrgIdStr];
+    NSString *encode=[projectListurl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    Servicecall=[[Webservices alloc]init];
+    [Servicecall projectlstspinrurl:encode];
     [Servicecall setDelegate:self];
     
     projectTfd.text = projectTblStr;
@@ -174,7 +174,7 @@
         attatchmentsLabel.text=@"Attatchments";
         attatchmentsLabel.tag=155;
         [createIssueView addSubview:attatchmentsLabel];
-        [self AttatchmentList];
+        //[self AttatchmentList];
         
         
         attatchmentTableView=[[UITableView alloc]initWithFrame:CGRectMake(attatchmentsLabel.frame.origin.x+200, attatchmentsLabel.frame.origin.y-20, issueHistoryTextView.frame.size.width, 100) ];
@@ -207,7 +207,7 @@
     [label setTextColor:[UIColor blackColor]];
     [label setBackgroundColor:[UIColor clearColor]];
     [Eisbutton addSubview:label];
-    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:Eisbutton];
+    UIBarButtonItem *barButton = [[UIBarButtonItem alloc]initWithCustomView:Eisbutton];
     self.navigationItem.leftBarButtonItem = barButton;
     
     
@@ -222,6 +222,64 @@
 }
 
 
+-(void)projectlistspinner:(id)projectlistSpinner
+{
+    NSDictionary *dict=[[NSDictionary alloc]init];
+    
+    dict=projectlistSpinner;
+    NSLog(@"dict is %@",dict);
+    
+    projectnameArray   = [[NSMutableArray alloc]init];
+    newprojectidstrArray  = [[NSMutableArray alloc]init];
+    
+    NSArray *resultarray=[dict valueForKey:@"resAL"];
+    
+    for (NSDictionary *fidd in resultarray)
+    {
+        
+
+        [projectnameArray addObject:[fidd valueForKey:@"projectName"]];
+        [newprojectidstrArray addObject:[fidd valueForKey:@"projectId"]];
+        
+    }
+    if ([projectTblStr length] == 0)
+    {
+        
+        projectTfd.text = [projectnameArray objectAtIndex:0];
+        projectIdStr = [newprojectidstrArray objectAtIndex:0];
+        
+        [self statusService];
+        [self typeService];
+        [self assignToService];
+        [self teamSubmittedService];
+        [self severityService];
+    }
+    
+    
+    
+    
+    NSString *tempString = projectTblStr;
+    for(int i=0; i<[projectnameArray count]; i++)
+    {
+        if([tempString isEqualToString:[projectnameArray objectAtIndex:i]])
+        {
+            
+            projectIdStr = [newprojectidstrArray objectAtIndex:i];
+            projectTfd.text=[projectnameArray objectAtIndex:i];
+            
+            [self statusService];
+            [self typeService];
+            [self assignToService];
+            [self teamSubmittedService];
+            [self severityService];
+            
+        }
+    }
+    
+
+    
+    
+}
 
 -(void)viewWillAppear:(BOOL)animated
 {
@@ -243,23 +301,33 @@
 
 }
 
--(void)AttatchmentList
-{
-    Servicecall=[[Webservices alloc]init];
-    NSString *IssueAttatchmentClass=@"IssuesAttachment";
-    NSDictionary *IssueAttatchmentDictionary=@{@"issueId":issueIdTblStr};
-    [Servicecall IssueAttatchmentsList:IssueAttatchmentClass IssueAttatchmentsListDictionary:IssueAttatchmentDictionary];
-    [Servicecall setDelegate:self];
-
-}
+//-(void)AttatchmentList
+//{
+//    Servicecall=[[Webservices alloc]init];
+//    NSString *IssueAttatchmentClass=@"IssuesAttachment";
+//    NSDictionary *IssueAttatchmentDictionary=@{@"issueId":issueIdTblStr};
+//    [Servicecall IssueAttatchmentsList:IssueAttatchmentClass IssueAttatchmentsListDictionary:IssueAttatchmentDictionary];
+//    [Servicecall setDelegate:self];
+//
+//}
 -(void)statusService
 {
     Servicecall = [[Webservices alloc]init];
-    NSString *projectLstForTask = @"TasksSpinnersListsService";
-    NSDictionary *credentials = @{ @"orgId":OrgIdStr};
-    [Servicecall createIssueStatusSpinner:projectLstForTask ParticipantsListParameters:credentials];
+    NSString *projectLstForTask =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/issues/v1/issueStatusSpinner?orgId=%@",OrgIdStr];
+    [Servicecall issuestatusclass:projectLstForTask];
     [Servicecall setDelegate:self];
 }
+-(void)issuestatus:(id)issuestatusresponse
+{
+    NSDictionary *dict1=[[NSDictionary alloc]init];
+    
+    dict1=issuestatusresponse;
+    
+    NSArray *resultarray=[dict1 valueForKey:@"resAL"];
+    
+    NSLog(@"result array is %@",resultarray);
+}
+
 -(void)typeService
 {
     Servicecall = [[Webservices alloc]init];
@@ -546,11 +614,10 @@
     issueHistoryTextView.text = nil;
     
     //------------Project Spinner  Calling-------------//
-    Servicecall = [[Webservices alloc]init];
-    NSLog(@"user type str is %@",UserTypestr);
-    NSString *projectLstForTask = @"TasksSpinnersListsService";
-    NSDictionary *credentials = @{ @"usertype":UserTypestr,@"userID":Useridstr,@"orgId":OrgIdStr};
-    [Servicecall createIssueProjectSpinner:projectLstForTask ParticipantsListParameters:credentials];
+    NSString *projectListurl=[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/meeting/v1/projectListSpinner?usertype=%@&userId=%@&orgId=%@",UserTypestr,Useridstr,OrgIdStr];
+    NSString *encode=[projectListurl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    Servicecall=[[Webservices alloc]init];
+    [Servicecall projectlstspinrurl:encode];
     [Servicecall setDelegate:self];
     
     
@@ -558,6 +625,7 @@
     
     [updateBtn setHidden:YES];
     [saveBtn setHidden:NO];
+    [projectListBtn setEnabled:YES];
 
   
 
@@ -1286,7 +1354,7 @@
             attatchmentsLabel.text=@"Attatchments";
             attatchmentsLabel.tag=155;
             [createIssueView addSubview:attatchmentsLabel];
-            [self AttatchmentList];
+            //[self AttatchmentList];
             
             
             attatchmentTableView=[[UITableView alloc]initWithFrame:CGRectMake(attatchmentsLabel.frame.origin.x+200, attatchmentsLabel.frame.origin.y-20, issueHistoryTextView.frame.size.width, 100) ];
@@ -1736,7 +1804,7 @@
            if ([saveAttatchmentStr isEqualToString:@"Inserted"])
            {
                 [self.view makeToast:@"Attatchment successfully uploaded" duration:2.0 position:[NSValue valueWithCGPoint:CGPointMake(400, 500)] ];
-               [self AttatchmentList];
+               //[self AttatchmentList];
            }
           
         else

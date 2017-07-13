@@ -128,21 +128,124 @@
 -(void)tableService
 {
     Servicecall = [[Webservices alloc]init];
-    NSString *projectLstForTask = @"TasksSpinnersListsService";
+    NSString *projectLstForTask = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/issues/v1/issuesList?usertype=%@&userId=%@&orgId=%@",UserTypestr,Useridstr,OrgIdStr];
     //NSDictionary *credentials = @{ @"usertype":@"A",@"userID": @"1"  ,@"orgId":@"1"};
     
-    NSDictionary *credentials2 = @{@"usertype":UserTypestr,@"userID":Useridstr,@"orgId":OrgIdStr};
+    //NSDictionary *credentials2 = @{@"usertype":UserTypestr,@"userID":Useridstr,@"orgId":OrgIdStr};
     //NSDictionary *credentials2 = @{@"usertype":@"Y",@"userID":@"127",@"orgId":OrgIdStr};
     
-    [Servicecall issueList:projectLstForTask ParticipantsListParameters:credentials2];
+    [Servicecall issueslist:projectLstForTask];
     [Servicecall setDelegate:self];
     
+}
+-(void)issuelist:(id)issuesresponse
+{
+    NSDictionary *dict=[[NSDictionary alloc]init];
+    dict=issuesresponse;
+    
+    NSLog(@"response is %@",dict);
+    
+    if ([[dict valueForKey:@"statusMessage"]isEqualToString:@"OK"])
+    {
+        IssueIdArray       = [[NSMutableArray alloc]init];
+        issuenoaArray      = [[NSMutableArray alloc]init];
+        projectidArray     = [[NSMutableArray alloc]init];
+        projectNameArray = [[NSMutableArray alloc]init];
+        issuestatusArray   = [[NSMutableArray alloc]init];
+        issuetypeArray     = [[NSMutableArray alloc]init];
+        buspriorityArray   = [[NSMutableArray alloc]init];
+        TeamNameArray      = [[NSMutableArray alloc]init];
+        assignedtoArray    = [[NSMutableArray alloc]init];
+        assignedbyArray    = [[NSMutableArray alloc]init];
+        descriptionArray   = [[NSMutableArray alloc]init];
+        longDesArray = [[NSMutableArray alloc]init];
+        
+        
+        escalatedRescrcAry = [[NSMutableArray alloc]init];
+        releaseImpactAry = [[NSMutableArray alloc]init];
+        dateResolutionNeedByAry = [[NSMutableArray alloc]init];
+        rejectReasonAry = [[NSMutableArray alloc]init];
+        resolutionTypeAry = [[NSMutableArray alloc]init];
+        dateResolvedAry = [[NSMutableArray alloc]init];
+        dateClosedAry = [[NSMutableArray alloc]init];
+        resolutionDtlsAry = [[NSMutableArray alloc]init];
+        issueTypeNameArray=[[NSMutableArray alloc]init];
+        
+        isFileAttatchedArray=[[NSMutableArray alloc]init];
+        pickerAry = [[NSMutableArray alloc] init];
+                pickerAry1 = [[NSMutableArray alloc] init];
+                newpickerAry = [[NSMutableArray alloc] init];
+                newpickerAry1 = [[NSMutableArray alloc] init];
+        
+        NSArray *resultarray=[dict valueForKey:@"resAL"];
+        
+        for (NSDictionary *fidd in resultarray)
+        {
+            [IssueIdArray addObject:[fidd valueForKey:@"issueId"]];
+            [issuenoaArray addObject:[fidd valueForKey:@"issueNumber"]];
+            [projectidArray addObject:[fidd valueForKey:@"projectId"]];
+            [projectNameArray addObject:[fidd valueForKey:@"projectName"]];
+            [issuestatusArray addObject:[fidd valueForKey:@"issueStatus"]];
+            [issuetypeArray addObject:[fidd valueForKey:@"issueType"]];
+            [buspriorityArray addObject:[fidd valueForKey:@"businessPriority"]];
+            [TeamNameArray addObject:[fidd valueForKey:@"teamName"]];
+            [assignedtoArray addObject:[fidd valueForKey:@"assignTo"]];
+            [assignedbyArray addObject:[fidd valueForKey:@"assignBy"]];
+            [descriptionArray addObject:[fidd valueForKey:@"description"]];
+            [longDesArray addObject:[fidd valueForKey:@"longDescription"]];
+            [escalatedRescrcAry addObject:[fidd valueForKey:@"escalatdToResource"]];
+            [releaseImpactAry addObject:[fidd valueForKey:@"releaseImpact"]];
+            [dateResolutionNeedByAry addObject:[fidd valueForKey:@"dateResolutionNeedBy"]];
+            [rejectReasonAry addObject:[fidd valueForKey:@"rejectReason"]];
+            [resolutionTypeAry addObject:[fidd valueForKey:@"resolutionType"]];
+            [dateResolvedAry addObject:[fidd valueForKey:@"dateResolved"]];
+            [dateClosedAry addObject:[fidd valueForKey:@"dateClosed"]];
+            [resolutionDtlsAry addObject:[fidd valueForKey:@"resolutionDetails"]];
+            [issueTypeNameArray addObject:[fidd valueForKey:@"resolutionTypeName"]];
+            [isFileAttatchedArray addObject:[fidd valueForKey:@"isFileAttached"]];
+        }
+        pickerAry1=issuetypeArray;
+        newpickerAry1=buspriorityArray;
+        
+        NSLog(@"issue type array is %@",issuetypeArray);
+        NSLog(@"newpicker array is %@",newpickerAry1);
+//        [pickerAry1 addObject:issuetype];
+//        [newpickerAry1 addObject:buspriority];
+        
+        tableAry = [[NSMutableArray alloc] init];
+        searchAry = [[NSMutableArray alloc] init];
+        tempAry = [[NSMutableArray alloc] initWithArray:issuestatusArray];
+        tableAry = issuestatusArray;
+        
+        [btn setUserInteractionEnabled:NO];
+        if ([statusSearch.text isEqualToString:@"Issue Type (All)"])
+        {
+            [self issuetype];
+            
+        }
+        
+        else if ([statusSearch.text isEqualToString:@"BusinessPriority(All)"])
+        {
+            [self businespriority];
+        }
+        
+    }
+    
+    NSLog(@"the issue status array is %@",IssueIdArray);
+    
+    [issueDetailsTbl reloadData];
+    
+int total =[issuetypeArray count];
+
+NSString *totalIssueToast=[NSString stringWithFormat:@"%d",total];
+[self.view makeToast:totalIssueToast duration:2.0 position:[NSValue valueWithCGPoint:CGPointMake(450, 450)]
+               title:@"Total ISsues"];
 }
 //-(void)DatafromDB
 //{
 //    appDel = [[UIApplication sharedApplication] delegate];
 //    objectContext = appDel.managedObjectContext;
-//    
+//
 //    NSEntityDescription *entityDesc = [NSEntityDescription entityForName:@"UserData" inManagedObjectContext:objectContext];
 //    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
 //    
@@ -191,246 +294,246 @@
 
 //parsing Deligate methods
 
--(void) parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName
-  namespaceURI:(NSString *)namespaceURI qualifiedName:
-(NSString *)qName attributes:(NSDictionary *)attributeDict
-{
-    
-    if ([elementName isEqualToString:@"issuesListResponse"])
-    {
-        TaskDetailsstr1    = [[NSString alloc] init];
-        Taskdataarray1     = [[NSArray alloc]init];
-        TasksplitArray1     = [[NSArray alloc]init];
-
-        
-        IssueIdArray       = [[NSMutableArray alloc]init];
-        issuenoaArray      = [[NSMutableArray alloc]init];
-        projectidArray     = [[NSMutableArray alloc]init];
-        projectNameArray = [[NSMutableArray alloc]init];
-        issuestatusArray   = [[NSMutableArray alloc]init];
-        issuetypeArray     = [[NSMutableArray alloc]init];
-        buspriorityArray   = [[NSMutableArray alloc]init];
-        TeamNameArray      = [[NSMutableArray alloc]init];
-        assignedtoArray    = [[NSMutableArray alloc]init];
-        assignedbyArray    = [[NSMutableArray alloc]init];
-        descriptionArray   = [[NSMutableArray alloc]init];
-        longDesArray = [[NSMutableArray alloc]init];
-        
-        
-        escalatedRescrcAry = [[NSMutableArray alloc]init];
-        releaseImpactAry = [[NSMutableArray alloc]init];
-        dateResolutionNeedByAry = [[NSMutableArray alloc]init];
-        rejectReasonAry = [[NSMutableArray alloc]init];
-        resolutionTypeAry = [[NSMutableArray alloc]init];
-        dateResolvedAry = [[NSMutableArray alloc]init];
-        dateClosedAry = [[NSMutableArray alloc]init];
-        resolutionDtlsAry = [[NSMutableArray alloc]init];
-        issueTypeNameArray=[[NSMutableArray alloc]init];
-
-        isFileAttatchedArray=[[NSMutableArray alloc]init];
-        
-        //watse  splitting
-        soapResults = [[NSMutableString alloc] init];
-        songDict = [[NSMutableDictionary alloc] init];
-        songsArray = [[NSMutableArray alloc] init];
-        noAry = [[NSMutableArray alloc] init];
-        
-        
-        pickerAry = [[NSMutableArray alloc] init];
-        pickerAry1 = [[NSMutableArray alloc] init];
-        newpickerAry = [[NSMutableArray alloc] init];
-        newpickerAry1 = [[NSMutableArray alloc] init];
-
-    }
-}
-
-
-
-- (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string
-{
-    if ([string isEqualToString:@"Flase"])
-    {
-        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"Warning" message:@"The List is Empty" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:nil, nil];
-        
-        [alert show];
-    }
-    else{
-        
-
-        
-       
-            NSString *chandu = @"*********";
-            TaskDetailsstr1 = [TaskDetailsstr1 stringByAppendingString:chandu];
-            TaskDetailsstr1 = [TaskDetailsstr1 stringByAppendingString:string];
-            NSLog(@"agenda details are test %@",TaskDetailsstr1);
-            Taskdataarray1 =[TaskDetailsstr1 componentsSeparatedByString:@"*********"];
-        
-        [soapResults appendString:string];
-        
-        
-
-    }
-    
-    
-}
-- (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName
-  namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
-{
-
-    
-  
-    if (parser == xmlParser)
-    {
-        
-        if ([elementName isEqualToString:@"issuesListResponse"])
-        {
-            
-            
-            if(soapResults)
-                [songDict setObject:soapResults forKey:elementName];
-            soapResults = nil;
-            if(songDict)
-                [songsArray addObject:songDict];
-            NSLog(@"Final Songs Array is %@",songsArray);
-            
-            NSString *str1 = [songDict objectForKey:@"issuesListResponse"];
-            //NSLog(@"Final Songs Array is %@",str1);
-            
-            NSArray *aArray = [str1 componentsSeparatedByString:@".;"];
-            //NSLog(@"The Split array is %@",aArray);
-            
-            
-            for (int i=1; i<[aArray count]; i++)
-            {
-                
-                TasksplitArray1 =[[aArray objectAtIndex:i] componentsSeparatedByString:@"###"];
-                
-                NSLog(@"split  is %@",TasksplitArray1);
-                
-                for (int j=1; j<[TasksplitArray1 count]; j++)
-                {
-                    
-                    IssueIdStr = [[TasksplitArray1 objectAtIndex:1] stringByReplacingOccurrencesOfString:@"IssueId==" withString:@""];
-                    
-                    issueno  = [[TasksplitArray1 objectAtIndex:2] stringByReplacingOccurrencesOfString:@"IssueNumber==" withString:@""];
-                    
-                    
-                    projectid = [[TasksplitArray1 objectAtIndex:3] stringByReplacingOccurrencesOfString:@"PojectId==" withString:@""];
-                    
-                    
-                    
-                    
-                    projectName = [[TasksplitArray1 objectAtIndex:4] stringByReplacingOccurrencesOfString:@"PROJECT_NAME==" withString:@""];
-                    
-                    
-                    issuestatus = [[TasksplitArray1 objectAtIndex:5] stringByReplacingOccurrencesOfString:@"IssueStatus==" withString:@""];
-                    
-                    issuetype = [[TasksplitArray1 objectAtIndex:6] stringByReplacingOccurrencesOfString:@"IssueType==" withString:@""];
-                    
-                    buspriority = [[TasksplitArray1 objectAtIndex:7] stringByReplacingOccurrencesOfString:@"BussPriority==" withString:@""];
-                    
-                    
-                    TeamName = [[TasksplitArray1 objectAtIndex:8] stringByReplacingOccurrencesOfString:@"TeamName==" withString:@""];
-                    
-                    
-                    assignedto = [[TasksplitArray1 objectAtIndex:9] stringByReplacingOccurrencesOfString:@"AssignedTo==" withString:@""];
-                    
-                    
-                    assignedby = [[TasksplitArray1 objectAtIndex:10] stringByReplacingOccurrencesOfString:@"AssignedBy==" withString:@""];
-                    
-                    description = [[TasksplitArray1 objectAtIndex:11] stringByReplacingOccurrencesOfString:@"Description==" withString:@""];
-                    
-                    
-                    longDes = [[TasksplitArray1 objectAtIndex:12] stringByReplacingOccurrencesOfString:@"LongDescription==" withString:@""];
-                    
-                    
-                    escalatedRescrcStr = [[TasksplitArray1 objectAtIndex:13 ] stringByReplacingOccurrencesOfString:@"EscalatdToResrc==" withString:@""];
-                    
-                    releaseImpactStr = [[TasksplitArray1 objectAtIndex:14] stringByReplacingOccurrencesOfString:@"ReleasImpact==" withString:@""];
-                    
-                    dateResolutionNeedByStr = [[TasksplitArray1 objectAtIndex:15] stringByReplacingOccurrencesOfString:@"DateReslutionNeedBy==" withString:@""];
-                    
-                    rejectReasonStr = [[TasksplitArray1 objectAtIndex:16] stringByReplacingOccurrencesOfString:@"RejctRsn==" withString:@""];
-                    
-                    resolutionTypeStr = [[TasksplitArray1 objectAtIndex:17] stringByReplacingOccurrencesOfString:@"ResolutionTyp==" withString:@""];
-                    
-                    dateResolvedStr = [[TasksplitArray1 objectAtIndex:18] stringByReplacingOccurrencesOfString:@"DateRslvd==" withString:@""];
-                    
-                    dateClosedStr = [[TasksplitArray1 objectAtIndex:19] stringByReplacingOccurrencesOfString:@"DateClsd==" withString:@""];
-                    
-                    resolutionDtlsStr = [[TasksplitArray1 objectAtIndex:20] stringByReplacingOccurrencesOfString:@"ResolutionDtls==" withString:@""];
-                    
-                    ResolutionTypeName=[[TasksplitArray1 objectAtIndex:22]stringByReplacingOccurrencesOfString:@"ResolutionTypeName==" withString:@""];
-                    
-                    isFileAtatched=[[TasksplitArray1 objectAtIndex:21]stringByReplacingOccurrencesOfString:@"IsFileAttached==" withString:@""];
-                }
-                [IssueIdArray addObject:IssueIdStr];
-                [issuenoaArray addObject:issueno];
-                [projectidArray addObject:projectid];
-                [TeamNameArray addObject: TeamName];
-                
-                [issuestatusArray addObject:issuestatus];
-                [issuetypeArray addObject:issuetype];
-                [buspriorityArray addObject:buspriority];
-                [assignedtoArray addObject:assignedto];
-                [assignedbyArray addObject:assignedby];
-                [descriptionArray addObject:description];
-                
-                [projectNameArray addObject:projectName];
-                [longDesArray addObject:longDes];
-                [isFileAttatchedArray addObject:isFileAtatched];
-                
-                
-                [escalatedRescrcAry addObject:escalatedRescrcStr];
-                [releaseImpactAry addObject:releaseImpactStr];
-                NSLog(@"Relaese impact array %@",releaseImpactAry);
-                [dateResolutionNeedByAry addObject:dateResolutionNeedByStr];
-                [rejectReasonAry addObject:rejectReasonStr];
-                [resolutionTypeAry addObject:resolutionTypeStr];
-                [dateResolvedAry addObject:dateResolvedStr];
-                [dateClosedAry addObject:dateClosedStr];
-                [resolutionDtlsAry addObject:resolutionDtlsStr];
-                [issueTypeNameArray addObject:ResolutionTypeName];
-                
-                
-                
-                [pickerAry1 addObject:issuetype];
-                [newpickerAry1 addObject:buspriority];
-                
-                tableAry = [[NSMutableArray alloc] init];
-                searchAry = [[NSMutableArray alloc] init];
-                tempAry = [[NSMutableArray alloc] initWithArray:issuestatusArray];
-                tableAry = issuestatusArray;
-                
-                [btn setUserInteractionEnabled:NO];
-                if ([statusSearch.text isEqualToString:@"Issue Type (All)"])
-                {
-                    [self issuetype];
-                    
-                }
-                
-                else if ([statusSearch.text isEqualToString:@"BusinessPriority(All)"])
-                {
-                    [self businespriority];
-                }
-                
-            }
-            
-            NSLog(@"the issue status array is %@",IssueIdArray);
-            
-            [issueDetailsTbl reloadData];
-            
-        }
-
-        
-    }
-    int total =[issuetypeArray count];
-    
-    NSString *totalIssueToast=[NSString stringWithFormat:@"%d",total];
-    [self.view makeToast:totalIssueToast duration:2.0 position:[NSValue valueWithCGPoint:CGPointMake(450, 450)]
-                   title:@"Total ISsues"];
-
-}
+//-(void) parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName
+//  namespaceURI:(NSString *)namespaceURI qualifiedName:
+//(NSString *)qName attributes:(NSDictionary *)attributeDict
+//{
+//    
+//    if ([elementName isEqualToString:@"issuesListResponse"])
+//    {
+//        TaskDetailsstr1    = [[NSString alloc] init];
+//        Taskdataarray1     = [[NSArray alloc]init];
+//        TasksplitArray1     = [[NSArray alloc]init];
+//
+//        
+//        IssueIdArray       = [[NSMutableArray alloc]init];
+//        issuenoaArray      = [[NSMutableArray alloc]init];
+//        projectidArray     = [[NSMutableArray alloc]init];
+//        projectNameArray = [[NSMutableArray alloc]init];
+//        issuestatusArray   = [[NSMutableArray alloc]init];
+//        issuetypeArray     = [[NSMutableArray alloc]init];
+//        buspriorityArray   = [[NSMutableArray alloc]init];
+//        TeamNameArray      = [[NSMutableArray alloc]init];
+//        assignedtoArray    = [[NSMutableArray alloc]init];
+//        assignedbyArray    = [[NSMutableArray alloc]init];
+//        descriptionArray   = [[NSMutableArray alloc]init];
+//        longDesArray = [[NSMutableArray alloc]init];
+//        
+//        
+//        escalatedRescrcAry = [[NSMutableArray alloc]init];
+//        releaseImpactAry = [[NSMutableArray alloc]init];
+//        dateResolutionNeedByAry = [[NSMutableArray alloc]init];
+//        rejectReasonAry = [[NSMutableArray alloc]init];
+//        resolutionTypeAry = [[NSMutableArray alloc]init];
+//        dateResolvedAry = [[NSMutableArray alloc]init];
+//        dateClosedAry = [[NSMutableArray alloc]init];
+//        resolutionDtlsAry = [[NSMutableArray alloc]init];
+//        issueTypeNameArray=[[NSMutableArray alloc]init];
+//
+//        isFileAttatchedArray=[[NSMutableArray alloc]init];
+//        
+//        //watse  splitting
+//        soapResults = [[NSMutableString alloc] init];
+//        songDict = [[NSMutableDictionary alloc] init];
+//        songsArray = [[NSMutableArray alloc] init];
+//        noAry = [[NSMutableArray alloc] init];
+//        
+//        
+//        pickerAry = [[NSMutableArray alloc] init];
+//        pickerAry1 = [[NSMutableArray alloc] init];
+//        newpickerAry = [[NSMutableArray alloc] init];
+//        newpickerAry1 = [[NSMutableArray alloc] init];
+//
+//    }
+//}
+//
+//
+//
+//- (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string
+//{
+//    if ([string isEqualToString:@"Flase"])
+//    {
+//        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"Warning" message:@"The List is Empty" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:nil, nil];
+//        
+//        [alert show];
+//    }
+//    else{
+//        
+//
+//        
+//       
+//            NSString *chandu = @"*********";
+//            TaskDetailsstr1 = [TaskDetailsstr1 stringByAppendingString:chandu];
+//            TaskDetailsstr1 = [TaskDetailsstr1 stringByAppendingString:string];
+//            NSLog(@"agenda details are test %@",TaskDetailsstr1);
+//            Taskdataarray1 =[TaskDetailsstr1 componentsSeparatedByString:@"*********"];
+//        
+//        [soapResults appendString:string];
+//        
+//        
+//
+//    }
+//    
+//    
+//}
+//- (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName
+//  namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
+//{
+//
+//    
+//  
+//    if (parser == xmlParser)
+//    {
+//        
+//        if ([elementName isEqualToString:@"issuesListResponse"])
+//        {
+//            
+//            
+//            if(soapResults)
+//                [songDict setObject:soapResults forKey:elementName];
+//            soapResults = nil;
+//            if(songDict)
+//                [songsArray addObject:songDict];
+//            NSLog(@"Final Songs Array is %@",songsArray);
+//            
+//            NSString *str1 = [songDict objectForKey:@"issuesListResponse"];
+//            //NSLog(@"Final Songs Array is %@",str1);
+//            
+//            NSArray *aArray = [str1 componentsSeparatedByString:@".;"];
+//            //NSLog(@"The Split array is %@",aArray);
+//            
+//            
+//            for (int i=1; i<[aArray count]; i++)
+//            {
+//                
+//                TasksplitArray1 =[[aArray objectAtIndex:i] componentsSeparatedByString:@"###"];
+//                
+//                NSLog(@"split  is %@",TasksplitArray1);
+//                
+//                for (int j=1; j<[TasksplitArray1 count]; j++)
+//                {
+//                    
+//                    IssueIdStr = [[TasksplitArray1 objectAtIndex:1] stringByReplacingOccurrencesOfString:@"IssueId==" withString:@""];
+//                    
+//                    issueno  = [[TasksplitArray1 objectAtIndex:2] stringByReplacingOccurrencesOfString:@"IssueNumber==" withString:@""];
+//                    
+//                    
+//                    projectid = [[TasksplitArray1 objectAtIndex:3] stringByReplacingOccurrencesOfString:@"PojectId==" withString:@""];
+//                    
+//                    
+//                    
+//                    
+//                    projectName = [[TasksplitArray1 objectAtIndex:4] stringByReplacingOccurrencesOfString:@"PROJECT_NAME==" withString:@""];
+//                    
+//                    
+//                    issuestatus = [[TasksplitArray1 objectAtIndex:5] stringByReplacingOccurrencesOfString:@"IssueStatus==" withString:@""];
+//                    
+//                    issuetype = [[TasksplitArray1 objectAtIndex:6] stringByReplacingOccurrencesOfString:@"IssueType==" withString:@""];
+//                    
+//                    buspriority = [[TasksplitArray1 objectAtIndex:7] stringByReplacingOccurrencesOfString:@"BussPriority==" withString:@""];
+//                    
+//                    
+//                    TeamName = [[TasksplitArray1 objectAtIndex:8] stringByReplacingOccurrencesOfString:@"TeamName==" withString:@""];
+//                    
+//                    
+//                    assignedto = [[TasksplitArray1 objectAtIndex:9] stringByReplacingOccurrencesOfString:@"AssignedTo==" withString:@""];
+//                    
+//                    
+//                    assignedby = [[TasksplitArray1 objectAtIndex:10] stringByReplacingOccurrencesOfString:@"AssignedBy==" withString:@""];
+//                    
+//                    description = [[TasksplitArray1 objectAtIndex:11] stringByReplacingOccurrencesOfString:@"Description==" withString:@""];
+//                    
+//                    
+//                    longDes = [[TasksplitArray1 objectAtIndex:12] stringByReplacingOccurrencesOfString:@"LongDescription==" withString:@""];
+//                    
+//                    
+//                    escalatedRescrcStr = [[TasksplitArray1 objectAtIndex:13 ] stringByReplacingOccurrencesOfString:@"EscalatdToResrc==" withString:@""];
+//                    
+//                    releaseImpactStr = [[TasksplitArray1 objectAtIndex:14] stringByReplacingOccurrencesOfString:@"ReleasImpact==" withString:@""];
+//                    
+//                    dateResolutionNeedByStr = [[TasksplitArray1 objectAtIndex:15] stringByReplacingOccurrencesOfString:@"DateReslutionNeedBy==" withString:@""];
+//                    
+//                    rejectReasonStr = [[TasksplitArray1 objectAtIndex:16] stringByReplacingOccurrencesOfString:@"RejctRsn==" withString:@""];
+//                    
+//                    resolutionTypeStr = [[TasksplitArray1 objectAtIndex:17] stringByReplacingOccurrencesOfString:@"ResolutionTyp==" withString:@""];
+//                    
+//                    dateResolvedStr = [[TasksplitArray1 objectAtIndex:18] stringByReplacingOccurrencesOfString:@"DateRslvd==" withString:@""];
+//                    
+//                    dateClosedStr = [[TasksplitArray1 objectAtIndex:19] stringByReplacingOccurrencesOfString:@"DateClsd==" withString:@""];
+//                    
+//                    resolutionDtlsStr = [[TasksplitArray1 objectAtIndex:20] stringByReplacingOccurrencesOfString:@"ResolutionDtls==" withString:@""];
+//                    
+//                    ResolutionTypeName=[[TasksplitArray1 objectAtIndex:22]stringByReplacingOccurrencesOfString:@"ResolutionTypeName==" withString:@""];
+//                    
+//                    isFileAtatched=[[TasksplitArray1 objectAtIndex:21]stringByReplacingOccurrencesOfString:@"IsFileAttached==" withString:@""];
+//                }
+//                [IssueIdArray addObject:IssueIdStr];
+//                [issuenoaArray addObject:issueno];
+//                [projectidArray addObject:projectid];
+//                [TeamNameArray addObject: TeamName];
+//                
+//                [issuestatusArray addObject:issuestatus];
+//                [issuetypeArray addObject:issuetype];
+//                [buspriorityArray addObject:buspriority];
+//                [assignedtoArray addObject:assignedto];
+//                [assignedbyArray addObject:assignedby];
+//                [descriptionArray addObject:description];
+//                
+//                [projectNameArray addObject:projectName];
+//                [longDesArray addObject:longDes];
+//                [isFileAttatchedArray addObject:isFileAtatched];
+//                
+//                
+//                [escalatedRescrcAry addObject:escalatedRescrcStr];
+//                [releaseImpactAry addObject:releaseImpactStr];
+//                NSLog(@"Relaese impact array %@",releaseImpactAry);
+//                [dateResolutionNeedByAry addObject:dateResolutionNeedByStr];
+//                [rejectReasonAry addObject:rejectReasonStr];
+//                [resolutionTypeAry addObject:resolutionTypeStr];
+//                [dateResolvedAry addObject:dateResolvedStr];
+//                [dateClosedAry addObject:dateClosedStr];
+//                [resolutionDtlsAry addObject:resolutionDtlsStr];
+//                [issueTypeNameArray addObject:ResolutionTypeName];
+//                
+//                
+//                
+//                [pickerAry1 addObject:issuetype];
+//                [newpickerAry1 addObject:buspriority];
+//                
+//                tableAry = [[NSMutableArray alloc] init];
+//                searchAry = [[NSMutableArray alloc] init];
+//                tempAry = [[NSMutableArray alloc] initWithArray:issuestatusArray];
+//                tableAry = issuestatusArray;
+//                
+//                [btn setUserInteractionEnabled:NO];
+//                if ([statusSearch.text isEqualToString:@"Issue Type (All)"])
+//                {
+//                    [self issuetype];
+//                    
+//                }
+//                
+//                else if ([statusSearch.text isEqualToString:@"BusinessPriority(All)"])
+//                {
+//                    [self businespriority];
+//                }
+//                
+//            }
+//            
+//            NSLog(@"the issue status array is %@",IssueIdArray);
+//            
+//            [issueDetailsTbl reloadData];
+//            
+//        }
+//
+//        
+//    }
+//    int total =[issuetypeArray count];
+//    
+//    NSString *totalIssueToast=[NSString stringWithFormat:@"%d",total];
+//    [self.view makeToast:totalIssueToast duration:2.0 position:[NSValue valueWithCGPoint:CGPointMake(450, 450)]
+//                   title:@"Total ISsues"];
+//
+//}
 
 
 
@@ -1445,7 +1548,8 @@ else
     [popController dismissPopoverAnimated:YES];
     [btn setUserInteractionEnabled:YES];
 
-    tempAry = [[NSMutableArray alloc] initWithArray:issuetypeArray];
+    tempAry = [[NSMutableArray alloc]initWithArray:issuetypeArray];
+    
     tableAry = issuetypeArray;
     
     [pickerAry removeAllObjects];

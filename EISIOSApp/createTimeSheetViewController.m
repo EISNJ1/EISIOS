@@ -96,9 +96,9 @@
     
     
     Servicecall = [[Webservices alloc]init];
-    NSString *projectLstForTask = @"TasksSpinnersListsService";
-    NSDictionary *credentials = @{@"userType":UserTypestr, @"userId":Useridstr,@"orgID":OrgIdStr};
-    [Servicecall createTimeSheetProject:projectLstForTask PublicDiscredentilas:credentials];
+    NSString *projectLstForTask = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/meeting/v1/projectListSpinner?usertype=%@&userId=%@&orgId=%@",UserTypestr,Useridstr,OrgIdStr];
+    //NSDictionary *credentials = @{@"userType":UserTypestr, @"userId":Useridstr,@"orgID":OrgIdStr};
+    [Servicecall projectlstspinrurl:projectLstForTask];
     [Servicecall setDelegate:self];
 
     
@@ -120,6 +120,34 @@
     
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+}
+-(void)projectlistspinner:(id)projectlistSpinner
+{
+    NSDictionary *dict=[[NSDictionary alloc]init];
+    
+    dict=projectlistSpinner;
+    NSLog(@"project lsit spinner is %@",dict);
+    
+    if ([[dict valueForKey:@"statusMessage"]isEqualToString:@"OK"])
+    {
+        NSArray *resultarray=[dict objectForKey:@"resAL"];
+        PROJECT_IDArray         = [[NSMutableArray alloc] init];
+        PROJECT_NAMEArray       = [[NSMutableArray alloc] init];
+        
+        for (NSDictionary *fidd in resultarray)
+        {
+            [PROJECT_IDArray addObject:[fidd valueForKey:@"projectId"]];
+            [PROJECT_NAMEArray addObject:[fidd valueForKey:@"projectName"]];
+        }
+        
+        for (int i=0; i<[PROJECT_IDArray count]; i++)
+        {
+            projectidstr=[PROJECT_IDArray objectAtIndex:i];
+        }
+        
+    }
+    
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -534,10 +562,18 @@
     NSLog(@"userid str is %@",Useridstr);
     NSLog(@"orgid str is %@",OrgIdStr);
     Servicecall=[[Webservices alloc]init];
-    NSString *projectLstForTask = @"TasksSpinnersListsService";
-NSDictionary *credentials1 =@{@"userType":UserTypestr,@"userId":Useridstr,@"orgId":OrgIdStr,@"projectId":pkrSelectionProjectId};
-    [Servicecall createTimeSheetTask:projectLstForTask PublicDiscredentilas:credentials1];
+    NSString *projectLstForTask =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/timesheet/v1/taskListForTimeSheetSpinner?userType=%@&userId=%@&orgId=%@&projectId=%@",UserTypestr,Useridstr,OrgIdStr,projectidstr];
+    [Servicecall tasklistfortimesheet:projectLstForTask];
     [Servicecall setDelegate:self];
+}
+-(void)tasklistfortimesheet:(id)tasklistfortimesheetresponse
+{
+    NSDictionary *dict=[[NSDictionary alloc]init];
+    dict=tasklistfortimesheetresponse;
+    
+    NSLog(@"the response is %@",dict);
+    
+    
 }
 
 -(void)homeBtnClk

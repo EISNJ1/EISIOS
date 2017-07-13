@@ -187,12 +187,54 @@
 -(void)tableServiceCall
 {
     Servicecall = [[Webservices alloc]init];
-    NSString *projectLstForTask = @"TasksSpinnersListsService";
-    NSDictionary *credentials = @{@"userId":Useridstr,@"userType":Usertypestr,@"orgId":orgIdstr};
-    [Servicecall timeSheetLst:projectLstForTask PublicDiscredentilas:credentials];
+    NSString *projectLstForTask =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/timesheet/v1/timeSheetList?userId=%@&userType=%@&orgId=%@",Useridstr,Usertypestr,orgIdstr];
+    [Servicecall timesheet:projectLstForTask];
     [Servicecall setDelegate:self];
-    //[self sendNextview];
 
+}
+
+-(void)timesheetlist:(id)timesheetresponse
+{
+    NSDictionary *dict=[[NSDictionary alloc]init];
+    
+    dict=timesheetresponse;
+    NSLog(@"dict is %@",dict);
+    
+    if ([[dict valueForKey:@"statusMessage"]isEqualToString:@"No Data"])
+    {
+        UIAlertView *alertview=[[UIAlertView alloc]initWithTitle:@"Alert" message:@"Timesheet list is empty" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+        [alertview show];
+    }
+    else
+    {
+        NSArray *resultarray=[dict valueForKey:@"resAL"];
+        NSLog(@"resultarray is %@",resultarray);
+        DescrptonArray        = [[NSMutableArray alloc] init];
+        TimeSheetLineIdArray  = [[NSMutableArray alloc] init];
+        SubmitionDateArray    = [[NSMutableArray alloc] init];
+        HrsSpentArray         = [[NSMutableArray alloc] init];
+        EstHrsToCmplitedArray     = [[NSMutableArray alloc] init];
+        IsTaskComplArray      = [[NSMutableArray alloc] init];
+        ReasonArray           = [[NSMutableArray alloc] init];
+        
+        for (NSDictionary *fidd in resultarray)
+        {
+            [DescrptonArray addObject:[fidd valueForKey:@"description"]];
+             [TimeSheetLineIdArray addObject:[fidd valueForKey:@"timeSheetlineId"]];
+             [EstHrsToCmplitedArray addObject:[fidd valueForKey:@"estimatedHsToComplete"]];
+             [SubmitionDateArray addObject:[fidd valueForKey:@"submissionDate"]];
+             [HrsSpentArray addObject:[fidd valueForKey:@"hoursSpent"]];
+            [IsTaskComplArray addObject:[fidd valueForKey:@"isTaskComplete"]];
+            [ReasonArray addObject:[fidd valueForKey:@"reason"]];
+            
+        }
+        [timeSheetTbl reloadData];
+        for (int i=0; i<[ReasonArray count]; i++)
+        {
+            selectedReason=[ReasonArray objectAtIndex:i];
+        }
+        
+    }
 }
 -(void)viewDidAppear:(BOOL)animated
 {
@@ -208,138 +250,138 @@
     
 }
 
--(void)didFinishService:(id)Userlogindetails
-{
-    
-
-    xmlParser = [[NSXMLParser alloc]initWithData:Userlogindetails];
-    xmlParser.delegate = self;
-    [xmlParser parse];
-    NSLog(@"the project spinner data is %@",Userlogindetails);
-    
-}
--(void)didfinishactionitemlist :(id)actionitemlist
-{
-    xmlParser1 = [[NSXMLParser alloc]initWithData:actionitemlist];
-    xmlParser1.delegate = self;
-    [xmlParser1 parse];
-    NSLog(@"the project spinner data is %@",actionitemlist);
-}
-
--(void) parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName
-  namespaceURI:(NSString *)namespaceURI qualifiedName:
-(NSString *)qName attributes:(NSDictionary *)attributeDict
-{
-    if ([elementName isEqualToString:@"timeSheetListfrManagerResponse"])
-    {
-        Timesheetstr          = [[NSString alloc] init];
-        TaskFalseString       = [[NSMutableString alloc] init];
-        DescrptonArray        = [[NSMutableArray alloc] init];
-        TimeSheetLineIdArray  = [[NSMutableArray alloc] init];
-        SubmitionDateArray    = [[NSMutableArray alloc] init];
-        HrsSpentArray         = [[NSMutableArray alloc] init];
-        EstHrsToCmplitedArray     = [[NSMutableArray alloc] init];
-        IsTaskComplArray      = [[NSMutableArray alloc] init];
-        ReasonArray           = [[NSMutableArray alloc] init];
-        TimesheetSplitArray   = [[NSArray alloc] init];
-        TimesheetdataArray    = [[NSArray alloc] init];
-        
-    }
-}
-- (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string
-{
-    if ([string isEqualToString:@"Flase"])
-    {
-        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"Warning" message:@"The List is Empty" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:nil, nil];
-        
-        [alert show];
-        [alert dismissWithClickedButtonIndex:0 animated:YES];
-
-    }
-    else{
-        NSString *chandu = @"*********";
-        Timesheetstr= [Timesheetstr stringByAppendingString:chandu];
-        Timesheetstr= [Timesheetstr stringByAppendingString:string];
-        NSLog(@"agenda details are test %@",Timesheetstr);
-        TimesheetdataArray =[Timesheetstr componentsSeparatedByString:@"*********"];
-    }
-    
-}
-- (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName
-  namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
-{
-    if (parser == xmlParser)
-    {
-        if ([elementName isEqualToString:@"Flase"])
-        {
-            //        createTimeSheetViewController *createTimeSheetView = [[createTimeSheetViewController alloc]init];
-            //        createTimeSheetView = [self.storyboard instantiateViewControllerWithIdentifier:@"CreateTimeSheetList"];
-            //        [self.navigationController pushViewController:createTimeSheetView animated:YES];
-            
-            NSLog(@"false string is working");
-            
-            
-        }
-        else
-        
-        if ([elementName isEqualToString:@"timeSheetListfrManagerResponse"])
-        {
-            if ([Timesheetstr isEqualToString:@"Flase"])
-            {
-               
-            }
-            else
-            {
-                for (int i=1; i<[TimesheetdataArray count]; i++)
-                {
-                    
-                    TimesheetSplitArray=[[TimesheetdataArray objectAtIndex:i] componentsSeparatedByString:@"###"];
-                    
-                    NSLog(@"split  is %@",TimesheetSplitArray);
-                    
-                    for (int j=1; j<[TimesheetSplitArray count]; j++)
-                    {
-                        TimeSheetLineIdstr = [[TimesheetSplitArray objectAtIndex:1] stringByReplacingOccurrencesOfString:@"TimeSheetLineId==" withString:@""];
-                        Descrptonstr  = [[TimesheetSplitArray objectAtIndex:2] stringByReplacingOccurrencesOfString:@"Descrpton==" withString:@""];
-                        SubmitionDatestr = [[TimesheetSplitArray objectAtIndex:3] stringByReplacingOccurrencesOfString:@"SubmitionDate==" withString:@""];
-                        
-                        submissionDateStr1=[SubmitionDatestr stringByReplacingOccurrencesOfString:@"00:00:00.0" withString:@""];
-                        
-                        HrsSpentstr = [[TimesheetSplitArray objectAtIndex:4]
-                                       stringByReplacingOccurrencesOfString:@"HrsSpent==" withString:@""];
-                        EstHrsToCmplitedstr = [[TimesheetSplitArray objectAtIndex:5] stringByReplacingOccurrencesOfString:@"EstHrsToCmplited==" withString:@""];
-                        IsTaskComplstr = [[TimesheetSplitArray objectAtIndex:6] stringByReplacingOccurrencesOfString:@"IsTaskCompl==" withString:@""];
-                        Reasonstr = [[TimesheetSplitArray objectAtIndex:7] stringByReplacingOccurrencesOfString:@"Reason==" withString:@""];
-                        NSLog(@"is task complete str is %@",IsTaskComplstr);
-                        
-                    }
-                    
-                    
-                    
-                    [DescrptonArray addObject:Descrptonstr];
-                    [TimeSheetLineIdArray addObject:TimeSheetLineIdstr];
-                    [SubmitionDateArray addObject:submissionDateStr1];
-                    [HrsSpentArray addObject:HrsSpentstr];
-                    [EstHrsToCmplitedArray addObject:EstHrsToCmplitedstr];
-                    [ReasonArray addObject:Reasonstr];
-                    [IsTaskComplArray addObject:IsTaskComplstr];
-                    
-                    
-                }
-                
-                [timeSheetTbl reloadData];
-                //Alert View
-                NSLog(@"the array count is %d",[TimeSheetLineIdArray count]);
-               
-                    
-
-
-            }
-         }
-        
-    }
-    
-}
+//-(void)didFinishService:(id)Userlogindetails
+//{
+//    
+//
+//    xmlParser = [[NSXMLParser alloc]initWithData:Userlogindetails];
+//    xmlParser.delegate = self;
+//    [xmlParser parse];
+//    NSLog(@"the project spinner data is %@",Userlogindetails);
+//    
+//}
+//-(void)didfinishactionitemlist :(id)actionitemlist
+//{
+//    xmlParser1 = [[NSXMLParser alloc]initWithData:actionitemlist];
+//    xmlParser1.delegate = self;
+//    [xmlParser1 parse];
+//    NSLog(@"the project spinner data is %@",actionitemlist);
+//}
+//
+//-(void) parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName
+//  namespaceURI:(NSString *)namespaceURI qualifiedName:
+//(NSString *)qName attributes:(NSDictionary *)attributeDict
+//{
+//    if ([elementName isEqualToString:@"timeSheetListfrManagerResponse"])
+//    {
+//        Timesheetstr          = [[NSString alloc] init];
+//        TaskFalseString       = [[NSMutableString alloc] init];
+//        DescrptonArray        = [[NSMutableArray alloc] init];
+//        TimeSheetLineIdArray  = [[NSMutableArray alloc] init];
+//        SubmitionDateArray    = [[NSMutableArray alloc] init];
+//        HrsSpentArray         = [[NSMutableArray alloc] init];
+//        EstHrsToCmplitedArray     = [[NSMutableArray alloc] init];
+//        IsTaskComplArray      = [[NSMutableArray alloc] init];
+//        ReasonArray           = [[NSMutableArray alloc] init];
+//        TimesheetSplitArray   = [[NSArray alloc] init];
+//        TimesheetdataArray    = [[NSArray alloc] init];
+//        
+//    }
+//}
+//- (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string
+//{
+//    if ([string isEqualToString:@"Flase"])
+//    {
+//        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"Warning" message:@"The List is Empty" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:nil, nil];
+//        
+//        [alert show];
+//        [alert dismissWithClickedButtonIndex:0 animated:YES];
+//
+//    }
+//    else{
+//        NSString *chandu = @"*********";
+//        Timesheetstr= [Timesheetstr stringByAppendingString:chandu];
+//        Timesheetstr= [Timesheetstr stringByAppendingString:string];
+//        NSLog(@"agenda details are test %@",Timesheetstr);
+//        TimesheetdataArray =[Timesheetstr componentsSeparatedByString:@"*********"];
+//    }
+//    
+//}
+//- (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName
+//  namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
+//{
+//    if (parser == xmlParser)
+//    {
+//        if ([elementName isEqualToString:@"Flase"])
+//        {
+//            //        createTimeSheetViewController *createTimeSheetView = [[createTimeSheetViewController alloc]init];
+//            //        createTimeSheetView = [self.storyboard instantiateViewControllerWithIdentifier:@"CreateTimeSheetList"];
+//            //        [self.navigationController pushViewController:createTimeSheetView animated:YES];
+//            
+//            NSLog(@"false string is working");
+//            
+//            
+//        }
+//        else
+//        
+//        if ([elementName isEqualToString:@"timeSheetListfrManagerResponse"])
+//        {
+//            if ([Timesheetstr isEqualToString:@"Flase"])
+//            {
+//               
+//            }
+//            else
+//            {
+//                for (int i=1; i<[TimesheetdataArray count]; i++)
+//                {
+//                    
+//                    TimesheetSplitArray=[[TimesheetdataArray objectAtIndex:i] componentsSeparatedByString:@"###"];
+//                    
+//                    NSLog(@"split  is %@",TimesheetSplitArray);
+//                    
+//                    for (int j=1; j<[TimesheetSplitArray count]; j++)
+//                    {
+//                        TimeSheetLineIdstr = [[TimesheetSplitArray objectAtIndex:1] stringByReplacingOccurrencesOfString:@"TimeSheetLineId==" withString:@""];
+//                        Descrptonstr  = [[TimesheetSplitArray objectAtIndex:2] stringByReplacingOccurrencesOfString:@"Descrpton==" withString:@""];
+//                        SubmitionDatestr = [[TimesheetSplitArray objectAtIndex:3] stringByReplacingOccurrencesOfString:@"SubmitionDate==" withString:@""];
+//                        
+//                        submissionDateStr1=[SubmitionDatestr stringByReplacingOccurrencesOfString:@"00:00:00.0" withString:@""];
+//                        
+//                        HrsSpentstr = [[TimesheetSplitArray objectAtIndex:4]
+//                                       stringByReplacingOccurrencesOfString:@"HrsSpent==" withString:@""];
+//                        EstHrsToCmplitedstr = [[TimesheetSplitArray objectAtIndex:5] stringByReplacingOccurrencesOfString:@"EstHrsToCmplited==" withString:@""];
+//                        IsTaskComplstr = [[TimesheetSplitArray objectAtIndex:6] stringByReplacingOccurrencesOfString:@"IsTaskCompl==" withString:@""];
+//                        Reasonstr = [[TimesheetSplitArray objectAtIndex:7] stringByReplacingOccurrencesOfString:@"Reason==" withString:@""];
+//                        NSLog(@"is task complete str is %@",IsTaskComplstr);
+//                        
+//                    }
+//                    
+//                    
+//                    
+//                    [DescrptonArray addObject:Descrptonstr];
+//                    [TimeSheetLineIdArray addObject:TimeSheetLineIdstr];
+//                    [SubmitionDateArray addObject:submissionDateStr1];
+//                    [HrsSpentArray addObject:HrsSpentstr];
+//                    [EstHrsToCmplitedArray addObject:EstHrsToCmplitedstr];
+//                    [ReasonArray addObject:Reasonstr];
+//                    [IsTaskComplArray addObject:IsTaskComplstr];
+//                    
+//                    
+//                }
+//                
+//                [timeSheetTbl reloadData];
+//                //Alert View
+//                NSLog(@"the array count is %d",[TimeSheetLineIdArray count]);
+//               
+//                    
+//
+//
+//            }
+//         }
+//        
+//    }
+//    
+//}
 
 //Delegate Method
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -411,12 +453,13 @@
         NSLog(@"clickedButtonAtIndex and button index is %d",buttonIndex);
         
         Servicecall = [[Webservices alloc]init];
-        NSString *projectLstForTask = @"SaveAndUpdateTaskService";
+            NSString *projectLstForTask = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/timesheet/v1/approveTimeSheet"];
+;
         
         //timeSheetLineId, approvedFlag, approvedBy, reason
 
-        NSDictionary *credentials = @{@"timeSheetLineId":selectedLineId,@"approvedFlag":@"Y",@"approvedBy":Useridstr,@"reason":@""};
-        [Servicecall approveTimeshhet:projectLstForTask PublicDiscredentilas:credentials];
+        NSString *credentials =[NSString stringWithFormat:@"timeSheetLineId=%@&approvedFlag=%@&approvedBy=%@&reason=%@",selectedLineId,@"Y",Useridstr,selectedReason];
+        [Servicecall approvetimesheet:projectLstForTask approvetimesheetparams:credentials];
         [Servicecall setDelegate:self];
         
         [self tableServiceCall];
@@ -453,7 +496,14 @@
     }
 }
 
-
+-(void)approvetimesheet:(id)approvetimesheetresponse
+{
+    NSData *dict=[[NSData alloc]initWithData:approvetimesheetresponse];
+    NSError *error;
+    
+    NSDictionary *dict1=[NSJSONSerialization JSONObjectWithData:dict options:NSJSONReadingMutableContainers error:&error];
+    NSLog(@"approve status response is %@",dict1);
+}
 
 
 #pragma mark - Table view data source
