@@ -26,5 +26,5 @@
     
     NSString *projectId1;
 }
-@property(nonatomic,strong)NSString *ObjIdstr,*ObjDistr,*AgendaBasedMeetingIdstr,*projectId;
+@property(nonatomic,strong)NSString *ObjIdstr,*ObjDistr,*AgendaBasedMeetingIdstr,*projectId,*meetingid;
 @end

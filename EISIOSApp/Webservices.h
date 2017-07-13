@@ -87,6 +87,10 @@
 -(void)participantsresourcename:(NSString *)participantsresourcenamelist;
 -(void)participantrole:(NSString *)participantsrolestring;
 -(void)saveparticipant:(NSString *)saveparticipantmeeting saveparticipantparams:(NSString *)saveparticipantsurl;
+-(void)noteslistUrl:(NSString *)notesListUrl;
+-(void)actionItemListUrl:(NSString *)actionItemlistUrl;
+-(void)feedbackListUrl:(NSString *)feedbacklistUrl;
+-(void)savenotesUrl:(NSString *)savenoteslist savenotesparams:(NSString *)savenotesurl;
 
 // TimeSheet Json
 
