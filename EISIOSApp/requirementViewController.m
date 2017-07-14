@@ -128,22 +128,126 @@
 }
 -(void)projectSpinnerService
 {
-    Servicecall = [[Webservices alloc]init];
-    NSString *projectLstForTask = @"RequirementGatheringService";
-    NSDictionary *credentials = @{@"usertype":UserTypestr,@"userId":Useridstr,@"orgId":OrgIdStr};
-    [Servicecall reqProjectSpinner:projectLstForTask TaskListParameters:credentials];
-    [Servicecall setDelegate:self];
+//    Servicecall = [[Webservices alloc]init];
+//    NSString *projectLstForTask = @"RequirementGatheringService";
+//    NSDictionary *credentials = @{@"usertype":UserTypestr,@"userId":Useridstr,@"orgId":OrgIdStr};
+//    [Servicecall reqProjectSpinner:projectLstForTask TaskListParameters:credentials];
+//    [Servicecall setDelegate:self];
     
 }
 
 -(void)reqLstService
 {
-    Servicecall = [[Webservices alloc]init];
-    NSString *projectLstForTask = @"RequirementGatheringService";
-    NSDictionary *credentials = @{@"orgVp":OrgIdStr,@"userId":Useridstr,@"userType":UserTypestr};
-    [Servicecall reqList:projectLstForTask TaskListParameters:credentials];
+//    Servicecall = [[Webservices alloc]init];
+//    NSString *projectLstForTask = @"RequirementGatheringService";
+//    NSDictionary *credentials = @{@"orgVp":OrgIdStr,@"userId":Useridstr,@"userType":UserTypestr};
+//    [Servicecall reqList:projectLstForTask TaskListParameters:credentials];
+//    [Servicecall setDelegate:self];
+    
+    NSString *reqlst =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/requirement/v1/requirementList?orgVp=%@&userId=%@&userType=%@",OrgIdStr,Useridstr,UserTypestr];
+    NSString *encode1=[reqlst stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    Servicecall=[[Webservices alloc]init];
+    [Servicecall requirementListUrl:encode1];
     [Servicecall setDelegate:self];
+
 }
+
+-(void)requirementlist:(id)requirementList
+{
+    NSDictionary *dict=requirementList;
+    NSLog(@"dict is %@",dict);
+    
+    if ([[dict objectForKey:@"statusMessage"]isEqualToString:@"No Data"])
+    {
+        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Warning" message:@"counts are empty" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:nil, nil];
+        [alert show];
+    }
+    else
+    {
+        
+  //      [assignReqIdStr,isTaskGeneratedAry,coreProcessAry,processAry,subProcessAry,reqDescriptionAry,reqHistoryAry,projectIDArray,reqlistProjectNameStr]
+        reqTypeArray        = [[NSMutableArray alloc] init];
+        contactAry          = [[NSMutableArray alloc] init];
+        criticialityAry     = [[NSMutableArray alloc] init];
+        activityAry         = [[NSMutableArray alloc] init];
+        systemAry           = [[NSMutableArray alloc] init];
+        requirementNameArray= [[NSMutableArray alloc] init];
+        assignReqIdAry      = [[NSMutableArray alloc] init];
+        isTaskGeneratedAry  = [[NSMutableArray alloc] init];
+        coreProcessAry      = [[NSMutableArray alloc] init];
+        processAry          = [[NSMutableArray alloc] init];
+        subProcessAry       = [[NSMutableArray alloc] init];
+        reqDescriptionAry   = [[NSMutableArray alloc] init];
+        reqHistoryAry       = [[NSMutableArray alloc] init];
+        projectIDArray      =[[NSMutableArray alloc]init];
+        projectNameArray    =[[NSMutableArray alloc]init];
+        
+        resultarray=[[NSMutableArray alloc]init];
+        resultarray = [dict objectForKey:@"resAL"];
+        for (NSDictionary *fid in resultarray)
+        {
+            [requirementNameArray addObject:[fid valueForKey:@"requirementName"]];
+            [reqTypeArray addObject:[fid valueForKey:@"requirementType"]];
+            [contactAry addObject:[fid valueForKey:@"name"]];
+            [criticialityAry addObject:[fid valueForKey:@"criticality"]];
+            [systemAry addObject:[fid valueForKey:@"system"]];
+            [activityAry addObject:[fid valueForKey:@"activityName"]];
+            [assignReqIdAry addObject:[fid valueForKey:@"requirementId"]];
+            [isTaskGeneratedAry addObject:[fid valueForKey:@"isTaskGenerated"]];
+            [coreProcessAry addObject:[fid valueForKey:@"coreProcess"]];
+            [processAry addObject:[fid valueForKey:@"process"]];
+            [subProcessAry addObject:[fid valueForKey:@"subProcess"]];
+            [reqDescriptionAry addObject:[fid valueForKey:@"requirementDescription"]];
+            [reqHistoryAry addObject:[fid valueForKey:@"requirementHistory"]];
+            [projectIDArray addObject:[fid valueForKey:@"projectId"]];
+            [projectNameArray addObject:[fid valueForKey:@"projectName"]];
+        }
+        NSLog(@"req name is %@",requirementNameArray);
+        NSLog(@"req type is %@",reqTypeArray);
+        NSLog(@"contact is %@",contactAry);
+        NSLog(@"criticality is %@",criticialityAry);
+        NSLog(@"system is %@",systemAry);
+        NSLog(@"activity is %@",activityAry);
+        if ([req1SearchBar.text isEqualToString:pkrProjectIDStr])
+        {
+            [self projectLsit];
+        }
+        if ([req2SearchBar.text isEqualToString:@"Requirement Type(All)"])
+        {
+            [self reqType];
+            
+        }
+        
+        else if ([req2SearchBar.text isEqualToString:@"Contact(All)"])
+        {
+            [self contact];
+        }
+        else if ([req2SearchBar.text isEqualToString:@"Criticiality(All)"])
+        {
+            [self criticiality];
+        }
+        else if ([req2SearchBar.text isEqualToString:@"System(All)"])
+        {
+            [self system];
+        }
+        else if ([req2SearchBar.text isEqualToString:@"Activity(All)"])
+        {
+            [self activity];
+        }
+        
+    }
+    int total=[requirementNameArray count];
+    NSString *totaltask=[NSString stringWithFormat:@"%d",total];
+    NSLog(@"total count of task created by search is %@",totaltask);
+    [self.view makeToast:totaltask duration:2.0 position:[NSValue valueWithCGPoint:CGPointMake(450, 450)]
+                   title:@"Total Reqirement"];
+    NSLog(@"  is %@ ",reqHistoryAry);
+
+    
+        [reqListTbl reloadData];
+    
+    }
+
 -(IBAction)reqSearchBtnClk:(id)sender
 {
     [questionpkr removeFromSuperview];
@@ -1358,8 +1462,6 @@
                     activityStr = [[reqSplitAry objectAtIndex:5] stringByReplacingOccurrencesOfString:@"ActivityName==" withString:@""];
                     
                     systemStr = [[reqSplitAry objectAtIndex:4] stringByReplacingOccurrencesOfString:@"System==" withString:@""];
-                    
-                    
                     
                     
                     assignReqIdStr = [[reqSplitAry objectAtIndex:1] stringByReplacingOccurrencesOfString:@"AssignReqId==" withString:@""];

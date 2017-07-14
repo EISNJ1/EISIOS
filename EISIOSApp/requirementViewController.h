@@ -31,7 +31,7 @@
     NSString *assignReqIdStr,*isTaskGeneratedStr,*coreProcessStr,*processStr,*subProcessStr,*reqDescriptionStr,*reqHistoryStr,*projectIdStr,*projectName,*reqlistProjectNameStr,*requirementNameStr,*reqhstrStr;
     NSMutableString *reqFalseString;
     NSMutableArray *reqTypeArray,*contactAry,*criticialityAry,*activityAry,*systemAry;
-    NSMutableArray *assignReqIdAry,*isTaskGeneratedAry,*coreProcessAry,*processAry,*subProcessAry,*reqDescriptionAry,*reqHistoryAry,*projectIDArray,*projectNameArray,*requirementNameArray;
+    NSMutableArray *assignReqIdAry,*isTaskGeneratedAry,*coreProcessAry,*processAry,*subProcessAry,*reqDescriptionAry,*reqHistoryAry,*projectIDArray,*projectNameArray,*requirementNameArray,*resultarray;
     NSArray *reqSplitAry,*reqDataAry;
     
     NSMutableString *soapResults;
