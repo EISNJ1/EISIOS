@@ -34,6 +34,7 @@
 -(void)actionitemassigned:(id)actionitemassignedto;
 -(void)saveactionitem:(id)actionitemresponse;
 -(void)savenotes:(id)saveNotes;
+-(void)savefeedback:(id)saveFeedback;
 
 //Timesheet
 
@@ -49,6 +50,9 @@
 -(void)assigntoservice:(id)assigntoserviceresponse;
 -(void)teamsubmittedservice:(id)teamsubmittedresponse;
 -(void)servityservice:(id)servityserviceresponse;
+
+//Requirement
+-(void)requirementlist:(id)reqiurementList;
 
 //soap methods
 -(void)didfinishactionitemlist :(id)actionitemlist;
@@ -104,6 +108,7 @@
 -(void)actionitemassignedto:(NSString *)actiontiemassignedtospinner;
 -(void)saveactionitemUrl:(NSString *)saveactionitemclass saveactionitemparams:(NSString *)saveactionitemparameters;
 -(void)savenotesUrl:(NSString *)savenoteslist savenotesparams:(NSString *)savenotesurl;
+-(void)savefeedbackUrl:(NSString *)Savefeedback savefeedbackparams:(NSString *)saveFeedbackUrl;
 
 
 // TimeSheet Json
@@ -120,7 +125,8 @@
 -(void)teamsubmittedservice:(NSString *)teamsubmittedserviceclass;
 -(void)servityservice:(NSString *)servityserviceclass;
 
-
+// Requirement Json
+-(void)requirementListUrl:(NSString *)requirementlistUrl;
 
 
 -(void)Loginserviceurl: (NSString *)Loginurl Loginparameters : (NSDictionary *)LoginCredentials;

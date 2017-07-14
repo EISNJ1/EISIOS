@@ -331,7 +331,7 @@
 //    [Servicecall NotesList:Saveactionitemsurl NotesListParametrs:credentials];
 //    [Servicecall setDelegate:self];
     
-    NSString *publicnotesdec =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/meeting/v1/notesTabList?agendaId=%@&userId=%@",_AgendaBasedMeetingIdstr,Useridstr];
+    NSString *publicnotesdec =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/meeting/v1/notesTabList?agendaId=%@&userId=%@",_ObjIdstr,Useridstr];
     NSString *encode1=[publicnotesdec stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     Servicecall=[[Webservices alloc]init];
     [Servicecall noteslistUrl:encode1];
@@ -700,10 +700,18 @@ NSString *credentials = [NSString stringWithFormat:@"ObjId=%@&ObjDesc=%@&categor
         }
        
        else{
-        NSString *SaveFeedBackurl = @"SaveFeedbackService";
-        NSDictionary *credentials = @{@"meetingId":_AgendaBasedMeetingIdstr,@"userId":Useridstr,@"positiveComments":PositiveFeedBacltxtview.text,@"negativeComm":NegativefeedbacktxtView.text};
-        [Servicecall SaveFeedbackurl:SaveFeedBackurl SaveFeedBackCredentials:credentials];
-        [Servicecall setDelegate:self];
+//        NSString *SaveFeedBackurl = @"SaveFeedbackService";
+//        NSDictionary *credentials = @{@"meetingId":_AgendaBasedMeetingIdstr,@"userId":Useridstr,@"positiveComments":PositiveFeedBacltxtview.text,@"negativeComm":NegativefeedbacktxtView.text};
+//        [Servicecall SaveFeedbackurl:SaveFeedBackurl SaveFeedBackCredentials:credentials];
+//        [Servicecall setDelegate:self];
+
+           NSString *feedbackUrl = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/meeting/v1/savefeedback"];
+           NSString *credentials = [NSString stringWithFormat:@"meetingId=%@&userId=%@&positiveComments=%@&negativeComm=%@",_meetingid,Useridstr,PositiveFeedBacltxtview.text,NegativefeedbacktxtView.text];
+           
+           NSLog(@"params are %@",credentials);
+           [Servicecall savefeedbackUrl:feedbackUrl savefeedbackparams:credentials];
+           [Servicecall setDelegate:self];
+           
         PositiveFeedBacltxtview.text = nil;
         NegativefeedbacktxtView.text =nil;
         [PositiveFeedBacltxtview setBackgroundColor:[UIColor whiteColor]];
@@ -738,6 +746,38 @@ NSString *credentials = [NSString stringWithFormat:@"ObjId=%@&ObjDesc=%@&categor
 
 -(void)savenotes:(id)saveNotes
 {
+    NSData *data=[[NSData alloc]initWithData:saveNotes];
+    NSError *error;
+    
+    NSDictionary *dict=[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
+    NSLog(@"dict is %@",dict);
+    
+    if ([[dict valueForKey:@"statusMessage"]isEqualToString:@"Inserted"])
+    {
+        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Alert" message:@"actionitem saved successfully" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+        [alert show];
+        
+        [self NotesList];
+    }
+
+}
+
+-(void)savefeedback:(id)saveFeedback
+{
+    NSData *data=[[NSData alloc]initWithData:saveFeedback];
+    NSError *error;
+    
+    NSDictionary *dict=[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
+    NSLog(@"dict is %@",dict);
+    
+    if ([[dict valueForKey:@"statusMessage"]isEqualToString:@"Inserted"])
+    {
+        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Alert" message:@"actionitem saved successfully" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+        [alert show];
+        
+        [self FeedbackList];
+    }
+    
 
 }
 
