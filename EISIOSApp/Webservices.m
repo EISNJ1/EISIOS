@@ -823,28 +823,6 @@
 }
 
 
-
-// Requirement Json
-
--(void)requirementListUrl:(NSString *)requirementlistUrl
-{
-    AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
-    
-    AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
-    responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
-    
-    manager.responseSerializer = responseSerializer;
-    [manager GET:requirementlistUrl parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
-     {
-         NSLog(@"JSON: %@",responseObject);
-         [delegate requirementlist:responseObject];
-     }
-         failure:^(NSURLSessionTask *operation, NSError *error)
-     {
-         NSLog(@"Error: %@", error);
-     }];
-}
-
 -(void)saveissue:(NSString *)saveissueclass saveissueparams:(NSString *)saveissueparameters
 {
     NSURL *urlstr=[NSURL URLWithString:saveissueclass];
