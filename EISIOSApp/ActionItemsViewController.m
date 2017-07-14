@@ -331,7 +331,7 @@
 //    [Servicecall NotesList:Saveactionitemsurl NotesListParametrs:credentials];
 //    [Servicecall setDelegate:self];
     
-    NSString *publicnotesdec =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/meeting/v1/notesTabList?agendaId=%@&userId=%@",_AgendaBasedMeetingIdstr,Useridstr];
+    NSString *publicnotesdec =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/meeting/v1/notesTabList?agendaId=%@&userId=%@",_ObjIdstr,Useridstr];
     NSString *encode1=[publicnotesdec stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     Servicecall=[[Webservices alloc]init];
     [Servicecall noteslistUrl:encode1];
@@ -669,12 +669,19 @@ NSString *credentials = [NSString stringWithFormat:@"ObjId=%@&ObjDesc=%@&categor
             [self.view makeToast:@"Enter NotesDiscription" duration:2.0 position:[NSValue valueWithCGPoint:CGPointMake(400, 940)]];
         }
         else{
-        NSString *noteCategory =@"addNotes";
-        NSString *SaveaNotesurl = @"SaveNotesTabService";
-        NSDictionary *credentials = @{@"ObjId":_ObjIdstr,@"noteCategory":noteCategory,@"noteRef":_ObjDistr,@"noteDesc":EnterNotesTxtView.text,@"assignedId":Useridstr,@"publicPriv":publicPriv};
-        [Servicecall SaveNotes:SaveaNotesurl NotesparametrsForSave:credentials];
-        [Servicecall setDelegate:self];
+       NSString *noteCategory =@"addNotes";
+//        NSString *SaveaNotesurl = @"SaveNotesTabService";
+//        NSDictionary *credentials = @{@"ObjId":_ObjIdstr,@"noteCategory":noteCategory,@"noteRef":_ObjDistr,@"noteDesc":EnterNotesTxtView.text,@"assignedId":Useridstr,@"publicPriv":publicPriv};
+//        [Servicecall SaveNotes:SaveaNotesurl NotesparametrsForSave:credentials];
+//        [Servicecall setDelegate:self];
+
+            NSString *notesurl = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/meeting/v1/saveNotes"];
+            NSString *credentials = [NSString stringWithFormat:@"ObjId=%@&noteCategory=%@&noteRef=%@&noteDesc=%@&assignedId=%@&publicPriv=%@",_ObjIdstr,noteCategory,_ObjDistr,EnterNotesTxtView.text,Useridstr,publicPriv];
             
+            NSLog(@"params are %@",credentials);
+            [Servicecall savenotesUrl:notesurl savenotesparams:credentials];
+            [Servicecall setDelegate:self];
+
         [EnterNotesTxtView setBackgroundColor:[UIColor whiteColor]];
             
         EnterNotesTxtView.text = nil;
@@ -693,10 +700,18 @@ NSString *credentials = [NSString stringWithFormat:@"ObjId=%@&ObjDesc=%@&categor
         }
        
        else{
-        NSString *SaveFeedBackurl = @"SaveFeedbackService";
-        NSDictionary *credentials = @{@"meetingId":_AgendaBasedMeetingIdstr,@"userId":Useridstr,@"positiveComments":PositiveFeedBacltxtview.text,@"negativeComm":NegativefeedbacktxtView.text};
-        [Servicecall SaveFeedbackurl:SaveFeedBackurl SaveFeedBackCredentials:credentials];
-        [Servicecall setDelegate:self];
+//        NSString *SaveFeedBackurl = @"SaveFeedbackService";
+//        NSDictionary *credentials = @{@"meetingId":_AgendaBasedMeetingIdstr,@"userId":Useridstr,@"positiveComments":PositiveFeedBacltxtview.text,@"negativeComm":NegativefeedbacktxtView.text};
+//        [Servicecall SaveFeedbackurl:SaveFeedBackurl SaveFeedBackCredentials:credentials];
+//        [Servicecall setDelegate:self];
+
+           NSString *feedbackUrl = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/meeting/v1/savefeedback"];
+           NSString *credentials = [NSString stringWithFormat:@"meetingId=%@&userId=%@&positiveComments=%@&negativeComm=%@",_meetingid,Useridstr,PositiveFeedBacltxtview.text,NegativefeedbacktxtView.text];
+           
+           NSLog(@"params are %@",credentials);
+           [Servicecall savefeedbackUrl:feedbackUrl savefeedbackparams:credentials];
+           [Servicecall setDelegate:self];
+           
         PositiveFeedBacltxtview.text = nil;
         NegativefeedbacktxtView.text =nil;
         [PositiveFeedBacltxtview setBackgroundColor:[UIColor whiteColor]];
@@ -727,6 +742,43 @@ NSString *credentials = [NSString stringWithFormat:@"ObjId=%@&ObjDesc=%@&categor
     }
     
     
+}
+
+-(void)savenotes:(id)saveNotes
+{
+    NSData *data=[[NSData alloc]initWithData:saveNotes];
+    NSError *error;
+    
+    NSDictionary *dict=[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
+    NSLog(@"dict is %@",dict);
+    
+    if ([[dict valueForKey:@"statusMessage"]isEqualToString:@"Inserted"])
+    {
+        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Alert" message:@"actionitem saved successfully" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+        [alert show];
+        
+        [self NotesList];
+    }
+
+}
+
+-(void)savefeedback:(id)saveFeedback
+{
+    NSData *data=[[NSData alloc]initWithData:saveFeedback];
+    NSError *error;
+    
+    NSDictionary *dict=[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
+    NSLog(@"dict is %@",dict);
+    
+    if ([[dict valueForKey:@"statusMessage"]isEqualToString:@"Inserted"])
+    {
+        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Alert" message:@"actionitem saved successfully" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+        [alert show];
+        
+        [self FeedbackList];
+    }
+    
+
 }
 
 -(void)SegmentIndexTapped
