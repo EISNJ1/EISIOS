@@ -100,21 +100,101 @@
 {
     
     Servicecall = [[Webservices alloc]init];
-    NSString *projectLstForTask = @"RequirementGatheringService";
-    NSDictionary *credentials = @{@"usertype":UserTypestr,@"userId":Useridstr,@"orgId":OrgIdStr};
-    [Servicecall projectExpencesListSpinner:projectLstForTask TaskListParameters:credentials];
+    NSString *projectLstForTask = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/meeting/v1/projectListSpinner?usertype=%@&userId=%@&orgId=%@",UserTypestr,Useridstr,OrgIdStr];
+    [Servicecall projectlstspinrurl:projectLstForTask];
     [Servicecall setDelegate:self];
+}
+
+-(void)projectlistspinner:(id)projectlistSpinner
+{
+    NSDictionary *dict=[[NSDictionary alloc]init];
+    
+    dict=projectlistSpinner;
+    
+    NSArray *resultarray=[dict valueForKey:@"resAL"];
+    
+    NSLog(@"result array is %@",resultarray);
+    
+    projectIdArray        = [[NSMutableArray alloc] init];
+    projectNameArray  = [[NSMutableArray alloc] init];
+    
+    for (NSDictionary *fidd in resultarray)
+    {
+        [projectIdArray addObject:[fidd valueForKey:@"projectId"]];
+        [projectNameArray addObject:[fidd valueForKey:@"projectName"]];
+    }
+if ([projectNmaeTfd.text length]==0)
+{
+    projectNmaeTfd.text=[projectNameArray objectAtIndex:0];
+    pkrProjectIDStr=[projectIdArray objectAtIndex:0];
+    [self projectExpancesListService];
+    [expancesLstTl reloadData];
+}
+else
+{
+    for (int i=0; i<[projectNameArray count]; i++)
+    {
+        projectNmaeTfd.text=[projectNameArray objectAtIndex:i];
+        pkrProjectIDStr=[projectIdArray objectAtIndex:i];
+        [self projectExpancesListService];
+        [expancesLstTl reloadData];
+    }
+}
+
+
 }
 
 -(void)projectExpancesListService
 {
     NSLog(@"the proejct id str is %@",pkrProjectIDStr);
     Servicecall = [[Webservices alloc]init];
-    NSString *projectLstForTask = @"ProjectExpense";
-    NSDictionary *credentials = @{@"projId":pkrProjectIDStr,@"userId":Useridstr,@"orgId":OrgIdStr,@"userType":UserTypestr};
-    [Servicecall projectExpencesList:projectLstForTask TaskListParameters:credentials];
+    NSString *projectLstForTask = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/projectexpenses/v1/projectExpensesList?projId=%@&userId=%@&orgId=%@&userType=%@",pkrProjectIDStr,Useridstr,OrgIdStr,UserTypestr];
+    
+    NSLog(@"projectist for task is %@",projectLstForTask);
+    [Servicecall ProjectExpenseslist:projectLstForTask];
     [Servicecall setDelegate:self];
 }
+-(void)projectExpenseslist:(id)ProjectExpensesresponse
+{
+    
+    NSDictionary *dict=[[NSDictionary alloc]init];
+    
+    dict=ProjectExpensesresponse;
+    
+    if ([[dict valueForKey:@"statusMessage"]isEqualToString:@"OK"])
+    {
+        NSArray *resultarray=[dict valueForKey:@"resAL"];
+        expancesIDArray         = [[NSMutableArray alloc] init];
+        expancesDateArray       = [[NSMutableArray alloc] init];
+        expancesAmountArray       = [[NSMutableArray alloc] init];
+        expancesCategoryIDArray       = [[NSMutableArray alloc] init];
+        expancesAttatchIDArray       = [[NSMutableArray alloc] init];
+        expancesValueArray       = [[NSMutableArray alloc] init];
+        expancesCategoryArray       = [[NSMutableArray alloc] init];
+        expensesProjectnameArray=[[NSMutableArray alloc]init];
+        expensesProjectIdArray=[[NSMutableArray alloc]init];
+        
+        for (NSDictionary *fidd in resultarray)
+        {
+            [expancesIDArray addObject:[fidd valueForKey:@"projectAmountId"]];
+            [expancesDateArray addObject:[fidd valueForKey:@"expenseDate"]];
+            [expancesAmountArray addObject:[fidd valueForKey:@"amount"]];
+            [expancesCategoryArray addObject:[fidd valueForKey:@"budgetCategoryValue"]];
+            [expensesProjectnameArray addObject:[fidd valueForKey:@"projectName"]];
+            [expensesProjectIdArray addObject:[fidd valueForKey:@"projectId"]];
+            [expancesCategoryIDArray addObject:[fidd valueForKey:@"budgetCategory"]];
+        }
+         [expancesLstTl reloadData];
+    }
+    else
+    {
+        UIAlertView *alet=[[UIAlertView alloc]initWithTitle:@"Alert" message:@"project expenses list is empty" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+        
+        [alet show];
+    }
+   
+        
+    }
 
 -(void)didFinishService :(id)Userlogindetails
 {

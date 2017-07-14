@@ -55,6 +55,10 @@
 //Requirement
 -(void)requirementlist:(id)reqiurementList;
 
+//Project Expenses
+
+-(void)projectExpenseslist:(id)ProjectExpensesresponse;
+
 //soap methods
 -(void)didfinishactionitemlist :(id)actionitemlist;
 -(void)didNotesCountFinished :(id)Notescountlist;
@@ -130,6 +134,10 @@
 // Requirement Json
 -(void)requirementListUrl:(NSString *)requirementlistUrl;
 
+
+//Project Expenses
+
+-(void)ProjectExpenseslist:(NSString *)projectexpenses;
 
 -(void)Loginserviceurl: (NSString *)Loginurl Loginparameters : (NSDictionary *)LoginCredentials;
 -(void)MeetingListurl:(NSString *)Listurl Listparameters:(NSDictionary *)Listcredentials;
