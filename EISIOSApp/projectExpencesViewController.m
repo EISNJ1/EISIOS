@@ -123,24 +123,7 @@
         [projectIdArray addObject:[fidd valueForKey:@"projectId"]];
         [projectNameArray addObject:[fidd valueForKey:@"projectName"]];
     }
-if ([projectNmaeTfd.text length]==0)
-{
-    projectNmaeTfd.text=[projectNameArray objectAtIndex:0];
-    pkrProjectIDStr=[projectIdArray objectAtIndex:0];
-    [self projectExpancesListService];
     [expancesLstTl reloadData];
-}
-else
-{
-    for (int i=0; i<[projectNameArray count]; i++)
-    {
-        projectNmaeTfd.text=[projectNameArray objectAtIndex:i];
-        pkrProjectIDStr=[projectIdArray objectAtIndex:i];
-        [self projectExpancesListService];
-        [expancesLstTl reloadData];
-    }
-}
-
 
 }
 
@@ -160,10 +143,8 @@ else
     NSDictionary *dict=[[NSDictionary alloc]init];
     
     dict=ProjectExpensesresponse;
-    
-    if ([[dict valueForKey:@"statusMessage"]isEqualToString:@"OK"])
-    {
-        NSArray *resultarray=[dict valueForKey:@"resAL"];
+     NSArray *resultarray=[dict valueForKey:@"resAL"];
+       
         expancesIDArray         = [[NSMutableArray alloc] init];
         expancesDateArray       = [[NSMutableArray alloc] init];
         expancesAmountArray       = [[NSMutableArray alloc] init];
@@ -183,18 +164,38 @@ else
             [expensesProjectnameArray addObject:[fidd valueForKey:@"projectName"]];
             [expensesProjectIdArray addObject:[fidd valueForKey:@"projectId"]];
             [expancesCategoryIDArray addObject:[fidd valueForKey:@"budgetCategory"]];
+            
+            
+            
         }
-         [expancesLstTl reloadData];
+    NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init] ;
+    [numberFormatter setNumberStyle: NSNumberFormatterDecimalStyle];
+    
+    
+    [expancesLstTl reloadData];
+    int total=0;
+    for(NSString *currentString in expancesAmountArray)
+    {
+        total +=[currentString intValue];
     }
-    else
+    NSLog(@"Sum:%d",total);
+    // totalAmountLbl.text = [NSString stringWithFormat:@"%d",total];
+    NSString *numberAsString = [numberFormatter stringFromNumber:[NSNumber numberWithFloat: total]];
+    totalAmountLbl.text = numberAsString;
+    
+
+    
+   if([[dict valueForKey:@"statusMessage"]isEqualToString:@"No Data"])
     {
         UIAlertView *alet=[[UIAlertView alloc]initWithTitle:@"Alert" message:@"project expenses list is empty" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
         
         [alet show];
-    }
-   
         
+       
     }
+    [expancesLstTl reloadData];
+        
+}
 
 -(void)didFinishService :(id)Userlogindetails
 {
