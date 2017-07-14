@@ -208,7 +208,7 @@
         newpickerAry1=buspriorityArray;
         
         NSLog(@"issue type array is %@",issuetypeArray);
-        NSLog(@"newpicker array is %@",newpickerAry1);
+        NSLog(@"long desc newpicker array is %@",longDesArray);
 //        [pickerAry1 addObject:issuetype];
 //        [newpickerAry1 addObject:buspriority];
         

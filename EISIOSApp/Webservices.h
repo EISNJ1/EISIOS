@@ -48,6 +48,7 @@
 -(void)assigntoservice:(id)assigntoserviceresponse;
 -(void)teamsubmittedservice:(id)teamsubmittedresponse;
 -(void)servityservice:(id)servityserviceresponse;
+-(void)saveissueservice:(id)saveissueresponse;
 
 //soap methods
 -(void)didfinishactionitemlist :(id)actionitemlist;
@@ -117,6 +118,7 @@
 -(void)assigntoservice:(NSString *)assigntoserviceclass;
 -(void)teamsubmittedservice:(NSString *)teamsubmittedserviceclass;
 -(void)servityservice:(NSString *)servityserviceclass;
+-(void)saveissue:(NSString *)saveissueclass saveissueparams:(NSString *)saveissueparameters;
 
 
 

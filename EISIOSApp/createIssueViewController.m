@@ -134,7 +134,7 @@
     assignToTfd.text = assignToTblStr;
 
     NSLog(@"the assign to idddddd is %@",assignToTblStr);
-    //teamSubmittedTfd.text = teamSubmittedTblStr;
+    teamSubmittedTfd.text = teamSubmittedTblStr;
     severityTfd.text = severityTblStr;
     descriptionTfd.text = descriptionTblStr;
     issueHistoryTextView.text = isueHistoryTblStr;
@@ -149,7 +149,7 @@
     saveissueNumStr=issueHistoryTextView.text;
     
     
-    NSLog(@"issueid =%@, isuueno =%@, projectid= %@, projectname= %@, issuestatus= %@, issuetype= %@, TeamName= %@, assignto= %@,  Description= %@, LongDescription= %@ ",issueIdTblStr,issueNoTblStr,projectIdTblStr,projectTblStr,issueStatusTblStr,issueTypeTblStr,teamSubmittedTblStr,assignToTblStr,descriptionTblStr,isueHistoryTblStr);
+    NSLog(@" welcome to eis issueid =%@, isuueno =%@, projectid= %@, projectname= %@, issuestatus= %@, issuetype= %@, TeamName= %@, assignto= %@,  Description= %@, LongDescription= %@ ",issueIdTblStr,issueNoTblStr,projectIdTblStr,projectTblStr,issueStatusTblStr,issueTypeTblStr,teamSubmittedTblStr,assignToTblStr,descriptionTblStr,isueHistoryTblStr);
     
     [updateBtn setHidden:YES];
     [titleLabel setText:@"Create Issue"];
@@ -242,7 +242,7 @@
         [newprojectidstrArray addObject:[fidd valueForKey:@"projectId"]];
         
     }
-    if ([projectTblStr length] == 0)
+    if ([projectTblStr length] == 0 && [newprojectidstrArray count]>0)
     {
         
         projectTfd.text = [projectnameArray objectAtIndex:0];
@@ -334,6 +334,26 @@
         [statusnameArray addObject:[fidd valueForKey:@"issueStatus"]];
         [STATUS_IDArray addObject:[fidd valueForKey:@"issueStatusId"]];
     }
+    if ([issueStatusTblStr length] == 0)
+    {
+        
+        statusTfd.text = [statusnameArray objectAtIndex:0];
+        issueNoStr = [STATUS_IDArray objectAtIndex:0];
+        issueStatusStr = [statusnameArray objectAtIndex:0];
+    }
+    
+    NSString *tempString = issueStatusTblStr;
+    for(int i=0; i<[statusnameArray count]; i++)
+    {
+        if([tempString isEqualToString:[statusnameArray objectAtIndex:i]])
+        {
+            
+            issueNoStr = [STATUS_IDArray objectAtIndex:i];
+            issueStatusStr = [statusnameArray objectAtIndex:i];
+            
+        }
+    }
+
 }
 
 -(void)typeService
@@ -359,6 +379,23 @@
     {
         [statustypeArray addObject:[fidd valueForKey:@"issueType"]];
         [TypESTATUS_IDArray addObject:[fidd valueForKey:@"issueTypeId"]];
+    }
+    if ([issueTypeTblStr length] == 0)
+    {
+        
+        typeTfd.text = [statustypeArray objectAtIndex:0];
+        issueTypeStr = [TypESTATUS_IDArray objectAtIndex:0];
+    }
+    
+    NSString *tempString = issueTypeTblStr;
+    for(int i=0; i<[statustypeArray count]; i++)
+    {
+        if([tempString isEqualToString:[statustypeArray objectAtIndex:i]])
+        {
+            
+            issueTypeStr = [TypESTATUS_IDArray objectAtIndex:i];
+            
+        }
     }
     
 }
@@ -387,6 +424,27 @@
         [resourcenamearray addObject:[fidd valueForKey:@"resourceName"]];
         [ResourceIdArray addObject:[fidd valueForKey:@"resourceId"]];
     }
+    
+    if ([assignToTblStr length] == 0)
+    {
+        
+        assignToTfd.text = [resourcenamearray objectAtIndex:0];
+        resourceIdStr = [ResourceIdArray objectAtIndex:0];
+        
+        
+    }
+    NSString *tempString = assignToTblStr;
+    for(int i=0; i<[resourcenamearray count]; i++)
+    {
+        if([tempString isEqualToString:[resourcenamearray objectAtIndex:i]])
+        {
+            
+            resourceIdStr = [ResourceIdArray objectAtIndex:i];
+            
+        }
+    }
+    
+
 }
 
 -(void)teamSubmittedService
@@ -414,6 +472,17 @@
         [TeamnameArray addObject:[fidd valueForKey:@"teamName"]];
         [TeamIdArray addObject:[fidd valueForKey:@"teamId"]];
     }
+    NSString *tempString = teamSubmittedTblStr;
+    for(int i=0; i<[TeamnameArray count]; i++)
+    {
+        if([tempString isEqualToString:[TeamnameArray objectAtIndex:i]])
+        {
+            
+            teamImpactStr = [TeamIdArray objectAtIndex:i];
+            
+        }
+    }
+
 }
 
 -(void)severityService
@@ -441,6 +510,27 @@
         [businessnameArray addObject:[fidd valueForKey:@"businessPriority"]];
         [BUSINESS_PRIORITY_IDArray addObject:[fidd valueForKey:@"businessPriorityId"]];
     }
+    if ([severityTblStr length] == 0)
+    {
+        
+        severityTfd.text = [businessnameArray objectAtIndex:0];
+        businessPriortyStr = [BUSINESS_PRIORITY_IDArray objectAtIndex:0];
+        
+        
+    }
+    
+    NSString *tempString = severityTblStr;
+    for(int i=0; i<[businessnameArray count]; i++)
+    {
+        if([tempString isEqualToString:[businessnameArray objectAtIndex:i]])
+        {
+            
+            businessPriortyStr = [BUSINESS_PRIORITY_IDArray objectAtIndex:i];
+            
+        }
+    }
+    
+
 }
 
 -(IBAction)uploadButtonClicked:(id)sender
@@ -703,6 +793,9 @@
     [updateBtn setHidden:YES];
     [saveBtn setHidden:NO];
     [projectListBtn setEnabled:YES];
+    
+    [attatchmentTableView setHidden:YES];
+    
 
   
 
@@ -843,24 +936,24 @@
         NSString *dateStr  = [formatter stringFromDate:aDate];
         
         NSMutableString *str = [[NSMutableString alloc]initWithString:Usernamestr];
-        [str appendString:@"###"];
+        [str appendString:@"::"];
         [str appendString:dateStr];//[formatter stringFromDate:aDate]];
-        [str appendString:@"###"];
+        [str appendString:@"::"];
         [str appendString:issueEntryTfd.text];
         
         NSLog(@"the str is %@",str);
         
         Servicecall = [[Webservices alloc]init];
         
-        NSString *projectLstForTask = @"SaveAndUpdateTaskService";
-        NSDictionary *credentials = @{ @"issueNo":@"0",@"issueStatus":issueNoStr,@"description":descriptionTfd.text,@"businessPriorty":businessPriortyStr,@"issueType":issueTypeStr,@"projectId":projectIdStr,@"teamImpact":teamImpactStr,@"resourceId":resourceIdStr,@"saveUpdateType":@"SaveIssues",@"orgId":OrgIdStr,@"userId":Useridstr,@"issueId":@"0",@"logDescription":str};
-        [Servicecall saveIssue:projectLstForTask ParticipantsListParameters:credentials];
+        NSString *projectLstForTask =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/issues/v1/saveAndUpdateIssue"];
+        NSString *credentials=[NSString stringWithFormat:@"issueNo=%@&issueStatus=%@&issueType=%@&description=%@&businessPriorty=%@&projectId=%@&teamImpact=%@&resourceId=%@&saveUpdateType=%@&orgId=%@&userId=%@&issueId=%@&logDescription=%@",@"0",issueNoStr,issueTypeStr,descriptionTfd.text,businessPriortyStr,projectIdStr,teamImpactStr,resourceIdStr,@"SaveIssues",OrgIdStr,Useridstr,@"0",str];
+        [Servicecall saveissue:projectLstForTask saveissueparams:credentials];
         [Servicecall setDelegate:self];
         
         
         NSLog(@"%@ ,%@ ,%@ , %@, %@ ,%@ ,%@ , %@, %@ ,%@ ,%@ , %@, %@",@"0",issueNoStr,descriptionTfd.text,businessPriortyStr,issueTypeStr,projectIdStr,teamImpactStr,resourceIdStr,@"SaveIssues",OrgIdStr,Useridstr,@"0",issueEntryTfd.text);
         
-        //[issueHistoryTextView setText:str];
+        [issueHistoryTextView setText:str];
         issueEntryTfd.text = nil;
         
        
@@ -870,6 +963,62 @@
     
     
    }
+-(void)saveissueservice:(id)saveissueresponse
+{
+    NSData *resdata=[[NSData alloc]initWithData:saveissueresponse];
+    NSError *error;
+    
+    NSDictionary *dict=[NSJSONSerialization JSONObjectWithData:resdata options:NSJSONReadingMutableContainers error:&error];
+    NSLog(@"the save issue dictionary is %@",dict);
+    
+    if ([[dict valueForKey:@"statusMessage"]isEqualToString:@"IssueSaved"])
+    {
+        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Alert" message:@"issue saved successfully" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+        [alert show];
+        
+        saveissueIDStr=[dict valueForKey:@"issueId"];
+        saveissueNumStr=[dict valueForKey:@"issueNumber"];
+        
+       issueIdTblStr=saveissueIDStr;
+       issueNoTblStr=saveissueNumStr;
+        
+        [saveBtn setHidden:YES];
+        [updateBtn setHidden:NO];
+        [projectListBtn setEnabled:NO];
+        
+        
+        UIButton *uploadButton=[[UIButton alloc]initWithFrame:CGRectMake(issueHistoryTextView.frame.origin.x+400,issueHistoryTextView.frame.origin.y+220,80,40)];
+        
+        [uploadButton setTitle:@"Uplaod" forState:UIControlStateNormal];
+        [uploadButton addTarget:self action:@selector(uploadButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+        [uploadButton setBackgroundColor:[UIColor grayColor]];
+        [createIssueView addSubview:uploadButton];
+        
+        UILabel *attatchmentsLabel=[[UILabel alloc]initWithFrame:CGRectMake(issueHistoryTextView.frame.origin.x-200, issueHistoryTextView.frame.origin.y+200, 150, 40)];
+        
+        attatchmentsLabel.text=@"Attatchments";
+        attatchmentsLabel.tag=155;
+        [createIssueView addSubview:attatchmentsLabel];
+        
+        
+        attatchmentTableView=[[UITableView alloc]initWithFrame:CGRectMake(attatchmentsLabel.frame.origin.x+200, attatchmentsLabel.frame.origin.y-20, issueHistoryTextView.frame.size.width, 100) ];
+        
+        
+        attatchmentTableView.scrollEnabled=YES;
+        attatchmentTableView.userInteractionEnabled=true;
+        attatchmentTableView.layer.borderColor = [UIColor purpleColor].CGColor;
+        attatchmentTableView.allowsSelectionDuringEditing=YES;
+        attatchmentTableView.layer.cornerRadius = 10.0f;
+        attatchmentTableView.allowsSelection=YES;
+        attatchmentTableView.layer.cornerRadius=4;
+        attatchmentTableView.layer.borderWidth=3.0f;
+        attatchmentTableView.delegate=self;
+        attatchmentTableView.dataSource=self;
+       [createIssueView addSubview:attatchmentTableView];
+        
+    }
+}
+
 -(IBAction)issueHomeBtnClk:(id)sender
 {
     //[self.navigationController popViewControllerAnimated:YES];
@@ -918,8 +1067,8 @@
             [str1 appendString:@"###"];
             [str1 appendString:issueEntryTfd.text];
             
-            //[str1 appendString:issueEntryTfd.text];
-            //issueHistoryTextView.text = str1;
+            [str1 appendString:issueEntryTfd.text];
+            issueHistoryTextView.text = str1;
 
         }
         else
@@ -932,12 +1081,14 @@
         NSLog(@"assign id issssssss %@",resourceIdStr);
         Servicecall = [[Webservices alloc]init];
         
-        NSString *projectLstForTask = @"SaveAndUpdateTaskService";
-        NSDictionary *credentials = @{ @"issueNo":issueNoTblStr,@"issueStatus":issueNoStr,@"description":descriptionTfd.text,@"businessPriorty":businessPriortyStr,@"issueType":issueTypeStr,@"projectId":projectIdStr,@"teamImpact":teamImpactStr,@"resourceId":resourceIdStr,@"saveUpdateType":@"UpdateIssue",@"orgId":OrgIdStr,@"userId":Useridstr,@"issueId":issueIdTblStr,@"logDescription":str1/*issueEntryTfd.text*/};
-        [Servicecall updateIssue:projectLstForTask ParticipantsListParameters:credentials];
+        NSString *projectLstForTask = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/issues/v1/saveAndUpdateIssue"];
+        NSString *credentials=[NSString stringWithFormat:@"issueNo=%@&issueStatus=%@&issueType=%@&description=%@&businessPriorty=%@&projectId=%@&teamImpact=%@&resourceId=%@&saveUpdateType=%@&orgId=%@&userId=%@&issueId=%@&logDescription=%@",issueNoTblStr,issueNoStr,issueTypeStr,descriptionTfd.text,businessPriortyStr,projectIdStr,teamImpactStr,resourceIdStr,@"UpdateIssues",OrgIdStr,Useridstr,issueIdTblStr,str1];
+        
+        NSLog(@"credentials are %@",credentials);
+        [Servicecall saveissue:projectLstForTask saveissueparams:credentials];
         [Servicecall setDelegate:self];
         
-        issueEntryTfd.text = nil;
+        //issueEntryTfd.text = nil;
 
         //
 //        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@" successfully Updated" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
@@ -974,8 +1125,8 @@
         
         NSLog(@"assign id isisisisisisi %@",resourceIdStr);
         Servicecall = [[Webservices alloc]init];
-        NSString *projectLstForTask = @"SaveAndUpdateTaskService";
-        NSDictionary *credentials = @{ @"issueNo":saveissueNumStr,@"issueStatus":issueNoStr,@"description":descriptionTfd.text,@"businessPriorty":businessPriortyStr,@"issueType":issueTypeStr,@"projectId":projectIdStr,@"teamImpact":teamImpactStr,@"resourceId":resourceIdStr,@"saveUpdateType":@"UpdateIssue",@"orgId":OrgIdStr,@"userId":Useridstr,@"issueId":saveissueIDStr,@"logDescription":str1/*issueEntryTfd.text*/};
+        NSString *projectLstForTask =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/issues/v1/saveAndUpdateIssue"];
+        NSString *credentials = @{ @"issueNo":saveissueNumStr,@"issueStatus":issueNoStr,@"description":descriptionTfd.text,@"businessPriorty":businessPriortyStr,@"issueType":issueTypeStr,@"projectId":projectIdStr,@"teamImpact":teamImpactStr,@"resourceId":resourceIdStr,@"saveUpdateType":@"UpdateIssue",@"orgId":OrgIdStr,@"userId":Useridstr,@"issueId":saveissueIDStr,@"logDescription":str1/*issueEntryTfd.text*/};
         [Servicecall updateIssue:projectLstForTask ParticipantsListParameters:credentials];
         [Servicecall setDelegate:self];
         
@@ -1407,7 +1558,8 @@
             NSLog(@"the task id is %@",saveissueIDStr);
             NSLog(@"the task no is %@",saveissueNumStr);
             
-            issueIdTblStr=saveissueIDStr;
+//            issueIdTblStr=saveissueIDStr;
+//            issueNoTblStr=
             
             
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"Successfully Saved" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
@@ -1803,16 +1955,16 @@
                 teamSubmittedTfd.text=[TeamnameArray objectAtIndex:0];
 
 
-//                NSString *tempString = teamSubmittedTblStr;
-//                for(int i=0; i<[TeamnameArray count]; i++)
-//                {
-//                    if([tempString isEqualToString:[TeamnameArray objectAtIndex:i]])
-//                    {
-//                        
-//                        teamImpactStr = [TeamIdArray objectAtIndex:i];
-//                        
-//                    }
-//                }
+                NSString *tempString = teamSubmittedTblStr;
+                for(int i=0; i<[TeamnameArray count]; i++)
+                {
+                    if([tempString isEqualToString:[TeamnameArray objectAtIndex:i]])
+                    {
+                        
+                        teamImpactStr = [TeamIdArray objectAtIndex:i];
+                        
+                    }
+                }
                 
                 
                 
