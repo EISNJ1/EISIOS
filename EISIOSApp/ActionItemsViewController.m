@@ -669,12 +669,19 @@ NSString *credentials = [NSString stringWithFormat:@"ObjId=%@&ObjDesc=%@&categor
             [self.view makeToast:@"Enter NotesDiscription" duration:2.0 position:[NSValue valueWithCGPoint:CGPointMake(400, 940)]];
         }
         else{
-        NSString *noteCategory =@"addNotes";
-        NSString *SaveaNotesurl = @"SaveNotesTabService";
-        NSDictionary *credentials = @{@"ObjId":_ObjIdstr,@"noteCategory":noteCategory,@"noteRef":_ObjDistr,@"noteDesc":EnterNotesTxtView.text,@"assignedId":Useridstr,@"publicPriv":publicPriv};
-        [Servicecall SaveNotes:SaveaNotesurl NotesparametrsForSave:credentials];
-        [Servicecall setDelegate:self];
+       NSString *noteCategory =@"addNotes";
+//        NSString *SaveaNotesurl = @"SaveNotesTabService";
+//        NSDictionary *credentials = @{@"ObjId":_ObjIdstr,@"noteCategory":noteCategory,@"noteRef":_ObjDistr,@"noteDesc":EnterNotesTxtView.text,@"assignedId":Useridstr,@"publicPriv":publicPriv};
+//        [Servicecall SaveNotes:SaveaNotesurl NotesparametrsForSave:credentials];
+//        [Servicecall setDelegate:self];
+
+            NSString *notesurl = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/meeting/v1/saveNotes"];
+            NSString *credentials = [NSString stringWithFormat:@"ObjId=%@&noteCategory=%@&noteRef=%@&noteDesc=%@&assignedId=%@&publicPriv=%@",_ObjIdstr,noteCategory,_ObjDistr,EnterNotesTxtView.text,Useridstr,publicPriv];
             
+            NSLog(@"params are %@",credentials);
+            [Servicecall savenotesUrl:notesurl savenotesparams:credentials];
+            [Servicecall setDelegate:self];
+
         [EnterNotesTxtView setBackgroundColor:[UIColor whiteColor]];
             
         EnterNotesTxtView.text = nil;
@@ -727,6 +734,11 @@ NSString *credentials = [NSString stringWithFormat:@"ObjId=%@&ObjDesc=%@&categor
     }
     
     
+}
+
+-(void)savenotes:(id)saveNotes
+{
+
 }
 
 -(void)SegmentIndexTapped

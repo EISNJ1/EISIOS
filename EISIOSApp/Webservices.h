@@ -33,6 +33,7 @@
 -(void)feedbackList:(id)feedbacklist;
 -(void)actionitemassigned:(id)actionitemassignedto;
 -(void)saveactionitem:(id)actionitemresponse;
+-(void)savenotes:(id)saveNotes;
 
 //Timesheet
 
@@ -100,9 +101,10 @@
 -(void)noteslistUrl:(NSString *)notesListUrl;
 -(void)actionItemListUrl:(NSString *)actionItemlistUrl;
 -(void)feedbackListUrl:(NSString *)feedbacklistUrl;
--(void)savenotesUrl:(NSString *)savenoteslist savenotesparams:(NSString *)savenotesurl;
 -(void)actionitemassignedto:(NSString *)actiontiemassignedtospinner;
 -(void)saveactionitemUrl:(NSString *)saveactionitemclass saveactionitemparams:(NSString *)saveactionitemparameters;
+-(void)savenotesUrl:(NSString *)savenoteslist savenotesparams:(NSString *)savenotesurl;
+
 
 // TimeSheet Json
 
