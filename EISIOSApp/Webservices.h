@@ -59,6 +59,10 @@
 
 -(void)projectExpenseslist:(id)ProjectExpensesresponse;
 
+//DASH BOARD
+-(void)oganizationresourcereport:(id)oganizationresourcereportresponse;
+-(void)peoplebyskills:(id)peoplebyskillsresponse;
+
 //soap methods
 -(void)didfinishactionitemlist :(id)actionitemlist;
 -(void)didNotesCountFinished :(id)Notescountlist;
@@ -138,6 +142,10 @@
 //Project Expenses
 
 -(void)ProjectExpenseslist:(NSString *)projectexpenses;
+// Dash board
+
+-(void)oganizationresourcereport:(NSString *)oganizationresourcereportparams;
+-(void)peoplebyskill:(NSString *)peoplebyskillparams;
 
 -(void)Loginserviceurl: (NSString *)Loginurl Loginparameters : (NSDictionary *)LoginCredentials;
 -(void)MeetingListurl:(NSString *)Listurl Listparameters:(NSDictionary *)Listcredentials;

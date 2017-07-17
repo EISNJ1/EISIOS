@@ -859,7 +859,7 @@
      }];
 
 }
-//
+//Requirement List
 
 -(void)requirementListUrl:(NSString *)requirementlistUrl
 {
@@ -880,6 +880,7 @@
          NSLog(@"Error: %@", error);
      }];
 }
+// ProjectExpenses
 
 -(void)ProjectExpenseslist:(NSString *)projectexpenses
 {
@@ -894,6 +895,49 @@
          NSLog(@"JSON: %@",responseObject);
          
          [delegate projectExpenseslist:responseObject];
+     }
+         failure:^(NSURLSessionTask *operation, NSError *error)
+     {
+         NSLog(@"Error: %@", error);
+     }];
+
+}
+
+// Dashboard
+
+-(void)oganizationresourcereport:(NSString *)oganizationresourcereportparams
+{
+    AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+    
+    AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
+    responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
+    
+    manager.responseSerializer = responseSerializer;
+    [manager GET:oganizationresourcereportparams parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
+     {
+         NSLog(@"JSON: %@",responseObject);
+         
+         [delegate oganizationresourcereport:responseObject];
+     }
+         failure:^(NSURLSessionTask *operation, NSError *error)
+     {
+         NSLog(@"Error: %@", error);
+     }];
+
+}
+-(void)peoplebyskill:(NSString *)peoplebyskillparams
+{
+    AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+    
+    AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
+    responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
+    
+    manager.responseSerializer = responseSerializer;
+    [manager GET:peoplebyskillparams parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
+     {
+         NSLog(@"JSON: %@",responseObject);
+         
+         [delegate peoplebyskills:responseObject];
      }
          failure:^(NSURLSessionTask *operation, NSError *error)
      {

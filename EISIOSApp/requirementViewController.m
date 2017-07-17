@@ -128,13 +128,28 @@
 }
 -(void)projectSpinnerService
 {
-//    Servicecall = [[Webservices alloc]init];
-//    NSString *projectLstForTask = @"RequirementGatheringService";
-//    NSDictionary *credentials = @{@"usertype":UserTypestr,@"userId":Useridstr,@"orgId":OrgIdStr};
-//    [Servicecall reqProjectSpinner:projectLstForTask TaskListParameters:credentials];
-//    [Servicecall setDelegate:self];
+    Servicecall = [[Webservices alloc]init];
+    NSString *projectLstForTask = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/meeting/v1/projectListSpinner?usertype=%@&userId=%@&orgId=%@",UserTypestr,Useridstr,OrgIdStr];
+    [Servicecall projectlstspinrurl:projectLstForTask];
+    [Servicecall setDelegate:self];
     
 }
+
+-(void)projectlistspinner:(id)projectlistSpinner
+{
+    NSDictionary *dict=[[NSDictionary alloc]init];
+    dict=projectlistSpinner;
+    NSArray *resultarray=[dict valueForKey:@"resAL"];
+    projectIDArray=[[NSMutableArray alloc]init];
+    PROJECT_NAMEArray=[[NSMutableArray alloc]init];
+    
+    for (NSDictionary *fidd in resultarray)
+    {
+        [PROJECT_IDArray addObject:[fidd valueForKey:@"projectId"]];
+        [PROJECT_NAMEArray addObject:[fidd valueForKey:@"projectName"]];
+    }
+}
+
 
 -(void)reqLstService
 {
@@ -181,6 +196,7 @@
         reqHistoryAry       = [[NSMutableArray alloc] init];
         projectIDArray      =[[NSMutableArray alloc]init];
         projectNameArray    =[[NSMutableArray alloc]init];
+        pickerAry=[[NSMutableArray alloc]init];
         
         resultarray=[[NSMutableArray alloc]init];
         resultarray = [dict objectForKey:@"resAL"];
@@ -208,6 +224,18 @@
         NSLog(@"criticality is %@",criticialityAry);
         NSLog(@"system is %@",systemAry);
         NSLog(@"activity is %@",activityAry);
+        tableAry = [[NSMutableArray alloc] init];
+        searchAry = [[NSMutableArray alloc] init];
+        tempAry = [[NSMutableArray alloc]initWithArray:projectIDArray];
+        tableAry = projectIDArray;
+        
+        projectSearchArray=[[NSMutableArray alloc]init];
+        tempArray1=[[NSMutableArray alloc]initWithArray:projectNameArray];
+        searchArray1=[[NSMutableArray alloc]init];
+        projectSearchArray=projectNameArray;
+        
+        [reqSearchBtn3 setUserInteractionEnabled:NO];
+        
         if ([req1SearchBar.text isEqualToString:pkrProjectIDStr])
         {
             [self projectLsit];
@@ -362,9 +390,9 @@
     [popController dismissPopoverAnimated:YES];
     [reqSearchBtn3 setUserInteractionEnabled:YES];
     
-    tempAry = [[NSMutableArray alloc] initWithArray:reqTypeArray];
+    tempAry = [[NSMutableArray alloc]initWithArray:reqTypeArray];
     tableAry = reqTypeArray;
-    NSLog(@"picker aray is %@",pickerAry);
+    NSLog(@"picker aray is %@",tableAry);
     [pickerAry removeAllObjects];
     for (id obj in tableAry)
     {
@@ -374,7 +402,7 @@
         }
     }
     
-    [pickerAry addObject:@"Requirement Type (All)"];
+    //[pickerAry addObject:@"Requirement Type (All)"];
     
     NSLog(@"new array is %@",pickerAry);
     
@@ -759,7 +787,7 @@
                     [searchRequiremnetNameArray addObject:[requirementNameArray objectAtIndex:i]];
                 }
             }
-             [reqListTbl reloadData];
+             //[reqListTbl reloadData];
             NSLog(@"reqtype is %@",searchReqtypeArray);
             NSLog(@"criticality array is %@",searchCriticalityArray);
             NSLog(@"system array is %@",searchSystemArray);

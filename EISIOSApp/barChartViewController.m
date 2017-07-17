@@ -282,10 +282,30 @@
 -(void)organaizationResourcrReporService
 {
     Servicecall = [[Webservices alloc]init];
-    NSString *projectLstForTask = @"ExecuteDashBoard";
-    NSDictionary *credentials = @{@"usertype":UserTypestr,@"userId":Useridstr,@"orgId":OrgIdStr};
-    [Servicecall organizationReportGraph:projectLstForTask TaskListParameters:credentials];
+    NSString *projectLstForTask =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/dashboard/v1/orgResourceReportList?usertype=%@&userId=%@&orgId=%@",UserTypestr,Useridstr,OrgIdStr];
+    [Servicecall oganizationresourcereport:projectLstForTask];
     [Servicecall setDelegate:self];
+
+}
+-(void)oganizationresourcereport:(id)oganizationresourcereportresponse
+{
+    NSDictionary *dict=[[NSDictionary alloc]init];
+    dict=oganizationresourcereportresponse;
+    NSLog(@"the response dict is %@",dict);
+    NSArray *resultarray=[dict valueForKey:@"resAL"];
+    orgNameAry        = [[NSMutableArray alloc] init];
+    noOfResAry  = [[NSMutableArray alloc] init];
+    
+    for (NSDictionary *fidd in resultarray)
+    {
+        [orgNameAry addObject:[fidd valueForKey:@"orgResorceName"]];
+        [noOfResAry addObject:[fidd valueForKey:@"noOfResouces"]];
+    }
+    _values = noOfResAry;
+    _values1 = orgNameAry;
+    
+    NSLog(@"  is %@ %@",orgNameAry,noOfResAry);
+    [self loadGraph];
 
 }
 
@@ -300,13 +320,33 @@
 -(void)peopleBySkillsReportService
 {
     Servicecall = [[Webservices alloc]init];
-    NSString *projectLstForTask = @"ExecuteDashBoard";
-    NSDictionary *credentials = @{@"usertype":UserTypestr,@"orgId":OrgIdStr};
-    [Servicecall peopleBySkillsReport:projectLstForTask TaskListParameters:credentials];
+    NSString *projectLstForTask =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/dashboard/v1/peopleBySkillsReportList?usertype=%@&orgId=%@",UserTypestr,OrgIdStr];
+    [Servicecall peoplebyskill:projectLstForTask];
     [Servicecall setDelegate:self];
     
 }
 
+-(void)peoplebyskills:(id)peoplebyskillsresponse
+{
+    NSDictionary *dict=[[NSDictionary alloc]init];
+    
+    dict=peoplebyskillsresponse;
+    nofresourcesarray=[[NSMutableArray alloc]init];
+    peoplebyskillsarray=[[NSMutableArray alloc]init];
+    NSArray *resultarray=[dict valueForKey:@"resAL"];
+    
+    for (NSDictionary *fidd in resultarray)
+    {
+        [nofresourcesarray addObject:[fidd valueForKey:@"noOfResouces"]];
+        [peoplebyskillsarray addObject:[fidd valueForKey:@"peopleBySkills"]];
+    }
+    _values = nofresourcesarray;
+    _values1 = peoplebyskillsarray;
+    
+    NSLog(@"  is %@ %@",nofresourcesarray,peoplebyskillsarray);
+    [self loadGraph];
+    
+}
 -(void)didfinishactionitemlist :(id)actionitemlist
 {
     xmlParser1 = [[NSXMLParser alloc]initWithData:actionitemlist];
