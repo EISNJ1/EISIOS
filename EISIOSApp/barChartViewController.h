@@ -97,5 +97,7 @@
     NSString *programOwnerStr;
     UIScrollView *scrollView;
     
+    NSMutableArray *nofresourcesarray,*peoplebyskillsarray;
+    
 }
 @end
