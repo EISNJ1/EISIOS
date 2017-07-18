@@ -356,12 +356,38 @@
 }
 -(void)numberOfProjectsByResourceReportService
 {
+//    Servicecall = [[Webservices alloc]init];
+//    NSString *projectLstForTask = @"ExecuteDashBoard";
+//    NSDictionary *credentials = @{@"usertype":UserTypestr,@"orgId":OrgIdStr};
+//    [Servicecall noOfProjectsReports:projectLstForTask TaskListParameters:credentials];
+//    [Servicecall setDelegate:self];
+
     Servicecall = [[Webservices alloc]init];
-    NSString *projectLstForTask = @"ExecuteDashBoard";
-    NSDictionary *credentials = @{@"usertype":UserTypestr,@"orgId":OrgIdStr};
-    [Servicecall noOfProjectsReports:projectLstForTask TaskListParameters:credentials];
+    NSString *projectLstForTask =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/dashboard/v1/noofProjectsByResourceReportList?usertype=%@&orgId=%@&userId=%@",UserTypestr,OrgIdStr,Useridstr];
+    [Servicecall numofprojectsbyResourcereportsUrl:projectLstForTask];
     [Servicecall setDelegate:self];
+}
+-(void)numofprojectsbyresourcereport:(id)numofprojectsbyresourceReport
+{
+    NSDictionary *dict=[[NSDictionary alloc]init];
     
+    dict=numofprojectsbyresourceReport;
+    resrc_NameAry        = [[NSMutableArray alloc] init];
+    noOfPrjctsAry  = [[NSMutableArray alloc] init];
+
+    NSArray *resultarray=[dict valueForKey:@"resAL"];
+    
+    for (NSDictionary *fidd in resultarray)
+    {
+        [resrc_NameAry addObject:[fidd valueForKey:@"resourceName"]];
+        [noOfPrjctsAry addObject:[fidd valueForKey:@"noofProjects"]];
+    }
+    _values = noOfPrjctsAry;
+    _values1 = resrc_NameAry;
+    
+    NSLog(@"  is %@ %@",noOfPrjctsAry,resrc_NameAry);
+    [self loadGraph];
+
 }
 -(void)didNotesCountFinished :(id)Notescountlist
 {
@@ -373,12 +399,40 @@
 
 -(void)AverageBillingRatebyOrganisationService
 {
+//    Servicecall = [[Webservices alloc]init];
+//    NSString *projectLstForTask = @"ExecuteDashBoard";
+//    NSDictionary *credentials = @{@"usertype":UserTypestr,@"orgId":OrgIdStr};
+//    [Servicecall avgBlgRateByOrganization:projectLstForTask TaskListParameters:credentials];
+//    [Servicecall setDelegate:self];
+
     Servicecall = [[Webservices alloc]init];
-    NSString *projectLstForTask = @"ExecuteDashBoard";
-    NSDictionary *credentials = @{@"usertype":UserTypestr,@"orgId":OrgIdStr};
-    [Servicecall avgBlgRateByOrganization:projectLstForTask TaskListParameters:credentials];
+    NSString *projectLstForTask =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/dashboard/v1/avgBillingRateByOrgReportList?usertype=%@&orgId=%@",UserTypestr,OrgIdStr];
+    [Servicecall averagebillingratebyOrganisationUrl:projectLstForTask];
     [Servicecall setDelegate:self];
     
+}
+
+-(void)averagebillingratebyorganisation:(id)averagebillingratebyOrganisation
+{
+    NSDictionary *dict=[[NSDictionary alloc]init];
+    
+    dict=averagebillingratebyOrganisation;
+    avgBillRateAry        = [[NSMutableArray alloc] init];
+    avgBillRateOrgNameAry  = [[NSMutableArray alloc] init];
+    
+    NSArray *resultarray=[dict valueForKey:@"resAL"];
+    
+    for (NSDictionary *fidd in resultarray)
+    {
+        [avgBillRateAry addObject:[fidd valueForKey:@"avbBillByOrg"]];
+        [avgBillRateOrgNameAry addObject:[fidd valueForKey:@"organisationName"]];
+    }
+    _values = avgBillRateAry;
+    _values1 = avgBillRateOrgNameAry;
+    
+    NSLog(@"  is %@ %@",avgBillRateAry,avgBillRateOrgNameAry);
+    [self loadGraph];
+
 }
 -(void)Serviceactiondone : (id)result
 {
@@ -389,12 +443,42 @@
 
 -(void)NumberofResourcesbyProgramsService
 {
-    Servicecall = [[Webservices alloc]init];
-    NSString *projectLstForTask = @"ExecuteDashBoard";
-    NSDictionary *credentials = @{@"usertype":UserTypestr,@"orgId":OrgIdStr,@"userId":Useridstr};
-    [Servicecall noOfResourcesByPrgrm:projectLstForTask TaskListParameters:credentials];
-    [Servicecall setDelegate:self];
+//    Servicecall = [[Webservices alloc]init];
+//    NSString *projectLstForTask = @"ExecuteDashBoard";
+//    NSDictionary *credentials = @{@"usertype":UserTypestr,@"orgId":OrgIdStr,@"userId":Useridstr};
+//    [Servicecall noOfResourcesByPrgrm:projectLstForTask TaskListParameters:credentials];
+//    [Servicecall setDelegate:self];
+
     
+    Servicecall = [[Webservices alloc]init];
+    NSString *projectLstForTask =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/dashboard/v1/noofResByProgramsReportList?usertype=%@&orgId=%@&userId=%@",UserTypestr,OrgIdStr,Useridstr];
+    [Servicecall numofresourcesbyProgramUrl:projectLstForTask];
+    [Servicecall setDelegate:self];
+
+}
+-(void)numofresourcesbyprogram:(id)numofresourcesbyProgram
+{
+    
+    NSDictionary *dict=[[NSDictionary alloc]init];
+    
+    dict=numofresourcesbyProgram;
+    noOfResByProgramIDAry        = [[NSMutableArray alloc] init];
+    noOfResByPrgmByOrgNameAry  = [[NSMutableArray alloc] init];
+    
+    NSArray *resultarray=[dict valueForKey:@"resAL"];
+    
+    for (NSDictionary *fidd in resultarray)
+    {
+        [noOfResByProgramIDAry addObject:[fidd valueForKey:@"noOfResouces"]];
+        [noOfResByPrgmByOrgNameAry addObject:[fidd valueForKey:@"programName"]];
+    }
+    _values = noOfResByProgramIDAry;
+    _values1 = noOfResByPrgmByOrgNameAry;
+    
+    NSLog(@"  is %@ %@",noOfResByProgramIDAry,noOfResByPrgmByOrgNameAry);
+    [self loadGraph];
+    
+
 }
 -(void)Serviceactiondone1:(id)result
 {
@@ -415,11 +499,32 @@
 -(void)AllocatedcapacitytoProgramService
 {
     Servicecall = [[Webservices alloc]init];
-    NSString *projectLstForTask = @"ExecuteDashBoard";
-    NSDictionary *credentials = @{@"usertype":UserTypestr,@"orgId":OrgIdStr};
-    [Servicecall allocataedCapacityToPrgrm:projectLstForTask TaskListParameters:credentials];
+    NSString *projectLstForTask =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/dashboard/v1/allocatedCapacityToProgramReportList?usertype=%@&orgId=%@",UserTypestr,OrgIdStr];
+    [Servicecall allocatedcapacitytoProgramUrl:projectLstForTask];
     [Servicecall setDelegate:self];
+}
+-(void)allocatedcapacitytoprogram:(id)allocatedcapacitytoProgram
+{
+    NSDictionary *dict=[[NSDictionary alloc]init];
     
+    dict=allocatedcapacitytoProgram;
+    allocatedCapacitySumAry        = [[NSMutableArray alloc] init];
+    allocatedCapacityProgramNameAry  = [[NSMutableArray alloc] init];
+    
+    NSArray *resultarray=[dict valueForKey:@"resAL"];
+    
+    for (NSDictionary *fidd in resultarray)
+    {
+        [allocatedCapacitySumAry addObject:[fidd valueForKey:@"allocatedSum"]];
+        [allocatedCapacityProgramNameAry addObject:[fidd valueForKey:@"programName"]];
+    }
+    _values = allocatedCapacitySumAry;
+    _values1 = allocatedCapacityProgramNameAry;
+    
+    NSLog(@"  is %@ %@",allocatedCapacitySumAry,allocatedCapacityProgramNameAry);
+    [self loadGraph];
+    
+
 }
 -(void)didFinishData :(id)Data
 {
@@ -430,14 +535,39 @@
 
 -(void)AllocatedcapacitytoProjectService
 {
-    Servicecall = [[Webservices alloc]init];
-    NSString *projectLstForTask = @"ExecuteDashBoard";
-    NSDictionary *credentials = @{@"usertype":UserTypestr,@"orgId":OrgIdStr};
-    [Servicecall allocatedCapacityToProject:projectLstForTask TaskListParameters:credentials];
-    [Servicecall setDelegate:self];
+//    Servicecall = [[Webservices alloc]init];
+//    NSString *projectLstForTask = @"ExecuteDashBoard";
+//    NSDictionary *credentials = @{@"usertype":UserTypestr,@"orgId":OrgIdStr};
+//    [Servicecall allocatedCapacityToProject:projectLstForTask TaskListParameters:credentials];
+//    [Servicecall setDelegate:self];
     
-}
+    Servicecall = [[Webservices alloc]init];
+    NSString *projectLstForTask =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/dashboard/v1/allocatedCapacityToProjectReportList?usertype=%@&orgId=%@",UserTypestr,OrgIdStr];
+    [Servicecall allocatedcapacitytoProjectUrl:projectLstForTask];
+    [Servicecall setDelegate:self];
 
+}
+-(void)allocatedcapacitytoproject:(id)allocatedcapacitytoProject
+{
+    NSDictionary *dict=[[NSDictionary alloc]init];
+    
+    dict=allocatedcapacitytoProject;
+    asgnedCapToProjResponseSumAry        = [[NSMutableArray alloc] init];
+    asgnedCapToProjResponseProjectNmaeAry  = [[NSMutableArray alloc] init];
+    
+    NSArray *resultarray=[dict valueForKey:@"resAL"];
+    
+    for (NSDictionary *fidd in resultarray)
+    {
+        [asgnedCapToProjResponseSumAry addObject:[fidd valueForKey:@"allocatedSum"]];
+        [asgnedCapToProjResponseProjectNmaeAry addObject:[fidd valueForKey:@"projectName"]];
+    }
+    _values = asgnedCapToProjResponseSumAry;
+    _values1 = asgnedCapToProjResponseProjectNmaeAry;
+    
+    NSLog(@"  is %@ %@",asgnedCapToProjResponseSumAry,asgnedCapToProjResponseProjectNmaeAry);
+    [self loadGraph];
+}
 -(void)didEndTask :(id)Taskend
 {
     xmlParser6 = [[NSXMLParser alloc]initWithData:Taskend];
@@ -447,13 +577,38 @@
 
 -(void)AssignedcapacitytoProgramService
 {
+//    Servicecall = [[Webservices alloc]init];
+//    NSString *projectLstForTask = @"ExecuteDashBoard";
+//    NSDictionary *credentials = @{@"usertype":UserTypestr,@"orgId":OrgIdStr};
+//    [Servicecall assignedCapacityToProgram:projectLstForTask TaskListParameters:credentials];
+//    [Servicecall setDelegate:self];
     Servicecall = [[Webservices alloc]init];
-    NSString *projectLstForTask = @"ExecuteDashBoard";
-    NSDictionary *credentials = @{@"usertype":UserTypestr,@"orgId":OrgIdStr};
-    [Servicecall assignedCapacityToProgram:projectLstForTask TaskListParameters:credentials];
+    NSString *projectLstForTask =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/dashboard/v1/assignedCapacityToProgReportList?usertype=%@&orgId=%@",UserTypestr,OrgIdStr];
+    [Servicecall assignedcapacitytoProgramUrl:projectLstForTask];
     [Servicecall setDelegate:self];
-    
 }
+-(void)assignedcapacitytoprogram:(id)assignedcapacitytoProgram
+{
+    NSDictionary *dict=[[NSDictionary alloc]init];
+    
+    dict=assignedcapacitytoProgram;
+    allocatedCapacitySumAry        = [[NSMutableArray alloc] init];
+    allocatedCapacityProgramNameAry  = [[NSMutableArray alloc] init];
+    
+    NSArray *resultarray=[dict valueForKey:@"resAL"];
+    
+    for (NSDictionary *fidd in resultarray)
+    {
+        [allocatedCapacitySumAry addObject:[fidd valueForKey:@"assignedCapacityProgram"]];
+        [allocatedCapacityProgramNameAry addObject:[fidd valueForKey:@"programName"]];
+    }
+    _values = allocatedCapacitySumAry;
+    _values1 = allocatedCapacityProgramNameAry;
+    
+    NSLog(@"  is %@ %@",allocatedCapacitySumAry,allocatedCapacityProgramNameAry);
+    [self loadGraph];
+}
+
 -(void)serviceCal :(id)ServerData
 {
     xmlParser7 = [[NSXMLParser alloc]initWithData:ServerData];
@@ -463,12 +618,38 @@
 
 -(void)AssignedcapacitytoProjectService
 {
-    Servicecall = [[Webservices alloc]init];
-    NSString *projectLstForTask = @"ExecuteDashBoard";
-    NSDictionary *credentials = @{@"usertype":UserTypestr,@"orgId":OrgIdStr};
-    [Servicecall assignedCapacityToProject:projectLstForTask TaskListParameters:credentials];
-    [Servicecall setDelegate:self];
+//    Servicecall = [[Webservices alloc]init];
+//    NSString *projectLstForTask = @"ExecuteDashBoard";
+//    NSDictionary *credentials = @{@"usertype":UserTypestr,@"orgId":OrgIdStr};
+//    [Servicecall assignedCapacityToProject:projectLstForTask TaskListParameters:credentials];
+//    [Servicecall setDelegate:self];
     
+    Servicecall = [[Webservices alloc]init];
+    NSString *projectLstForTask =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/dashboard/v1/assignedCapacityToProjectReportList?usertype=%@&orgId=%@",UserTypestr,OrgIdStr];
+    [Servicecall assignedcapacitytoProjectUrl:projectLstForTask];
+    [Servicecall setDelegate:self];
+}
+-(void)assignedcapacitytoproject:(id)assignedcapacitytoProject
+{
+    NSDictionary *dict=[[NSDictionary alloc]init];
+    
+    dict=assignedcapacitytoProject;
+    asgnedCapToProjResponseSumAry        = [[NSMutableArray alloc] init];
+    asgnedCapToProjResponseProjectNmaeAry  = [[NSMutableArray alloc] init];
+    
+    NSArray *resultarray=[dict valueForKey:@"resAL"];
+    
+    for (NSDictionary *fidd in resultarray)
+    {
+        [asgnedCapToProjResponseSumAry addObject:[fidd valueForKey:@"assignedCapacityProject"]];
+        [asgnedCapToProjResponseProjectNmaeAry addObject:[fidd valueForKey:@"projectName"]];
+    }
+    _values = asgnedCapToProjResponseSumAry;
+    _values1 = asgnedCapToProjResponseProjectNmaeAry;
+    
+    NSLog(@"  is %@ %@",asgnedCapToProjResponseSumAry,asgnedCapToProjResponseProjectNmaeAry);
+    [self loadGraph];
+
 }
 -(void)Servicecal1 :(id)ServerData
 {
@@ -479,14 +660,39 @@
 
 -(void)AverageCostofResourcebyProgramService
 {
-    Servicecall = [[Webservices alloc]init];
-    NSString *projectLstForTask = @"ExecuteDashBoard";
-    NSDictionary *credentials = @{@"usertype":UserTypestr,@"orgId":OrgIdStr};
-    [Servicecall avgCostOfReourceByPrgrm:projectLstForTask TaskListParameters:credentials];
-    [Servicecall setDelegate:self];
+//    Servicecall = [[Webservices alloc]init];
+//    NSString *projectLstForTask = @"ExecuteDashBoard";
+//    NSDictionary *credentials = @{@"usertype":UserTypestr,@"orgId":OrgIdStr};
+//    [Servicecall avgCostOfReourceByPrgrm:projectLstForTask TaskListParameters:credentials];
+//    [Servicecall setDelegate:self];
     
+    Servicecall = [[Webservices alloc]init];
+    NSString *projectLstForTask =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/dashboard/v1/averageCostResProgramList?usertype=%@&orgId=%@",UserTypestr,OrgIdStr];
+    [Servicecall averagecostofresourceofProgramUrl:projectLstForTask];
+    [Servicecall setDelegate:self];
 }
+-(void)averagecostofresourceofprogram:(id)averagecostofresourceofProgram
+{
+    NSDictionary *dict=[[NSDictionary alloc]init];
+    
+    dict=averagecostofresourceofProgram;
+    AvgCstResAry        = [[NSMutableArray alloc] init];
+    getAvgCstResProgrmResponseProgramNmaeAry  = [[NSMutableArray alloc] init];
+    
+    NSArray *resultarray=[dict valueForKey:@"resAL"];
+    
+    for (NSDictionary *fidd in resultarray)
+    {
+        [AvgCstResAry addObject:[fidd valueForKey:@"avgBillCost"]];
+        [getAvgCstResProgrmResponseProgramNmaeAry addObject:[fidd valueForKey:@"programName"]];
+    }
+    _values = AvgCstResAry;
+    _values1 = getAvgCstResProgrmResponseProgramNmaeAry;
+    
+    NSLog(@"  is %@ %@",AvgCstResAry,getAvgCstResProgrmResponseProgramNmaeAry);
+    [self loadGraph];
 
+}
 -(void)ServiceCalls :(id)ServiceCal
 {
     xmlParser9 = [[NSXMLParser alloc]initWithData:ServiceCal];
@@ -501,30 +707,83 @@
     NSDictionary *credentials = @{@"programOwner":programOwnerStr};
     [Servicecall prgrmByOwnerDetails:projectLstForTask TaskListParameters:credentials];
     [Servicecall setDelegate:self];
-    
-}
+
+   }
+
 -(void)TeamResourcesForAdmin
 {
-    NSLog(@"usertype is %@",UserTypestr);
-    NSLog(@"user id str is %@",Useridstr);
-    Servicecall=[[Webservices alloc]init];
-    NSString *TeamResourceForAdminClass1=@"ExecuteDashBoard";
-    NSDictionary *TeamResourceForAdminParametrs1=@{@"userType":UserTypestr,@"orgId":OrgIdStr,@"userId":Useridstr};
-    [Servicecall TeamResourcesForAdmin:TeamResourceForAdminClass1 TeamResourceForAdminParameters:TeamResourceForAdminParametrs1];
+//    NSLog(@"usertype is %@",UserTypestr);
+//    NSLog(@"user id str is %@",Useridstr);
+//    Servicecall=[[Webservices alloc]init];
+//    NSString *TeamResourceForAdminClass1=@"ExecuteDashBoard";
+//    NSDictionary *TeamResourceForAdminParametrs1=@{@"userType":UserTypestr,@"orgId":OrgIdStr,@"userId":Useridstr};
+//    [Servicecall TeamResourcesForAdmin:TeamResourceForAdminClass1 TeamResourceForAdminParameters:TeamResourceForAdminParametrs1];
+//    [Servicecall setDelegate:self];
+//    
+//    NSLog(@"the dictionary is %@",TeamResourceForAdminParametrs1);
+
+    Servicecall = [[Webservices alloc]init];
+    NSString *projectLstForTask =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/dashboard/v1/teamResourceChart?userType=%@&orgId=%@&userId=%@",UserTypestr,OrgIdStr,Useridstr];
+    [Servicecall numofresourcesbyteamUrl:projectLstForTask];
     [Servicecall setDelegate:self];
+}
+-(void)numofresourcesbyteam:(id)numofresourcesbyTeam
+{
+    NSDictionary *dict=[[NSDictionary alloc]init];
     
-    NSLog(@"the dictionary is %@",TeamResourceForAdminParametrs1);
+    dict=numofresourcesbyTeam;
+    teamResourceCountArray        = [[NSMutableArray alloc] init];
+    FilterTeamResourceArray  = [[NSMutableArray alloc] init];
+    
+    NSArray *resultarray=[dict valueForKey:@"resAL"];
+    
+    for (NSDictionary *fidd in resultarray)
+    {
+        [teamResourceCountArray addObject:[fidd valueForKey:@"teamResCount"]];
+        [FilterTeamResourceArray addObject:[fidd valueForKey:@"teamName"]];
+    }
+    _values =teamResourceCountArray ;
+    _values1 =FilterTeamResourceArray;
+    
+    NSLog(@"  is %@ %@",teamResourceCountArray,FilterTeamResourceArray);
+    [self loadGraph];
     
 }
 -(void)ProejctsForAll
 {
-    NSLog(@"usertype is %@",UserTypestr);
-    NSLog(@"user id str is %@",Useridstr);
-    Servicecall=[[Webservices alloc]init];
-    NSString *ProejctsForAllClass1=@"ExecuteDashBoard";
-    NSDictionary *ProejctsForAllDictionary1=@{@"userType":UserTypestr,@"orgId":OrgIdStr,@"userId":Useridstr};
-    [Servicecall ProejctsForAll:ProejctsForAllClass1 ProjectsForAllParameters:ProejctsForAllDictionary1];
+//    NSLog(@"usertype is %@",UserTypestr);
+//    NSLog(@"user id str is %@",Useridstr);
+//    Servicecall=[[Webservices alloc]init];
+//    NSString *ProejctsForAllClass1=@"ExecuteDashBoard";
+//    NSDictionary *ProejctsForAllDictionary1=@{@"userType":UserTypestr,@"orgId":OrgIdStr,@"userId":Useridstr};
+//    [Servicecall ProejctsForAll:ProejctsForAllClass1 ProjectsForAllParameters:ProejctsForAllDictionary1];
+//    [Servicecall setDelegate:self];
+    Servicecall = [[Webservices alloc]init];
+    NSString *projectLstForTask =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/dashboard/v1/projectsForAll?userType=%@&orgId=%@&userId=%@",UserTypestr,OrgIdStr,Useridstr];
+    [Servicecall numofresourcesbyprojectUrl:projectLstForTask];
     [Servicecall setDelegate:self];
+    
+}
+-(void)numofresourcesbyproject:(id)numofresourcesbyProject
+{
+    NSDictionary *dict=[[NSDictionary alloc]init];
+    
+    dict=numofresourcesbyProject;
+    proejctsListForAllCountArray        = [[NSMutableArray alloc] init];
+    projectsForAllProjectsArray  = [[NSMutableArray alloc] init];
+    
+    NSArray *resultarray=[dict valueForKey:@"resAL"];
+    
+    for (NSDictionary *fidd in resultarray)
+    {
+        [proejctsListForAllCountArray addObject:[fidd valueForKey:@"projectCount"]];
+        [projectsForAllProjectsArray addObject:[fidd valueForKey:@"projectName"]];
+    }
+    _values = proejctsListForAllCountArray;
+    _values1 = projectsForAllProjectsArray;
+    
+    NSLog(@"  is %@ %@",proejctsListForAllCountArray,projectsForAllProjectsArray);
+    [self loadGraph];
 
 }
 -(void)ServiceCalls1 :(id)ServiceCal1

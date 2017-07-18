@@ -18,7 +18,7 @@
     
     NSString *programIdstr,*programNamestr,*programNameIdstr,*projectIdstr,*projectNamestr,*budgetCoststr;
     
-    NSMutableArray *programArray,*programSplitArray,*programIdArray,*programNameArray,*programNmaeIdArray,*projectArray,*projectSplitArray,*projectIdArray,*projectNameArray,*budgetCostArray;
+    NSMutableArray *programArray,*programSplitArray,*programIdArray,*programNameArray,*programNmaeIdArray,*projectArray,*projectSplitArray,*projectIdArray,*projectNameArray,*budgetCostArray,*resultarray;
     
     
     
@@ -87,7 +87,7 @@ int i=1;
     
 
     
-    [self projectList];
+    [self programspinner];
     
     ChartView=[[UIView alloc]initWithFrame:CGRectMake(0, 10, self.view.frame.size.width-10, 400)];
     //ChartView1.backgroundColor=[UIColor blueColor];
@@ -151,16 +151,71 @@ int i=1;
         }
     }
 }
--(void)projectList
+-(void)programspinner
 {
-    serviceCall =[[Webservices alloc]init];
     
-    NSString * ProgramClass=@"ExecuteDashBoard";
-    
-    NSDictionary * ProgramDetailsDictionary=@{@"orgId":orgIdstr};
-    
-    [serviceCall ProjectCostDetails:ProgramClass ProjectCostParameters:ProgramDetailsDictionary];
+//   serviceCall =[[Webservices alloc]init];
+//    
+//    NSString * ProgramClass=@"ExecuteDashBoard";
+//    
+//    NSDictionary * ProgramDetailsDictionary=@{@"orgId":orgIdstr};
+//    
+//    [serviceCall ProjectCostDetails:ProgramClass ProjectCostParameters:ProgramDetailsDictionary];
+//    [serviceCall setDelegate:self];
+    serviceCall = [[Webservices alloc]init];
+    NSString *projectLstForTask =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/dashboard/v1/budgetofEachProgramList?orgId=%@",orgIdstr];
+    [serviceCall programspinnerUrl:projectLstForTask];
     [serviceCall setDelegate:self];
+
+}
+-(void)programspinner:(id)programSpinner
+{
+    NSDictionary *dict=[[NSDictionary alloc]init];
+    dict=programSpinner;
+    NSLog(@"the response dict is %@",dict);
+    NSArray *resultarray=[dict valueForKey:@"resAL"];
+    programIdArray=[[NSMutableArray alloc]init];
+    programNameArray=[[NSMutableArray alloc]init];
+    
+    for (NSDictionary *fidd in resultarray)
+    {
+        [programIdArray addObject:[fidd valueForKey:@"programId"]];
+        [programNameArray addObject:[fidd valueForKey:@"programName"]];
+    }
+    for (int i=0; i<[programIdArray count]; i++)
+    {
+        programIdstr=[programIdArray objectAtIndex:i];
+    }
+    NSLog(@"program id is %@",programIdArray);
+    NSLog(@"program name is %@",programNameArray);
+    [self budgetcostservice];
+
+}
+
+-(void)budgetcostservice
+{
+    serviceCall = [[Webservices alloc]init];
+    NSString *projectLstForTask =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/dashboard/v1/projectBudgetCostList?programId=%@",programIdstr];
+    [serviceCall programchartsbudgetcostUrl:projectLstForTask];
+    [serviceCall setDelegate:self];
+}
+-(void)programchartsbudgetcost:(id)programchartsbudgetCost
+{
+    NSDictionary *dict=[[NSDictionary alloc]init];
+    dict=programchartsbudgetCost;
+    NSLog(@"the response dict is %@",dict);
+    NSArray *resultarray=[dict valueForKey:@"resAL"];
+    budgetCostArray=[[NSMutableArray alloc]init];
+    
+    for (NSDictionary *fidd in resultarray)
+    {
+        [budgetCostArray addObject:[fidd valueForKey:@"budgetCost"]];
+        
+    }
+    //[self createLineChart];
+    NSLog(@"budget cost id is %@",budgetCostArray);
+    
+
 }
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(nullable NSString *)namespaceURI qualifiedName:(nullable NSString *)qName attributes:(NSDictionary *)attributeDict
 {
@@ -227,76 +282,96 @@ int i=1;
         }
     }
 }
-- (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(nullable NSString *)namespaceURI qualifiedName:(nullable NSString *)qName
-{
-    if (parser==ProgramDetailsXmlParser)
-    {
-        if ([elementName isEqualToString:@"getPrjBudCstLstResponse"])
-        {
-            for (int i=0; i<[programArray count]; i++)
-            {
-                programSplitArray=[[programArray objectAtIndex:i]componentsSeparatedByString:@"###"];
-                
-                programIdstr=[[programSplitArray objectAtIndex:1]stringByReplacingOccurrencesOfString:@"ProgramId==" withString:@" "];
-                
-                programNamestr=[[programSplitArray objectAtIndex:2]stringByReplacingOccurrencesOfString:@"ProgramName==" withString:@" "];
-                
-                programNameIdstr=[[programSplitArray objectAtIndex:3]stringByReplacingOccurrencesOfString:@"ProgramName==" withString:@" "];
-                
-                [programIdArray addObject:programIdstr];
-                [programNameArray addObject:programNamestr];
-                [programNmaeIdArray addObject:programNameIdstr];
-            }
-            
-            
-            
-            NSLog(@"the array values are %@ %@ %@",programIdArray,programNameArray,programNmaeIdArray);
-            
-            [self ProgramList];
-        }
-    }
-    if (parser==ProjectCostXmlParser)
-    {
-        if ([elementName isEqualToString:@"getPrjBudCstLstResponse"])
-        {
-            for (int i=0; i<[projectArray count]; i++)
-            {
-                projectSplitArray=[[projectArray objectAtIndex:i]componentsSeparatedByString:@"###"];
-                
-                projectIdstr=[[projectSplitArray objectAtIndex:1]stringByReplacingOccurrencesOfString:@"ProjectId==" withString:@" "];
-                
-                projectNamestr=[[projectSplitArray objectAtIndex:2]stringByReplacingOccurrencesOfString:@"ProjectName==" withString:@" "];
-                
-                budgetCoststr=[[projectSplitArray objectAtIndex:3]stringByReplacingOccurrencesOfString:@"BudgetCost==" withString:@""];
-                
-                
-                [projectIdArray addObject:projectIdstr];
-                [projectNameArray addObject:projectNamestr];
-                [budgetCostArray addObject:budgetCoststr];
-            }
-            NSLog(@"the array values are %@ %@ %@",projectIdArray,projectNameArray,budgetCostArray);
-            
-           // [self createLineChart];
-        }
-        
-    }
-    
-}
-
--(void)ProgramList
-{
-    serviceCall=[[Webservices alloc]init];
-    
-    NSString *ProgramClass=@"ExecuteDashBoard";
-    
-    NSDictionary *ProgramDictionary =@{@"programId":programIdstr};
-    
-    [serviceCall ProgramList:ProgramClass ProgramListParameters:ProgramDictionary];
-    
-    [serviceCall setDelegate:self];
-    //[self drawStockChart];
-    
-
-}
-
+//- (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(nullable NSString *)namespaceURI qualifiedName:(nullable NSString *)qName
+//{
+//    if (parser==ProgramDetailsXmlParser)
+//    {
+//        if ([elementName isEqualToString:@"getPrjBudCstLstResponse"])
+//        {
+//            for (int i=0; i<[programArray count]; i++)
+//            {
+//                programSplitArray=[[programArray objectAtIndex:i]componentsSeparatedByString:@"###"];
+//                
+//                programIdstr=[[programSplitArray objectAtIndex:1]stringByReplacingOccurrencesOfString:@"ProgramId==" withString:@" "];
+//                
+//                programNamestr=[[programSplitArray objectAtIndex:2]stringByReplacingOccurrencesOfString:@"ProgramName==" withString:@" "];
+//                
+//                programNameIdstr=[[programSplitArray objectAtIndex:3]stringByReplacingOccurrencesOfString:@"ProgramName==" withString:@" "];
+//                
+//                [programIdArray addObject:programIdstr];
+//                [programNameArray addObject:programNamestr];
+//                [programNmaeIdArray addObject:programNameIdstr];
+//            }
+//            
+//            
+//            
+//            NSLog(@"the array values are %@ %@ %@",programIdArray,programNameArray,programNmaeIdArray);
+//            
+////            [self ProgramList];
+//        }
+//   }
+////    if (parser==ProjectCostXmlParser)
+////    {
+////        if ([elementName isEqualToString:@"getPrjBudCstLstResponse"])
+////        {
+////            for (int i=0; i<[projectArray count]; i++)
+////            {
+////                projectSplitArray=[[projectArray objectAtIndex:i]componentsSeparatedByString:@"###"];
+////                
+////                projectIdstr=[[projectSplitArray objectAtIndex:1]stringByReplacingOccurrencesOfString:@"ProjectId==" withString:@" "];
+////                
+////                projectNamestr=[[projectSplitArray objectAtIndex:2]stringByReplacingOccurrencesOfString:@"ProjectName==" withString:@" "];
+////                
+////                budgetCoststr=[[projectSplitArray objectAtIndex:3]stringByReplacingOccurrencesOfString:@"BudgetCost==" withString:@""];
+////                
+////                
+////                [projectIdArray addObject:projectIdstr];
+////                [projectNameArray addObject:projectNamestr];
+////                [budgetCostArray addObject:budgetCoststr];
+////            }
+////            NSLog(@"the array values are %@ %@ %@",projectIdArray,projectNameArray,budgetCostArray);
+////            
+////           // [self createLineChart];
+////        }
+////        
+////    }
+////    
+//}
+//
+////-(void)ProgramList
+////{
+//////    serviceCall=[[Webservices alloc]init];
+//////    
+//////    NSString *ProgramClass=@"ExecuteDashBoard";
+//////    
+//////    NSDictionary *ProgramDictionary =@{@"programId":programIdstr};
+//////    
+//////    [serviceCall ProgramList:ProgramClass ProgramListParameters:ProgramDictionary];
+//////    
+//////    [serviceCall setDelegate:self];
+//////    //[self drawStockChart];
+////////    
+////////    serviceCall = [[Webservices alloc]init];
+////////    NSString *projectLstForTask =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/dashboard/v1/projectBudgetCostList?programId=%@",programIdstr];
+////////    [serviceCall oganizationresourcereport:projectLstForTask];
+////////    [serviceCall setDelegate:self];
+//////
+////}
+////-(void)programchartsbudgetcost:(id)programchartsbudgetCost
+////{
+//////    NSDictionary *dict=[[NSDictionary alloc]init];
+//////    dict=programchartsbudgetCost;
+//////    NSLog(@"the response dict is %@",dict);
+//////    NSArray *resultarray=[dict valueForKey:@"resAL"];
+//////    orgNameAry        = [[NSMutableArray alloc] init];
+//////    noOfResAry  = [[NSMutableArray alloc] init];
+//////    
+//////    for (NSDictionary *fidd in resultarray)
+//////    {
+//////        [orgNameAry addObject:[fidd valueForKey:@"orgResorceName"]];
+//////        [noOfResAry addObject:[fidd valueForKey:@"noOfResouces"]];
+//////    }
+//////
+//////
+////}
 @end
