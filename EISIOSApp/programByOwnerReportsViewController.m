@@ -86,7 +86,7 @@
     
     for (NSDictionary *fidd in resultarray1)
     {
-        [Program_OwnerAry addObject:[fidd valueForKey:@"programOwner"]];
+        [Program_OwnerAry addObject:[fidd valueForKey:@"firstName"]];
         [BudgetAry addObject:[fidd valueForKey:@"budget"]];
         [NoofProgramsAry addObject:[fidd valueForKey:@"noOfProgs"]];
         [NoofResourcesAry addObject:[fidd valueForKey:@"noOfResources"]];
@@ -214,7 +214,7 @@
         }
         
     }
-    
+
     
     
     
