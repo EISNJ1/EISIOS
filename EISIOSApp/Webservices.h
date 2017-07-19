@@ -54,10 +54,17 @@
 
 //Requirement
 -(void)requirementlist:(id)reqiurementList;
+-(void)contacttype:(id)contacttyperesponse;
+-(void)coreprocess:(id)coreprocessresponse;
+-(void)processservice:(id)processresponse;
+-(void)subprocessservice:(id)subprocessresponse;
 
 //Project Expenses
 
 -(void)projectExpenseslist:(id)ProjectExpensesresponse;
+-(void)categoryspinner:(id)categoryresponse;
+-(void)saveprojectexpenses:(id)saveprojectexpensesresponse;
+-(void)updateprojectexpenses:(id)updateprojectexpensesresponse;
 
 //DASH BOARD
 -(void)oganizationresourcereport:(id)oganizationresourcereportresponse;
@@ -151,11 +158,18 @@
 
 // Requirement Json
 -(void)requirementListUrl:(NSString *)requirementlistUrl;
+-(void)contacttypelistUrl:(NSString *)contacttypelistclass;
+-(void)coreprocesslisturl:(NSString *)coreprocessclass;
+-(void)processlisturl:(NSString *)processclass;
+-(void)subprocessurl:(NSString *)subprocessclass;
 
 
 //Project Expenses
 
 -(void)ProjectExpenseslist:(NSString *)projectexpenses;
+-(void)categoryspinnerlist:(NSString *)categorylist;
+-(void)saveprojectexpenses:(NSString *)projectexpensesparams projectexpensesservice:(NSString *)projectexpensesparameters;
+-(void)updateprojectexpenses:(NSString *)updateprojectexpensesclass updateprojectexpensesparams:(NSString *)updateprojectexpensesparameters;
 // Dash board
 
 -(void)oganizationresourcereport:(NSString *)oganizationresourcereportparams;

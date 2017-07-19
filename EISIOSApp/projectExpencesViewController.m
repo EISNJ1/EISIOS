@@ -123,6 +123,24 @@
         [projectIdArray addObject:[fidd valueForKey:@"projectId"]];
         [projectNameArray addObject:[fidd valueForKey:@"projectName"]];
     }
+    if ([projectNmaeTfd.text length]==0)
+    {
+        projectNmaeTfd.text=[projectNameArray objectAtIndex:0];
+        pkrProjectIDStr=[projectIdArray objectAtIndex:0];
+        [self projectExpancesListService];
+        [expancesLstTl reloadData];
+    }
+    else
+    {
+        for (int i=0; i<[projectNameArray count]; i++)
+        {
+            projectNmaeTfd.text=[projectNameArray objectAtIndex:i];
+            pkrProjectIDStr=[projectIdArray objectAtIndex:i];
+            [self projectExpancesListService];
+            [expancesLstTl reloadData];
+        }
+    }
+
     [expancesLstTl reloadData];
 
 }

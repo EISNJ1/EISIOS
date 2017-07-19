@@ -146,14 +146,13 @@
         requiremnetNameTxtFld.text=requiremnetNamestr;
 
     [self projectSpinnerService];
-    //[self contactSpinnerService];
     [self coreProcessSpinnerService];
     //[self processSpinnerService];
     //[self subProcessSpinner];
     //[self activitySpinner];
-    [self typeSpinner];
-    [self Criticality1Spinner];
-    [self Criticality2Spinner];
+    //[self typeSpinner];
+    //[self Criticality1Spinner];
+    //[self Criticality2Spinner];
 
     
     if ([projectTblStr length]>0)
@@ -456,45 +455,261 @@
 -(void)projectSpinnerService
 {
     Servicecall = [[Webservices alloc]init];
-    NSString *projectLstForTask = @"RequirementGatheringService";
-    NSDictionary *credentials = @{@"usertype":UserTypestr,@"userId":Useridstr,@"orgId":OrgIdStr};
-    [Servicecall reqProjectSpinner:projectLstForTask TaskListParameters:credentials];
+    NSString *projectLstForTask = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/meeting/v1/projectListSpinner?usertype=%@&userId=%@&orgId=%@",UserTypestr,Useridstr,OrgIdStr];
+    [Servicecall projectlstspinrurl:projectLstForTask];
     [Servicecall setDelegate:self];
 
+}
+-(void)projectlistspinner:(id)projectlistSpinner
+{
+    NSDictionary *dict=[[NSDictionary alloc]init];
+    dict=projectlistSpinner;
+    NSArray *resultarray=[dict valueForKey:@"resAL"];
+    PROJECT_IDArray=[[NSMutableArray alloc]init];
+    PROJECT_NAMEArray=[[NSMutableArray alloc]init];
+    
+    for (NSDictionary *fidd in resultarray)
+    {
+        [PROJECT_IDArray addObject:[fidd valueForKey:@"projectId"]];
+        [PROJECT_NAMEArray addObject:[fidd valueForKey:@"projectName"]];
+    }
+    if ([projectTfd.text length] == 0 &&[PROJECT_NAMEArray count]>0)
+    {
+        
+        projectTfd.text = [PROJECT_NAMEArray objectAtIndex:0];
+        pkrProjectIDStr = [PROJECT_IDArray objectAtIndex:0];
+        [self contactSpinnerService];
+        
+        
+    }
+    else
+    {
+        
+        NSString *tempString = projectTblStr;
+        for(int i=0; i<[PROJECT_IDArray count];i++)
+        {
+            if([tempString isEqualToString:[PROJECT_IDArray objectAtIndex:i]])
+            {
+                [updateBtn setHidden:NO];
+                [saveBtn setHidden:YES];
+                
+                pkrProjectIDStr = [PROJECT_IDArray objectAtIndex:i];
+                projectTfd.text=[PROJECT_NAMEArray objectAtIndex:i];
+                [self contactSpinnerService];
+                
+            }
+        }
+
+  }
 }
 -(void)contactSpinnerService
 {
     Servicecall = [[Webservices alloc]init];
-    NSString *projectLstForTask = @"RequirementGatheringService";
-    NSDictionary *credentials = @{@"projectId":pkrProjectIDStr};
-    [Servicecall reqContactSpinner:projectLstForTask TaskListParameters:credentials];
+    NSString *projectLstForTask = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/requirement/v1/reqGathContactSpinner?projectId=%@",pkrProjectIDStr];
+    [Servicecall contacttypelistUrl:projectLstForTask];
     [Servicecall setDelegate:self];
 }
+-(void)contacttype:(id)contacttyperesponse
+{
+    NSDictionary *dict=[[NSDictionary alloc]init];
+    dict=contacttyperesponse;
+    NSArray *resultarray=[dict valueForKey:@"resAL"];
+    resourceIdAry         = [[NSMutableArray alloc] init];
+    resourceNameAry       = [[NSMutableArray alloc] init];
+    for (NSDictionary *fidd in resultarray)
+    {
+        [resourceIdAry addObject:[fidd valueForKey:@"resourceId"]];
+        [resourceNameAry addObject:[fidd valueForKey:@"resourceName"]];
+    }
+    if ([contactTblStr length] == 0)
+    {
+        
+        contactTfd.text = [resourceNameAry objectAtIndex:0];
+        pkrResourceIDStr = [resourceIdAry objectAtIndex:0];
+        
+    }
+    
+    NSString *tempString = contactTblStr;
+    for(int i=0; i<[resourceNameAry count]; i++)
+    {
+        if([tempString isEqualToString:[resourceNameAry objectAtIndex:i]])
+        {
+            
+            pkrResourceIDStr = [resourceIdAry objectAtIndex:i];
+            
+        }
+    }
+    
+
+    
+}
+
 -(void)coreProcessSpinnerService
 {
     Servicecall = [[Webservices alloc]init];
-    NSString *projectLstForTask = @"RequirementGatheringService";
-    NSDictionary *credentials = @{@"orgId":OrgIdStr};
-    [Servicecall reqCoreProcessSpinner:projectLstForTask TaskListParameters:credentials];
+    NSString *projectLstForTask = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/requirement/v1/reqcoreProcessSpinner?orgId=%@",OrgIdStr];
+    [Servicecall coreprocesslisturl:projectLstForTask];
     [Servicecall setDelegate:self];
+}
+-(void)coreprocess:(id)coreprocessresponse
+{
+    NSDictionary *dict=[[NSDictionary alloc]init];
+    dict=coreprocessresponse;
+    NSArray *resultarray=[dict valueForKey:@"resAL"];
+    coreProcessIdAry         = [[NSMutableArray alloc] init];
+    coreProcessCodeAry         = [[NSMutableArray alloc] init];
+    coreProcessNameAry         = [[NSMutableArray alloc] init];
+    coreProcessDescAry         = [[NSMutableArray alloc] init];
+    
+    for (NSDictionary *fidd in resultarray)
+    {
+        [coreProcessIdAry addObject:[fidd valueForKey:@"coreProcessId"]];
+        [coreProcessNameAry addObject:[fidd valueForKey:@"coreProcess"]];
+        [coreProcessCodeAry addObject:[fidd valueForKey:@"coreProcessCode"]];
+        [coreProcessDescAry addObject:[fidd valueForKey:@"coreProcessDescription"]];
+    }
+    if ([coreProcessTblStr length] == 0)
+    {
+        
+        coreProcessTfd.text = [coreProcessNameAry objectAtIndex:0];
+        pkrCoreProcessIDStr = [coreProcessIdAry objectAtIndex:0];
+        [self processSpinnerService];
+
+    }
+
+    
+    NSString *tempString = coreProcessTblStr;
+    for(int i=0; i<[coreProcessNameAry count]; i++)
+    {
+        if([tempString isEqualToString:[coreProcessNameAry objectAtIndex:i]])
+        {
+            
+            pkrCoreProcessIDStr = [coreProcessIdAry objectAtIndex:i];
+            [self processSpinnerService];
+            
+        }
+    }
+    
+    
+
+    
 }
 -(void)processSpinnerService
 {
     Servicecall = [[Webservices alloc]init];
-    NSString *projectLstForTask = @"RequirementGatheringService";
-    NSDictionary *credentials = @{@"coreProcessId":pkrCoreProcessIDStr};
-    [Servicecall reqProcessSpinner:projectLstForTask TaskListParameters:credentials];
+    NSString *projectLstForTask = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/requirement/v1/reqProcessSpinner?coreProcessId=%@",pkrCoreProcessIDStr];
+    [Servicecall processlisturl:projectLstForTask];
     [Servicecall setDelegate:self];
-
+}
+-(void)processservice:(id)processresponse
+{
+    NSDictionary *dict=[[NSDictionary alloc]init];
+    dict=processresponse;
+    NSLog(@"process response is %@",dict);
     
+    if ([[dict valueForKey:@"statusMessage"]isEqualToString:@"No Data"])
+    {
+        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Alert" message:@"process list is empty" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+        [alert show];
+    }
+    else
+    {
+        NSArray *resultarray=[dict valueForKey:@"resAL"];
+        processIdAry         = [[NSMutableArray alloc] init];
+        processCodeAry         = [[NSMutableArray alloc] init];
+        processNameAry         = [[NSMutableArray alloc] init];
+        processDescAry         = [[NSMutableArray alloc] init];
+        
+        for (NSDictionary *fidd in resultarray)
+        {
+            [processIdAry addObject:[fidd valueForKey:@"processId"]];
+            [processCodeAry addObject:[fidd valueForKey:@"processCode"]];
+            [processNameAry addObject:[fidd valueForKey:@"process"]];
+            [processDescAry addObject:[fidd valueForKey:@"processDescription"]];
+        }
+                       if ([projectTblStr length] == 0)
+                       {
+        
+                           processTfd.text = [processNameAry objectAtIndex:0];
+                           pkrprocessIDStr = [processIdAry objectAtIndex:0];
+                           [self subProcessSpinner];
+        
+                       }
+        
+        
+        
+        NSString *tempString = processTblStr;
+        for(int i=0; i<[processNameAry count]; i++)
+        {
+            if([tempString isEqualToString:[processNameAry objectAtIndex:i]])
+            {
+                
+                pkrprocessIDStr = [processIdAry objectAtIndex:i];
+                [self subProcessSpinner];
+                
+            }
+        }
+
+    }
 }
 -(void)subProcessSpinner
 {
     Servicecall = [[Webservices alloc]init];
-    NSString *projectLstForTask = @"RequirementGatheringService";
-    NSDictionary *credentials = @{@"processId":pkrprocessIDStr};
-    [Servicecall reqSubProcessSpinner:projectLstForTask TaskListParameters:credentials];
-    [Servicecall setDelegate:self];
+    NSString *projectLstForTask = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/requirement/v1/reqSubProcessSpinner?processId=%@",pkrprocessIDStr];
+   
+    [Servicecall subprocessurl:projectLstForTask];
+[Servicecall setDelegate:self];
+}
+-(void)subprocessservice:(id)subprocessresponse
+{
+    NSDictionary *dict=[[NSDictionary alloc]init];
+    dict=subprocessresponse;
+    if ([[dict valueForKey:@"statusMessage"]isEqualToString:@"No Data"])
+    {
+        UIAlertView *alertview=[[UIAlertView alloc]initWithTitle:@"Alert" message:@"Subprocess lise is empty" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+        [alertview show];
+    }
+    else
+    {
+        NSArray *resultarray=[dict valueForKey:@"resAL"];
+        
+        subProcessIdAry         = [[NSMutableArray alloc] init];
+        subProcessCodeAry         = [[NSMutableArray alloc] init];
+        subProcessNameAry         = [[NSMutableArray alloc] init];
+        subProcessDescAry         = [[NSMutableArray alloc] init];
+        
+        for (NSDictionary *fidd in resultarray)
+        {
+            [subProcessIdAry addObject:[fidd valueForKey:@"subProcessId"]];
+            [subProcessCodeAry addObject:[fidd valueForKey:@"subProcessCode"]];
+            [subProcessDescAry addObject:[fidd valueForKey:@"subProcessDescription"]];
+            [subProcessNameAry addObject:[fidd valueForKey:@"subProcess"]];
+        }
+        
+                       if ([projectTblStr length] == 0)
+                       {
+        
+                           subProcessTfd.text = [subProcessNameAry objectAtIndex:0];
+                           pkrSubProcessIDStr = [subProcessIdAry objectAtIndex:0];
+                           [self activitySpinner];
+        
+                       }
+        
+        
+        NSString *tempString = subProcessTblStr;
+        for(int i=0; i<[subProcessNameAry count]; i++)
+        {
+            if([tempString isEqualToString:[subProcessNameAry objectAtIndex:i]])
+            {
+                
+                pkrSubProcessIDStr = [subProcessIdAry objectAtIndex:i];
+                [self activitySpinner];
+                
+            }
+        }
+        
+        
+    }
 }
 
 -(void)activitySpinner
@@ -1280,14 +1495,13 @@
                 [resourceNameAry addObject:resourceNameString];
                 NSLog(@"split  is %@,%@",resourceIdAry,resourceNameAry);
                 
-//                if ([projectTblStr length] == 0)
-//                {
-//                    
-//                    contactTfd.text = [resourceNameAry objectAtIndex:0];
-//                    pkrResourceIDStr = [resourceIdAry objectAtIndex:0];
-//                    
-//                }
-//                
+                if ([projectTblStr length] == 0)
+                {
+                    
+                    contactTfd.text = [resourceNameAry objectAtIndex:0];
+                    pkrResourceIDStr = [resourceIdAry objectAtIndex:0];
+                    
+                }
                 
                 NSString *tempString = contactTblStr;
                 for(int i=0; i<[resourceNameAry count]; i++)
