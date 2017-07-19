@@ -99,126 +99,126 @@
     [programOwnerReportsTbl reloadData];
 
 }
--(void)didFinishService :(id)Userlogindetails
-{
-    xmlParser = [[NSXMLParser alloc]initWithData:Userlogindetails];
-    xmlParser.delegate = self;
-    [xmlParser parse];
-}
-
--(void) parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName
-  namespaceURI:(NSString *)namespaceURI qualifiedName:
-(NSString *)qName attributes:(NSDictionary *)attributeDict
-{
-    
-    if ([elementName isEqualToString:@"getNoOfPrgmsForOwnerResponse"])
-    {
-        getNoOfPrgmsForOwnerResponseStr          = [[NSString alloc] init];
-        getNoOfPrgmsForOwnerResponseSplitAry   = [[NSArray alloc] init];
-        getNoOfPrgmsForOwnerResponseDataAry    = [[NSArray alloc] init];
-        
-        Org_IdAry        = [[NSMutableArray alloc] init];
-        Program_OwnerAry  = [[NSMutableArray alloc] init];
-        First_NameAry  = [[NSMutableArray alloc] init];
-        BudgetAry  = [[NSMutableArray alloc] init];
-        NoofProgramsAry  = [[NSMutableArray alloc] init];
-        NoofResourcesAry  = [[NSMutableArray alloc] init];
-
-        
-        
-    }
- 
-    
-}
-- (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string
-{
-    
-    
-    if (parser == xmlParser)
-    {
-        
-        if ([string isEqualToString:@"Flase"])
-        {
-            UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"Warning" message:@"The List is Empty" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:nil, nil];
-            
-            [alert show];
-        }
-        else{
-            NSString *chandu = @"*********";
-            
-            
-            getNoOfPrgmsForOwnerResponseStr = [getNoOfPrgmsForOwnerResponseStr stringByAppendingString:chandu];
-            getNoOfPrgmsForOwnerResponseStr = [getNoOfPrgmsForOwnerResponseStr stringByAppendingString:string];
-            //NSLog(@"agenda details are test %@",string);
-            getNoOfPrgmsForOwnerResponseDataAry = [getNoOfPrgmsForOwnerResponseStr componentsSeparatedByString:@"*********"];
-        }
-    }
-    
- 
-    
-    
-}
-- (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName
-  namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
-{
-    
-    
-    if (parser == xmlParser)
-    {
-        
-        if ([elementName isEqualToString:@"getNoOfPrgmsForOwnerResponse"])
-        {
-            
-            for (int i=1; i<[getNoOfPrgmsForOwnerResponseDataAry count]; i++)
-            {
-                
-                getNoOfPrgmsForOwnerResponseSplitAry = [[getNoOfPrgmsForOwnerResponseDataAry objectAtIndex:i] componentsSeparatedByString:@"###"];
-                
-                // NSLog(@"split  is %@",orgResourceRepResponseSplitAry);
-                
-                for (int j=1; j<[getNoOfPrgmsForOwnerResponseSplitAry count]; j++)
-                {
-                    Org_IdStr = [[getNoOfPrgmsForOwnerResponseSplitAry objectAtIndex:1] stringByReplacingOccurrencesOfString:@"Org_Id==" withString:@""];
-                    
-                    Program_OwnerStr = [[getNoOfPrgmsForOwnerResponseSplitAry objectAtIndex:2] stringByReplacingOccurrencesOfString:@"Program_Owner==" withString:@""];
-                    
-                    First_NameStr = [[getNoOfPrgmsForOwnerResponseSplitAry objectAtIndex:3] stringByReplacingOccurrencesOfString:@"First_Name==" withString:@""];
-
-                    BudgetStr = [[getNoOfPrgmsForOwnerResponseSplitAry objectAtIndex:4] stringByReplacingOccurrencesOfString:@"Budget==" withString:@""];
-
-                    NoofProgramsStr = [[getNoOfPrgmsForOwnerResponseSplitAry objectAtIndex:5] stringByReplacingOccurrencesOfString:@"No.ofPrograms==" withString:@""];
-                    
-                    NoofResourcesStr = [[getNoOfPrgmsForOwnerResponseSplitAry objectAtIndex:6] stringByReplacingOccurrencesOfString:@"No.ofResources==" withString:@""];
-
-
-                    
-                }
-
-
-                [Org_IdAry addObject:Org_IdStr];
-                [Program_OwnerAry addObject:Program_OwnerStr];
-                [First_NameAry addObject:First_NameStr];
-                [BudgetAry addObject:BudgetStr];
-                [NoofProgramsAry addObject:NoofProgramsStr];
-                [NoofResourcesAry addObject:NoofResourcesStr];
-
-                
-                
-            }
-            //NSLog(@"split  is %@ %@ %@ %@ %@",reqTypeArray,contactAry,criticialityAry,activityAry,systemAry);
-            
-            NSLog(@"  is %@ %@ %@ %@ %@ %@",Org_IdAry,Program_OwnerAry,First_NameAry,BudgetAry,NoofProgramsAry,NoofResourcesAry);
-            [programOwnerReportsTbl reloadData];
-            
-            
-        }
-        
-    }
-
-    
-    
-    
-}
+//-(void)didFinishService :(id)Userlogindetails
+//{
+//    xmlParser = [[NSXMLParser alloc]initWithData:Userlogindetails];
+//    xmlParser.delegate = self;
+//    [xmlParser parse];
+//}
+//
+//-(void) parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName
+//  namespaceURI:(NSString *)namespaceURI qualifiedName:
+//(NSString *)qName attributes:(NSDictionary *)attributeDict
+//{
+//    
+//    if ([elementName isEqualToString:@"getNoOfPrgmsForOwnerResponse"])
+//    {
+//        getNoOfPrgmsForOwnerResponseStr          = [[NSString alloc] init];
+//        getNoOfPrgmsForOwnerResponseSplitAry   = [[NSArray alloc] init];
+//        getNoOfPrgmsForOwnerResponseDataAry    = [[NSArray alloc] init];
+//        
+//        Org_IdAry        = [[NSMutableArray alloc] init];
+//        Program_OwnerAry  = [[NSMutableArray alloc] init];
+//        First_NameAry  = [[NSMutableArray alloc] init];
+//        BudgetAry  = [[NSMutableArray alloc] init];
+//        NoofProgramsAry  = [[NSMutableArray alloc] init];
+//        NoofResourcesAry  = [[NSMutableArray alloc] init];
+//
+//        
+//        
+//    }
+// 
+//    
+//}
+//- (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string
+//{
+//    
+//    
+//    if (parser == xmlParser)
+//    {
+//        
+//        if ([string isEqualToString:@"Flase"])
+//        {
+//            UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"Warning" message:@"The List is Empty" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:nil, nil];
+//            
+//            [alert show];
+//        }
+//        else{
+//            NSString *chandu = @"*********";
+//            
+//            
+//            getNoOfPrgmsForOwnerResponseStr = [getNoOfPrgmsForOwnerResponseStr stringByAppendingString:chandu];
+//            getNoOfPrgmsForOwnerResponseStr = [getNoOfPrgmsForOwnerResponseStr stringByAppendingString:string];
+//            //NSLog(@"agenda details are test %@",string);
+//            getNoOfPrgmsForOwnerResponseDataAry = [getNoOfPrgmsForOwnerResponseStr componentsSeparatedByString:@"*********"];
+//        }
+//    }
+//    
+// 
+//    
+//    
+//}
+//- (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName
+//  namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
+//{
+//    
+//    
+//    if (parser == xmlParser)
+//    {
+//        
+//        if ([elementName isEqualToString:@"getNoOfPrgmsForOwnerResponse"])
+//        {
+//            
+//            for (int i=1; i<[getNoOfPrgmsForOwnerResponseDataAry count]; i++)
+//            {
+//                
+//                getNoOfPrgmsForOwnerResponseSplitAry = [[getNoOfPrgmsForOwnerResponseDataAry objectAtIndex:i] componentsSeparatedByString:@"###"];
+//                
+//                // NSLog(@"split  is %@",orgResourceRepResponseSplitAry);
+//                
+//                for (int j=1; j<[getNoOfPrgmsForOwnerResponseSplitAry count]; j++)
+//                {
+//                    Org_IdStr = [[getNoOfPrgmsForOwnerResponseSplitAry objectAtIndex:1] stringByReplacingOccurrencesOfString:@"Org_Id==" withString:@""];
+//                    
+//                    Program_OwnerStr = [[getNoOfPrgmsForOwnerResponseSplitAry objectAtIndex:2] stringByReplacingOccurrencesOfString:@"Program_Owner==" withString:@""];
+//                    
+//                    First_NameStr = [[getNoOfPrgmsForOwnerResponseSplitAry objectAtIndex:3] stringByReplacingOccurrencesOfString:@"First_Name==" withString:@""];
+//
+//                    BudgetStr = [[getNoOfPrgmsForOwnerResponseSplitAry objectAtIndex:4] stringByReplacingOccurrencesOfString:@"Budget==" withString:@""];
+//
+//                    NoofProgramsStr = [[getNoOfPrgmsForOwnerResponseSplitAry objectAtIndex:5] stringByReplacingOccurrencesOfString:@"No.ofPrograms==" withString:@""];
+//                    
+//                    NoofResourcesStr = [[getNoOfPrgmsForOwnerResponseSplitAry objectAtIndex:6] stringByReplacingOccurrencesOfString:@"No.ofResources==" withString:@""];
+//
+//
+//                    
+//                }
+//
+//
+//                [Org_IdAry addObject:Org_IdStr];
+//                [Program_OwnerAry addObject:Program_OwnerStr];
+//                [First_NameAry addObject:First_NameStr];
+//                [BudgetAry addObject:BudgetStr];
+//                [NoofProgramsAry addObject:NoofProgramsStr];
+//                [NoofResourcesAry addObject:NoofResourcesStr];
+//
+//                
+//                
+//            }
+//            //NSLog(@"split  is %@ %@ %@ %@ %@",reqTypeArray,contactAry,criticialityAry,activityAry,systemAry);
+//            
+//            NSLog(@"  is %@ %@ %@ %@ %@ %@",Org_IdAry,Program_OwnerAry,First_NameAry,BudgetAry,NoofProgramsAry,NoofResourcesAry);
+//            [programOwnerReportsTbl reloadData];
+//            
+//            
+//        }
+//        
+//    }
+//
+//    
+//    
+//    
+//}
 
 
 
@@ -256,7 +256,7 @@
 {
     // Return the number of rows in the section.
     // return [reqTypeArray count];
-    return [Org_IdAry count];
+    return [Program_OwnerAry count];
     
 }
 
@@ -282,7 +282,7 @@
     //cell.textLabel.text = [dashBoardListAry objectAtIndex:indexPath.row];
     UILabel *nameLbl = (UILabel*)[cell viewWithTag:1];
     nameLbl.font=[UIFont systemFontOfSize:25];
-    nameLbl.text = [First_NameAry objectAtIndex:indexPath.row];
+    nameLbl.text = [Program_OwnerAry objectAtIndex:indexPath.row];
     //cell.textLabel.text = @"WELCOME";
     
     
