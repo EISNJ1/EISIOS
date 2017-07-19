@@ -74,6 +74,7 @@
 -(void)numofresourcesbyteam:(id)numofresourcesbyTeam;
 -(void)programchartsbudgetcost:(id)programchartsbudgetCost;
 -(void)programspinner:(id)programSpinner;
+-(void)programbyownerlist:(id)programbyownerList;
 
 
 //soap methods
@@ -167,10 +168,11 @@
 -(void)assignedcapacitytoProgramUrl:(NSString *)assignedcapacitytoprogramUrl;
 -(void)assignedcapacitytoProjectUrl:(NSString *)assignedcapacitytoprojectUrl;
 -(void)averagecostofresourceofProgramUrl:(NSString *)averagecostofresourceofprogramUrl;
--(void)numofresourcesbyprojectUrl:(id)numofresourcesbyProjectUrl;
--(void)numofresourcesbyteamUrl:(id)numofresourcesbyTeamUrl;
--(void)programchartsbudgetcostUrl:(id)programchartsbudgetCostUrl;
--(void)programspinnerUrl:(id)programSpinnerUrl;
+-(void)numofresourcesbyprojectUrl:(NSString *)numofresourcesbyProjectUrl;
+-(void)numofresourcesbyteamUrl:(NSString *)numofresourcesbyTeamUrl;
+-(void)programchartsbudgetcostUrl:(NSString *)programchartsbudgetCostUrl;
+-(void)programspinnerUrl:(NSString *)programSpinnerUrl;
+-(void)programbyownerlistUrl:(NSString *)programbyownerListUrl;
 
 
 

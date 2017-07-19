@@ -1113,7 +1113,7 @@
 
 }
 
--(void)numofresourcesbyprojectUrl:(id)numofresourcesbyProjectUrl
+-(void)numofresourcesbyprojectUrl:(NSString *)numofresourcesbyProjectUrl
 {
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
@@ -1134,7 +1134,7 @@
     
 }
 
--(void)numofresourcesbyteamUrl:(id)numofresourcesbyTeamUrl
+-(void)numofresourcesbyteamUrl:(NSString *)numofresourcesbyTeamUrl
 {
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
@@ -1155,7 +1155,7 @@
 
 }
 
--(void)programchartsbudgetcostUrl:(id)programchartsbudgetCostUrl
+-(void)programchartsbudgetcostUrl:(NSString *)programchartsbudgetCostUrl
 {
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
@@ -1176,7 +1176,7 @@
 
 }
 
--(void)programspinnerUrl:(id)programSpinnerUrl
+-(void)programspinnerUrl:(NSString *)programSpinnerUrl
 {
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
@@ -1194,6 +1194,27 @@
      {
          NSLog(@"Error: %@", error);
      }];
+}
+
+-(void)programbyownerlistUrl:(NSString *)programbyownerListUrl
+{
+    AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+    
+    AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
+    responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
+    
+    manager.responseSerializer = responseSerializer;
+    [manager GET:programbyownerListUrl parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
+     {
+         NSLog(@"JSON: %@",responseObject);
+         
+         [delegate programbyownerlist:responseObject];
+     }
+         failure:^(NSURLSessionTask *operation, NSError *error)
+     {
+         NSLog(@"Error: %@", error);
+     }];
+
 }
 //-(void)Loginserviceurl:(NSString *)Loginurl Loginparameters:(NSDictionary *)LoginCredentials
 //{
