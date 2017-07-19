@@ -69,6 +69,20 @@
 //DASH BOARD
 -(void)oganizationresourcereport:(id)oganizationresourcereportresponse;
 -(void)peoplebyskills:(id)peoplebyskillsresponse;
+-(void)numofprojectsbyresourcereport:(id)numofprojectsbyresourceReport;
+-(void)averagebillingratebyorganisation:(id)averagebillingratebyOrganisation;
+-(void)numofresourcesbyprogram:(id)numofresourcesbyProgram;
+-(void)allocatedcapacitytoprogram:(id)allocatedcapacitytoProgram;
+-(void)allocatedcapacitytoproject:(id)allocatedcapacitytoProject;
+-(void)assignedcapacitytoprogram:(id)assignedcapacitytoProgram;
+-(void)assignedcapacitytoproject:(id)assignedcapacitytoProject;
+-(void)averagecostofresourceofprogram:(id)averagecostofresourceofProgram;
+-(void)numofresourcesbyproject:(id)numofresourcesbyProject;
+-(void)numofresourcesbyteam:(id)numofresourcesbyTeam;
+-(void)programchartsbudgetcost:(id)programchartsbudgetCost;
+-(void)programspinner:(id)programSpinner;
+-(void)programbyownerlist:(id)programbyownerList;
+
 
 //soap methods
 -(void)didfinishactionitemlist :(id)actionitemlist;
@@ -160,6 +174,21 @@
 
 -(void)oganizationresourcereport:(NSString *)oganizationresourcereportparams;
 -(void)peoplebyskill:(NSString *)peoplebyskillparams;
+-(void)numofprojectsbyResourcereportsUrl:(NSString *)numofprojectsbyresourcereportUrl;
+-(void)averagebillingratebyOrganisationUrl:(NSString *)averagebillingratebyorganisationUrl;
+-(void)numofresourcesbyProgramUrl:(NSString *)numofresourcesbyprogramUrl;
+-(void)allocatedcapacitytoProgramUrl:(NSString *)allocatedcapacitytoprogramUrl;
+-(void)allocatedcapacitytoProjectUrl:(NSString *)allocatedcapacitytoprojectUrl;
+-(void)assignedcapacitytoProgramUrl:(NSString *)assignedcapacitytoprogramUrl;
+-(void)assignedcapacitytoProjectUrl:(NSString *)assignedcapacitytoprojectUrl;
+-(void)averagecostofresourceofProgramUrl:(NSString *)averagecostofresourceofprogramUrl;
+-(void)numofresourcesbyprojectUrl:(NSString *)numofresourcesbyProjectUrl;
+-(void)numofresourcesbyteamUrl:(NSString *)numofresourcesbyTeamUrl;
+-(void)programchartsbudgetcostUrl:(NSString *)programchartsbudgetCostUrl;
+-(void)programspinnerUrl:(NSString *)programSpinnerUrl;
+-(void)programbyownerlistUrl:(NSString *)programbyownerListUrl;
+
+
 
 -(void)Loginserviceurl: (NSString *)Loginurl Loginparameters : (NSDictionary *)LoginCredentials;
 -(void)MeetingListurl:(NSString *)Listurl Listparameters:(NSDictionary *)Listcredentials;
@@ -173,7 +202,6 @@
 -(void)SaveMeetingurl :(NSString *)SaveMeeetingurl  SaveMeetingDetails :(NSDictionary *)SaveMeetingDetails;
 -(void)UpdateMeetingurl :(NSString *)UpdateMeeetingurl  UpdateMeetingDetails :(NSDictionary *)UpdateMeetingDetails;
 -(void)AgendaGoalsCounturl :(NSString *)AgendaGoalsCounturl AgendaGoalParameters :(NSDictionary *)AgendaGoalsCredentials;
-
 -(void)ActionItemListKill :(NSString *)ActionItemListClass ActionItemListKillParameters :(NSDictionary *)ACtionItemListDictionary;
 
 //------------------TimeSheet Moduke------------------------

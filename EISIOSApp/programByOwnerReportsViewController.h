@@ -22,7 +22,7 @@
     NSString *getNoOfPrgmsForOwnerResponseStr;
     NSArray *getNoOfPrgmsForOwnerResponseSplitAry,*getNoOfPrgmsForOwnerResponseDataAry;
     
-    NSMutableArray * Org_IdAry,*Program_OwnerAry,*First_NameAry,*BudgetAry,*NoofProgramsAry,*NoofResourcesAry;
+    NSMutableArray * Org_IdAry,*Program_OwnerAry,*First_NameAry,*BudgetAry,*NoofProgramsAry,*NoofResourcesAry,*resultarray;
     NSString * Org_IdStr,*Program_OwnerStr,*First_NameStr,*BudgetStr,*NoofProgramsStr,*NoofResourcesStr;
 
 

@@ -60,14 +60,45 @@
 }
 -(void)programByOwnerReportsService
 {
+//    Servicecall = [[Webservices alloc]init];
+//    NSString *projectLstForTask = @"ExecuteDashBoard";
+//    NSDictionary *credentials = @{@"OrgId":OrgIdStr};
+//    [Servicecall prgrmByOwnerReports:projectLstForTask TaskListParameters:credentials];
+//    [Servicecall setDelegate:self];
+
     Servicecall = [[Webservices alloc]init];
-    NSString *projectLstForTask = @"ExecuteDashBoard";
-    NSDictionary *credentials = @{@"OrgId":OrgIdStr};
-    [Servicecall prgrmByOwnerReports:projectLstForTask TaskListParameters:credentials];
+    NSString *projectLstForTask =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/dashboard/v1/noOfPrgmsForOwner?orgId=%@",OrgIdStr];
+    [Servicecall programbyownerlistUrl:projectLstForTask];
     [Servicecall setDelegate:self];
 
 }
 
+-(void)programbyownerlist:(id)programbyownerList
+{
+    NSDictionary *dict=[[NSDictionary alloc]init];
+    
+    dict=programbyownerList;
+    Program_OwnerAry  = [[NSMutableArray alloc] init];
+    BudgetAry  = [[NSMutableArray alloc] init];
+    NoofProgramsAry  = [[NSMutableArray alloc] init];
+    NoofResourcesAry  = [[NSMutableArray alloc] init];
+    NSArray *resultarray1=[dict valueForKey:@"resAL"];
+    
+    for (NSDictionary *fidd in resultarray1)
+    {
+        [Program_OwnerAry addObject:[fidd valueForKey:@"programOwner"]];
+        [BudgetAry addObject:[fidd valueForKey:@"budget"]];
+        [NoofProgramsAry addObject:[fidd valueForKey:@"noOfProgs"]];
+        [NoofResourcesAry addObject:[fidd valueForKey:@"noOfResources"]];
+    }
+    
+    NSLog(@"program owner is %@",Program_OwnerAry);
+    NSLog(@"budget is %@",BudgetAry);
+    NSLog(@"no of programs are %@",NoofProgramsAry);
+    NSLog(@"no of resources are %@",NoofResourcesAry);
+    [programOwnerReportsTbl reloadData];
+
+}
 -(void)didFinishService :(id)Userlogindetails
 {
     xmlParser = [[NSXMLParser alloc]initWithData:Userlogindetails];

@@ -88,9 +88,9 @@
     
     NSMutableArray *teamNameForResourceArray,*teamResourceCountArray,*teamNameResourceListArray,*teamNameResourceSplitArray;
     
-    NSMutableArray *proejctsForAllListArray,*proejctsForAllSplitArray,*projectsForAllProjectsArray,*proejctsListForAllCountArray,*filterTeamResourceArray;
+    NSMutableArray *proejctsForAllListArray,*proejctsForAllSplitArray,*projectsForAllProjectsArray,*proejctsListForAllCountArray,*filterTeamResourceArray,*FilterTeamResourceArray;
     
-    NSArray *FilterTeamResourceArray,*FilterProjectsForAllArray,*FilterProjectsForAllCountArray;
+    NSArray *FilterProjectsForAllArray,*FilterProjectsForAllCountArray;
     NSMutableString *resourceNameStr,*resourcecountStr,*projectsForAllStr,*proejctsForaAllCountStr;
     
     NSMutableArray *FilterTeamResourceCountArray;
