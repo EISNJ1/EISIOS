@@ -106,7 +106,7 @@
         [attatchmentlabel setHidden:NO];
         
         [self projectSpinnerService];
-        [self attatchmentList];
+        //[self attatchmentList];
         [self categorySpinnerListService];
         
         //[self downloadFilesUrl];
@@ -142,6 +142,8 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     
+   
+    
 }
 -(void)attatchmentList
 {
@@ -166,33 +168,148 @@
 {
     
     Servicecall = [[Webservices alloc]init];
-    NSString *projectLstForTask = @"RequirementGatheringService";
-    NSDictionary *credentials = @{@"usertype":UserTypestr,@"userId":Useridstr,@"orgId":OrgIdStr};
-    [Servicecall projectExpencesListSpinner:projectLstForTask TaskListParameters:credentials];
+    NSString *projectLstForTask = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/meeting/v1/projectListSpinner?usertype=%@&userId=%@&orgId=%@",UserTypestr,Useridstr,OrgIdStr];
+    [Servicecall projectlstspinrurl:projectLstForTask];
     [Servicecall setDelegate:self];
+}
+-(void)projectlistspinner:(id)projectlistSpinner
+{
+    NSDictionary *dict=[[NSDictionary alloc]init];
+    dict=projectlistSpinner;
+    NSArray *resultaray=[dict valueForKey:@"resAL"];
+    projectIdArray        = [[NSMutableArray alloc] init];
+    projectNameArray  = [[NSMutableArray alloc] init];
+    
+    for (NSDictionary *fidd in resultaray)
+    {
+        [projectIdArray addObject:[fidd valueForKey:@"projectId"]];
+        [projectNameArray addObject:[fidd valueForKey:@"projectName"]];
+    }
+    if ([tblProjectNmae length] == 0)
+    {
+        
+        projectTfd.text  = [projectNameArray objectAtIndex:0];
+        pkrProjectIDStr = [projectIdArray objectAtIndex:0];
+        [self categorySpinnerListService];
+        
+    }
+    
+    
+    
+    
+    NSString *tempString = tblProjectNmae;
+    NSLog(@"tbl project name is %@",tblProjectNmae);
+    for(int i=0; i<[projectNameArray count]; i++)
+    {
+        if([tempString isEqualToString:[projectNameArray objectAtIndex:i]])
+        {
+            
+            pkrProjectIDStr = [projectIdArray objectAtIndex:i];
+            projectTfd.text=[projectNameArray objectAtIndex:i];
+             [self categorySpinnerListService];
+            
+            NSLog(@"the id is generated");
+            
+            
+        }
+    }
+projectnamearray=[NSMutableArray arrayWithArray:projectNameArray];
+projectidarray=[NSMutableArray arrayWithArray:projectIdArray];
+
+NSLog(@"split  is %@ %@ ",projectIdArray,projectNameArray);
+
 }
 
 -(void)categorySpinnerListService
 {
     NSLog(@"welcome to %@",pkrProjectIDStr);
     Servicecall = [[Webservices alloc]init];
-    NSString *projectLstForTask = @"ProjectExpense";
-    NSDictionary *credentials = @{@"projectId":pkrProjectIDStr};
-    [Servicecall createprojectExpencesCategorySpinnerList:projectLstForTask TaskListParameters:credentials];
+    NSString *projectLstForTask = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/projectexpenses/v1/projectExpensesCategorySpinner?projectId=%@",pkrProjectIDStr];
+    [Servicecall categoryspinnerlist:projectLstForTask];
     [Servicecall setDelegate:self];
     
 }
+-(void)categoryspinner:(id)categoryresponse
+{
+    NSDictionary *dict=[[NSDictionary alloc]init];
+    
+    dict=categoryresponse;
+    NSArray *resultarray=[dict valueForKey:@"resAL"];
+    categoryCodeIDArray         = [[NSMutableArray alloc] init];
+    categoryValuesArray       = [[NSMutableArray alloc] init];
+    
+    for (NSDictionary *fidd in resultarray)
+    {
+        [categoryCodeIDArray addObject:[fidd valueForKey:@"budgetCategory"]];
+        [categoryValuesArray addObject:[fidd valueForKey:@"budgetCategoryValue"]];
+        
+    }
+    
+    if ([tblCategoryName length] == 0 &[categoryValuesArray count]>0)
+    {
+        
+        categoryTfd.text = [categoryValuesArray objectAtIndex:0];
+        pkrCategoryIDStr = [categoryCodeIDArray objectAtIndex:0];
+        
+    }
+    
+    NSString *tempString = tblCategoryName;
+    for(int i=0; i<[categoryValuesArray count]; i++)
+    {
+        if([tempString isEqualToString:[categoryValuesArray objectAtIndex:i]])
+        {
+            
+            pkrCategoryIDStr = [categoryCodeIDArray objectAtIndex:i];
+            
+            NSLog(@"the category id is generated");
+            
+        }
+    }
+
+    
+}
+
 -(void)saveService
 {
     //NSLog(@"byte array string is in save %@",byteArray);
     Servicecall = [[Webservices alloc]init];
-    NSString *projectLstForTask = @"SaveExpenses";
-    NSDictionary *credentials = @{@"date":dateTfd.text,@"amount":amountTfd.text,@"budgtCatgry":pkrCategoryIDStr,@"projId":pkrProjectIDStr};
+    NSString *projectLstForTask = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/projectexpenses/v1/saveProjectExpenses"];
+    NSString *credentials = [NSString stringWithFormat:@"date=%@&amount=%@&budgtCatgry=%@&projId=%@",dateTfd.text,amountTfd.text,pkrCategoryIDStr,pkrProjectIDStr];
    // NSLog(@"the dict is %@",credentials);
     
-    [Servicecall expansesSave:projectLstForTask TaskListParameters:credentials];
+    [Servicecall saveprojectexpenses:projectLstForTask projectexpensesservice:credentials];
     [Servicecall setDelegate:self];
     
+}
+-(void)saveprojectexpenses:(id)saveprojectexpensesresponse
+{
+    NSData *data=[[NSData alloc]initWithData:saveprojectexpensesresponse];
+    NSError *error;
+    
+    NSDictionary *dict=[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
+    NSLog(@"dict is %@",dict);
+    if ([[dict valueForKey:@"statusMessage"]isEqualToString:@"Inserted"])
+    {
+        UIAlertView *alet=[[UIAlertView alloc]initWithTitle:@"alert" message:@"project expenses saved successfully" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+        [alet show];
+        
+        pkrProjectAmountIDStr=[dict valueForKey:@"projectAmountId"];
+        
+        [expensesSaveBtn setHidden:YES];
+        [expansesUpdateBtn setHidden:NO];
+        [attachmentsTextView setHidden:NO];
+        [galleryBtn setHidden:NO];
+        [cameraBtn setHidden:YES];
+        [attatchmentlabel setHidden:NO];
+        //[self attatchmentList];
+        
+
+    }
+    else
+    {
+        UIAlertView *alet=[[UIAlertView alloc]initWithTitle:@"alert" message:@"project expenses not saved successfully" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+        [alet show];
+    }
 }
 -(void)updateService
 {
@@ -201,12 +318,28 @@
     NSLog(@"budget category id is %@",pkrCategoryIDStr);
     //NSLog(@"the file byte array stringis %@",byteArray);
     Servicecall = [[Webservices alloc]init];
-    NSString *projectLstForTask = @"SaveExpenses";
-    NSDictionary *credentials = @{@"proj_amnt_Id":pkrProjectAmountIDStr,@"date":dateTfd.text,@"amount":amountTfd.text,@"budgtCatgry":pkrCategoryIDStr,@"projId":pkrProjectIDStr};
-    [Servicecall expansesUpdate:projectLstForTask TaskListParameters:credentials];
+    NSString *projectLstForTask = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/projectexpenses/v1/updateProjectExpenses"];
+    NSString *credentials = [NSString stringWithFormat:@"proj_amnt_Id=%@&date=%@&amount=%@&budgtCatgry=%@&projId=%@",pkrProjectAmountIDStr,dateTfd.text,amountTfd.text,pkrCategoryIDStr,pkrProjectIDStr];
+
+    [Servicecall updateprojectexpenses:projectLstForTask updateprojectexpensesparams:credentials];
     [Servicecall setDelegate:self];
     
 }
+-(void)updateprojectexpenses:(id)updateprojectexpensesresponse
+{
+    NSData *data=[[NSData alloc]initWithData:updateprojectexpensesresponse];
+    NSError *error;
+    NSDictionary *dict=[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
+    NSLog(@"the dict value is %@",dict);
+    
+    if ([[dict valueForKey:@"statusMessage"]isEqualToString:@"Updated"])
+    {
+        UIAlertView *alet=[[UIAlertView alloc]initWithTitle:@"alert" message:@"project expenses Updated successfully" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+        [alet show];
+
+    }
+}
+
 -(void)didFinishService :(id)Userlogindetails
 {
     xmlParser = [[NSXMLParser alloc]initWithData:Userlogindetails];
