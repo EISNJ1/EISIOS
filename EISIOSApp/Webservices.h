@@ -58,6 +58,11 @@
 -(void)coreprocess:(id)coreprocessresponse;
 -(void)processservice:(id)processresponse;
 -(void)subprocessservice:(id)subprocessresponse;
+-(void)activityservice:(id)activityresponse;
+-(void)requirementype:(id)requirementtyperesponse;
+-(void)criticality:(id)criticalityresponse;
+-(void)systemservice:(id)systemserviceresponse;
+-(void)saverequirement:(id)saverequirementresponse;
 
 //Project Expenses
 
@@ -167,6 +172,11 @@
 -(void)coreprocesslisturl:(NSString *)coreprocessclass;
 -(void)processlisturl:(NSString *)processclass;
 -(void)subprocessurl:(NSString *)subprocessclass;
+-(void)activityserviceurl:(NSString *)activityserviceclass;
+-(void)requirementtypeurl:(NSString *)requirementclass;
+-(void)criticaliryurl:(NSString *)criticalityclass;
+-(void)systemurl:(NSString *)systemclass;
+-(void)saverequirement:(NSString *)saverequirementclass saverequirementparams:(NSString *)saverequirementparameters;
 
 
 //Project Expenses

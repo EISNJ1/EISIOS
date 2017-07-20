@@ -962,7 +962,122 @@
      }];
 
 }
+-(void)activityserviceurl:(NSString *)activityserviceclass
+{
+    AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+    
+    AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
+    responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
+    
+    manager.responseSerializer = responseSerializer;
+    [manager GET:activityserviceclass parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
+     {
+         NSLog(@"JSON: %@",responseObject);
+         
+         [delegate activityservice:responseObject];
+     }
+         failure:^(NSURLSessionTask *operation, NSError *error)
+     {
+         NSLog(@"Error: %@", error);
+     }];
 
+}
+-(void)requirementtypeurl:(NSString *)requirementclass
+{
+    AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+    
+    AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
+    responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
+    
+    manager.responseSerializer = responseSerializer;
+    [manager GET:requirementclass parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
+     {
+         NSLog(@"JSON: %@",responseObject);
+         
+         [delegate requirementype:responseObject];
+     }
+         failure:^(NSURLSessionTask *operation, NSError *error)
+     {
+         NSLog(@"Error: %@", error);
+     }];
+ 
+}
+-(void)criticaliryurl:(NSString *)criticalityclass
+{
+    AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+    
+    AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
+    responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
+    
+    manager.responseSerializer = responseSerializer;
+    [manager GET:criticalityclass parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
+     {
+         NSLog(@"JSON: %@",responseObject);
+         
+         [delegate criticality:responseObject];
+     }
+         failure:^(NSURLSessionTask *operation, NSError *error)
+     {
+         NSLog(@"Error: %@", error);
+     }];
+
+}
+-(void)systemurl:(NSString *)systemclass
+{
+    AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+    
+    AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
+    responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
+    
+    manager.responseSerializer = responseSerializer;
+    [manager GET:systemclass parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
+     {
+         NSLog(@"JSON: %@",responseObject);
+         
+         [delegate systemservice:responseObject];
+     }
+         failure:^(NSURLSessionTask *operation, NSError *error)
+     {
+         NSLog(@"Error: %@", error);
+     }];
+
+}
+-(void)saverequirement:(NSString *)saverequirementclass saverequirementparams:(NSString *)saverequirementparameters
+{
+    NSURL *urlstr=[NSURL URLWithString:saverequirementclass];
+    NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:urlstr];
+    //sets the receiver’s timeout interval, in seconds
+    [urlRequest setTimeoutInterval:30.0f];
+    //sets the receiver’s HTTP request method
+    [urlRequest setHTTPMethod:@"POST"];
+    //sets the request body of the receiver to the specified data.
+    [urlRequest setHTTPBody:[saverequirementparameters dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    //allocate a new operation queue
+    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
+    //Loads the data for a URL request and executes a handler block on an
+    //operation queue when the request completes or fails.
+    [NSURLConnection
+     sendAsynchronousRequest:urlRequest
+     queue:queue
+     completionHandler:^(NSURLResponse *response,
+                         NSData *data,
+                         NSError *error) {
+         if ([data length] >0 && error == nil){
+             //process the JSON response
+             //use the main queue so that we can interact with the screen
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 [delegate saverequirement:data];             });
+         }
+         else if ([data length] == 0 && error == nil){
+             NSLog(@"Empty Response, not sure why?");
+         }
+         else if (error != nil){
+             NSLog(@"Not again, what is the error = %@", error);
+         }
+     }];
+ 
+}
 // ProjectExpenses
 
 -(void)ProjectExpenseslist:(NSString *)projectexpenses
