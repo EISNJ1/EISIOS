@@ -133,14 +133,54 @@
 }
 -(void)taskList
 {
-    serviceCall =[[Webservices alloc]init];
-    
-    NSString *TaskOverViewClass=@"TaskOverview";
-    
-    NSDictionary *TaskOverViewDictionary=@{@"userType":Usertypestr,@"userId":Useridstr,@"orgId":orgIdstr};
-    
-    [serviceCall TaskOVerView:TaskOverViewClass TaskOVerViewListParameters:TaskOverViewDictionary];
+//    serviceCall =[[Webservices alloc]init];
+//    
+//    NSString *TaskOverViewClass=@"TaskOverview";
+//    
+//    NSDictionary *TaskOverViewDictionary=@{@"userType":Usertypestr,@"userId":Useridstr,@"orgId":orgIdstr};
+//    
+//    [serviceCall TaskOVerView:TaskOverViewClass TaskOVerViewListParameters:TaskOverViewDictionary];
+//    [serviceCall setDelegate:self];
+
+    serviceCall = [[Webservices alloc]init];
+    NSString *projectLstForTask =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/dashboard/v1/taskoverviewlist?usertype=%@&userId=%@&orgId=%@",Usertypestr,Useridstr,orgIdstr];
+    [serviceCall taskoverviewlistUrl:projectLstForTask];
     [serviceCall setDelegate:self];
+}
+-(void)taskoverviewlist:(id)taskoverviewList;
+{
+    NSDictionary *dict=[[NSDictionary alloc]init];
+    
+    dict=taskoverviewList;
+    taskOVerViewEndDateArray        =[NSMutableArray new];
+    taskOverViewStartDateArray  =[NSMutableArray new];
+    taskOverViewResNameArray  =[NSMutableArray new];
+    taskOVerViewHoursSpentArray  =[NSMutableArray new];
+    taskOverViewNeedToHoursArray  =[NSMutableArray new];
+    taskOverViewAssignedHoursArray  =[NSMutableArray new];
+    taskOverViewTaskNameArray=[NSMutableArray new];
+    
+    NSArray *resultarray=[dict valueForKey:@"resAL"];
+    
+    for (NSDictionary *fidd in resultarray)
+    {
+        [taskOVerViewEndDateArray addObject:[fidd valueForKey:@"plannedEnDate"]];
+        [taskOverViewStartDateArray addObject:[fidd valueForKey:@"plannedStartDate"]];
+        [taskOverViewResNameArray addObject:[fidd valueForKey:@"resourceName"]];
+        [taskOVerViewHoursSpentArray addObject:[fidd valueForKey:@"hoursSpent"]];
+        [taskOverViewNeedToHoursArray addObject:[fidd valueForKey:@"needToSpend"]];
+        [taskOverViewAssignedHoursArray addObject:[fidd valueForKey:@"assignedHours"]];
+        [taskOverViewTaskNameArray addObject:[fidd valueForKey:@"taskName"]];
+       
+    }
+    NSLog(@"end date is %@",taskOVerViewEndDateArray);
+    NSLog(@"start date is %@",taskOverViewStartDateArray);
+    NSLog(@"resource name is %@",taskOverViewResNameArray);
+    NSLog(@"hours spent is %@",taskOVerViewHoursSpentArray);
+    NSLog(@"need to hours is %@",taskOverViewNeedToHoursArray);
+    NSLog(@"assigned hours is %@",taskOverViewAssignedHoursArray);
+    NSLog(@"task name is %@",taskOverViewTaskNameArray);
+    [taskOverViewTableView reloadData];
 }
 
 -(void)didFinishService:(id)Userlogindetails

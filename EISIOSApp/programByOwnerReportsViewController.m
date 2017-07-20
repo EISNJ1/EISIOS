@@ -82,14 +82,16 @@
     BudgetAry  = [[NSMutableArray alloc] init];
     NoofProgramsAry  = [[NSMutableArray alloc] init];
     NoofResourcesAry  = [[NSMutableArray alloc] init];
+    First_NameAry=[[NSMutableArray alloc]init];
     NSArray *resultarray1=[dict valueForKey:@"resAL"];
     
     for (NSDictionary *fidd in resultarray1)
     {
-        [Program_OwnerAry addObject:[fidd valueForKey:@"firstName"]];
+        [Program_OwnerAry addObject:[fidd valueForKey:@"programOwner"]];
         [BudgetAry addObject:[fidd valueForKey:@"budget"]];
         [NoofProgramsAry addObject:[fidd valueForKey:@"noOfProgs"]];
         [NoofResourcesAry addObject:[fidd valueForKey:@"noOfResources"]];
+        [First_NameAry addObject:[fidd valueForKey:@"firstName"]];
     }
     
     NSLog(@"program owner is %@",Program_OwnerAry);
@@ -282,7 +284,7 @@
     //cell.textLabel.text = [dashBoardListAry objectAtIndex:indexPath.row];
     UILabel *nameLbl = (UILabel*)[cell viewWithTag:1];
     nameLbl.font=[UIFont systemFontOfSize:25];
-    nameLbl.text = [Program_OwnerAry objectAtIndex:indexPath.row];
+    nameLbl.text = [First_NameAry objectAtIndex:indexPath.row];
     //cell.textLabel.text = @"WELCOME";
     
     
