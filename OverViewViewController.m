@@ -183,38 +183,131 @@
 //effort and booked time service call
 -(void)effortAndBookedTime
 {
-    servicesCall=[[Webservices alloc]init];
-    NSString *EffortAndBookedClass=@"ExecuteDashboardNewService";
-    NSDictionary *EffortAndBookedTimeDictionary=@{@"userType":Usertypestr,@"userId":Useridstr,@"orgId":orgIdstr};
+//    servicesCall=[[Webservices alloc]init];
+//    NSString *EffortAndBookedClass=@"ExecuteDashboardNewService";
+//    NSDictionary *EffortAndBookedTimeDictionary=@{@"userType":Usertypestr,@"userId":Useridstr,@"orgId":orgIdstr};
+//    
+//    [servicesCall OVerViewEffortAndBookedTime:EffortAndBookedClass OverViewBookedAndTimeParameters:EffortAndBookedTimeDictionary];
+//    [servicesCall setDelegate:self];
     
-    [servicesCall OVerViewEffortAndBookedTime:EffortAndBookedClass OverViewBookedAndTimeParameters:EffortAndBookedTimeDictionary];
+    servicesCall = [[Webservices alloc]init];
+    NSString *projectLstForTask =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/dashboard/v1/effortAndBookedTimeChart?usertype=%@&userId=%@&orgId=%@",Usertypestr,Useridstr,orgIdstr];
+    [servicesCall effortandbookedtimeUrl:projectLstForTask];
     [servicesCall setDelegate:self];
-    
 }
-
+-(void)effortandbookedtime:(id)effortandbookedTime
+{
+    NSDictionary *dict=[[NSDictionary alloc]init];
+    
+    dict=effortandbookedTime;
+    //effortAndBokedTimeArray                      =[NSMutableArray new];
+    //effortAndBookedTimeSplitArray                =[NSMutableArray new];
+    effortAndBookedTimeSplitDisplayArrray        =[NSMutableArray new];
+    effortAndBookedTimeTaskEffortArray           =[NSMutableArray new];
+    //effortAndBookedTimeProjectName               =[NSMutableArray new];
+    NSArray *resultarray=[dict valueForKey:@"resAL"];
+    
+    for (NSDictionary *fidd in resultarray)
+    {
+        [effortAndBookedTimeSplitDisplayArrray addObject:[fidd valueForKey:@"bookedTime"]];
+        [effortAndBookedTimeTaskEffortArray addObject:[fidd valueForKey:@"taskEffort"]];
+    }
+    NSLog(@"booked time is %@",effortAndBookedTimeSplitDisplayArrray);
+    NSLog(@"task effort is %@",effortAndBookedTimeTaskEffortArray);
+    [self loadGraph];
+}
 //task graph data service call
 
 -(void)issuesGraphData
 {
-    servicesCall=[[Webservices alloc]init];
-    NSString *TaskOverViewGraphClass=@"ExecuteDashboardNewService";
-    NSDictionary *TaskOverViewGraphDisctionary=@{@"userType":Usertypestr,@"userId":Useridstr,@"orgId":orgIdstr};
-    
-    [servicesCall taskOverViewGraph:TaskOverViewGraphClass TaskOverViewGraphParameters:TaskOverViewGraphDisctionary];
-    [servicesCall setDelegate:self];
+//    servicesCall=[[Webservices alloc]init];
+//    NSString *TaskOverViewGraphClass=@"ExecuteDashboardNewService";
+//    NSDictionary *TaskOverViewGraphDisctionary=@{@"userType":Usertypestr,@"userId":Useridstr,@"orgId":orgIdstr};
+//    
+//    [servicesCall taskOverViewGraph:TaskOverViewGraphClass TaskOverViewGraphParameters:TaskOverViewGraphDisctionary];
+//    [servicesCall setDelegate:self];
 
+    servicesCall = [[Webservices alloc]init];
+    NSString *projectLstForTask =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/dashboard/v1/taskoverViewChart?usertype=%@&userId=%@&orgId=%@",Usertypestr,Useridstr,orgIdstr];
+    [servicesCall taskoverviewUrl:projectLstForTask];
+    [servicesCall setDelegate:self];
+}
+
+-(void)taskoverview:(id)taskoverView
+{
+    NSDictionary *dict=[[NSDictionary alloc]init];
+    
+    dict=taskoverView;
+    //taskOverViewGraphListArray       =[NSMutableArray new];
+    //TaskOVerViewGraphSplitArray      =[NSMutableArray new];
+    TaskOVerViewGraphTotalTaskArray  =[NSMutableArray new];
+    //TaskOverViewRemainingTasks       =[NSMutableArray new];
+    TaskOVerViewFutureTaskArray      =[NSMutableArray new];
+    TaskOVerViewInProcessingTaskArray=[NSMutableArray new];
+    TaskOverViewGraphCompletedTaskArray=[NSMutableArray new];
+    NotStartedTaskArray              =[NSMutableArray new];
+    //TaskOverViewProjectName          =[NSMutableArray new];
+    
+    NSArray *resultarray=[dict valueForKey:@"resAL"];
+    
+    for (NSDictionary *fidd in resultarray)
+    {
+        [TaskOVerViewGraphTotalTaskArray addObject:[fidd valueForKey:@"totalTasks"]];
+        [TaskOVerViewFutureTaskArray addObject:[fidd valueForKey:@"futureTasks"]];
+        [TaskOVerViewInProcessingTaskArray addObject:[fidd valueForKey:@"inProcessTasks"]];
+        [TaskOverViewGraphCompletedTaskArray addObject:[fidd valueForKey:@"completedTasks"]];
+        [NotStartedTaskArray addObject:[fidd valueForKey:@"notStartedTasks"]];
+    }
+    
+     NSLog(@"total tasks are %@",TaskOVerViewGraphTotalTaskArray);
+     NSLog(@"future tasks are %@",TaskOVerViewFutureTaskArray);
+     NSLog(@"in process tasks are %@",TaskOVerViewInProcessingTaskArray);
+     NSLog(@"completed tasks are %@",TaskOverViewGraphCompletedTaskArray);
+     NSLog(@"not started tasks are %@",NotStartedTaskArray);
+    [self loadGraph];
 }
 -(void)issueOVerview
 {
-    servicesCall=[[Webservices alloc]init];
-    NSString *issueOVerViewClass=@"ExecuteDashboardNewService";
-    NSDictionary *IssueOverViewParameters=@{@"userType":Usertypestr,@"userId":Useridstr,@"orgId":orgIdstr};
-    
-    [servicesCall issuesOverViewChart:issueOVerViewClass IssueOverviewParameters:IssueOverViewParameters];
+//    servicesCall=[[Webservices alloc]init];
+//    NSString *issueOVerViewClass=@"ExecuteDashboardNewService";
+//    NSDictionary *IssueOverViewParameters=@{@"userType":Usertypestr,@"userId":Useridstr,@"orgId":orgIdstr};
+//    
+//    [servicesCall issuesOverViewChart:issueOVerViewClass IssueOverviewParameters:IssueOverViewParameters];
+//    [servicesCall setDelegate:self];
+
+    servicesCall = [[Webservices alloc]init];
+    NSString *projectLstForTask =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/dashboard/v1/issueoverViewChart?usertype=%@&userId=%@&orgId=%@",Usertypestr,Useridstr,orgIdstr];
+    [servicesCall issueoverviewUrl:projectLstForTask];
     [servicesCall setDelegate:self];
-    
 }
 
+-(void)issueoverview:(id)issueoverView
+{
+    NSDictionary *dict=[[NSDictionary alloc]init];
+    
+    dict=issueoverView;
+//    issueOverChartArray              =[NSMutableArray new];
+//    issueOverViewChartSplitArray     =[NSMutableArray new];
+//    issueOverViewSplitDisplayArray   =[NSMutableArray new];
+//    issueOverViewChartArrayList      =[NSMutableArray new];
+    issueChartTotalIssueCountArray   =[NSMutableArray new];
+    issueChartTotalIssueFixedArray   =[NSMutableArray new];
+    issueChartTotalIssueClsoedArray  =[NSMutableArray new];
+    
+    NSArray *resultarray=[dict valueForKey:@"resAL"];
+    
+    for (NSDictionary *fidd in resultarray)
+    {
+        [issueChartTotalIssueCountArray addObject:[fidd valueForKey:@"isstotalCount"]];
+        [issueChartTotalIssueFixedArray addObject:[fidd valueForKey:@"issfixedCount"]];
+        [issueChartTotalIssueClsoedArray addObject:[fidd valueForKey:@"issClosedCount"]];
+    }
+    
+    NSLog(@"total issue count is %@",issueChartTotalIssueCountArray);
+    NSLog(@"issue fixed is %@",issueChartTotalIssueFixedArray);
+    NSLog(@"issue closed is %@",issueChartTotalIssueClsoedArray);
+    [self loadGraph];
+}
 /*
 #pragma mark - Navigation
 
@@ -250,10 +343,10 @@
         if([elementName isEqualToString:@"effortAndBookedTimeOvervieGraphResponse"])
         {
             effortAndBokedTimeArray                      =[NSMutableArray new];
-            effortAndBookedTimeSplitArray                =[NSMutableArray new];
-            effortAndBookedTimeSplitDisplayArrray        =[NSMutableArray new];
+           // effortAndBookedTimeSplitArray                =[NSMutableArray new];
+         //   effortAndBookedTimeSplitDisplayArrray        =[NSMutableArray new];
             effortAndBookedTimeTaskEffortArray           =[NSMutableArray new];
-            effortAndBookedTimeProjectName               =[NSMutableArray new];
+            //effortAndBookedTimeProjectName               =[NSMutableArray new];
         }
     }
     

@@ -82,6 +82,11 @@
 -(void)programchartsbudgetcost:(id)programchartsbudgetCost;
 -(void)programspinner:(id)programSpinner;
 -(void)programbyownerlist:(id)programbyownerList;
+-(void)programownerchart:(id)programownerChart;
+-(void)taskoverviewlist:(id)taskoverviewList;
+-(void)effortandbookedtime:(id)effortandbookedTime;
+-(void)issueoverview:(id)issueoverView;
+-(void)taskoverview:(id)taskoverView;
 
 
 //soap methods
@@ -170,6 +175,8 @@
 -(void)categoryspinnerlist:(NSString *)categorylist;
 -(void)saveprojectexpenses:(NSString *)projectexpensesparams projectexpensesservice:(NSString *)projectexpensesparameters;
 -(void)updateprojectexpenses:(NSString *)updateprojectexpensesclass updateprojectexpensesparams:(NSString *)updateprojectexpensesparameters;
+
+
 // Dash board
 
 -(void)oganizationresourcereport:(NSString *)oganizationresourcereportparams;
@@ -187,7 +194,11 @@
 -(void)programchartsbudgetcostUrl:(NSString *)programchartsbudgetCostUrl;
 -(void)programspinnerUrl:(NSString *)programSpinnerUrl;
 -(void)programbyownerlistUrl:(NSString *)programbyownerListUrl;
-
+-(void)programownerchartUrl:(NSString *)programownerChartUrl;
+-(void)taskoverviewlistUrl:(NSString *)taskoverviewListUrl;
+-(void)effortandbookedtimeUrl:(NSString *)effortandbookedTimeUrl;
+-(void)issueoverviewUrl:(NSString *)issueoverViewUrl;
+-(void)taskoverviewUrl:(NSString *)taskoverViewUrl;
 
 
 -(void)Loginserviceurl: (NSString *)Loginurl Loginparameters : (NSDictionary *)LoginCredentials;

@@ -702,14 +702,41 @@
 
 -(void)progrmaByOwnerService
 {
-    Servicecall = [[Webservices alloc]init];
-    NSString *projectLstForTask = @"ExecuteDashBoard";
-    NSDictionary *credentials = @{@"programOwner":programOwnerStr};
-    [Servicecall prgrmByOwnerDetails:projectLstForTask TaskListParameters:credentials];
-    [Servicecall setDelegate:self];
+//    Servicecall = [[Webservices alloc]init];
+//    NSString *projectLstForTask = @"ExecuteDashBoard";
+//    NSDictionary *credentials = @{@"programOwner":programOwnerStr};
+//    [Servicecall prgrmByOwnerDetails:projectLstForTask TaskListParameters:credentials];
+//    [Servicecall setDelegate:self];
 
+    Servicecall = [[Webservices alloc]init];
+    NSString *projectLstForTask =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/dashboard/v1/ownerResDetsChart?programOwner=%@",programOwnerStr];
+    [Servicecall programownerchartUrl:projectLstForTask];
+    [Servicecall setDelegate:self];
    }
 
+-(void)programownerchart:(id)programownerChart
+{
+    NSDictionary *dict=[[NSDictionary alloc]init];
+    
+    dict=programownerChart;
+    getOwnerResDetsChartResponseIDAry        = [[NSMutableArray alloc] init];
+    getOwnerResDetsChartResponseNameAry  = [[NSMutableArray alloc] init];
+    
+    NSArray *resultarray=[dict valueForKey:@"resAL"];
+    
+    for (NSDictionary *fidd in resultarray)
+    {
+        [getOwnerResDetsChartResponseIDAry addObject:[fidd valueForKey:@"programId"]];
+        [getOwnerResDetsChartResponseNameAry addObject:[fidd valueForKey:@"programName"]];
+    }
+    _values = getOwnerResDetsChartResponseIDAry;
+    _values1 = getOwnerResDetsChartResponseNameAry;
+
+    
+    NSLog(@"  is %@ %@",getOwnerResDetsChartResponseIDAry,getOwnerResDetsChartResponseNameAry);
+    [self loadGraph];
+
+}
 -(void)TeamResourcesForAdmin
 {
 //    NSLog(@"usertype is %@",UserTypestr);
