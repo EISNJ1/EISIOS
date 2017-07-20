@@ -264,7 +264,7 @@
      NSLog(@"in process tasks are %@",TaskOVerViewInProcessingTaskArray);
      NSLog(@"completed tasks are %@",TaskOverViewGraphCompletedTaskArray);
      NSLog(@"not started tasks are %@",NotStartedTaskArray);
-    [self loadGraph];
+    [self loadGraph1];
 }
 -(void)issueOVerview
 {
@@ -306,7 +306,7 @@
     NSLog(@"total issue count is %@",issueChartTotalIssueCountArray);
     NSLog(@"issue fixed is %@",issueChartTotalIssueFixedArray);
     NSLog(@"issue closed is %@",issueChartTotalIssueClsoedArray);
-    [self loadGraph];
+    [self loadGraph2];
 }
 /*
 #pragma mark - Navigation
