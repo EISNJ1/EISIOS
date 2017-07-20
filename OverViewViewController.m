@@ -204,13 +204,14 @@
     //effortAndBookedTimeSplitArray                =[NSMutableArray new];
     effortAndBookedTimeSplitDisplayArrray        =[NSMutableArray new];
     effortAndBookedTimeTaskEffortArray           =[NSMutableArray new];
-    //effortAndBookedTimeProjectName               =[NSMutableArray new];
+    effortAndBookedTimeProjectName               =[NSMutableArray new];
     NSArray *resultarray=[dict valueForKey:@"resAL"];
     
     for (NSDictionary *fidd in resultarray)
     {
         [effortAndBookedTimeSplitDisplayArrray addObject:[fidd valueForKey:@"bookedTime"]];
         [effortAndBookedTimeTaskEffortArray addObject:[fidd valueForKey:@"taskEffort"]];
+        [effortAndBookedTimeProjectName addObject:[fidd valueForKey:@"projectName"]];
     }
     NSLog(@"booked time is %@",effortAndBookedTimeSplitDisplayArrray);
     NSLog(@"task effort is %@",effortAndBookedTimeTaskEffortArray);
@@ -246,7 +247,7 @@
     TaskOVerViewInProcessingTaskArray=[NSMutableArray new];
     TaskOverViewGraphCompletedTaskArray=[NSMutableArray new];
     NotStartedTaskArray              =[NSMutableArray new];
-    //TaskOverViewProjectName          =[NSMutableArray new];
+    TaskOverViewProjectName          =[NSMutableArray new];
     
     NSArray *resultarray=[dict valueForKey:@"resAL"];
     
@@ -257,6 +258,7 @@
         [TaskOVerViewInProcessingTaskArray addObject:[fidd valueForKey:@"inProcessTasks"]];
         [TaskOverViewGraphCompletedTaskArray addObject:[fidd valueForKey:@"completedTasks"]];
         [NotStartedTaskArray addObject:[fidd valueForKey:@"notStartedTasks"]];
+        [TaskOverViewProjectName addObject:[fidd valueForKey:@"projectName"]];
     }
     
      NSLog(@"total tasks are %@",TaskOVerViewGraphTotalTaskArray);
@@ -264,7 +266,7 @@
      NSLog(@"in process tasks are %@",TaskOVerViewInProcessingTaskArray);
      NSLog(@"completed tasks are %@",TaskOverViewGraphCompletedTaskArray);
      NSLog(@"not started tasks are %@",NotStartedTaskArray);
-    [self loadGraph];
+    [self loadGraph1];
 }
 -(void)issueOVerview
 {
@@ -293,6 +295,7 @@
     issueChartTotalIssueCountArray   =[NSMutableArray new];
     issueChartTotalIssueFixedArray   =[NSMutableArray new];
     issueChartTotalIssueClsoedArray  =[NSMutableArray new];
+
     
     NSArray *resultarray=[dict valueForKey:@"resAL"];
     
@@ -301,12 +304,13 @@
         [issueChartTotalIssueCountArray addObject:[fidd valueForKey:@"isstotalCount"]];
         [issueChartTotalIssueFixedArray addObject:[fidd valueForKey:@"issfixedCount"]];
         [issueChartTotalIssueClsoedArray addObject:[fidd valueForKey:@"issClosedCount"]];
+        [issueOverViewSplitDisplayArray addObject:[fidd valueForKey:@"programName"]];
     }
     
     NSLog(@"total issue count is %@",issueChartTotalIssueCountArray);
     NSLog(@"issue fixed is %@",issueChartTotalIssueFixedArray);
     NSLog(@"issue closed is %@",issueChartTotalIssueClsoedArray);
-    [self loadGraph];
+    [self loadGraph2];
 }
 /*
 #pragma mark - Navigation
