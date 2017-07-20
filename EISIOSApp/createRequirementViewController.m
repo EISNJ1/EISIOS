@@ -881,7 +881,7 @@
     
 
 
-    NSString *credentials = [NSString stringWithFormat:@"projectId=%@&resourceId=%@&coreProcessId=%@&processId=%@&subProcessId=%@&activityId=%@&description=%@&history=%@&reqType=%@&criticality=%@&system=%@&saveUpdateType=%@&asisReqId=%@&userId=%@&requirementName=%@",pkrProjectIDStr,pkrResourceIDStr,pkrCoreProcessIDStr,pkrprocessIDStr,pkrSubProcessIDStr,pkrActivityIDStr,reqDesTxtView.text,str,pkrReqTypeIDStr,pkrCriticiality1IDStr,pkrCriticiality2IDStr,@"SaveReqGath",@"0",Useridstr,requiremnetNameTxtFld.text];
+    NSString *credentials = [NSString stringWithFormat:@"projectId=%@&resourceId=%@&coreProcessId=%@&processId=%@&subProcessId=%@&activityId=%@&description=%@&history=%@&reqType=%@&criticality=%@&system=%@&saveUpdateType=%@&asisReqId=%@&userId=%@&requirementName=%@",pkrProjectIDStr,pkrResourceIDStr,pkrCoreProcessIDStr,pkrprocessIDStr,pkrSubProcessIDStr,pkrActivityIDStr,str,str,pkrReqTypeIDStr,pkrCriticiality1IDStr,pkrCriticiality2IDStr,@"SaveReqGath",@"0",Useridstr,requiremnetNameTxtFld.text];
 
     NSLog(@"the parametrs are %@",credentials);
     [Servicecall saverequirement:projectLstForTask saverequirementparams:credentials];
@@ -892,7 +892,7 @@
     reqDesTxtView.text = nil;
     
     NSString *str1=[str stringByReplacingOccurrencesOfString:@"###" withString:@":"];
-    //reqHistoryTxtView.text=str1;
+    reqHistoryTxtView.text=str1;
 }
 
 
@@ -929,6 +929,33 @@
     NSData *data=[[NSData alloc]initWithData:saverequirementresponse];
     NSDictionary *dict=[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
     NSLog(@"save requirement response is %@",dict);
+    if ([[dict valueForKey:@"statusMessage"]isEqualToString:@"Inserted"])
+    {
+        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Alert" message:@"requriement saved successfully" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+        [alert show];
+        
+        
+        saveAry=[[NSArray alloc]init];
+       saveAry=[dict valueForKey:@"beanData"];
+        NSLog(@"array value is %@",saveAry);
+        historyStr=[saveAry valueForKey:@"requirementHistory"];
+        assignedIdStr=[saveAry valueForKey:@"requirementId"];
+        
+        [updateBtn setHidden:NO];
+        [saveBtn setHidden:YES];
+      
+        
+        NSLog(@" history values are   %@",historyStr);
+        
+        
+        
+        NSLog(@" assigned id values are  %@",assignedIdStr);
+        
+        NSString *historyreqstr;
+        historyreqstr=  [self convertHTML:historyStr];
+        NSLog(@" history req values are  %@",historyreqstr);
+
+    }
 }
 
 -(void)upDateService
