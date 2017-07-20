@@ -150,9 +150,9 @@
     //[self processSpinnerService];
     //[self subProcessSpinner];
     //[self activitySpinner];
-    //[self typeSpinner];
-    //[self Criticality1Spinner];
-    //[self Criticality2Spinner];
+    [self typeSpinner];
+    [self Criticality1Spinner];
+    [self systemspinner];
 
     
     if ([projectTblStr length]>0)
@@ -240,7 +240,7 @@
     //[self activitySpinner];
     [self typeSpinner];
     [self Criticality1Spinner];
-    [self Criticality2Spinner];
+    [self systemspinner];
     
     [saveBtn setHidden:NO];
     [updateBtn setHidden:YES];
@@ -473,17 +473,7 @@
         [PROJECT_IDArray addObject:[fidd valueForKey:@"projectId"]];
         [PROJECT_NAMEArray addObject:[fidd valueForKey:@"projectName"]];
     }
-    if ([projectTfd.text length] == 0 &&[PROJECT_NAMEArray count]>0)
-    {
-        
-        projectTfd.text = [PROJECT_NAMEArray objectAtIndex:0];
-        pkrProjectIDStr = [PROJECT_IDArray objectAtIndex:0];
-        [self contactSpinnerService];
-        
-        
-    }
-    else
-    {
+    
         
         NSString *tempString = projectTblStr;
         for(int i=0; i<[PROJECT_IDArray count];i++)
@@ -498,7 +488,6 @@
                 [self contactSpinnerService];
                 
             }
-        }
 
   }
 }
@@ -520,13 +509,6 @@
     {
         [resourceIdAry addObject:[fidd valueForKey:@"resourceId"]];
         [resourceNameAry addObject:[fidd valueForKey:@"resourceName"]];
-    }
-    if ([contactTblStr length] == 0)
-    {
-        
-        contactTfd.text = [resourceNameAry objectAtIndex:0];
-        pkrResourceIDStr = [resourceIdAry objectAtIndex:0];
-        
     }
     
     NSString *tempString = contactTblStr;
@@ -568,15 +550,7 @@
         [coreProcessCodeAry addObject:[fidd valueForKey:@"coreProcessCode"]];
         [coreProcessDescAry addObject:[fidd valueForKey:@"coreProcessDescription"]];
     }
-    if ([coreProcessTblStr length] == 0)
-    {
-        
-        coreProcessTfd.text = [coreProcessNameAry objectAtIndex:0];
-        pkrCoreProcessIDStr = [coreProcessIdAry objectAtIndex:0];
-        [self processSpinnerService];
-
-    }
-
+   
     
     NSString *tempString = coreProcessTblStr;
     for(int i=0; i<[coreProcessNameAry count]; i++)
@@ -627,15 +601,6 @@
             [processNameAry addObject:[fidd valueForKey:@"process"]];
             [processDescAry addObject:[fidd valueForKey:@"processDescription"]];
         }
-                       if ([projectTblStr length] == 0)
-                       {
-        
-                           processTfd.text = [processNameAry objectAtIndex:0];
-                           pkrprocessIDStr = [processIdAry objectAtIndex:0];
-                           [self subProcessSpinner];
-        
-                       }
-        
         
         
         NSString *tempString = processTblStr;
@@ -686,16 +651,7 @@
             [subProcessNameAry addObject:[fidd valueForKey:@"subProcess"]];
         }
         
-                       if ([projectTblStr length] == 0)
-                       {
-        
-                           subProcessTfd.text = [subProcessNameAry objectAtIndex:0];
-                           pkrSubProcessIDStr = [subProcessIdAry objectAtIndex:0];
-                           [self activitySpinner];
-        
-                       }
-        
-        
+                             
         NSString *tempString = subProcessTblStr;
         for(int i=0; i<[subProcessNameAry count]; i++)
         {
@@ -715,39 +671,175 @@
 -(void)activitySpinner
 {
     Servicecall = [[Webservices alloc]init];
-    NSString *projectLstForTask = @"RequirementGatheringService";
-    NSDictionary *credentials = @{@"subProcessId":pkrSubProcessIDStr};
-    [Servicecall reqActivitySpinner:projectLstForTask TaskListParameters:credentials];
+    NSString *projectLstForTask = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/requirement/v1/reqActivitySpinner?subProcessId=%@",pkrSubProcessIDStr];
+    [Servicecall activityserviceurl:projectLstForTask];
     [Servicecall setDelegate:self];
     
 }
+-(void)activityservice:(id)activityresponse
+{
+    NSDictionary *dict=[[NSDictionary alloc]init];
+    dict=activityresponse;
+    if ([[dict valueForKey:@"statusMessage"]isEqualToString:@"No Data"])
+    {
+        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Alert" message:@"activity list is empty" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+        [alert show];
+    }
+    else
+    {
+        activityIdAry         = [[NSMutableArray alloc] init];
+        activityNameAry         = [[NSMutableArray alloc] init];
+        activityDescAry         = [[NSMutableArray alloc] init];
+        
+        NSArray *reulstarray=[dict valueForKey:@"resAL"];
+        
+        for (NSDictionary *fidd in reulstarray)
+        {
+            [activityIdAry addObject:[fidd valueForKey:@"activityId"]];
+            [activityNameAry addObject:[fidd valueForKey:@"activityName"]];
+            [activityDescAry addObject:[fidd valueForKey:@"activityDescription"]];
+        }
+                      if ([projectTblStr length] == 0)
+                           {
+            
+                               activityTfd.text = [activityNameAry objectAtIndex:0];
+                               pkrActivityIDStr = [activityIdAry objectAtIndex:0];
+            
+                           }
+            
+        
+            else
+            {
+            NSString *tempString = activityTblStr;
+        for(int i=0; i<[activityNameAry count]; i++)
+        {
+            if([tempString isEqualToString:[activityNameAry objectAtIndex:i]])
+            {
+                
+                pkrActivityIDStr = [activityIdAry objectAtIndex:i];
+                
+            }
+        }
+        
+            }
+        
+    }
+}
+
 -(void)typeSpinner
 {
     Servicecall = [[Webservices alloc]init];
-    NSString *projectLstForTask = @"RequirementGatheringService";
-    NSDictionary *credentials = @{@"orgId":OrgIdStr};
-    [Servicecall reqTypeSpinner:projectLstForTask TaskListParameters:credentials];
+    NSString *projectLstForTask = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/requirement/v1/reqTypeSpinner?orgId=%@",OrgIdStr];
+    [Servicecall requirementtypeurl:projectLstForTask];
     [Servicecall setDelegate:self];
     
 }
+-(void)requirementype:(id)requirementtyperesponse
+{
+    NSDictionary *dict=[[NSDictionary alloc]init];
+    dict=requirementtyperesponse;
+    if ([[dict valueForKey:@"statusMessage"]isEqualToString:@"No Data"])
+    {
+        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Alert" message:@"requirement list is empty" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+        [alert show];
+    }
+    else
+    {
+        NSArray *resultarary=[dict valueForKey:@"resAL"];
+        for (NSDictionary *fidd in resultarary)
+        {
+            reqTypeIdAry         = [[NSMutableArray alloc] init];
+            reqTpeAry         = [[NSMutableArray alloc] init];
+            
+            [reqTypeIdAry addObject:[fidd valueForKey:@"requirementTypeId"]];
+            [reqTpeAry addObject:[fidd valueForKey:@"requirementType"]];
+        }
+        NSString *tempString = reqTypeTblStr;
+        for(int i=0; i<[reqTpeAry count]; i++)
+        {
+            if([tempString isEqualToString:[reqTpeAry objectAtIndex:i]])
+            {
+                
+                pkrReqTypeIDStr = [reqTypeIdAry objectAtIndex:i];
+                
+            }
+        }
 
+    }
+}
 -(void)Criticality1Spinner
 {
     Servicecall = [[Webservices alloc]init];
-    NSString *projectLstForTask = @"RequirementGatheringService";
-    NSDictionary *credentials = @{@"orgId":OrgIdStr};
-    [Servicecall reqCriticality1Spinner:projectLstForTask TaskListParameters:credentials];
+    NSString *projectLstForTask = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/requirement/v1/reqCriticalitySpinner?orgId=%@",OrgIdStr];
+    [Servicecall criticaliryurl:projectLstForTask];
     [Servicecall setDelegate:self];
-
     
 }
--(void)Criticality2Spinner
+
+-(void)criticality:(id)criticalityresponse
+{
+    NSDictionary *dict=[[NSDictionary alloc]init];
+    dict=criticalityresponse;
+    if ([[dict valueForKey:@"statusMessage"]isEqualToString:@"No Data"])
+    {
+        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Alert" message:@"criticality list is empty" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+        [alert show];
+    }
+    else
+    {
+        NSArray *resultarray=[dict valueForKey:@"resAL"];
+        criticialitySystemIdAry1         = [[NSMutableArray alloc] init];
+        citicialitySystemAry1         = [[NSMutableArray alloc] init];
+        for (NSDictionary *fidd in resultarray)
+        {
+            [criticialitySystemIdAry1 addObject:[fidd valueForKey:@"criticalityId"]];
+            [citicialitySystemAry1 addObject:[fidd valueForKey:@"criticality"]];
+        }
+    }
+}
+
+-(void)systemspinner
 {
     Servicecall = [[Webservices alloc]init];
-    NSString *projectLstForTask = @"RequirementGatheringService";
-    NSDictionary *credentials = @{@"orgId":OrgIdStr};
-    [Servicecall reqCriticality2Spinner:projectLstForTask TaskListParameters:credentials];
+    NSString *projectLstForTask = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/requirement/v1/reqSystemSpinner?orgId=%@",OrgIdStr];
+    [Servicecall systemurl:projectLstForTask];
     [Servicecall setDelegate:self];
+}
+-(void)systemservice:(id)systemserviceresponse
+{
+    NSDictionary *dict=[[NSDictionary alloc]init];
+    dict=systemserviceresponse;
+    
+    if([[dict valueForKey:@"statusMessage"]isEqualToString:@"No Data"])
+    {
+        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Alert" message:@"criticality list is empty" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+        [alert show];
+    }
+    else
+    {
+        NSArray *resultarray=[dict valueForKey:@"resAL"];
+        criticialitySystemIdAry2         = [[NSMutableArray alloc] init];
+        citicialitySystemAry2         = [[NSMutableArray alloc] init];
+        
+        for (NSDictionary *fidd in resultarray)
+        {
+            [criticialitySystemIdAry2 addObject:[fidd valueForKey:@"systemId"]];
+            [citicialitySystemAry2 addObject:[fidd valueForKey:@"system"]];
+        }
+        NSString *tempString = systemTblStr;
+        for(int i=0; i<[citicialitySystemAry2 count]; i++)
+        {
+            if([tempString isEqualToString:[citicialitySystemAry2 objectAtIndex:i]])
+            {
+                
+                pkrCriticiality2IDStr = [criticialitySystemIdAry2 objectAtIndex:i];
+                
+            }
+        }
+        
+
+        
+    }
 }
 
 -(void)saveService
@@ -783,15 +875,16 @@
     NSLog(@"resource id str is %@",pkrResourceIDStr);
     Servicecall = [[Webservices alloc]init];
     
-    NSString *projectLstForTask = @"RequirementGatheringService";
+    NSString *projectLstForTask = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/requirement/v1/saveorUpdateReqGathering"];
     
     
     
 
 
-    NSDictionary *credentials = @{@"projectId":pkrProjectIDStr,@"resourceId":pkrResourceIDStr,@"coreProcessId":pkrCoreProcessIDStr,@"processId":pkrprocessIDStr,@"subProcessId":pkrSubProcessIDStr,@"activityId":pkrActivityIDStr,@"description":str,@"history":reqDesTxtView.text,@"reqType":pkrReqTypeIDStr,@"criticality":pkrCriticiality1IDStr,@"system":pkrCriticiality2IDStr,@"saveUpdateType":@"SaveReqGath",@"asisReqId":@"0",@"userId":Useridstr,@"requirementName":requiremnetNameTxtFld.text};
-    NSLog(@"The dict is %@",credentials);
-    [Servicecall saveRequirement:projectLstForTask TaskListParameters:credentials];
+    NSString *credentials = [NSString stringWithFormat:@"projectId=%@&resourceId=%@&coreProcessId=%@&processId=%@&subProcessId=%@&activityId=%@&description=%@&history=%@&reqType=%@&criticality=%@&system=%@&saveUpdateType=%@&asisReqId=%@&userId=%@&requirementName=%@",pkrProjectIDStr,pkrResourceIDStr,pkrCoreProcessIDStr,pkrprocessIDStr,pkrSubProcessIDStr,pkrActivityIDStr,reqDesTxtView.text,str,pkrReqTypeIDStr,pkrCriticiality1IDStr,pkrCriticiality2IDStr,@"SaveReqGath",@"0",Useridstr,requiremnetNameTxtFld.text];
+
+    NSLog(@"the parametrs are %@",credentials);
+    [Servicecall saverequirement:projectLstForTask saverequirementparams:credentials];
     [Servicecall setDelegate:self];
 
     
@@ -829,6 +922,13 @@
     return html;
     
     
+}
+-(void)saverequirement:(id)saverequirementresponse
+{
+    NSError *error;
+    NSData *data=[[NSData alloc]initWithData:saverequirementresponse];
+    NSDictionary *dict=[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
+    NSLog(@"save requirement response is %@",dict);
 }
 
 -(void)upDateService
