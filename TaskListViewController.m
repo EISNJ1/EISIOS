@@ -16,7 +16,7 @@
     NSString *Usernamestr,*Useridstr,*orgIdstr,*Usertypestr,*taskidstr,*startDateStr1,*endDateStr2;
     
     //TaskList
-    NSMutableArray *TasklistArray,*TaskIdArray,*DescriptionArray,*StartDateArray,*EndDateArray,*TaskEffortArray,*PriortyArray,*sercharray,*refarray,*A,*B,*C,*TaskAssgndByIdArray,*CatogeryArray,*ProjectNamearray,*ResourceNameArray,*hardDependencyArray,*hoursPerDayArray,*taskAssignedArray,*taskCreatedByArray,*taskCreatedByIdArray,*tempArray1,*tempArray2,*tempArray3,*tempArray4,*tempArray5,*tempArray6,*tempArray7,*tempArray8,*D,*E,*tempArray9,*tempArray10,*tempArray11,*tempArray12,*tempArray13,*tempArray14,*tempArray15,*tempArray16,*tempArray17,*tempArray18,*tempArray19,*tempArray20,*tempArray21,*tempArray22,*tempArray23,*tempArray24,*categorySearchArray1,*categorySearchArray2,*projectNameArray1,*projectNameArray2,*hardDependencyArray1,*hardDependencyArray2,*hoursPerDay1,*hoursPerDay2,*F,*dessearchArray,*startDateSearchArray,*enddateSearchArray,*effortSearchArray,*assignedSEarchArray,*createdBySearchArray,*TaskIdSearchArray,*projectNameSearchArray,*harddependencySearchArray,*hoursPerDaySearchArray,*categorySearchArray,*prioritySearchArray,*AssignedToSearchArray,*CreatedBySearchArray,*taskCreatedByIdSearchArray,*taskAssignedByIdSearchArray,*taskIdSearchArray,*taskHoursperdaySearchArray,*taskProjectNameSearchArray,*taskHarddependencySearchArray,*taskCategorySearchArray,*tempStatusArray,*taskStatusSearchArray,*taskCreatedByArraySearch;
+    NSMutableArray *TasklistArray,*TaskIdArray,*DescriptionArray,*StartDateArray,*EndDateArray,*TaskEffortArray,*PriortyArray,*sercharray,*refarray,*A,*B,*C,*TaskAssgndByIdArray,*CatogeryArray,*ProjectNamearray,*ResourceNameArray,*hardDependencyArray,*hoursPerDayArray,*taskAssignedArray,*taskCreatedByArray,*taskCreatedByIdArray,*tempArray1,*tempArray2,*tempArray3,*tempArray4,*tempArray5,*tempArray6,*tempArray7,*tempArray8,*D,*E,*tempArray9,*tempArray10,*tempArray11,*tempArray12,*tempArray13,*tempArray14,*tempArray15,*tempArray16,*tempArray17,*tempArray18,*tempArray19,*tempArray20,*tempArray21,*tempArray22,*tempArray23,*tempArray24,*categorySearchArray1,*categorySearchArray2,*projectNameArray1,*projectNameArray2,*hardDependencyArray1,*hardDependencyArray2,*hoursPerDay1,*hoursPerDay2,*F,*dessearchArray,*startDateSearchArray,*enddateSearchArray,*effortSearchArray,*assignedSEarchArray,*createdBySearchArray,*TaskIdSearchArray,*projectNameSearchArray,*harddependencySearchArray,*hoursPerDaySearchArray,*categorySearchArray,*prioritySearchArray,*AssignedToSearchArray,*CreatedBySearchArray,*taskCreatedByIdSearchArray,*taskAssignedByIdSearchArray,*taskIdSearchArray,*taskHoursperdaySearchArray,*taskProjectNameSearchArray,*taskHarddependencySearchArray,*taskCategorySearchArray,*tempStatusArray,*taskStatusSearchArray,*taskCreatedByArraySearch,*resultarray;
     
     NSMutableArray *temptaskupdateIDArray,*temptaskcategoryArray,*tempProjectNameArray,*tempharddependencyArray,*temphoursperDayArray;
     NSMutableArray *expireTaskPriorityArray,*expireTaskDescriptionArray,*expireAssignedArray,*expireCreatedBySearchArray,*expireTaskIdArray,*expireProjectNameArray,*expireHarddependencyArray,*expireHoursPerDayArray,*expireCategoryArray,*expireAssogmedByIdArray,*expireStartDateArray,*expireEndDateArray,*expireTaskEffortArray,*expireResourceArray,*expireStatusArray;
@@ -285,13 +285,61 @@
 }
 -(void)TasksHPList
 {
-    NSString *TaskListUrl = @"TasksHPListService";
-    NSDictionary *credentials = @{@"orgVp":orgIdstr,@"userId":Useridstr,@"userType":Usertypestr};
-    [Servicecall TasksHPListServiceurl:TaskListUrl TaskListParameters:credentials];
+//    NSString *TaskListUrl = @"TasksHPListService";
+//    NSDictionary *credentials = @{@"orgVp":orgIdstr,@"userId":Useridstr,@"userType":Usertypestr};
+//    [Servicecall TasksHPListServiceurl:TaskListUrl TaskListParameters:credentials];
+//    [Servicecall setDelegate:self];
+
+    NSString *publicnotesdec =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/task/v1/taskList?orgVp=%@&userId=%@&userType=%@",orgIdstr,Useridstr,Usertypestr];
+    NSString *encode1=[publicnotesdec stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    Servicecall=[[Webservices alloc]init];
+    [Servicecall tasklistUrl:encode1];
     [Servicecall setDelegate:self];
-    
 }
 
+-(void)tasklist:(id)taskList
+{
+    NSDictionary *dict=taskList;
+    NSLog(@"dict is %@",dict);
+    
+    if ([[dict objectForKey:@"statusMessage"]isEqualToString:@"No Data"])
+    {
+        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Warning" message:@"counts are empty" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:nil, nil];
+        [alert show];
+    }
+    else
+    {
+    DescriptionArray           =[NSMutableArray new];
+    StartDateArray             =[NSMutableArray new];
+    EndDateArray               =[NSMutableArray new];
+    PriortyArray               =[NSMutableArray new];
+    TaskEffortArray            =[NSMutableArray new];
+    taskAssignedArray          =[NSMutableArray new];
+    taskCreatedByArray         =[NSMutableArray new];
+
+        resultarray=[[NSMutableArray alloc]init];
+        resultarray = [dict objectForKey:@"resAL"];
+        for (NSDictionary *fid in resultarray)
+        {
+            [DescriptionArray addObject:[fid valueForKey:@"taskDescription"]];
+            [StartDateArray addObject:[fid valueForKey:@"taskStartDate"]];
+            [EndDateArray addObject:[fid valueForKey:@"taskEnDate"]];
+            [PriortyArray addObject:[fid valueForKey:@"priority"]];
+            [TaskEffortArray addObject:[fid valueForKey:@"taskEffort"]];
+            [taskAssignedArray addObject:[fid valueForKey:@"assignedTo"]];
+            [taskCreatedByArray addObject:[fid valueForKey:@"createdBy"]];
+        }
+        NSLog(@"Description is %@:",DescriptionArray);
+        NSLog(@"start date is %@",StartDateArray);
+        NSLog(@"end date is %@",EndDateArray);
+        NSLog(@"priority is %@",PriortyArray);
+        NSLog(@"task effort is %@",TaskEffortArray);
+        NSLog(@"task assigned is %@",taskAssignedArray);
+        NSLog(@"task created is %@",taskCreatedByArray);
+        [TaskListTV reloadData];
+    
+    }
+}
 -(void)didFinishService:(id)Userlogindetails
 {
     TaskListXmlParser= [[NSXMLParser alloc]initWithData:Userlogindetails];
