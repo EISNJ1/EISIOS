@@ -52,6 +52,11 @@
 -(void)servityservice:(id)servityserviceresponse;
 -(void)saveissueservice:(id)saveissueresponse;
 
+//Task
+
+-(void)tasklist:(id)taskList;
+
+
 //Requirement
 -(void)requirementlist:(id)reqiurementList;
 -(void)contacttype:(id)contacttyperesponse;
@@ -165,6 +170,11 @@
 -(void)teamsubmittedservice:(NSString *)teamsubmittedserviceclass;
 -(void)servityservice:(NSString *)servityserviceclass;
 -(void)saveissue:(NSString *)saveissueclass saveissueparams:(NSString *)saveissueparameters;
+
+//Task
+
+-(void)tasklistUrl:(NSString *)taskListUrl;
+
 
 // Requirement Json
 -(void)requirementListUrl:(NSString *)requirementlistUrl;
