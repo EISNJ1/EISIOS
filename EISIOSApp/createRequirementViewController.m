@@ -754,6 +754,7 @@
             [reqTypeIdAry addObject:[fidd valueForKey:@"requirementTypeId"]];
             [reqTpeAry addObject:[fidd valueForKey:@"requirementType"]];
         }
+        
         NSString *tempString = reqTypeTblStr;
         for(int i=0; i<[reqTpeAry count]; i++)
         {
@@ -795,6 +796,17 @@
             [criticialitySystemIdAry1 addObject:[fidd valueForKey:@"criticalityId"]];
             [citicialitySystemAry1 addObject:[fidd valueForKey:@"criticality"]];
         }
+        NSString *tempString = criticialityTblStr;
+        for(int i=0; i<[citicialitySystemAry1 count];i++)
+        {
+            if([tempString isEqualToString:[citicialitySystemAry1 objectAtIndex:i]])
+            {
+                
+                pkrCriticiality1IDStr = [criticialitySystemIdAry1 objectAtIndex:i];
+                
+            }
+        }
+
     }
 }
 
@@ -936,7 +948,7 @@
         
         
         saveAry=[[NSArray alloc]init];
-       saveAry=[dict valueForKey:@"beanData"];
+        saveAry=[dict valueForKey:@"beanData"];
         NSLog(@"array value is %@",saveAry);
         historyStr=[saveAry valueForKey:@"requirementHistory"];
         assignedIdStr=[saveAry valueForKey:@"requirementId"];
@@ -955,6 +967,32 @@
         historyreqstr=  [self convertHTML:historyStr];
         NSLog(@" history req values are  %@",historyreqstr);
 
+    }
+    if ([[dict valueForKey:@"statusMessage"]isEqualToString:@"ReqGathUpdated"])
+    {
+        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Alert" message:@"requriement Updated successfully" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+        [alert show];
+        
+        saveAry=[[NSArray alloc]init];
+        saveAry=[dict valueForKey:@"beanData"];
+        NSLog(@"array value is %@",saveAry);
+        historyStr=[saveAry valueForKey:@"requirementHistory"];
+        assignedIdStr=[saveAry valueForKey:@"requirementId"];
+        
+        [updateBtn setHidden:NO];
+        [saveBtn setHidden:YES];
+        
+        
+        NSLog(@" history values are   %@",historyStr);
+        
+        
+        
+        NSLog(@" assigned id values are  %@",assignedIdStr);
+        
+        NSString *historyreqstr;
+        historyreqstr=  [self convertHTML:historyStr];
+        NSLog(@" history req values are  %@",historyreqstr);
+        reqDesTxtView.text=nil;
     }
 }
 
@@ -998,22 +1036,38 @@
     NSLog(@"history str is %@",historyStr);
     NSLog(@"   str1 values are %@",str1);
     Servicecall = [[Webservices alloc]init];
-    NSString *projectLstForTask = @"RequirementGatheringService";
-    NSDictionary *credentials = @{@"projectId":pkrProjectIDStr,@"resourceId":pkrResourceIDStr,@"coreProcessId":pkrCoreProcessIDStr,@"processId":pkrprocessIDStr,@"subProcessId":pkrSubProcessIDStr,@"activityId":pkrActivityIDStr,@"description":str1,@"history":reqHistoryTxtView.text,@"reqType":pkrReqTypeIDStr,@"criticality":pkrCriticiality1IDStr,@"system":pkrCriticiality2IDStr,@"saveUpdateType":@"UpdateReqGath",@"asisReqId":assignedIdStr,@"userId":Useridstr,@"requirementName":requiremnetNameTxtFld.text};
-    NSLog(@"The dict is %@",credentials);
-    [Servicecall updateRequirement:projectLstForTask TaskListParameters:credentials];
-    [Servicecall setDelegate:self];
-    reqDesTxtView.text = nil;
+//    NSString *projectLstForTask = @"RequirementGatheringService";
+//    NSDictionary *credentials = @{@"projectId":pkrProjectIDStr,@"resourceId":pkrResourceIDStr,@"coreProcessId":pkrCoreProcessIDStr,@"processId":pkrprocessIDStr,@"subProcessId":pkrSubProcessIDStr,@"activityId":pkrActivityIDStr,@"description":str1,@"history":reqHistoryTxtView.text,@"reqType":pkrReqTypeIDStr,@"criticality":pkrCriticiality1IDStr,@"system":pkrCriticiality2IDStr,@"saveUpdateType":@"UpdateReqGath",@"asisReqId":assignedIdStr,@"userId":Useridstr,@"requirementName":requiremnetNameTxtFld.text};
+//    NSLog(@"The dict is %@",credentials);
+//    [Servicecall updateRequirement:projectLstForTask TaskListParameters:credentials];
+//    [Servicecall setDelegate:self];
+//    reqDesTxtView.text = nil;
+        
+        NSString *projectLstForTask = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/requirement/v1/saveorUpdateReqGathering"];
+
+        
+        
+        NSString *credentials = [NSString stringWithFormat:@"projectId=%@&resourceId=%@&coreProcessId=%@&processId=%@&subProcessId=%@&activityId=%@&description=%@&history=%@&reqType=%@&criticality=%@&system=%@&saveUpdateType=%@&asisReqId=%@&userId=%@&requirementName=%@",pkrProjectIDStr,pkrResourceIDStr,pkrCoreProcessIDStr,pkrprocessIDStr,pkrSubProcessIDStr,pkrActivityIDStr,str1,reqHistoryTxtView.text,pkrReqTypeIDStr,pkrCriticiality1IDStr,pkrCriticiality2IDStr,@"UpdateReqGath",assignedIdStr,Useridstr,requiremnetNameTxtFld.text];
+        
+        NSLog(@"the parametrs are %@",credentials);
+        [Servicecall saverequirement:projectLstForTask saverequirementparams:credentials];
+        [Servicecall setDelegate:self];
+
+        
 }
     else
     {
         Servicecall = [[Webservices alloc]init];
-        NSString *projectLstForTask = @"RequirementGatheringService";
-        NSDictionary *credentials = @{@"projectId":pkrProjectIDStr,@"resourceId":pkrResourceIDStr,@"coreProcessId":pkrCoreProcessIDStr,@"processId":pkrprocessIDStr,@"subProcessId":pkrSubProcessIDStr,@"activityId":pkrActivityIDStr,@"description":@"null",@"hist ory":reqHistoryTxtView.text,@"reqType":pkrReqTypeIDStr,@"criticality":pkrCriticiality1IDStr,@"system":pkrCriticiality2IDStr,@"saveUpdateType":@"UpdateReqGath",@"asisReqId":assignedIdStr,@"userId":Useridstr,@"requirementName":requiremnetNameTxtFld.text};
-        NSLog(@"The dict is %@",credentials);
-        [Servicecall updateRequirement:projectLstForTask TaskListParameters:credentials];
+        NSString *projectLstForTask = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/requirement/v1/saveorUpdateReqGathering"];
+        
+        
+        
+        NSString *credentials = [NSString stringWithFormat:@"projectId=%@&resourceId=%@&coreProcessId=%@&processId=%@&subProcessId=%@&activityId=%@&description=%@&history=%@&reqType=%@&criticality=%@&system=%@&saveUpdateType=%@&asisReqId=%@&userId=%@&requirementName=%@",pkrProjectIDStr,pkrResourceIDStr,pkrCoreProcessIDStr,pkrprocessIDStr,pkrSubProcessIDStr,pkrActivityIDStr,@"null",reqHistoryTxtView.text,pkrReqTypeIDStr,pkrCriticiality1IDStr,pkrCriticiality2IDStr,@"UpdateReqGath",assignedIdStr,Useridstr,requiremnetNameTxtFld.text];
+        
+        NSLog(@"the parametrs are %@",credentials);
+        [Servicecall saverequirement:projectLstForTask saverequirementparams:credentials];
         [Servicecall setDelegate:self];
-        reqDesTxtView.text = nil;
+
 
     }
 }

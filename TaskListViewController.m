@@ -309,18 +309,29 @@
     }
     else
     {
-    DescriptionArray           =[NSMutableArray new];
-    StartDateArray             =[NSMutableArray new];
-    EndDateArray               =[NSMutableArray new];
-    PriortyArray               =[NSMutableArray new];
-    TaskEffortArray            =[NSMutableArray new];
-    taskAssignedArray          =[NSMutableArray new];
-    taskCreatedByArray         =[NSMutableArray new];
+        TaskIdArray                =[NSMutableArray new];
+        DescriptionArray           =[NSMutableArray new];
+        StartDateArray             =[NSMutableArray new];
+        EndDateArray               =[NSMutableArray new];
+        PriortyArray               =[NSMutableArray new];
+        TaskEffortArray            =[NSMutableArray new];
+        TaskAssgndByIdArray        =[NSMutableArray new];
+        CatogeryArray              =[NSMutableArray new];
+        ResourceNameArray          =[NSMutableArray new];
+        ProjectNamearray           =[NSMutableArray new];
+        hardDependencyArray        =[NSMutableArray new];
+        taskCreatedByIdArray       =[NSMutableArray new];
+        taskAssignedArray          =[NSMutableArray new];
+        taskCreatedByArray         =[NSMutableArray new];
+        hoursPerDayArray           =[NSMutableArray new];
+        taskStatusArray            =[NSMutableArray new];
+        
 
         resultarray=[[NSMutableArray alloc]init];
         resultarray = [dict objectForKey:@"resAL"];
         for (NSDictionary *fid in resultarray)
         {
+            [TaskIdArray addObject:[fid valueForKey:@"taskId"]];
             [DescriptionArray addObject:[fid valueForKey:@"taskDescription"]];
             [StartDateArray addObject:[fid valueForKey:@"taskStartDate"]];
             [EndDateArray addObject:[fid valueForKey:@"taskEnDate"]];
@@ -328,6 +339,38 @@
             [TaskEffortArray addObject:[fid valueForKey:@"taskEffort"]];
             [taskAssignedArray addObject:[fid valueForKey:@"assignedTo"]];
             [taskCreatedByArray addObject:[fid valueForKey:@"createdBy"]];
+            [TaskAssgndByIdArray addObject:[fid valueForKey:@"taskAssignedById"]];
+            [ResourceNameArray addObject:[fid valueForKey:@"resourceName"]];
+            [CatogeryArray addObject:[fid valueForKey:@"category"]];
+            //[hoursPerDayArray addObject:[fid valueForKey:@"hoursPerDay"]];
+            //[taskStatusArray addObject:[fid valueForKey:@"taskStatus"]];
+            //[ProjectNamearray addObject:[fid valueForKey:@"projectName"]];
+            //[hardDependencyArray addObject:[fid valueForKey:@"taskHardDependency"]];
+            
+            if ([fid valueForKey:@"projectName"]!=nil)
+            {
+               
+                 [ProjectNamearray addObject:[fid valueForKey:@"projectName"]];
+            }
+            else
+            {
+                 [ProjectNamearray addObject:@"null"];
+               
+            }
+            if ([fid valueForKey:@"taskHardDependency"]!=nil)
+            {
+                               [hardDependencyArray addObject:[fid valueForKey:@"taskHardDependency"]];
+
+            }
+            else
+            {
+                [hardDependencyArray addObject:@"null"];
+    
+            }
+            //[ProjectNamearray addObject:[fid valueForKey:@"projectName"]];
+            //[hardDependencyArray addObject:[fid valueForKey:@"taskHardDependency"]];
+            [taskStatusArray addObject:[fid valueForKey:@"taskStatus"]];
+            [hoursPerDayArray addObject:[fid valueForKey:@"hoursPerDay"]];
         }
         NSLog(@"Description is %@:",DescriptionArray);
         NSLog(@"start date is %@",StartDateArray);
@@ -336,10 +379,64 @@
         NSLog(@"task effort is %@",TaskEffortArray);
         NSLog(@"task assigned is %@",taskAssignedArray);
         NSLog(@"task created is %@",taskCreatedByArray);
-        [TaskListTV reloadData];
-    
+        
+        uniqueDescriptionArray=[[NSMutableArray alloc]init];
+        [uniqueDescriptionArray addObjectsFromArray:[[NSSet setWithArray:PriortyArray]allObjects]];
+        //NSLog(@"unique array is %@",uniqueDescriptionArray);
+        [uniqueDescriptionArray addObject:@"PriorityAll"];
+        
+        
+        A=[[NSMutableArray alloc]init];
+        
+        refarray1=[[NSMutableArray alloc]initWithArray:PriortyArray];
+        A=PriortyArray;
+        
+        B=[[NSMutableArray alloc]init];
+        
+        // NSLog(@"the ref1 array is %@",A);
+        
+        
+        
+        if ([searchBar1.text isEqualToString:@"Created By"])
+        {
+            searcharray1=[[NSMutableArray alloc]init];
+            refarray3=[[NSMutableArray alloc]initWithArray:taskCreatedByArray];
+            C=[[NSMutableArray alloc]init];
+            D=[[NSMutableArray alloc]init];
+            //tempArray=taskCreatedByArray;
+            
+        }
+        searcharray2=[[NSMutableArray alloc]init];
+        refarray4=[[NSMutableArray alloc]initWithArray:ResourceNameArray];
+        E=[[NSMutableArray alloc]init];
+        F=[[NSMutableArray alloc]init];
+        E=ResourceNameArray;
+        // NSLog(@"ref 4 array is %@",refarray4);
+        
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [TaskListTV reloadData];
+        });
+        
+        //[TaskListTV reloadData];
     }
+    //int total =[TaskEffortArray count]
 }
+
+//NSString *totalTaskValue=[NSString stringWithFormat:@"%d",total];
+//MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+//hud.mode = MBProgressHUDModeText;
+//hud.detailsLabel.text = [@"Total Tasks is " stringByAppendingString:totalTaskValue];
+////hud.tintColor=[UIColor blueColor];
+//hud.detailsLabel.font=[UIFont fontWithName:@"Roboto-Black" size:22];
+//hud.removeFromSuperViewOnHide = YES;
+//hud.detailsLabel.textColor=[UIColor blueColor];
+//hud.margin = 12.f;
+//[hud hideAnimated:YES afterDelay:2];
+        //[TaskListTV reloadData];
+
+
+
 -(void)didFinishService:(id)Userlogindetails
 {
     TaskListXmlParser= [[NSXMLParser alloc]initWithData:Userlogindetails];
@@ -362,9 +459,9 @@
             EndDateArray               =[NSMutableArray new];
             PriortyArray               =[NSMutableArray new];
             TaskEffortArray            =[NSMutableArray new];
-            TasklistArray              =[NSMutableArray new];
+            //TasklistArray              =[NSMutableArray new];
             TaskAssgndByIdArray        =[NSMutableArray new];
-            TaskSplitArray             =[NSArray new];
+            //TaskSplitArray             =[NSArray new];
             CatogeryArray              =[NSMutableArray new];
             ResourceNameArray          =[NSMutableArray new];
             ProjectNamearray           =[NSMutableArray new];
@@ -373,8 +470,8 @@
             taskAssignedArray          =[NSMutableArray new];
             taskCreatedByArray         =[NSMutableArray new];
             hoursPerDayArray           =[NSMutableArray new];
-            createdByString            =[NSMutableString new];
-            AssignedByIdStr            =[NSMutableString new];
+//            createdByString            =[NSMutableString new];
+//            AssignedByIdStr            =[NSMutableString new];
             taskStatusArray            =[NSMutableArray new];
             
         }
