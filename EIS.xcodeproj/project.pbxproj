@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		231A2C6D1AB00CB500F1DB1A /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5769CC381A01FF6D0069A432 /* Main_iPad.storyboard */; };
 		2348F1C01AA579F7003111B7 /* AudioViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2348F1A51AA579F6003111B7 /* AudioViewController.m */; };
-		2348F1C11AA579F7003111B7 /* CreatTaskViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2348F1A71AA579F6003111B7 /* CreatTaskViewController.m */; };
 		2348F1C21AA579F7003111B7 /* FileUploadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2348F1A91AA579F6003111B7 /* FileUploadViewController.m */; };
 		2348F1C31AA579F7003111B7 /* NSBubbleData.m in Sources */ = {isa = PBXBuildFile; fileRef = 2348F1AC1AA579F7003111B7 /* NSBubbleData.m */; };
 		2348F1C41AA579F7003111B7 /* UIBubbleHeaderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2348F1AE1AA579F7003111B7 /* UIBubbleHeaderTableViewCell.m */; };
@@ -100,6 +99,7 @@
 		8451B1B01E092EE100715079 /* lobstor.otf in Resources */ = {isa = PBXBuildFile; fileRef = 8451B1AF1E092E3000715079 /* lobstor.otf */; };
 		845B89DA1D744EB300398B90 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 845B89D91D744EB300398B90 /* Accelerate.framework */; };
 		845F0B851D472761006A91F9 /* OverViewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 845F0B841D472761006A91F9 /* OverViewViewController.m */; };
+		8460BAA11F221FBC00F8131F /* CreatTaskViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8460BAA01F221FBC00F8131F /* CreatTaskViewController.m */; };
 		846B59711DF964880070D537 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 846B59701DF964880070D537 /* MBProgressHUD.m */; };
 		848D60721DB4CD56009C3AF0 /* ChartNew.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 848D60711DB4CD56009C3AF0 /* ChartNew.min.js */; };
 		848D60851DB4CE23009C3AF0 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 848D60731DB4CE23009C3AF0 /* index.html */; };
@@ -127,8 +127,6 @@
 /* Begin PBXFileReference section */
 		2348F1A41AA579F6003111B7 /* AudioViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioViewController.h; sourceTree = "<group>"; };
 		2348F1A51AA579F6003111B7 /* AudioViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioViewController.m; sourceTree = "<group>"; };
-		2348F1A61AA579F6003111B7 /* CreatTaskViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreatTaskViewController.h; sourceTree = "<group>"; };
-		2348F1A71AA579F6003111B7 /* CreatTaskViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CreatTaskViewController.m; path = /Users/admin/Documents/EISIOSJSONNEW/CreatTaskViewController.m; sourceTree = "<absolute>"; };
 		2348F1A81AA579F6003111B7 /* FileUploadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileUploadViewController.h; sourceTree = "<group>"; };
 		2348F1A91AA579F6003111B7 /* FileUploadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileUploadViewController.m; sourceTree = "<group>"; };
 		2348F1AB1AA579F7003111B7 /* NSBubbleData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSBubbleData.h; sourceTree = "<group>"; };
@@ -307,6 +305,8 @@
 		845B89D91D744EB300398B90 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		845F0B831D472761006A91F9 /* OverViewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OverViewViewController.h; sourceTree = "<group>"; };
 		845F0B841D472761006A91F9 /* OverViewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OverViewViewController.m; sourceTree = "<group>"; };
+		8460BA9F1F221FBC00F8131F /* CreatTaskViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreatTaskViewController.h; sourceTree = "<group>"; };
+		8460BAA01F221FBC00F8131F /* CreatTaskViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreatTaskViewController.m; sourceTree = "<group>"; };
 		846B596F1DF964880070D537 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		846B59701DF964880070D537 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		848D60711DB4CD56009C3AF0 /* ChartNew.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = ChartNew.min.js; sourceTree = "<group>"; };
@@ -510,8 +510,8 @@
 				2348F2141AA57A1B003111B7 /* UserbasedMeetingsViewController.m */,
 				2348F1A41AA579F6003111B7 /* AudioViewController.h */,
 				2348F1A51AA579F6003111B7 /* AudioViewController.m */,
-				2348F1A61AA579F6003111B7 /* CreatTaskViewController.h */,
-				2348F1A71AA579F6003111B7 /* CreatTaskViewController.m */,
+				8460BA9F1F221FBC00F8131F /* CreatTaskViewController.h */,
+				8460BAA01F221FBC00F8131F /* CreatTaskViewController.m */,
 				2348F1A81AA579F6003111B7 /* FileUploadViewController.h */,
 				2348F1A91AA579F6003111B7 /* FileUploadViewController.m */,
 				8443D9C31E9F85A100A0233D /* NSAttributedString+Attributes.h */,
@@ -763,7 +763,6 @@
 				841363B41F0CA35B00194679 /* TaskListViewController.m in Sources */,
 				841363FE1F0CA48C00194679 /* TWRDataSet+Strings.m in Sources */,
 				2348F23E1AA57A1B003111B7 /* UserbasedMeetingsViewController.m in Sources */,
-				2348F1C11AA579F7003111B7 /* CreatTaskViewController.m in Sources */,
 				2348F22C1AA57A1B003111B7 /* issueViewController.m in Sources */,
 				841363E31F0CA45100194679 /* UIButton+AFNetworking.m in Sources */,
 				2348F2371AA57A1B003111B7 /* resolutionIssueViewController.m in Sources */,
@@ -802,6 +801,7 @@
 				2348F1C91AA579F7003111B7 /* TextUploadViewController.m in Sources */,
 				841363C71F0CA43400194679 /* AFSecurityPolicy.m in Sources */,
 				841363FB1F0CA48C00194679 /* TWRChartView.m in Sources */,
+				8460BAA11F221FBC00F8131F /* CreatTaskViewController.m in Sources */,
 				2348F21B1AA57A1B003111B7 /* createProjectExpansesViewController.m in Sources */,
 				2348F1CB1AA579F7003111B7 /* UserData.m in Sources */,
 				841363C81F0CA43400194679 /* AFURLRequestSerialization.m in Sources */,
