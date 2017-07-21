@@ -128,7 +128,7 @@
 		2348F1A41AA579F6003111B7 /* AudioViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioViewController.h; sourceTree = "<group>"; };
 		2348F1A51AA579F6003111B7 /* AudioViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioViewController.m; sourceTree = "<group>"; };
 		2348F1A61AA579F6003111B7 /* CreatTaskViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreatTaskViewController.h; sourceTree = "<group>"; };
-		2348F1A71AA579F6003111B7 /* CreatTaskViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreatTaskViewController.m; sourceTree = "<group>"; };
+		2348F1A71AA579F6003111B7 /* CreatTaskViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CreatTaskViewController.m; path = /Users/admin/Documents/EISIOSJSONNEW/CreatTaskViewController.m; sourceTree = "<absolute>"; };
 		2348F1A81AA579F6003111B7 /* FileUploadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileUploadViewController.h; sourceTree = "<group>"; };
 		2348F1A91AA579F6003111B7 /* FileUploadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileUploadViewController.m; sourceTree = "<group>"; };
 		2348F1AB1AA579F7003111B7 /* NSBubbleData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSBubbleData.h; sourceTree = "<group>"; };

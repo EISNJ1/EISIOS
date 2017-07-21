@@ -55,6 +55,9 @@
 //Task
 
 -(void)tasklist:(id)taskList;
+-(void)prioritylist:(id)priorityList;
+-(void)holidaysList:(id)holidaysList;
+-(void)categorylist:(id)categoryList;
 
 
 //Requirement
@@ -174,6 +177,9 @@
 //Task
 
 -(void)tasklistUrl:(NSString *)taskListUrl;
+-(void)prioritylistUrl:(NSString *)priorityListUrl;
+-(void)holidaysListUrl:(NSString *)holidaysListUrl;
+-(void)categorylistUrl:(NSString *)categoryListUrl;
 
 
 // Requirement Json

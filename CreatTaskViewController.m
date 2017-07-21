@@ -19,18 +19,18 @@
     
     //ProjectList
     NSMutableArray *ProjectListArray,*PROJECT_IDArray,*PROJECT_NAMEArray;
-    NSArray *ProjectlistSplitArray;
+    NSArray *ProjectlistSplitArray,*resultarray3;
     
     
     //CategoryList
     NSMutableArray *CategoryListArray,*Category_IDArray,*Category_NAMEArray;
-    NSArray *CategoryListSplitArray;
+    NSArray *CategoryListSplitArray,*resultarray1;
     
     
     //PriorityList
     
     NSMutableArray *PriorityListArray,*Priority_IDArray,*Priority_NAMEArray;
-    NSArray *PriorityListSplitArray;
+    NSArray *PriorityListSplitArray,*resultarray2;
     
     
     //ResourceList
@@ -60,7 +60,7 @@
     //holidays list service
     
     NSMutableArray *holidaysListServiceArray,*holidaysListServiceSplitArray,*holidaysListServiceIdArray,*holidayLsitServiceReasonArray,*enddatstrArray,*enddatestrSplitArray2,*enddateStrDisplayArray;
-    NSMutableString *dateStr,*enddateStr;
+    NSMutableString *dateStr,*enddateStr,*resultarray;
     
     NSMutableString *hardDependencyAllDataString,*currentElement1;
     
@@ -334,38 +334,139 @@
 }
 -(void)holidaysList
 {
+//    Servicecall=[[Webservices alloc]init];
+//    NSString *holidayClass=@"TaskHolidaysWeekendSkip";
+//    NSDictionary *holidaysDictionary=@{@"orgId":orgIdstr};
+//    [Servicecall HolidaysList:holidayClass HolidaysListParametersDetails:holidaysDictionary];
+//    [Servicecall setDelegate:self];
+
+    NSString *publicnotesdec =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/task/v1/holidaysList?orgId=%@",orgIdstr];
+    NSString *encode1=[publicnotesdec stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     Servicecall=[[Webservices alloc]init];
-    NSString *holidayClass=@"TaskHolidaysWeekendSkip";
-    NSDictionary *holidaysDictionary=@{@"orgId":orgIdstr};
-    [Servicecall HolidaysList:holidayClass HolidaysListParametersDetails:holidaysDictionary];
+    [Servicecall holidaysListUrl:encode1];
     [Servicecall setDelegate:self];
-    
+
+}
+-(void)holidaysList:(id)holidaysList
+{
+ 
 }
 -(void)ProjectsList
 {
-    NSString *projectListurl = @"TasksSpinnersListsService";
-    NSDictionary *credentials = @{@"usertype":Usertypestr,@"userid":Useridstr,@"orgid":orgIdstr};
-    [Servicecall ProjectspickerurlTask:projectListurl ProjectsListcredentilas:credentials];
+    Servicecall=[[Webservices alloc]init];
+    NSString *publicnotesdec =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/meeting/v1/projectListSpinner?usertype=%@&userId=%@&orgId=%@",Usertypestr,Useridstr,orgIdstr];
+    NSString *encode1=[publicnotesdec stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    [Servicecall projectlstspinrurl:encode1];
     [Servicecall setDelegate:self];
+}
+-(void)projectlistspinner:(id)projectlistSpinner
+{
+    NSDictionary *dict=projectlistSpinner;
+    NSLog(@"dict is %@",dict);
     
-    
+    if ([[dict objectForKey:@"statusMessage"]isEqualToString:@"No Data"])
+    {
+        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Warning" message:@"counts are empty" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:nil, nil];
+        [alert show];
+    }
+    else
+    {
+        PROJECT_NAMEArray      =[NSMutableArray new];
+        PROJECT_IDArray        =[NSMutableArray new];
+        resultarray3 = [dict objectForKey:@"resAL"];
+        for (NSDictionary *fid in resultarray3)
+        {
+            [PROJECT_NAMEArray addObject:[fid valueForKey:@"projectName"]];
+            [PROJECT_IDArray addObject:[fid valueForKey:@"projectId"]];
+            
+        }
+        NSLog(@"project name is  %@:",PROJECT_NAMEArray);
+        NSLog(@"project id is %@",PROJECT_IDArray);
+        [hardDependencyTableView reloadData];
+        
+    }
+
 }
 -(void)CategoryList
 {
-    NSString *TaskListUrl = @"TasksSpinnersListsService";
-    NSDictionary *credentials = @{@"orgId":orgIdstr};
-    [Servicecall TaskCategorySpinnerListurl:TaskListUrl Taskcategorycredentials:credentials];
+    Servicecall=[[Webservices alloc]init];
+    NSString *publicnotesdec =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/task/v1/taskcategorySpinner?orgId=%@",orgIdstr];
+    NSString *encode1=[publicnotesdec stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    [Servicecall categorylistUrl:encode1];
     [Servicecall setDelegate:self];
+}
+
+-(void)categorylist:(id)categoryList
+{
+    NSDictionary *dict=categoryList;
+    NSLog(@"dict is %@",dict);
     
+    if ([[dict objectForKey:@"statusMessage"]isEqualToString:@"No Data"])
+    {
+        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Warning" message:@"counts are empty" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:nil, nil];
+        [alert show];
+    }
+    else
+    {
+        Category_IDArray          =[NSMutableArray new];
+        Category_NAMEArray        =[NSMutableArray new];
+        resultarray1 = [dict objectForKey:@"resAL"];
+        for (NSDictionary *fidd in resultarray1)
+        {
+            [Category_IDArray addObject:[fidd valueForKey:@"categoryId"]];
+            [Category_NAMEArray addObject:[fidd valueForKey:@"category"]];
+            
+        }
+        NSLog(@"category name is  %@:",Category_IDArray);
+        NSLog(@"category id is %@",Category_NAMEArray);
+        [hardDependencyTableView reloadData];
+        
+    }
+
 }
 -(void)PriorityList
 {
-    NSString *TaskListUrl = @"TasksSpinnersListsService";
-    NSDictionary *credentials = @{@"orgId":orgIdstr};
-    [Servicecall TaskPrioritySpinnerurl:TaskListUrl TaskPriorityparameters:credentials];
+//    NSString *TaskListUrl = @"TasksSpinnersListsService";
+//    NSDictionary *credentials = @{@"orgId":orgIdstr};
+//    [Servicecall TaskPrioritySpinnerurl:TaskListUrl TaskPriorityparameters:credentials];
+//    [Servicecall setDelegate:self];
+
+    Servicecall=[[Webservices alloc]init];
+    NSString *publicnotesdec =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/task/v1/taskPrioritySpinner?orgId=%@",orgIdstr];
+    NSString *encode1=[publicnotesdec stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    [Servicecall categorylistUrl:encode1];
     [Servicecall setDelegate:self];
+   
+}
+
+-(void)prioritylist:(id)priorityList
+{
+    NSDictionary *dict=priorityList;
+    NSLog(@"dict is %@",dict);
     
+    if ([[dict objectForKey:@"statusMessage"]isEqualToString:@"No Data"])
+    {
+        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Warning" message:@"counts are empty" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:nil, nil];
+        [alert show];
+    }
+    else
+    {
+        Priority_IDArray          =[NSMutableArray new];
+        Priority_NAMEArray        =[NSMutableArray new];
+        resultarray2 = [dict objectForKey:@"resAL"];
+        for (NSDictionary *fid in resultarray2)
+        {
+            [Priority_IDArray addObject:[fid valueForKey:@"priorityId"]];
+            [Priority_NAMEArray addObject:[fid valueForKey:@"priority"]];
+            
+        }
+        NSLog(@"priority name is  %@:",Priority_NAMEArray);
+        NSLog(@"priority id is %@",Priority_IDArray);
+        [hardDependencyTableView reloadData];
+        
+    }
     
+
 }
 
 -(void)ProjectListbtnpkrTapped

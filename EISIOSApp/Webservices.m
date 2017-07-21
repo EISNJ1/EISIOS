@@ -884,6 +884,65 @@
 
 }
 
+-(void)prioritylistUrl:(NSString *)priorityListUrl
+{
+    AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+    
+    AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
+    responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
+    
+    manager.responseSerializer = responseSerializer;
+    [manager GET:priorityListUrl parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
+     {
+         NSLog(@"JSON: %@",responseObject);
+         
+         [delegate prioritylist:responseObject];
+     }
+         failure:^(NSURLSessionTask *operation, NSError *error)
+     {
+         NSLog(@"Error: %@", error);
+     }];
+}
+
+-(void)categorylistUrl:(NSString *)categoryListUrl
+{
+    AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+    
+    AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
+    responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
+    
+    manager.responseSerializer = responseSerializer;
+    [manager GET:categoryListUrl parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
+     {
+         NSLog(@"JSON: %@",responseObject);
+         
+         [delegate categorylist:responseObject];
+     }
+         failure:^(NSURLSessionTask *operation, NSError *error)
+     {
+         NSLog(@"Error: %@", error);
+     }];}
+
+-(void)holidaysListUrl:(NSString *)holidaysListUrl
+{
+    AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+    
+    AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
+    responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
+    
+    manager.responseSerializer = responseSerializer;
+    [manager GET:holidaysListUrl parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
+     {
+         NSLog(@"JSON: %@",responseObject);
+         
+         [delegate holidaysList:responseObject];
+     }
+         failure:^(NSURLSessionTask *operation, NSError *error)
+     {
+         NSLog(@"Error: %@", error);
+     }];
+}
+
 
 
 //Requirement List
