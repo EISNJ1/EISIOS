@@ -1254,7 +1254,7 @@
         NSLog(@"start date text field text is %@",StartDatetxtfld.text);
         NSLog(@"End Date text field text is %@",Enddatetxtfld.text);
         NSLog(@"resource id id %@",_ResourceIdstr);
-        NSString *TaskSaveUrl = @"SaveAndUpdateTaskService";
+        NSString *TaskSaveUrl = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/task/v1/saveOrUpdateTask"];
         NSDictionary *credentials = @{@"orgId":orgIdstr,@"taskcat":_CategoryIdstr,
                                       @"tskPriority":_PriorityIdstr,@"taskDescription":Descriptionxtfld.text,@"taskEffort":Efforttxtfld.text,@"plStartDate":StartDatetxtfld.text,@"plEndDate":Enddatetxtfld.text,@"tskAssinTo":_ResourceIdstr,@"tskAssinBy":Useridstr,@"projectId":_ProjectIdstr,@"taskId":taskId,@"saveUpdateType":saveUpdateType,@"hardDependcyId":hardDependencyText,@"hourPerDay":hoursPerDaytxtfld.text};
         [Servicecall SaveNewTaskurl:TaskSaveUrl NewTaskSaveParameters:credentials];
