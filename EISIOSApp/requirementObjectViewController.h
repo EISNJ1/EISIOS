@@ -32,7 +32,7 @@
     NSString *objLststring;
     NSArray *objLstdataarray,*objLstplitarray;
     
-    NSMutableArray *objLstIdAry,*objLstTypeAry,*objLstcomplexityAry,*objLstPurposeAry,*objLstExistingNewAry,*objLstResourceNameAry,*objLstObjNameAry,*tblLstAppAry,*objLstCommentArry;
+    NSMutableArray *objLstIdAry,*objLstTypeAry,*objLstcomplexityAry,*objLstPurposeAry,*objLstExistingNewAry,*objLstResourceNameAry,*objLstObjNameAry,*tblLstAppAry,*objLstCommentArry,*resultArray;
     
     NSString *objLstIdStr,*objLstTypeStr,*objLstcomplexityStr,*objLstPurposeStr,*objLstExistingNewStr,*objLstResourceNameStr,*objLstObjNameStr,*tblLstAppStr,*objLstCommentStr,*objectResourceStr1;
 

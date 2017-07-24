@@ -1164,6 +1164,87 @@
      }];
  
 }
+-(void)requirementobjectlist:(NSString *)requirementobjectlistparams
+{
+    AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+    
+    AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
+    responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
+    
+    manager.responseSerializer = responseSerializer;
+    [manager GET:requirementobjectlistparams parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
+     {
+         NSLog(@"JSON: %@",responseObject);
+         
+         [delegate requirementobject:responseObject];
+     }
+         failure:^(NSURLSessionTask *operation, NSError *error)
+     {
+         NSLog(@"Error: %@", error);
+     }];
+
+}
+-(void)requirementobjectspinner:(NSString *)requirementobjectspinnerclass
+{
+    AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+    
+    AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
+    responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
+    
+    manager.responseSerializer = responseSerializer;
+    [manager GET:requirementobjectspinnerclass parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
+     {
+         NSLog(@"JSON: %@",responseObject);
+         
+         [delegate requirementobjectspinner:responseObject];
+     }
+         failure:^(NSURLSessionTask *operation, NSError *error)
+     {
+         NSLog(@"Error: %@", error);
+     }];
+
+}
+-(void)requirementpurpose:(NSString *)requirementpurposeclass
+{
+    AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+    
+    AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
+    responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
+    
+    manager.responseSerializer = responseSerializer;
+    [manager GET:requirementpurposeclass parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
+     {
+         NSLog(@"JSON: %@",responseObject);
+         
+         [delegate requirementpurpose:responseObject];
+     }
+         failure:^(NSURLSessionTask *operation, NSError *error)
+     {
+         NSLog(@"Error: %@", error);
+     }];
+
+}
+-(void)requirementcomplexity:(NSString *)requirementcomplexityclass
+{
+    AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+    
+    AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
+    responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
+    
+    manager.responseSerializer = responseSerializer;
+    [manager GET:requirementcomplexityclass parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
+     {
+         NSLog(@"JSON: %@",responseObject);
+         
+         [delegate requirementcomplexity:responseObject];
+     }
+         failure:^(NSURLSessionTask *operation, NSError *error)
+     {
+         NSLog(@"Error: %@", error);
+     }];
+
+    
+}
 // ProjectExpenses
 
 -(void)ProjectExpenseslist:(NSString *)projectexpenses
