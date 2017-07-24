@@ -890,8 +890,6 @@
         [Servicecall enddateservice:HolidaysListClass];
         [Servicecall setDelegate:self];
 
-  
-    
 }
 -(void)enddatespinner:(id)enddateresponse
 {
