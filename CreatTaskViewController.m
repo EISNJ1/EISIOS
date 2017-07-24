@@ -877,15 +877,10 @@
     NSLog(@"the effort days is %@",effortdays);
     
     NSLog(@"hours per day text field text is %@",hoursPerDaytxtfld.text);
-    NSString *HolidaysListClass=@"TaskHolidaysWeekendSkip";
+    NSString *HolidaysListClass=[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/task/v1/taskendDate?orgId=%@&planedStartDate=%@&effortDays=%@",orgIdstr,StartDatetxtfld.text,effortdays];
     
-    NSDictionary *HolidayslistParameters=@{@"orgId":orgIdstr,@"planedStartDate":StartDatetxtfld.text,@"effortDays":effortdays};
-    
-    [Servicecall HolidaysListForTask:HolidaysListClass HolidaysListParameters:HolidayslistParameters];
+    [Servicecall enddateservice:HolidaysListClass];
     [Servicecall setDelegate:self];
-    
-    
-    
 }
 -(void)enddatespinner:(id)enddateresponse
 {
@@ -1255,11 +1250,17 @@
         NSLog(@"End Date text field text is %@",Enddatetxtfld.text);
         NSLog(@"resource id id %@",_ResourceIdstr);
         NSString *TaskSaveUrl = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/task/v1/saveOrUpdateTask"];
-        NSDictionary *credentials = @{@"orgId":orgIdstr,@"taskcat":_CategoryIdstr,
-                                      @"tskPriority":_PriorityIdstr,@"taskDescription":Descriptionxtfld.text,@"taskEffort":Efforttxtfld.text,@"plStartDate":StartDatetxtfld.text,@"plEndDate":Enddatetxtfld.text,@"tskAssinTo":_ResourceIdstr,@"tskAssinBy":Useridstr,@"projectId":_ProjectIdstr,@"taskId":taskId,@"saveUpdateType":saveUpdateType,@"hardDependcyId":hardDependencyText,@"hourPerDay":hoursPerDaytxtfld.text};
-        [Servicecall SaveNewTaskurl:TaskSaveUrl NewTaskSaveParameters:credentials];
+       NSString *credentials =[NSString stringWithFormat:@"orgId=%@&taskcat=%@&tskPriority=%@&taskDescription=%@&taskEffort=%@&plStartDate=%@&plEndDate=%@&tskAssinTo=%@&tskAssinBy=%@&projectId=%@&taskId=%@&saveUpdateType=%@&hardDependcyId=%@&hourPerDay=%@",orgIdstr,_CategoryIdstr,_PriorityIdstr,Descriptionxtfld.text,Efforttxtfld.text,StartDatetxtfld.text,Enddatetxtfld.text,_ResourceIdstr,Useridstr,_ProjectIdstr,taskId,saveUpdateType,hardDependencyText,hoursPerDaytxtfld.text];
+        [Servicecall savetask:TaskSaveUrl savetskparameters:credentials];
         [Servicecall setDelegate:self];
     }
+}
+-(void)savetaskservice:(id)savetaskresponse
+{
+    NSDictionary *dict=[[NSDictionary alloc]init];
+    dict=savetaskresponse;
+    NSLog(@"the save task response is %@",savetaskresponse);
+    
 }
 
 

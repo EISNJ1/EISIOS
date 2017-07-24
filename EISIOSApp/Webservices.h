@@ -61,6 +61,7 @@
 -(void)categorylist:(id)categoryList;
 -(void)resourcespinner:(id)resourcespinnerresponse;
 -(void)enddatespinner:(id)enddateresponse;
+-(void)savetaskservice:(id)savetaskresponse;
 
 
 //Requirement
@@ -190,6 +191,7 @@
 -(void)resourcespinner:(NSString *)resourcespinnerclass;
 -(void)harddependencylist:(NSString *)harddependencyclass;
 -(void)enddateservice:(NSString *)enddateserviceclass;
+-(void)savetask:(NSString *)savetaskclass savetskparameters:(NSString *)savetaskparams;
 
 
 // Requirement Json
