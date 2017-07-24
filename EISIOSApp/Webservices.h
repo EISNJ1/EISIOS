@@ -51,6 +51,7 @@
 -(void)teamsubmittedservice:(id)teamsubmittedresponse;
 -(void)servityservice:(id)servityserviceresponse;
 -(void)saveissueservice:(id)saveissueresponse;
+-(void)harddependencyservice:(id)harddependencylistresponse;
 
 //Task
 
@@ -58,6 +59,8 @@
 -(void)prioritylist:(id)priorityList;
 -(void)holidaysList:(id)holidaysList;
 -(void)categorylist:(id)categoryList;
+-(void)resourcespinner:(id)resourcespinnerresponse;
+-(void)enddatespinner:(id)enddateresponse;
 
 
 //Requirement
@@ -180,6 +183,9 @@
 -(void)prioritylistUrl:(NSString *)priorityListUrl;
 -(void)holidaysListUrl:(NSString *)holidaysListUrl;
 -(void)categorylistUrl:(NSString *)categoryListUrl;
+-(void)resourcespinner:(NSString *)resourcespinnerclass;
+-(void)harddependencylist:(NSString *)harddependencyclass;
+-(void)enddateservice:(NSString *)enddateserviceclass;
 
 
 // Requirement Json
