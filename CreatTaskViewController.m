@@ -356,7 +356,7 @@
     NSDictionary *dict=projectlistSpinner;
     NSLog(@"dict is %@",dict);
     
-    if ([[dict objectForKey:@"statusMessage"]isEqualToString:@"No Data"])
+    if ([[dict valueForKey:@"statusMessage"]isEqualToString:@"No Data"])
     {
         UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Warning" message:@"counts are empty" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:nil, nil];
         [alert show];
@@ -372,9 +372,32 @@
             [PROJECT_IDArray addObject:[fid valueForKey:@"projectId"]];
             
         }
-        NSLog(@"project name is  %@:",PROJECT_NAMEArray);
-        NSLog(@"project id is %@",PROJECT_IDArray);
-        [hardDependencyTableView reloadData];
+        if ([_Projectnamestr length]==0 || [_Projectnamestr isEqualToString:@"null"])
+        {
+            
+            [ProjectListpicker removeFromSuperview];
+            Projecttxtfld.text = [PROJECT_NAMEArray objectAtIndex:0];
+            _ProjectIdstr= [PROJECT_IDArray objectAtIndex:0];
+            [self HardDependency];
+            [self ResourceList];
+        }
+        
+        for(int i=0; i<[PROJECT_IDArray count]; i++)
+        {
+            if([Projecttxtfld.text isEqualToString:[PROJECT_NAMEArray objectAtIndex:i]])
+            {
+                
+                Projecttxtfld.text = [PROJECT_NAMEArray objectAtIndex:i];
+                _ProjectIdstr = [PROJECT_IDArray objectAtIndex:i];
+                [self HardDependency];
+                [self ResourceList];
+                
+                
+            }
+            
+            
+            
+        }
         
     }
     
@@ -392,29 +415,55 @@
 {
     NSDictionary *dict=categoryList;
     NSLog(@"dict is %@",dict);
-    
-    if ([[dict objectForKey:@"statusMessage"]isEqualToString:@"No Data"])
+        if ([[dict valueForKey:@"statusMessage"]isEqualToString:@"No Data"])
     {
         UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Warning" message:@"counts are empty" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:nil, nil];
         [alert show];
     }
     else
     {
-        Category_IDArray          =[NSMutableArray new];
-        Category_NAMEArray        =[NSMutableArray new];
-        resultarray1 = [dict objectForKey:@"resAL"];
+        Category_IDArray          =[[NSMutableArray alloc]init];
+        Category_NAMEArray        =[[NSMutableArray alloc]init];
+        resultarray1 = [dict valueForKey:@"resAL"];
+        NSLog(@"the result array is 12344444 %@",resultarray1);
         for (NSDictionary *fidd in resultarray1)
         {
             [Category_IDArray addObject:[fidd valueForKey:@"categoryId"]];
             [Category_NAMEArray addObject:[fidd valueForKey:@"category"]];
             
         }
+        if ([Categorytxtfld.text length]==0 && [Category_IDArray count]>0)
+        {
+            
+            Categorytxtfld.text=[Category_NAMEArray objectAtIndex:0];
+            _CategoryIdstr=[Category_IDArray objectAtIndex:0];
+            
+            
+            
+        }
+        
+        else
+        {
+            
+            
+            for(int i=0; i<[Category_NAMEArray count]; i++)
+            {
+                if([_categorynamestr isEqualToString:[Category_NAMEArray objectAtIndex:i]])
+                {
+                    
+                    Categorytxtfld.text = [Category_NAMEArray objectAtIndex:i];
+                    _CategoryIdstr = [Category_IDArray objectAtIndex:i];
+                    
+                }
+            }
+
         NSLog(@"category name is  %@:",Category_IDArray);
         NSLog(@"category id is %@",Category_NAMEArray);
         [hardDependencyTableView reloadData];
         
     }
     
+}
 }
 -(void)PriorityList
 {
@@ -426,7 +475,7 @@
     Servicecall=[[Webservices alloc]init];
     NSString *publicnotesdec =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/task/v1/taskPrioritySpinner?orgId=%@",orgIdstr];
     NSString *encode1=[publicnotesdec stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    [Servicecall categorylistUrl:encode1];
+    [Servicecall prioritylistUrl:encode1];
     [Servicecall setDelegate:self];
     
 }
@@ -436,7 +485,7 @@
     NSDictionary *dict=priorityList;
     NSLog(@"dict is %@",dict);
     
-    if ([[dict objectForKey:@"statusMessage"]isEqualToString:@"No Data"])
+    if ([[dict valueForKey:@"statusMessage"]isEqualToString:@"No Data"])
     {
         UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Warning" message:@"counts are empty" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:nil, nil];
         [alert show];
@@ -454,7 +503,7 @@
         }
         NSLog(@"priority name is  %@:",Priority_NAMEArray);
         NSLog(@"priority id is %@",Priority_IDArray);
-        [hardDependencyTableView reloadData];
+        //[hardDependencyTableView reloadData];
         
     }
     
@@ -838,6 +887,29 @@
     
     
 }
+-(void)enddatespinner:(id)enddateresponse
+{
+    NSDictionary *dict=[[NSDictionary alloc]init];
+    dict=enddateresponse;
+    NSLog(@"enddate response is %@",dict);
+    
+    if ([[dict valueForKey:@"statusMessage"]isEqualToString:@"No Data"])
+    {
+        UIAlertView *alertview=[[UIAlertView alloc]initWithTitle:@"Alert" message:@"list is empty" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:nil, nil];
+        [alertview show];
+    }
+    else
+    {
+        NSArray *resultarray11=[dict valueForKey:@"resAL"];
+        for (NSDictionary *fid in resultarray11)
+        {
+            
+            endDateStr=[fid valueForKey:@"taskEnDate"];
+        }
+        Enddatetxtfld.text=endDateStr;
+    }
+    
+}
 
 -(void)ResourceListPickerTapped
 {
@@ -1014,7 +1086,7 @@
     
     NSMutableArray *arrDates = [[NSMutableArray alloc]init];
     NSDateFormatter *df = [[NSDateFormatter alloc]init];
-    [df setDateFormat:@"dd/MM/yyyy"];
+    [df setDateFormat:@"MM/dd/yyyy"];
     [df setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
     for (int i =0; i<[dateArray2 count]; i++)
     {
@@ -1235,12 +1307,74 @@
     
     Servicecall=[[Webservices alloc]init];
     
-    NSString *HardDependencyClass=@"TaskHardDependency";
+    NSString *HardDependencyClass=[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/task/v1/taskDependencyList?projId=%@&taskId=%@",_ProjectIdstr,taskId];
     
-    NSDictionary *HardDependencyParameters=@{@"projId":_ProjectIdstr,@"taskId":taskId};
-    
-    [Servicecall HardDependency:HardDependencyClass HardDependencyParameters:HardDependencyParameters];
+    [Servicecall harddependencylist:HardDependencyClass];
     [Servicecall setDelegate:self];
+}
+-(void)harddependencyservice:(id)harddependencylistresponse
+{
+    NSDictionary *dict=[[NSDictionary alloc]init];
+    dict=harddependencylistresponse;
+    if ([[dict valueForKey:@"statusMessage"]isEqualToString:@"No Data"])
+    {
+        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Warning" message:@"hard dependency list is empty" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:nil, nil];
+        [alert show];
+    }
+    else
+    {
+        
+        HardDependency_IDArray=[[NSMutableArray alloc]init];
+        HardDependencyDisplayNameArray=[[NSMutableArray alloc]init];
+        startDateArray=[[NSMutableArray alloc]init];
+        endDateArray=[[NSMutableArray alloc]init];
+        
+        taskIdStr=[NSString new];
+        taskNameStr=[NSString new];
+        taskStartDateStr=[NSString new];
+        taskEndDateStr=[NSString new];
+        NSArray *resultarray9=[dict valueForKey:@"resAL"];
+
+        for (NSDictionary *fidd in resultarray9)
+        {
+            taskIdStr=[fidd valueForKey:@"taskId"];
+            taskNameStr=[fidd valueForKey:@"taskDescription"];
+            taskStartDateStr=[fidd valueForKey:@"taskStartDate"];
+            taskEndDateStr=[fidd valueForKey:@"taskEnDate"];
+            
+            [HardDependency_IDArray addObject:taskIdStr];
+            [HardDependencyDisplayNameArray addObject:taskNameStr];
+            [startDateArray addObject:taskStartDateStr];
+            [endDateArray addObject:taskEndDateStr];
+
+
+        }
+         [hardDependencyTableView reloadData];
+        NSLog(@"start date str is %@",taskStartDateStr);
+        
+        NSMutableString *addString=[[[[taskNameStr stringByAppendingString:@","]stringByAppendingString:taskStartDateStr]stringByAppendingString:@","]stringByAppendingString:taskEndDateStr];
+        
+        hardDependencyAllDataString=addString;
+        
+        NSLog(@"all string data is %@",hardDependencyAllDataString);
+        
+        
+        NSLog(@"task id array %@",HardDependency_IDArray);
+        NSLog(@"task name array %@",HardDependencyDisplayNameArray);
+        NSLog(@"task start date array %@",startDateArray);
+        NSLog(@"end date array %@",endDateArray);
+        
+        [hardDependencyAlldataArray addObject:hardDependencyAllDataString];
+        
+        [ProjectListpicker reloadAllComponents];
+
+        cellSelectedArray=[[NSMutableArray alloc]init];
+        for (int i=0; i<hardDependencyAlldataArray.count; i++)
+        {
+            [cellSelectedArray addObject:[NSNumber numberWithBool:NO]];
+        }
+       
+    }
 }
 -(void)HomePagebtnTapped
 {
@@ -1618,7 +1752,7 @@
             }
             
             
-            else if ([Categorytxtfld.text length] == 0)
+            if ([Categorytxtfld.text length] == 0)
             {
                 
                 Categorytxtfld.text=[Category_NAMEArray objectAtIndex:0];
@@ -1993,12 +2127,46 @@
 
 -(void)ResourceList
 {
-    
-    NSString *TaskListUrl = @"TasksSpinnersListsService";
-    NSDictionary *credentials = @{@"projectId":_ProjectIdstr};
-    [Servicecall TaskResourceurl:TaskListUrl ResourceParameters:credentials];
+    NSLog(@"project id is %@",_ProjectIdstr);
+    NSString *TaskListUrl =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/task/v1/taskResourceSpinner?projectId=%@",_ProjectIdstr];
+    [Servicecall resourcespinner:TaskListUrl];
     [Servicecall setDelegate:self];
     
+}
+-(void)resourcespinner:(id)resourcespinnerresponse
+{
+    NSDictionary *dict=[[NSDictionary alloc]init];
+    dict=resourcespinnerresponse;
+    NSLog(@"resource spinner response is %@",dict);
+    if ([[dict valueForKey:@"statusMessage"]isEqualToString:@"No Data"])
+    {
+        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Warning" message:@"resource spinner list is empty" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:nil, nil];
+        [alert show];
+
+    }
+    else
+    {
+        NSArray *resultarray=[dict valueForKey:@"resAL"];
+        Resource_NAMEArray        =[NSMutableArray new];
+        Resource_IDArray          =[NSMutableArray new];
+        for (NSDictionary *fid in resultarray)
+        {
+            [Resource_NAMEArray addObject:[fid valueForKey:@"resourceName"]];
+            [Resource_IDArray addObject:[fid valueForKey:@"resourceId"]];
+        }
+        for(int i=0; i<[Resource_IDArray count]; i++)
+        {
+            if([_Resourcenamestr isEqualToString:[Resource_NAMEArray objectAtIndex:i]])
+            {
+                
+                Resourcetxtfld.text = [Resource_NAMEArray objectAtIndex:i];
+                _ResourceIdstr = [Resource_IDArray objectAtIndex:i];
+                
+            }
+        }
+        
+
+    }
 }
 //-(BOOL)textFieldShouldReturn:(UITextField *)textField
 //{
