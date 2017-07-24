@@ -501,11 +501,40 @@
             [Priority_NAMEArray addObject:[fid valueForKey:@"priority"]];
             
         }
+    }
+        if ([Prioritytxtfld.text length] == 0)
+        {
+            
+            Prioritytxtfld.text = [Priority_NAMEArray objectAtIndex:0];
+            _PriorityIdstr= [Priority_IDArray objectAtIndex:0];
+            
+            
+            
+        }
+        else
+        {
+            
+            
+            for(int i=0; i<[Priority_NAMEArray count]; i++)
+            {
+                if([_Prioritynamestr isEqualToString:[Priority_NAMEArray objectAtIndex:i]])
+                {
+                    
+                    Prioritytxtfld.text = [Priority_NAMEArray objectAtIndex:i];
+                    _PriorityIdstr = [Priority_IDArray objectAtIndex:i];
+                    
+                }
+            }
+            
+            
+        }
+        
+
         NSLog(@"priority name is  %@:",Priority_NAMEArray);
         NSLog(@"priority id is %@",Priority_IDArray);
         //[hardDependencyTableView reloadData];
         
-    }
+
     
     
 }
@@ -1257,9 +1286,30 @@
 }
 -(void)savetaskservice:(id)savetaskresponse
 {
-    NSDictionary *dict=[[NSDictionary alloc]init];
-    dict=savetaskresponse;
-    NSLog(@"the save task response is %@",savetaskresponse);
+    NSData *data1=[[NSData alloc]initWithData:savetaskresponse];
+    NSError *error;
+    
+    NSDictionary *dict1=[NSJSONSerialization JSONObjectWithData:data1 options:NSJSONReadingMutableContainers error:&error];
+    
+    NSLog(@"the response dict is %@",dict1);
+   
+    if ([[dict1 valueForKey:@"statusMessage"]isEqualToString:@"TaskUpdated"])
+    {
+        UIAlertView *alertview=[[UIAlertView alloc]initWithTitle:@"Alert" message:@"TaskUpdated successfully" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:nil, nil];
+        [alertview show];
+    }
+    if ([[dict1 valueForKey:@"statusMessage"]isEqualToString:@"Task Saved"])
+    {
+        UIAlertView *alertview=[[UIAlertView alloc]initWithTitle:@"Alert" message:@"Task Saved successfully" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:nil, nil];
+        [alertview show];
+        
+        [Savebtn setTitle:@"Update" forState:UIControlStateNormal];
+        NSArray *resultarrray=[dict1 valueForKey:@"beanData"];
+        UpDTaskId=[resultarrray valueForKey:@"taskId"];
+        NSLog(@"saved data %@",UpDTaskId);
+    }
+
+    
     
 }
 
@@ -1857,12 +1907,11 @@
             //                Resourcetxtfld.text=@"null";
             //            }
             //
-            //            if ([_Resourcenamestr length]==0 ||[_Projectnamestr isEqualToString:@"null"])
-            //            {
-            //                Resourcetxtfld.text = [Resource_NAMEArray objectAtIndex:0];
-            //                _ResourceIdstr = [Resource_IDArray objectAtIndex:0];
-            //            }
-            //
+                        if ([_Resourcenamestr length]==0 ||[_Projectnamestr isEqualToString:@"null"])
+                        {
+                            Resourcetxtfld.text = [Resource_NAMEArray objectAtIndex:0];
+                            _ResourceIdstr = [Resource_IDArray objectAtIndex:0];
+                        }
             
             for(int i=0; i<[Resource_IDArray count]; i++)
             {
@@ -2147,14 +2196,20 @@
     }
     else
     {
-        NSArray *resultarray=[dict valueForKey:@"resAL"];
+        NSArray *resultarray255=[dict valueForKey:@"resAL"];
         Resource_NAMEArray        =[NSMutableArray new];
         Resource_IDArray          =[NSMutableArray new];
-        for (NSDictionary *fid in resultarray)
+        for (NSDictionary *fid in resultarray255)
         {
             [Resource_NAMEArray addObject:[fid valueForKey:@"resourceName"]];
             [Resource_IDArray addObject:[fid valueForKey:@"resourceId"]];
         }
+        if ([_Resourcenamestr length]==0 ||[_Projectnamestr isEqualToString:@"null"])
+        {
+            Resourcetxtfld.text = [Resource_NAMEArray objectAtIndex:0];
+            _ResourceIdstr = [Resource_IDArray objectAtIndex:0];
+        }
+        
         for(int i=0; i<[Resource_IDArray count]; i++)
         {
             if([_Resourcenamestr isEqualToString:[Resource_NAMEArray objectAtIndex:i]])
@@ -2165,7 +2220,6 @@
                 
             }
         }
-        
 
     }
 }
