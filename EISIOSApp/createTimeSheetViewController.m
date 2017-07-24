@@ -130,7 +130,7 @@
     
     if ([[dict valueForKey:@"statusMessage"]isEqualToString:@"OK"])
     {
-        NSArray *resultarray=[dict objectForKey:@"resAL"];
+        NSArray *resultarray=[dict valueForKey:@"resAL"];
         PROJECT_IDArray         = [[NSMutableArray alloc] init];
         PROJECT_NAMEArray       = [[NSMutableArray alloc] init];
         

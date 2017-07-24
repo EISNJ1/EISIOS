@@ -373,7 +373,7 @@
     {
         PROJECT_NAMEArray      =[NSMutableArray new];
         PROJECT_IDArray        =[NSMutableArray new];
-        resultarray3 = [dict objectForKey:@"resAL"];
+        resultarray3 = [dict valueForKey:@"resAL"];
         for (NSDictionary *fid in resultarray3)
         {
             [PROJECT_NAMEArray addObject:[fid valueForKey:@"projectName"]];
@@ -502,7 +502,7 @@
     {
         Priority_IDArray          =[NSMutableArray new];
         Priority_NAMEArray        =[NSMutableArray new];
-        resultarray2 = [dict objectForKey:@"resAL"];
+        resultarray2 = [dict valueForKey:@"resAL"];
         for (NSDictionary *fid in resultarray2)
         {
             [Priority_IDArray addObject:[fid valueForKey:@"priorityId"]];
