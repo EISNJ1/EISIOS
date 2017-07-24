@@ -245,7 +245,7 @@
     NSDictionary *dict=participantslisturl;
     NSLog(@"dict is %@",dict);
     
-    if ([[dict objectForKey:@"statusMessage"]isEqualToString:@"No Data"])
+    if ([[dict valueForKey:@"statusMessage"]isEqualToString:@"No Data"])
     {
         UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Warning" message:@"counts are empty" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:nil, nil];
         [alert show];
@@ -255,7 +255,7 @@
         ParticipantResourceNameArray  =[NSMutableArray new];
         ParticipantFlagArray    =[NSMutableArray new];
         ParticipantResourceRoleArray  =[NSMutableArray new];
-        resultarray = [dict objectForKey:@"resAL"];
+        resultarray = [dict valueForKey:@"resAL"];
         for (NSDictionary *fid in resultarray)
         {
             [ParticipantResourceNameArray addObject:[fid valueForKey:@"participantName"]];
@@ -325,7 +325,7 @@
     
     NSLog(@"the result is %@",dict);
     
-    NSArray *reultarray2=[dict objectForKey:@"resAL"];
+    NSArray *reultarray2=[dict valueForKey:@"resAL"];
     RoleCodeIdaArray    =[NSMutableArray new];
     RoleValueArray      =[NSMutableArray new];
     
@@ -381,7 +381,7 @@
     ResourceIdArray=[[NSMutableArray alloc]init];
     ResourceNameArray=[[NSMutableArray alloc]init];
     
-    NSArray *resultarray1=[dict objectForKey:@"resAL"];
+    NSArray *resultarray1=[dict valueForKey:@"resAL"];
     NSLog(@"result array is %@",resultarray1);
     for (NSDictionary *fidd in resultarray1)
     {

@@ -175,7 +175,7 @@
     NSDictionary *dict=Goallist;
     NSLog(@"dict is: %@",dict);
     
-    if ([[dict objectForKey:@"StatusMessage"]isEqualToString:@"No Data"])
+    if ([[dict valueForKey:@"StatusMessage"]isEqualToString:@"No Data"])
     {
         UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Warning" message:@"Goals are empty" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
         [alert show];
@@ -186,7 +186,7 @@
         GoalsTimeBudgetArray  =[NSMutableArray new];
         GoalsDisArray         =[NSMutableArray new];
         resultarray=[[NSMutableArray alloc]init];
-        resultarray=[dict objectForKey:@"resAL"];
+        resultarray=[dict valueForKey:@"resAL"];
         
         for (NSDictionary *fid in resultarray)
         {

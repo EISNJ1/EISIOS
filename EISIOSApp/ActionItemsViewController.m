@@ -295,7 +295,7 @@
     NSDictionary *dict=actionItemlist;
     NSLog(@"dict is %@",dict);
     
-    if ([[dict objectForKey:@"statusMessage"]isEqualToString:@"No Data"])
+    if ([[dict valueForKey:@"statusMessage"]isEqualToString:@"No Data"])
     {
         UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Warning" message:@"counts are empty" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:nil, nil];
         [alert show];
@@ -307,7 +307,7 @@
         SavedPriorityArray                    =[NSMutableArray new];
         SavedStatusArray                      =[NSMutableArray new];
         resultarray=[[NSMutableArray alloc]init];
-        resultarray = [dict objectForKey:@"resAL"];
+        resultarray = [dict valueForKey:@"resAL"];
         for (NSDictionary *fid in resultarray)
         {
             [SavedActionitemDescriptionArray addObject:[fid valueForKey:@"notesDescription"]];
@@ -344,7 +344,7 @@
     NSDictionary *dict=notesList;
     NSLog(@"dict is %@",dict);
     
-    if ([[dict objectForKey:@"statusMessage"]isEqualToString:@"No Data"])
+    if ([[dict valueForKey:@"statusMessage"]isEqualToString:@"No Data"])
     {
         UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Warning" message:@"counts are empty" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:nil, nil];
         [alert show];
@@ -355,7 +355,7 @@
         NoteDescriptionArray       =[NSMutableArray new];
         NotePublicArray            =[NSMutableArray new];
         resultarray2=[[NSMutableArray alloc]init];
-        resultarray2 = [dict objectForKey:@"resAL"];
+        resultarray2 = [dict valueForKey:@"resAL"];
         for (NSDictionary *fidd in resultarray2)
         {
             [NoteRefrenceArray addObject:[fidd valueForKey:@"noteReference"]];
@@ -391,7 +391,7 @@
     NSDictionary *dict=feedbacklist;
     NSLog(@"dict is %@",dict);
     
-    if ([[dict objectForKey:@"statusMessage"]isEqualToString:@"No Data"])
+    if ([[dict valueForKey:@"statusMessage"]isEqualToString:@"No Data"])
     {
         UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Warning" message:@"counts are empty" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:nil, nil];
         [alert show];
@@ -401,7 +401,7 @@
         PositiveDescArray          =[NSMutableArray new];
         NegativeDescArray          =[NSMutableArray new];
         resultarray3=[[NSMutableArray alloc]init];
-        resultarray3 = [dict objectForKey:@"resAL"];
+        resultarray3 = [dict valueForKey:@"resAL"];
         for (NSDictionary *fiddd in resultarray3)
         {
             [PositiveDescArray addObject:[fiddd valueForKey:@"positiveFeedback"]];

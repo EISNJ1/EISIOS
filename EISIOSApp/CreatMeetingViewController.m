@@ -282,7 +282,7 @@
     
     NSDictionary *dict=conferenceroomSpinner;
     NSLog(@"dict is %@",dict);
-    if ([[dict objectForKey:@"statusMessage"]isEqualToString:@"No Data"])
+    if ([[dict valueForKey:@"statusMessage"]isEqualToString:@"No Data"])
         {
             UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Warning" message:@"counts are empty" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:nil, nil];
             [alert show];
@@ -292,7 +292,7 @@
             ConferenceRoomIdArray     =[NSMutableArray new];
             ConferenceRoomNameArray   =[NSMutableArray new];
             resultarray=[[NSMutableArray alloc]init];
-            resultarray=[dict objectForKey:@"resAL"];
+            resultarray=[dict valueForKey:@"resAL"];
             for (NSDictionary *fid in resultarray)
             {
                 [ConferenceRoomIdArray addObject:[fid valueForKey:@"conferenceRoomId"]];
@@ -322,7 +322,7 @@
 {
     NSDictionary *dict=projectlistSpinner;
     NSLog(@"dict is %@",dict);
-    if ([[dict objectForKey:@"statusMessage"]isEqualToString:@"No Data"])
+    if ([[dict valueForKey:@"statusMessage"]isEqualToString:@"No Data"])
     {
         UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Warning" message:@"counts are empty" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:nil, nil];
         [alert show];
@@ -332,7 +332,7 @@
         PROJECT_NAMEArray      =[NSMutableArray new];
         PROJECT_IDArray        =[NSMutableArray new];
         resultarray1=[[NSMutableArray alloc]init];
-        resultarray1=[dict objectForKey:@"resAL"];
+        resultarray1=[dict valueForKey:@"resAL"];
         for (NSDictionary *fid in resultarray1)
         {
             [PROJECT_IDArray addObject:[fid valueForKey:@"projectId"]];
@@ -483,7 +483,7 @@
     NSDictionary *dict=[[NSDictionary alloc]init];
     dict=meetingTypeSpinner;
     NSLog(@"welcome to %@",dict);
-    if ([[dict objectForKey:@"statusMessage"] isEqualToString:@"No Data"])
+    if ([[dict valueForKey:@"statusMessage"] isEqualToString:@"No Data"])
     {
         UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Warning" message:@"meeting type list is empty" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
         [alert show];
@@ -491,7 +491,7 @@
     else
     {
         resultArray2=[[NSMutableArray alloc]init];
-        resultArray2=[dict objectForKey:@"resAL"];
+        resultArray2=[dict valueForKey:@"resAL"];
         
         MeetingVALUEArray       =[NSMutableArray new];
         MeetingCODE_IDArray     =[NSMutableArray new];
@@ -1537,7 +1537,7 @@ NSString *updateMeetingurl=[NSString stringWithFormat:@"https://2-dot-eiswebserv
 {
     NSDictionary *dict=[[NSDictionary alloc]init];
     dict=agnedacounturl;
-    if ([[dict objectForKey:@"statusMessage"]isEqualToString:@"No Data"])
+    if ([[dict valueForKey:@"statusMessage"]isEqualToString:@"No Data"])
     {
         UIAlertView *alertview=[[UIAlertView alloc]initWithTitle:@"Warning" message:@"agendacount is zero" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
     }

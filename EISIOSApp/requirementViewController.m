@@ -172,7 +172,7 @@
     NSDictionary *dict=requirementList;
     NSLog(@"dict is %@",dict);
     
-    if ([[dict objectForKey:@"statusMessage"]isEqualToString:@"No Data"])
+    if ([[dict valueForKey:@"statusMessage"]isEqualToString:@"No Data"])
     {
         UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Warning" message:@"counts are empty" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:nil, nil];
         [alert show];
@@ -199,7 +199,7 @@
         pickerAry=[[NSMutableArray alloc]init];
         
         resultarray=[[NSMutableArray alloc]init];
-        resultarray = [dict objectForKey:@"resAL"];
+        resultarray = [dict valueForKey:@"resAL"];
         for (NSDictionary *fid in resultarray)
         {
             [requirementNameArray addObject:[fid valueForKey:@"requirementName"]];

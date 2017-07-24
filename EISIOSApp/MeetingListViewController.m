@@ -273,7 +273,7 @@
     NSDictionary *dict=actionitems;
     NSLog(@"dict is %@",dict);
     
-    if ([[dict objectForKey:@"statusMessage"]isEqualToString:@"No Data"])
+    if ([[dict valueForKey:@"statusMessage"]isEqualToString:@"No Data"])
     {
         UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Warning" message:@"Empty list" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:nil, nil];
         [alert show];
@@ -294,7 +294,7 @@
         
         NSMutableArray *resultarray3=[[NSMutableArray alloc]init];
         
-        resultarray3=[dict objectForKey:@"resAL"];
+        resultarray3=[dict valueForKey:@"resAL"];
         NSLog(@"result array is %@",resultarray3);
         
         for (NSDictionary *fidd2 in resultarray3)
@@ -349,7 +349,7 @@
     NSDictionary *dict=MeetingList;
     NSLog(@"dict is %@",dict);
     
-    if ([[dict objectForKey:@"statusMessage"]isEqualToString:@"No Data"])
+    if ([[dict valueForKey:@"statusMessage"]isEqualToString:@"No Data"])
     {
         UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Warning" message:@"Empty list" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:nil, nil];
         [alert show];
@@ -376,7 +376,7 @@
         AssendingDateArray=[NSMutableArray new];
         
         resultarray=[[NSMutableArray alloc]init];
-        resultarray = [dict objectForKey:@"resAL"];
+        resultarray = [dict valueForKey:@"resAL"];
         for (NSDictionary *fidd in resultarray)
         {
             [MeetingIdArray addObject:[fidd valueForKey:@"meetingId"]];
@@ -429,7 +429,7 @@
     NSDictionary *dict=AgendaList;
     NSLog(@"dict is %@",dict);
     
-    if ([[dict objectForKey:@"statusMessage"]isEqualToString:@"No Data"])
+    if ([[dict valueForKey:@"statusMessage"]isEqualToString:@"No Data"])
     {
         UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Warning" message:@"Empty list" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:nil, nil];
         [alert show];
@@ -449,7 +449,7 @@
         AgendaMeetingMeetingID=[NSMutableArray new];
         ActionItemMeetingTitleArray=[NSMutableArray new];
         resultarray2=[[NSMutableArray alloc]init];
-        resultarray2=[dict objectForKey:@"resAL"];
+        resultarray2=[dict valueForKey:@"resAL"];
         
         for (NSDictionary *fid in resultarray2)
         {
@@ -472,7 +472,7 @@
 {
     NSDictionary *dict=notesactionfbCount;
     NSLog(@"dict is %@",dict);
-    if ([[dict objectForKey:@"statusMessage"]isEqualToString:@"No Data"])
+    if ([[dict valueForKey:@"statusMessage"]isEqualToString:@"No Data"])
     {
         UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Warning" message:@"counts are empty" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:nil, nil];
         [alert show];
@@ -503,7 +503,7 @@
     NSDictionary *dict=publicnoteDec;
     NSLog(@"dict is %@",dict);
     
-    if ([[dict objectForKey:@"statusMessage"]isEqualToString:@"No Data"])
+    if ([[dict valueForKey:@"statusMessage"]isEqualToString:@"No Data"])
     {
         UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Warning" message:@"counts are empty" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:nil, nil];
         [alert show];
@@ -512,7 +512,7 @@
     {
         PublicNote_DescriptionArray  = [NSMutableArray new];
         resultarray4=[[NSMutableArray alloc]init];
-        resultarray4 = [dict objectForKey:@"resAL"];
+        resultarray4 = [dict valueForKey:@"resAL"];
         for (NSDictionary *fid in resultarray4)
         {
             [PublicNote_DescriptionArray addObject:[fid valueForKey:@"notesDescription"]];

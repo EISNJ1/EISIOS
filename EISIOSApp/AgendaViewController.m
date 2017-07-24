@@ -165,7 +165,7 @@
 {
     NSDictionary *dict=Agendalist;
     NSLog(@"dict is :%@",dict);
-    if ([[dict objectForKey:@"statusMessage"]isEqualToString:@"No Data"])
+    if ([[dict valueForKey:@"statusMessage"]isEqualToString:@"No Data"])
         {
             UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Warning" message:@"Empty list" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:nil, nil];
             [alert show];
@@ -176,7 +176,7 @@
             AgendaTimeBudgetArray  =[NSMutableArray new];
             AgendaDisArray         =[NSMutableArray new];
             resultarray            =[NSMutableArray new];
-            resultarray            =[dict objectForKey:@"resAL"];
+            resultarray            =[dict valueForKey:@"resAL"];
             
             for (NSDictionary *fid in resultarray)
             {
