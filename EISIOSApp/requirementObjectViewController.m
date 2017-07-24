@@ -305,46 +305,102 @@
     NSLog(@"the id is %@",getAssignReqIdStr);
     
     Servicecall = [[Webservices alloc]init];
-    NSString *projectLstForTask = @"RequirementGatheringService";
+    NSString *projectLstForTask = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/requirement/v1/requirementObjectList?requirementId=%@",getAssignReqIdStr];
     //NSDictionary *credentials = @{@"assignReqId":getAssignReqIdStr};
-    NSDictionary *credentials = @{@"assignReqId":getAssignReqIdStr};
-    [Servicecall requirementObjectLst:projectLstForTask TaskListParameters:credentials];
+    [Servicecall requirementobjectlist:projectLstForTask];
     [Servicecall setDelegate:self];
+}
+-(void)requirementobject:(id)requirementobjectresponse
+{
+    NSDictionary *dict=[[NSDictionary alloc]init];
+    dict=requirementobjectresponse;
+    NSLog(@"requirement object list is %@",dict);
+    
+    if ([[dict valueForKey:@"statusMessage"]isEqualToString:@"No Data"])
+    {
+        UIAlertView *alertview=[[UIAlertView alloc]initWithTitle:@"Alert" message:@"object list is empty" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+        [alertview show];
+    }
+    else
+    {
+        resultArray=[[NSMutableArray alloc]init];
+        resultArray=[dict valueForKey:@"resAL"];
+        
+        codeIDArray         = [[NSMutableArray alloc] init];
+        objectTypeArray       = [[NSMutableArray alloc] init];
+        
+        for (NSDictionary *fid in resultArray)
+        {
+            [codeIDArray addObject:[fid valueForKey:@"reqObjectTypeId"]];
+            [objectTypeArray addObject:[fid valueForKey:@"reqObjectType"]];
+        }
+      
+        NSLog(@"requirement object id is %@",codeIDArray);
+        NSLog(@"requirement object type is %@",objectTypeArray);
+    }
+
 }
 -(void)objectSpinnerListService
 {
     Servicecall = [[Webservices alloc]init];
-    NSString *projectLstForTask = @"RequirementGatheringService";
-    NSDictionary *credentials = @{@"orgId":OrgIdStr};
-    [Servicecall requirementObjectSpinnerLst:projectLstForTask TaskListParameters:credentials];
+    NSString *projectLstForTask = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/requirement/v1/requirementObjectTypeSpinner?orgId=%@",OrgIdStr];
+    [Servicecall requirementobjectspinner:projectLstForTask];
     [Servicecall setDelegate:self];
+}
+-(void)requirementobjectspinner:(id)requirementobjectspinnerresponse
+{
+    NSDictionary *dcit=[[NSDictionary alloc]init];
+    dcit=requirementobjectspinnerresponse;
+    NSLog(@"requiremnet object spinner response is %@",dcit);
+    
+    if([[dcit valueForKey:@"statusMessage"]isEqualToString:@"No Data"])
+    {
+        UIAlertView *alertview=[[UIAlertView alloc]initWithTitle:@"Alert" message:@"object type list is empty" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+        [alertview show];
+    }
 }
 -(void)purposeSpinnerListService
 {
     Servicecall = [[Webservices alloc]init];
-    NSString *projectLstForTask = @"RequirementGatheringService";
-    NSDictionary *credentials = @{@"orgId":OrgIdStr};
-    [Servicecall requirementPurposeSpinnerLst:projectLstForTask TaskListParameters:credentials];
+    NSString *projectLstForTask = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/requirement/v1/requirementObjPurposeSpinner?orgId=%@",OrgIdStr];
+    //NSDictionary *credentials = @{@"orgId":OrgIdStr};
+    [Servicecall requirementpurpose:projectLstForTask];
     [Servicecall setDelegate:self];
     
+}
+-(void)requirementpurpose:(id)requirementpurposeresponse
+{
+    NSDictionary *dict=[[NSDictionary alloc]init];
+    dict=requirementpurposeresponse;
+    NSLog(@"requirement purpose response is %@",dict);
 }
 -(void)resourceSpinnerListService
 {
     NSLog(@"resource list display");
     NSLog(@"the project id is %@",_ProjectIdStr2);
     
-    NSString *TaskListUrl = @"TasksSpinnersListsService";
-    NSDictionary *credentials = @{@"projectId":_ProjectIdStr2};
-    [Servicecall TaskResourceurl:TaskListUrl ResourceParameters:credentials];
+    NSString *TaskListUrl = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/requirement/v1/reqGathContactSpinner?projectId=%@",_ProjectIdStr2];
+    [Servicecall contacttypelistUrl:TaskListUrl];
     [Servicecall setDelegate:self];
+}
+-(void)contacttype:(id)contacttyperesponse
+{
+    NSDictionary *dict=[[NSDictionary alloc]init];
+    dict=contacttyperesponse;
+    NSLog(@"resource type response is %@",dict);
 }
 -(void)complexitySpinnerListService
 {
     Servicecall = [[Webservices alloc]init];
-    NSString *projectLstForTask = @"RequirementGatheringService";
-    NSDictionary *credentials = @{@"orgId":OrgIdStr};
-    [Servicecall requirementComplexitySpinnerLst:projectLstForTask TaskListParameters:credentials];
+    NSString *projectLstForTask = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/requirement/v1/requirementObjComplexitySpinner?orgId=%@",OrgIdStr];
+    [Servicecall requirementcomplexity:projectLstForTask];
     [Servicecall setDelegate:self];
+}
+-(void)requirementcomplexity:(id)requirementcomplexityresponse
+{
+    NSDictionary *dict=[[NSDictionary alloc]init];
+    dict=requirementcomplexityresponse;
+    NSLog(@"requirement complexity response is %@",requirementcomplexityresponse);
 }
 
 -(void)saveRequirement

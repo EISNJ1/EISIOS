@@ -1,11 +1,3 @@
-//
-//  CreatTaskViewController.m
-//  EISIOSApp
-//
-//  Created by iAppSoft on 11/28/14.
-//  Copyright (c) 2014 EISPvtLtd. All rights reserved.
-//
-
 #import "CreatTaskViewController.h"
 #import "Toast+UIView.h"
 #import "MBProgressHUD.h"
@@ -85,7 +77,7 @@
     
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(userTapped)];
     [self.view addGestureRecognizer:tapGesture];
-   [tapGesture setCancelsTouchesInView:NO];
+    [tapGesture setCancelsTouchesInView:NO];
     
     
     NSLayoutConstraint *leftConstraint = [NSLayoutConstraint constraintWithItem:self.view
@@ -107,11 +99,11 @@
     [self.view addConstraint:rightConstraint];
     
     
-//    Projecttxtfld.userInteractionEnabled=NO;
-//    Categorytxtfld.userInteractionEnabled=NO;
-//    Prioritytxtfld.userInteractionEnabled=NO;
-//    Resourcetxtfld.userInteractionEnabled=NO;
-//    hardDependencytxtfld.userInteractionEnabled=NO;
+    //    Projecttxtfld.userInteractionEnabled=NO;
+    //    Categorytxtfld.userInteractionEnabled=NO;
+    //    Prioritytxtfld.userInteractionEnabled=NO;
+    //    Resourcetxtfld.userInteractionEnabled=NO;
+    //    hardDependencytxtfld.userInteractionEnabled=NO;
     
     self.navigationItem.title = _navigationTitlestr;
     Servicecall =[[Webservices alloc]init];
@@ -138,10 +130,10 @@
     Projecttxtfld.text=_Projectnamestr;
     hardDependencytxtfld.text=_hardDependencystr;
     
-//    if ([hardDependencytxtfld.text length]>0)
-//    {
-//        selectedCellArray=[]
-//    }
+    //    if ([hardDependencytxtfld.text length]>0)
+    //    {
+    //        selectedCellArray=[]
+    //    }
     NSLog(@"hard dependency string is%@",_hardDependencystr);
     StartDatetxtfld.text=_StartDatestr;
     NSLog(@"startdate text is %@",_StartDatestr);
@@ -173,7 +165,7 @@
     [dateFormat1 setDateFormat:@"MM/dd/yyyy"];
     
     //[self holidaysListChecking];
-   //Enddatetxtfld.text = [dateFormat1 stringFromDate:Enddate];
+    //Enddatetxtfld.text = [dateFormat1 stringFromDate:Enddate];
     
     
     
@@ -334,22 +326,22 @@
 }
 -(void)holidaysList
 {
-//    Servicecall=[[Webservices alloc]init];
-//    NSString *holidayClass=@"TaskHolidaysWeekendSkip";
-//    NSDictionary *holidaysDictionary=@{@"orgId":orgIdstr};
-//    [Servicecall HolidaysList:holidayClass HolidaysListParametersDetails:holidaysDictionary];
-//    [Servicecall setDelegate:self];
-
+    //    Servicecall=[[Webservices alloc]init];
+    //    NSString *holidayClass=@"TaskHolidaysWeekendSkip";
+    //    NSDictionary *holidaysDictionary=@{@"orgId":orgIdstr};
+    //    [Servicecall HolidaysList:holidayClass HolidaysListParametersDetails:holidaysDictionary];
+    //    [Servicecall setDelegate:self];
+    
     NSString *publicnotesdec =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/task/v1/holidaysList?orgId=%@",orgIdstr];
     NSString *encode1=[publicnotesdec stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     Servicecall=[[Webservices alloc]init];
     [Servicecall holidaysListUrl:encode1];
     [Servicecall setDelegate:self];
-
+    
 }
 -(void)holidaysList:(id)holidaysList
 {
- 
+    
 }
 -(void)ProjectsList
 {
@@ -408,7 +400,7 @@
         }
         
     }
-
+    
 }
 -(void)CategoryList
 {
@@ -470,22 +462,22 @@
         [hardDependencyTableView reloadData];
         
     }
-
+    
 }
 }
 -(void)PriorityList
 {
-//    NSString *TaskListUrl = @"TasksSpinnersListsService";
-//    NSDictionary *credentials = @{@"orgId":orgIdstr};
-//    [Servicecall TaskPrioritySpinnerurl:TaskListUrl TaskPriorityparameters:credentials];
-//    [Servicecall setDelegate:self];
-
+    //    NSString *TaskListUrl = @"TasksSpinnersListsService";
+    //    NSDictionary *credentials = @{@"orgId":orgIdstr};
+    //    [Servicecall TaskPrioritySpinnerurl:TaskListUrl TaskPriorityparameters:credentials];
+    //    [Servicecall setDelegate:self];
+    
     Servicecall=[[Webservices alloc]init];
     NSString *publicnotesdec =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/task/v1/taskPrioritySpinner?orgId=%@",orgIdstr];
     NSString *encode1=[publicnotesdec stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     [Servicecall prioritylistUrl:encode1];
     [Servicecall setDelegate:self];
-   
+    
 }
 
 -(void)prioritylist:(id)priorityList
@@ -509,13 +501,42 @@
             [Priority_NAMEArray addObject:[fid valueForKey:@"priority"]];
             
         }
+    }
+        if ([Prioritytxtfld.text length] == 0)
+        {
+            
+            Prioritytxtfld.text = [Priority_NAMEArray objectAtIndex:0];
+            _PriorityIdstr= [Priority_IDArray objectAtIndex:0];
+            
+            
+            
+        }
+        else
+        {
+            
+            
+            for(int i=0; i<[Priority_NAMEArray count]; i++)
+            {
+                if([_Prioritynamestr isEqualToString:[Priority_NAMEArray objectAtIndex:i]])
+                {
+                    
+                    Prioritytxtfld.text = [Priority_NAMEArray objectAtIndex:i];
+                    _PriorityIdstr = [Priority_IDArray objectAtIndex:i];
+                    
+                }
+            }
+            
+            
+        }
+        
+
         NSLog(@"priority name is  %@:",Priority_NAMEArray);
         NSLog(@"priority id is %@",Priority_IDArray);
         //[hardDependencyTableView reloadData];
         
-    }
-    
 
+    
+    
 }
 
 -(void)ProjectListbtnpkrTapped
@@ -639,7 +660,7 @@
         NSLog(@"m value 1 is %f",m);
     }
     
-
+    
     tasktimelength =Efforttxtfld.text;
     k =[tasktimelength floatValue];
     currentDate1=DatePicker.date;
@@ -651,9 +672,9 @@
     NSLog(@"start date text field is %@",StartDatetxtfld.text);
     [StartDatetxtfld resignFirstResponder];
     [DatePicker removeFromSuperview];
-
+    
     roundedUp = ceilf(k/m);
-
+    
     if (roundedUp==1)
         
     {
@@ -661,71 +682,71 @@
         Enddatetxtfld.text = StartDatetxtfld.text;
     }
     
-
+    
     else
     {
         
-            currentDate1=DatePicker.date;
-            NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
-            [formatter setDateStyle:NSDateFormatterShortStyle];
-            [formatter setTimeStyle:NSDateFormatterNoStyle];
-            [formatter setDateFormat:@"MM/dd/yyyy"];
-            StartDatetxtfld.text = [formatter stringFromDate:currentDate1];
-            NSLog(@"start date text field is %@",StartDatetxtfld.text);
-            [StartDatetxtfld resignFirstResponder];
-            [DatePicker removeFromSuperview];
+        currentDate1=DatePicker.date;
+        NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
+        [formatter setDateStyle:NSDateFormatterShortStyle];
+        [formatter setTimeStyle:NSDateFormatterNoStyle];
+        [formatter setDateFormat:@"MM/dd/yyyy"];
+        StartDatetxtfld.text = [formatter stringFromDate:currentDate1];
+        NSLog(@"start date text field is %@",StartDatetxtfld.text);
+        [StartDatetxtfld resignFirstResponder];
+        [DatePicker removeFromSuperview];
         
         NSDate *holidayDate=[[NSDate alloc]init];
-            [formatter setDateStyle:NSDateFormatterShortStyle];
-            [formatter setTimeStyle:NSDateFormatterNoStyle];
-            [formatter setDateFormat:@"MM/dd/yyyy"];
+        [formatter setDateStyle:NSDateFormatterShortStyle];
+        [formatter setTimeStyle:NSDateFormatterNoStyle];
+        [formatter setDateFormat:@"MM/dd/yyyy"];
         
-            NSLog(@"holidays list service date arrray is %@",holidaysListServiceDateArray);
+        NSLog(@"holidays list service date arrray is %@",holidaysListServiceDateArray);
         
-              datesare1=[[NSMutableArray alloc]init];
-            NSLog(@"holiday date is %@",holidayCheckedArray);
+        datesare1=[[NSMutableArray alloc]init];
+        NSLog(@"holiday date is %@",holidayCheckedArray);
         
-            for (int i=0; i<[holidaysListServiceDateArray count]; i++)
-            {
-                convertedate=[holidaysListServiceDateArray objectAtIndex:i];
-                NSDateFormatter *dateformat=[[NSDateFormatter alloc]init];
-                [dateformat setDateFormat:@"yyyy-MM-dd"];
-                NSDate *date1=[dateformat dateFromString:convertedate];
-                [dateformat setDateFormat:@"MM/dd/yyyy"];
-                datesare=[dateformat stringFromDate:date1];
-                 [datesare1 addObject:datesare];
-            }
-          
-
-
-    }
-  
-        if ([_datePickerBtn isSelected]==YES)
+        for (int i=0; i<[holidaysListServiceDateArray count]; i++)
         {
-            currentDate1=DatePicker.date;
+            convertedate=[holidaysListServiceDateArray objectAtIndex:i];
+            NSDateFormatter *dateformat=[[NSDateFormatter alloc]init];
+            [dateformat setDateFormat:@"yyyy-MM-dd"];
+            NSDate *date1=[dateformat dateFromString:convertedate];
+            [dateformat setDateFormat:@"MM/dd/yyyy"];
+            datesare=[dateformat stringFromDate:date1];
+            [datesare1 addObject:datesare];
         }
-            
-    //    if ([_SavebtnTitlestr isEqualToString:@"Update"] &&(_datePickerBtn.isSelected))
-//    {
-//        currentDate1=DatePicker.date;
-//        NSLog(@"update and date picker");
-//    }
-   
-   
-
+        
+        
+        
+    }
     
-//    if ([_SavebtnTitlestr isEqualToString:@"Update"])
-//    {
-//        currentDate1 = startDate;
-//        //[self holidaysListChecking];
-//        
-//        NSLog(@"welcome top eis");
-//    }
-//     else
-//    {
-//        currentDate1=DatePicker.date;
-//    }
-//    
+    if ([_datePickerBtn isSelected]==YES)
+    {
+        currentDate1=DatePicker.date;
+    }
+    
+    //    if ([_SavebtnTitlestr isEqualToString:@"Update"] &&(_datePickerBtn.isSelected))
+    //    {
+    //        currentDate1=DatePicker.date;
+    //        NSLog(@"update and date picker");
+    //    }
+    
+    
+    
+    
+    //    if ([_SavebtnTitlestr isEqualToString:@"Update"])
+    //    {
+    //        currentDate1 = startDate;
+    //        //[self holidaysListChecking];
+    //
+    //        NSLog(@"welcome top eis");
+    //    }
+    //     else
+    //    {
+    //        currentDate1=DatePicker.date;
+    //    }
+    //
     NSDateFormatter *formatter1 = [[NSDateFormatter alloc]init];
     [formatter1 setDateStyle:NSDateFormatterShortStyle];
     [formatter1 setTimeStyle:NSDateFormatterNoStyle];
@@ -734,7 +755,7 @@
     NSLog(@"start date text field is %@",StartDatetxtfld.text);
     [StartDatetxtfld resignFirstResponder];
     [DatePicker removeFromSuperview];
-   
+    
     roundedUp = ceilf(k/m);
     
     if (roundedUp==1)
@@ -768,7 +789,7 @@
         //NSLog(@"holiday list date str is %@",holidaysListServiceDateArray);
         
     }
-  else if ([datesare1 containsObject:StartDatetxtfld.text])
+    else if ([datesare1 containsObject:StartDatetxtfld.text])
     {
         [StartDatetxtfld setBackgroundColor:[UIColor redColor]];
         
@@ -776,120 +797,119 @@
         StartDatetxtfld.text=@"";
         Enddatetxtfld.text=@"";
     }
-  else
-  {
-    
-    [self holidaysListChecking];
-  }
+    else
+    {
+        
+        [self holidaysListChecking];
+    }
     //Enddatetxtfld.text=endDateStr;
     NSLog(@"end date is %@",endDateStr);
     
-//    roundedUp = ceilf(k/m);
-//    if (roundedUp==1)
-//    {
-//        Enddatetxtfld.text = StartDatetxtfld.text;
-//    }
-//    else
-//    {
-////        if ([StartDatetxtfld.text length]!=0 && Efforttxtfld.text!=0)
-////        {
-////           
-////        }
-////        else
-////        {
-////            [self.view makeToast:@"Please select start datet And Enter Effort Value" duration:2.0 position:[NSValue valueWithCGPoint:CGPointMake(600, 600)]];
-////            Enddatetxtfld.text=@" ";
-////        }
-//       
-//        NSLog(@"the rounded date is %d",roundedUp);
-//        NSDate *now ;
-//        if ([_SavebtnTitlestr isEqualToString:@"Update"])
-//        {
-//            now =DatePicker.date;
-//            
-//        }
-////        else
-////        {
-////            now=DatePicker.date;
-////        }
-////        
-//        NSLog(@"current IS %@",now);
-//        NSDateFormatter *enddateformate = [[NSDateFormatter alloc]init];
-//        
-//        NSDate *newDate1 = [now dateByAddingTimeInterval:(roundedUp-1)*60*60*24];
-//        // [enddateformate setDateFormat:@"yyyy-MM-dd"];
-//        // NSString * enddate = [enddateformate stringFromDate:newDate1];
-//        
-//        
-//        
-//        NSInteger count = 0;
-//        NSInteger friday =6;
-//        
-//        // Set the incremental interval for each interaction.
-//        NSDateComponents *oneDay = [[NSDateComponents alloc]init];
-//        [oneDay setDay:1];
-//        
-//        // Using a Gregorian calendar.
-//        NSCalendar *calendar = [[NSCalendar alloc]initWithCalendarIdentifier:NSGregorianCalendar];
-//        
-//        NSDate *currentDate = now;
-//        
-//        // Iterate from fromDate until toDate
-//        while ([currentDate compare:newDate1] == NSOrderedAscending)
-//        {
-//            NSDateComponents *dateComponents = [calendar components:NSWeekdayCalendarUnit fromDate:currentDate];
-//            
-//            
-//            if (dateComponents.weekday == friday)
-//            {
-//                count =  count+2;
-//                NSLog(@"count %d", count);
-//                // NSDateComponents *oneDay = [[NSDateComponents alloc] init];
-//                // [oneDay setDay:2];
-//                newDate1 = [newDate1 dateByAddingTimeInterval:2*60*60*24];
-//                // [oneDay setDay:2];
-//                
-//            }
-//            //NSDateComponents *oneDay = [[NSDateComponents alloc] init];
-//            //[oneDay setDay:(count*2)];
-//            // "Increment" currentDate by one day.
-//            //[oneDay setDay:(count*2)];
-//            NSString *holidayDate=dateStr;
-//            NSLog(@"holiday date str is %@",holidaysListServiceDateArray);
-//            
-//            currentDate = [calendar dateByAddingComponents:oneDay
-//                                                    toDate: currentDate
-//                                                   options:0];
-//            NSDateFormatter *enddateformate1 = [[NSDateFormatter alloc] init];
-//            
-//            
-//            [enddateformate1 setDateFormat:@"dd/MM/yyyy"];
-//            enddate = [enddateformate1 stringFromDate:currentDate];
-//            NSLog(@"FLOA IS %@",enddate);
-//            enddate=holidayEnddate;
-//            //NSLog(@"holiday end date is %@",holidayEnddate);
-//        }
-//        [self holidaysListChecking];
-//        Enddatetxtfld.text = enddate;
-//    }
-//    [hardDependencytxtfld setEnabled:YES];
-//    [_harddependencyPkrbtn setEnabled:YES];
-//    //hardDependencytxtfld.text=@"";
-//    
-//    [StartDatetxtfld resignFirstResponder];
+    //    roundedUp = ceilf(k/m);
+    //    if (roundedUp==1)
+    //    {
+    //        Enddatetxtfld.text = StartDatetxtfld.text;
+    //    }
+    //    else
+    //    {
+    ////        if ([StartDatetxtfld.text length]!=0 && Efforttxtfld.text!=0)
+    ////        {
+    ////
+    ////        }
+    ////        else
+    ////        {
+    ////            [self.view makeToast:@"Please select start datet And Enter Effort Value" duration:2.0 position:[NSValue valueWithCGPoint:CGPointMake(600, 600)]];
+    ////            Enddatetxtfld.text=@" ";
+    ////        }
+    //
+    //        NSLog(@"the rounded date is %d",roundedUp);
+    //        NSDate *now ;
+    //        if ([_SavebtnTitlestr isEqualToString:@"Update"])
+    //        {
+    //            now =DatePicker.date;
+    //
+    //        }
+    ////        else
+    ////        {
+    ////            now=DatePicker.date;
+    ////        }
+    ////
+    //        NSLog(@"current IS %@",now);
+    //        NSDateFormatter *enddateformate = [[NSDateFormatter alloc]init];
+    //
+    //        NSDate *newDate1 = [now dateByAddingTimeInterval:(roundedUp-1)*60*60*24];
+    //        // [enddateformate setDateFormat:@"yyyy-MM-dd"];
+    //        // NSString * enddate = [enddateformate stringFromDate:newDate1];
+    //
+    //
+    //
+    //        NSInteger count = 0;
+    //        NSInteger friday =6;
+    //
+    //        // Set the incremental interval for each interaction.
+    //        NSDateComponents *oneDay = [[NSDateComponents alloc]init];
+    //        [oneDay setDay:1];
+    //
+    //        // Using a Gregorian calendar.
+    //        NSCalendar *calendar = [[NSCalendar alloc]initWithCalendarIdentifier:NSGregorianCalendar];
+    //
+    //        NSDate *currentDate = now;
+    //
+    //        // Iterate from fromDate until toDate
+    //        while ([currentDate compare:newDate1] == NSOrderedAscending)
+    //        {
+    //            NSDateComponents *dateComponents = [calendar components:NSWeekdayCalendarUnit fromDate:currentDate];
+    //
+    //
+    //            if (dateComponents.weekday == friday)
+    //            {
+    //                count =  count+2;
+    //                NSLog(@"count %d", count);
+    //                // NSDateComponents *oneDay = [[NSDateComponents alloc] init];
+    //                // [oneDay setDay:2];
+    //                newDate1 = [newDate1 dateByAddingTimeInterval:2*60*60*24];
+    //                // [oneDay setDay:2];
+    //
+    //            }
+    //            //NSDateComponents *oneDay = [[NSDateComponents alloc] init];
+    //            //[oneDay setDay:(count*2)];
+    //            // "Increment" currentDate by one day.
+    //            //[oneDay setDay:(count*2)];
+    //            NSString *holidayDate=dateStr;
+    //            NSLog(@"holiday date str is %@",holidaysListServiceDateArray);
+    //
+    //            currentDate = [calendar dateByAddingComponents:oneDay
+    //                                                    toDate: currentDate
+    //                                                   options:0];
+    //            NSDateFormatter *enddateformate1 = [[NSDateFormatter alloc] init];
+    //
+    //
+    //            [enddateformate1 setDateFormat:@"dd/MM/yyyy"];
+    //            enddate = [enddateformate1 stringFromDate:currentDate];
+    //            NSLog(@"FLOA IS %@",enddate);
+    //            enddate=holidayEnddate;
+    //            //NSLog(@"holiday end date is %@",holidayEnddate);
+    //        }
+    //        [self holidaysListChecking];
+    //        Enddatetxtfld.text = enddate;
+    //    }
+    //    [hardDependencytxtfld setEnabled:YES];
+    //    [_harddependencyPkrbtn setEnabled:YES];
+    //    //hardDependencytxtfld.text=@"";
+    //
+    //    [StartDatetxtfld resignFirstResponder];
 }
 -(void)holidaysListChecking
 {
-           Servicecall=[[Webservices alloc]init];
-        NSString *effortdays=[NSString stringWithFormat:@"%d",roundedUp];
-        NSLog(@"the effort days is %@",effortdays);
-        
-        NSLog(@"hours per day text field text is %@",hoursPerDaytxtfld.text);
+    Servicecall=[[Webservices alloc]init];
+    NSString *effortdays=[NSString stringWithFormat:@"%d",roundedUp];
+    NSLog(@"the effort days is %@",effortdays);
+    
+    NSLog(@"hours per day text field text is %@",hoursPerDaytxtfld.text);
     NSString *HolidaysListClass=[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/task/v1/taskendDate?orgId=%@&planedStartDate=%@&effortDays=%@",orgIdstr,StartDatetxtfld.text,effortdays];
-        
-        [Servicecall enddateservice:HolidaysListClass];
-        [Servicecall setDelegate:self];
-
+    
+    [Servicecall enddateservice:HolidaysListClass];
+    [Servicecall setDelegate:self];
 }
 -(void)enddatespinner:(id)enddateresponse
 {
@@ -934,7 +954,7 @@
     ProjectListpicker.transform = transfrom;
     ProjectListpicker.alpha = ProjectListpicker.alpha * (-1) + 1;
     [UIView commitAnimations];
-  }
+}
 -(void)HardDependencyPickerTapped
 {
     [StartDatetxtfld setEnabled:NO];
@@ -960,7 +980,7 @@
     hardDependencyTableView.dataSource = self;
     hardDependencyTableView.allowsMultipleSelection=YES;
     hardDependencyTableView.backgroundColor=[UIColor whiteColor];
-   [hardDependencyTableView setAllowsMultipleSelectionDuringEditing:YES];
+    [hardDependencyTableView setAllowsMultipleSelectionDuringEditing:YES];
     NSLog(@"welcome to eis");
     //[hardDependencyTableView setEditing:YES animated:YES];
     
@@ -1239,7 +1259,7 @@
     {
         [Efforttxtfld setBackgroundColor:[UIColor whiteColor]];
         [hoursPerDaytxtfld setBackgroundColor:[UIColor redColor]];
-    [self.view makeToast:@"Please enter hours perday text field" duration:2.0 position:[NSValue valueWithCGPoint:CGPointMake(600, 750)]];
+        [self.view makeToast:@"Please enter hours perday text field" duration:2.0 position:[NSValue valueWithCGPoint:CGPointMake(600, 750)]];
     }
     else
     {
@@ -1258,12 +1278,39 @@
         NSLog(@"start date text field text is %@",StartDatetxtfld.text);
         NSLog(@"End Date text field text is %@",Enddatetxtfld.text);
         NSLog(@"resource id id %@",_ResourceIdstr);
-        NSString *TaskSaveUrl = @"SaveAndUpdateTaskService";
-        NSDictionary *credentials = @{@"orgId":orgIdstr,@"taskcat":_CategoryIdstr,
-@"tskPriority":_PriorityIdstr,@"taskDescription":Descriptionxtfld.text,@"taskEffort":Efforttxtfld.text,@"plStartDate":StartDatetxtfld.text,@"plEndDate":Enddatetxtfld.text,@"tskAssinTo":_ResourceIdstr,@"tskAssinBy":Useridstr,@"projectId":_ProjectIdstr,@"taskId":taskId,@"saveUpdateType":saveUpdateType,@"hardDependcyId":hardDependencyText,@"hourPerDay":hoursPerDaytxtfld.text};
-        [Servicecall SaveNewTaskurl:TaskSaveUrl NewTaskSaveParameters:credentials];
+        NSString *TaskSaveUrl = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/task/v1/saveOrUpdateTask"];
+       NSString *credentials =[NSString stringWithFormat:@"orgId=%@&taskcat=%@&tskPriority=%@&taskDescription=%@&taskEffort=%@&plStartDate=%@&plEndDate=%@&tskAssinTo=%@&tskAssinBy=%@&projectId=%@&taskId=%@&saveUpdateType=%@&hardDependcyId=%@&hourPerDay=%@",orgIdstr,_CategoryIdstr,_PriorityIdstr,Descriptionxtfld.text,Efforttxtfld.text,StartDatetxtfld.text,Enddatetxtfld.text,_ResourceIdstr,Useridstr,_ProjectIdstr,taskId,saveUpdateType,hardDependencyText,hoursPerDaytxtfld.text];
+        [Servicecall savetask:TaskSaveUrl savetskparameters:credentials];
         [Servicecall setDelegate:self];
-   }
+    }
+}
+-(void)savetaskservice:(id)savetaskresponse
+{
+    NSData *data1=[[NSData alloc]initWithData:savetaskresponse];
+    NSError *error;
+    
+    NSDictionary *dict1=[NSJSONSerialization JSONObjectWithData:data1 options:NSJSONReadingMutableContainers error:&error];
+    
+    NSLog(@"the response dict is %@",dict1);
+   
+    if ([[dict1 valueForKey:@"statusMessage"]isEqualToString:@"TaskUpdated"])
+    {
+        UIAlertView *alertview=[[UIAlertView alloc]initWithTitle:@"Alert" message:@"TaskUpdated successfully" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:nil, nil];
+        [alertview show];
+    }
+    if ([[dict1 valueForKey:@"statusMessage"]isEqualToString:@"Task Saved"])
+    {
+        UIAlertView *alertview=[[UIAlertView alloc]initWithTitle:@"Alert" message:@"Task Saved successfully" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:nil, nil];
+        [alertview show];
+        
+        [Savebtn setTitle:@"Update" forState:UIControlStateNormal];
+        NSArray *resultarrray=[dict1 valueForKey:@"beanData"];
+        UpDTaskId=[resultarrray valueForKey:@"taskId"];
+        NSLog(@"saved data %@",UpDTaskId);
+    }
+
+    
+    
 }
 
 
@@ -1406,7 +1453,7 @@
         else {
             
             [self.navigationController popToRootViewControllerAnimated:YES];
-
+            
         }
         
     }
@@ -1519,9 +1566,9 @@
     {
         if ([string isEqualToString:@"Flase"])
         {
-//            UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"TaskList" message:@"Empty List" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:nil, nil];
-//            
-//            [alert show];
+            //            UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"TaskList" message:@"Empty List" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:nil, nil];
+            //
+            //            [alert show];
             
         }
         else{
@@ -1531,14 +1578,14 @@
         }
     }
     
-     if (parser == CategoryxmlParse)
+    if (parser == CategoryxmlParse)
         
     {
         if ([string isEqualToString:@"Flase"])
         {
-//            UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"TaskList" message:@"Empty List" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:nil, nil];
-//            
-//            [alert show];
+            //            UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"TaskList" message:@"Empty List" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:nil, nil];
+            //
+            //            [alert show];
             
         }
         else
@@ -1551,29 +1598,29 @@
     {
         if ([string isEqualToString:@"Flase"])
         {
-//            UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"TaskList" message:@"Empty List" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:nil, nil];
-//            
-//            [alert show];
+            //            UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"TaskList" message:@"Empty List" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:nil, nil];
+            //
+            //            [alert show];
             
         }
         else
         {
-             [PriorityListArray addObject:string];
+            [PriorityListArray addObject:string];
         }
-
         
-      
+        
+        
         //NSLog(@"Confroom List %@",PriorityListArray);
     }
     
-     if(parser==ResourcexmlParser)
+    if(parser==ResourcexmlParser)
     {
         if ([string isEqualToString:@"Flase"])
         {
-//            UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"TaskList1223333" message:@"Empty List" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:nil, nil];
-//            
-//            [alert show];
-//            Enddatetxtfld.text=@"";
+            //            UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"TaskList1223333" message:@"Empty List" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:nil, nil];
+            //
+            //            [alert show];
+            //            Enddatetxtfld.text=@"";
             //Resourcetxtfld.text=@"null";
             
         }
@@ -1584,13 +1631,13 @@
         }
     }
     
-   else if (parser==HardDependencyXmlParser)
+    else if (parser==HardDependencyXmlParser)
     {
         if ([string isEqualToString:@"Flase"])
         {
-//            UIAlertView *alert=[[UIAlertView alloc] initWithTitle:nil  message:@"Harddependency list is empty" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:nil, nil];
-//            
-//            [alert show];
+            //            UIAlertView *alert=[[UIAlertView alloc] initWithTitle:nil  message:@"Harddependency list is empty" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:nil, nil];
+            //
+            //            [alert show];
         }
         else
         {
@@ -1600,7 +1647,7 @@
     
     
     
-   else if (parser == SaveNewTaskxmlParser)
+    else if (parser == SaveNewTaskxmlParser)
     {
         if ([string isEqualToString:@"Flase"]||[string isEqualToString:@"Problem"])
         {
@@ -1643,29 +1690,29 @@
     {
         if ([string isEqualToString:@"Flase"])
         {
-//            UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"TaskListasdfdf" message:@"Empty List" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:nil, nil];
-//            
-//            [alert show];
+            //            UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"TaskListasdfdf" message:@"Empty List" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:nil, nil];
+            //
+            //            [alert show];
         }
         else
         {
             [endDateArray addObject:string];
         }
-
+        
     }
-   else if (parser==HolidaysXmlPArser)
-   {
+    else if (parser==HolidaysXmlPArser)
+    {
         if ([string isEqualToString:@"Flase"])
         {
-//            UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"My Alert"
-//                                                                           message:@"This is an alert."
-//                                                                    preferredStyle:UIAlertControllerStyleAlert];
-//            
-//            UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
-//                                                                  handler:^(UIAlertAction * action) {}];
-//            
-//            [alert addAction:defaultAction];
-//            [self presentViewController:alert animated:YES completion:nil];
+            //            UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"My Alert"
+            //                                                                           message:@"This is an alert."
+            //                                                                    preferredStyle:UIAlertControllerStyleAlert];
+            //
+            //            UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+            //                                                                  handler:^(UIAlertAction * action) {}];
+            //
+            //            [alert addAction:defaultAction];
+            //            [self presentViewController:alert animated:YES completion:nil];
         }
         else
         {
@@ -1705,19 +1752,19 @@
                 [self HardDependency];
                 [self ResourceList];
             }
-          
-                for(int i=0; i<[PROJECT_IDArray count]; i++)
+            
+            for(int i=0; i<[PROJECT_IDArray count]; i++)
+            {
+                if([Projecttxtfld.text isEqualToString:[PROJECT_NAMEArray objectAtIndex:i]])
                 {
-                    if([Projecttxtfld.text isEqualToString:[PROJECT_NAMEArray objectAtIndex:i]])
-                    {
-                        
-                        Projecttxtfld.text = [PROJECT_NAMEArray objectAtIndex:i];
-                        _ProjectIdstr = [PROJECT_IDArray objectAtIndex:i];
-                        [self HardDependency];
-                        [self ResourceList];
-                        
-                        
-                    }
+                    
+                    Projecttxtfld.text = [PROJECT_NAMEArray objectAtIndex:i];
+                    _ProjectIdstr = [PROJECT_IDArray objectAtIndex:i];
+                    [self HardDependency];
+                    [self ResourceList];
+                    
+                    
+                }
                 
                 
                 
@@ -1749,9 +1796,9 @@
             if ([Category_NAMEArray count]==0)
             {
                 
-//                UIAlertView *alert=[[UIAlertView alloc]initWithTitle:nil message:@"empty category array values" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:nil, nil];
-//                
-//                [alert show];
+                //                UIAlertView *alert=[[UIAlertView alloc]initWithTitle:nil message:@"empty category array values" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:nil, nil];
+                //
+                //                [alert show];
                 
             }
             
@@ -1855,17 +1902,16 @@
                 NSLog(@"res name %@",Resource_NAMEArray);
                 
             }
-//            if ([ResourceListArray count]==0)
-//            {
-//                Resourcetxtfld.text=@"null";
-//            }
-//            
-//            if ([_Resourcenamestr length]==0 ||[_Projectnamestr isEqualToString:@"null"])
-//            {
-//                Resourcetxtfld.text = [Resource_NAMEArray objectAtIndex:0];
-//                _ResourceIdstr = [Resource_IDArray objectAtIndex:0];
-//            }
-//            
+            //            if ([ResourceListArray count]==0)
+            //            {
+            //                Resourcetxtfld.text=@"null";
+            //            }
+            //
+                        if ([_Resourcenamestr length]==0 ||[_Projectnamestr isEqualToString:@"null"])
+                        {
+                            Resourcetxtfld.text = [Resource_NAMEArray objectAtIndex:0];
+                            _ResourceIdstr = [Resource_IDArray objectAtIndex:0];
+                        }
             
             for(int i=0; i<[Resource_IDArray count]; i++)
             {
@@ -1931,7 +1977,7 @@
                 {
                     [cellSelectedArray addObject:[NSNumber numberWithBool:NO]];
                 }
-//
+                //
                 // NSLog(@"all hard dependency array value %@",hardDependencyAllDataArray);
                 
                 
@@ -1965,7 +2011,7 @@
             //
             //            }
             
-                     [ProjectListpicker reloadAllComponents];
+            [ProjectListpicker reloadAllComponents];
         }
         //        else
         //        {
@@ -2003,8 +2049,8 @@
         }
         
         NSLog(@"holidays id array is %@",holidaysListServiceIdArray);
-         NSLog(@"holidays date array is %@",holidaysListServiceDateArray);
-         NSLog(@"holidays reason  array is %@",holidayLsitServiceReasonArray);
+        NSLog(@"holidays date array is %@",holidaysListServiceDateArray);
+        NSLog(@"holidays reason  array is %@",holidayLsitServiceReasonArray);
     }
     
     
@@ -2150,14 +2196,20 @@
     }
     else
     {
-        NSArray *resultarray=[dict valueForKey:@"resAL"];
+        NSArray *resultarray255=[dict valueForKey:@"resAL"];
         Resource_NAMEArray        =[NSMutableArray new];
         Resource_IDArray          =[NSMutableArray new];
-        for (NSDictionary *fid in resultarray)
+        for (NSDictionary *fid in resultarray255)
         {
             [Resource_NAMEArray addObject:[fid valueForKey:@"resourceName"]];
             [Resource_IDArray addObject:[fid valueForKey:@"resourceId"]];
         }
+        if ([_Resourcenamestr length]==0 ||[_Projectnamestr isEqualToString:@"null"])
+        {
+            Resourcetxtfld.text = [Resource_NAMEArray objectAtIndex:0];
+            _ResourceIdstr = [Resource_IDArray objectAtIndex:0];
+        }
+        
         for(int i=0; i<[Resource_IDArray count]; i++)
         {
             if([_Resourcenamestr isEqualToString:[Resource_NAMEArray objectAtIndex:i]])
@@ -2168,7 +2220,6 @@
                 
             }
         }
-        
 
     }
 }
@@ -2177,22 +2228,22 @@
 //    if (textField==hoursPerDaytxtfld)
 //    {
 //        [hoursPerDaytxtfld resignFirstResponder];
-//    
+//
 //    }
-//    
+//
 //    if (textField==Efforttxtfld)
 //    {
 //        [Efforttxtfld resignFirstResponder];
-//       
+//
 //    }
-//    
+//
 //    return YES;
 //}
 
 //
 //-(BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 //{
-//    
+//
 //    if (textField == Descriptionxtfld )
 //    {
 //        return YES;
@@ -2219,7 +2270,7 @@
 ////                }
 ////                //[self doneButton];
 ////                NSLog(@"done button clicked");
-////                
+////
 ////            }
 ////            else
 ////            {
@@ -2227,7 +2278,7 @@
 ////                [alertt show];
 ////                hoursPerDaytxtfld.text=nil;
 ////            }
-////            
+////
 ////
 ////        }
 ////        return YES;
@@ -2235,23 +2286,23 @@
 ////    }
 ////    if (textField == Efforttxtfld )
 ////    {
-////        
-////        
+////
+////
 ////        if ([Efforttxtfld.text length]==0 && Efforttxtfld.text!=0)
 ////        {
 ////            [self.view makeToast:@"Please enter Effort Value Grater than 0" duration:2.0 position:[NSValue valueWithCGPoint:CGPointMake(600, 500)]];
-////            
+////
 ////            Enddatetxtfld.text=@"";
 ////        }
 ////        else
 ////        {
-////            
+////
 ////            // [_datePickerBtn setEnabled:YES];
 ////            //[self holidaysListChecking];
 ////            //[self doneButton];
 ////        }
 ////        return YES;
-////        
+////
 ////    }
 ////
 ////    if (textField==hardDependencytxtfld)
@@ -2260,7 +2311,7 @@
 ////        //[self submitBtnClicked];
 ////    }
 ////    return NO;
-////    
+////
 ////}
 //- (void)textFieldDidEndEditing:(UITextField *)textField
 //{
@@ -2279,7 +2330,7 @@
 //            }
 //            //[self doneButton];
 //            NSLog(@"done button clicked");
-//            
+//
 //        }
 //        else
 //        {
@@ -2295,7 +2346,7 @@
 //            hoursPerDaytxtfld.text=@"";
 //
 //        }
-//        
+//
 //    }
 //    if (textField==Efforttxtfld)
 //    {
@@ -2315,9 +2366,9 @@
 //        }
 //        else
 //        {
-//            
+//
 //            [_datePickerBtn setEnabled:YES];
-//           
+//
 //        }
 //
 //    }
@@ -2328,15 +2379,15 @@
 //            Enddatetxtfld.text=@"";
 //            [self submitBtnClicked];
 //            Enddatetxtfld.text=enddate;
-//            
+//
 //            NSLog(@"text field holiday list called");
 //        }
-//        
+//
 //        else
 //        {
 //            [self.view makeToast:@"please enter effort value" duration:2.0 position:[NSValue valueWithCGPoint:CGPointMake(600, 500)]];
 //        }
-//        
+//
 //    }
 //
 //}
@@ -2350,26 +2401,26 @@
     {
         
     }
-
+    
     return YES;
 }
 -(void)textFieldDidBeginEditing:(UITextField *)textField
 {
     if (textField==Projecttxtfld)
     {
-         [Projecttxtfld resignFirstResponder];
+        [Projecttxtfld resignFirstResponder];
     }
     if (textField==Categorytxtfld)
     {
         [Categorytxtfld resignFirstResponder];
     }
-
+    
     if (textField==Prioritytxtfld)
     {
         [Prioritytxtfld resignFirstResponder];
     }
-
-   
+    
+    
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
@@ -2383,23 +2434,23 @@
         return [string isEqualToString:filtered];
         
     }
-
+    
     if (textField == hoursPerDaytxtfld)
     {
         NSCharacterSet *cs=[[NSCharacterSet characterSetWithCharactersInString:@"0123456789"] invertedSet];
         NSString *filtered ;
         filtered = [[string componentsSeparatedByCharactersInSet:cs] componentsJoinedByString:@""];
-      
-       
-//        NSString *currentString = [hoursPerDaytxtfld.text stringByReplacingCharactersInRange:range withString:string];
-//        int length = [currentString length];
-//        NSLog(@"current string value is %d",length);
-      
+        
+        
+        //        NSString *currentString = [hoursPerDaytxtfld.text stringByReplacingCharactersInRange:range withString:string];
+        //        int length = [currentString length];
+        //        NSLog(@"current string value is %d",length);
+        
         [textField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
         return [string isEqualToString:filtered];
         
     }
-
+    
     return YES;
 }
 -(void)textFieldDidChange :(UITextField *)theTextField
@@ -2407,68 +2458,68 @@
     l=[hoursPerDaytxtfld.text floatValue];
     if (theTextField==hoursPerDaytxtfld)
     {
-     if (l<25)
-     {
-         [self doneButton];
-     }
-    else
-    {
-        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        hud.mode = MBProgressHUDModeText;
-        hud.detailsLabel.text = @"Please enter hours per day with in 24";
-        //hud.tintColor=[UIColor blueColor];
-        hud.detailsLabel.font=[UIFont fontWithName:@"Roboto-Black" size:22];
-        hud.removeFromSuperViewOnHide = YES;
-        hud.detailsLabel.textColor=[UIColor blackColor];
-        hud.margin = 12.f;
-        [hud hideAnimated:YES afterDelay:2];
-        hoursPerDaytxtfld.text=@"";
+        if (l<25)
+        {
+            [self doneButton];
+        }
+        else
+        {
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            hud.mode = MBProgressHUDModeText;
+            hud.detailsLabel.text = @"Please enter hours per day with in 24";
+            //hud.tintColor=[UIColor blueColor];
+            hud.detailsLabel.font=[UIFont fontWithName:@"Roboto-Black" size:22];
+            hud.removeFromSuperViewOnHide = YES;
+            hud.detailsLabel.textColor=[UIColor blackColor];
+            hud.margin = 12.f;
+            [hud hideAnimated:YES afterDelay:2];
+            hoursPerDaytxtfld.text=@"";
+        }
     }
-}
     if (theTextField==Efforttxtfld)
     {
-
-    if (![Efforttxtfld.text isEqualToString:@"0"] &&(!([Efforttxtfld.text length]==0)))
-    {
-        [self doneButton];
+        
+        if (![Efforttxtfld.text isEqualToString:@"0"] &&(!([Efforttxtfld.text length]==0)))
+        {
+            [self doneButton];
+        }
+        else
+        {
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            hud.mode = MBProgressHUDModeText;
+            hud.detailsLabel.text = @"Please enter effort value grater than 0";
+            //hud.tintColor=[UIColor blueColor];
+            hud.detailsLabel.font=[UIFont fontWithName:@"Roboto-Black" size:20];
+            hud.removeFromSuperViewOnHide = YES;
+            hud.detailsLabel.textColor=[UIColor blackColor];
+            hud.margin = 12.f;
+            [hud hideAnimated:YES afterDelay:2];
+            //Efforttxtfld.text=@"";
+        }
     }
-    else
-    {
-        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        hud.mode = MBProgressHUDModeText;
-        hud.detailsLabel.text = @"Please enter effort value grater than 0";
-        //hud.tintColor=[UIColor blueColor];
-        hud.detailsLabel.font=[UIFont fontWithName:@"Roboto-Black" size:20];
-        hud.removeFromSuperViewOnHide = YES;
-        hud.detailsLabel.textColor=[UIColor blackColor];
-        hud.margin = 12.f;
-        [hud hideAnimated:YES afterDelay:2];
-        //Efforttxtfld.text=@"";
-    }
-}
     if (theTextField==StartDatetxtfld)
     {
-
-    if (!([StartDatetxtfld.text length]==0))
-    {
-        [self doneButton];
-    }
-    else
-    {
-        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        hud.mode = MBProgressHUDModeText;
-        hud.detailsLabel.text = @"Please enter effort value grater than 0";
-        //hud.tintColor=[UIColor blueColor];
-        hud.detailsLabel.font=[UIFont fontWithName:@"Roboto-Black" size:15];
-        hud.removeFromSuperViewOnHide = YES;
-        hud.detailsLabel.textColor=[UIColor blackColor];
-        hud.margin = 12.f;
-        [hud hideAnimated:YES afterDelay:2];
         
-    }
+        if (!([StartDatetxtfld.text length]==0))
+        {
+            [self doneButton];
+        }
+        else
+        {
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            hud.mode = MBProgressHUDModeText;
+            hud.detailsLabel.text = @"Please enter effort value grater than 0";
+            //hud.tintColor=[UIColor blueColor];
+            hud.detailsLabel.font=[UIFont fontWithName:@"Roboto-Black" size:15];
+            hud.removeFromSuperViewOnHide = YES;
+            hud.detailsLabel.textColor=[UIColor blackColor];
+            hud.margin = 12.f;
+            [hud hideAnimated:YES afterDelay:2];
+            
+        }
     }
     
-
+    
     
 }
 

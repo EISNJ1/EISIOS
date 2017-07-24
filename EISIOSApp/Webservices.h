@@ -61,6 +61,7 @@
 -(void)categorylist:(id)categoryList;
 -(void)resourcespinner:(id)resourcespinnerresponse;
 -(void)enddatespinner:(id)enddateresponse;
+-(void)savetaskservice:(id)savetaskresponse;
 
 
 //Requirement
@@ -74,6 +75,10 @@
 -(void)criticality:(id)criticalityresponse;
 -(void)systemservice:(id)systemserviceresponse;
 -(void)saverequirement:(id)saverequirementresponse;
+-(void)requirementobject:(id)requirementobjectresponse;
+-(void)requirementobjectspinner:(id)requirementobjectspinnerresponse;
+-(void)requirementpurpose:(id)requirementpurposeresponse;
+-(void)requirementcomplexity:(id)requirementcomplexityresponse;
 
 //Project Expenses
 
@@ -186,6 +191,7 @@
 -(void)resourcespinner:(NSString *)resourcespinnerclass;
 -(void)harddependencylist:(NSString *)harddependencyclass;
 -(void)enddateservice:(NSString *)enddateserviceclass;
+-(void)savetask:(NSString *)savetaskclass savetskparameters:(NSString *)savetaskparams;
 
 
 // Requirement Json
@@ -199,6 +205,10 @@
 -(void)criticaliryurl:(NSString *)criticalityclass;
 -(void)systemurl:(NSString *)systemclass;
 -(void)saverequirement:(NSString *)saverequirementclass saverequirementparams:(NSString *)saverequirementparameters;
+-(void)requirementobjectlist:(NSString *)requirementobjectlistparams;
+-(void)requirementobjectspinner:(NSString *)requirementobjectspinnerclass;
+-(void)requirementpurpose:(NSString *)requirementpurposeclass;
+-(void)requirementcomplexity:(NSString *)requirementcomplexityclass;
 
 
 //Project Expenses

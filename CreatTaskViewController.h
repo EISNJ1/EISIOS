@@ -1,11 +1,3 @@
-//
-//  CreatTaskViewController.h
-//  EISIOSApp
-//
-//  Created by iAppSoft on 11/28/14.
-//  Copyright (c) 2014 EISPvtLtd. All rights reserved.
-//
-
 #import <UIKit/UIKit.h>
 #import "Webservices.h"
 #import "Toast+UIView.h"
@@ -53,7 +45,5 @@
 @property(nonatomic,readwrite)int selectedCell;
 @property(nonatomic,strong)  NSIndexPath* lastIndexPath;
 @property (nonatomic, strong) NSMutableArray *selectedRowArray1;
-@property (nonatomic, strong) NSMutableArray *selectedCells;
-@property (nonatomic, strong) NSMutableArray *selecedStates;
-
 @end
+
