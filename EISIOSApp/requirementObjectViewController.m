@@ -300,6 +300,7 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+
 -(void)objectListService
 {
     NSLog(@"the id is %@",getAssignReqIdStr);
@@ -326,20 +327,32 @@
         resultArray=[[NSMutableArray alloc]init];
         resultArray=[dict valueForKey:@"resAL"];
         
-        codeIDArray         = [[NSMutableArray alloc] init];
-        objectTypeArray       = [[NSMutableArray alloc] init];
+        objLstTypeAry       = [[NSMutableArray alloc] init];
+        objLstcomplexityAry       = [[NSMutableArray alloc] init];
+        objLstPurposeAry       = [[NSMutableArray alloc] init];
+        objLstResourceNameAry = [[NSMutableArray alloc] init];
+        objLstIdAry         = [[NSMutableArray alloc] init];
         
         for (NSDictionary *fid in resultArray)
         {
-            [codeIDArray addObject:[fid valueForKey:@"reqObjectTypeId"]];
-            [objectTypeArray addObject:[fid valueForKey:@"reqObjectType"]];
+            [objLstTypeAry addObject:[fid valueForKey:@"reqObjectType"]];
+            [objLstcomplexityAry addObject:[fid valueForKey:@"complexity"]];
+            [objLstPurposeAry addObject:[fid valueForKey:@"purpose"]];
+            [objLstResourceNameAry addObject:[fid valueForKey:@"resourceName"]];
+            [objLstIdAry addObject:[fid valueForKey:@"reqObjectId"]];
         }
-      
-        NSLog(@"requirement object id is %@",codeIDArray);
-        NSLog(@"requirement object type is %@",objectTypeArray);
+        [objectTblView reloadData];
+
+        NSLog(@"object list type is %@",objLstTypeAry);
+        NSLog(@"object list complexity is %@",objLstcomplexityAry);
+        NSLog(@"object list purpose %@",objLstPurposeAry);
+        NSLog(@"object list resource name is %@",objLstResourceNameAry);
+        NSLog(@"object list id is %@",objLstIdAry);
     }
 
 }
+
+
 -(void)objectSpinnerListService
 {
     Servicecall = [[Webservices alloc]init];
@@ -349,16 +362,34 @@
 }
 -(void)requirementobjectspinner:(id)requirementobjectspinnerresponse
 {
-    NSDictionary *dcit=[[NSDictionary alloc]init];
-    dcit=requirementobjectspinnerresponse;
-    NSLog(@"requiremnet object spinner response is %@",dcit);
+    NSDictionary *dict=[[NSDictionary alloc]init];
+    dict=requirementobjectspinnerresponse;
+    NSLog(@"requiremnet object spinner response is %@",dict);
     
-    if([[dcit valueForKey:@"statusMessage"]isEqualToString:@"No Data"])
+    if([[dict valueForKey:@"statusMessage"]isEqualToString:@"No Data"])
     {
         UIAlertView *alertview=[[UIAlertView alloc]initWithTitle:@"Alert" message:@"object type list is empty" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
         [alertview show];
     }
+    else
+    {
+        resultArray=[[NSMutableArray alloc]init];
+        resultArray=[dict valueForKey:@"resAL"];
+        
+        codeIDArray         = [[NSMutableArray alloc] init];
+        objectTypeArray       = [[NSMutableArray alloc] init];
+        
+        for (NSDictionary *fid in resultArray)
+        {
+            [codeIDArray addObject:[fid valueForKey:@"reqObjectTypeId"]];
+            [objectTypeArray addObject:[fid valueForKey:@"reqObjectType"]];
+        }
+        
+        NSLog(@"requirement object type id is %@",codeIDArray);
+        NSLog(@"requirement object type name is %@",objectTypeArray);
+    }
 }
+
 -(void)purposeSpinnerListService
 {
     Servicecall = [[Webservices alloc]init];
@@ -366,14 +397,39 @@
     //NSDictionary *credentials = @{@"orgId":OrgIdStr};
     [Servicecall requirementpurpose:projectLstForTask];
     [Servicecall setDelegate:self];
-    
 }
+
 -(void)requirementpurpose:(id)requirementpurposeresponse
 {
     NSDictionary *dict=[[NSDictionary alloc]init];
     dict=requirementpurposeresponse;
     NSLog(@"requirement purpose response is %@",dict);
+    
+    if([[dict valueForKey:@"statusMessage"]isEqualToString:@"No Data"])
+{
+    UIAlertView *alertview=[[UIAlertView alloc]initWithTitle:@"Alert" message:@"object type list is empty" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+    [alertview show];
 }
+
+else
+{
+    resultArray=[[NSMutableArray alloc]init];
+    resultArray=[dict valueForKey:@"resAL"];
+    
+    purposeCodeIDAry         = [[NSMutableArray alloc] init];
+    puurposeAry       = [[NSMutableArray alloc] init];
+    
+    for (NSDictionary *fid in resultArray)
+    {
+        [purposeCodeIDAry addObject:[fid valueForKey:@"purposeId"]];
+        [puurposeAry addObject:[fid valueForKey:@"purpose"]];
+    }
+    
+    NSLog(@"purpose id is %@",purposeCodeIDAry);
+    NSLog(@"purpose name is %@",puurposeAry);
+}
+}
+
 -(void)resourceSpinnerListService
 {
     NSLog(@"resource list display");
@@ -388,7 +444,32 @@
     NSDictionary *dict=[[NSDictionary alloc]init];
     dict=contacttyperesponse;
     NSLog(@"resource type response is %@",dict);
+    
+    if([[dict valueForKey:@"statusMessage"]isEqualToString:@"No Data"])
+    {
+        UIAlertView *alertview=[[UIAlertView alloc]initWithTitle:@"Alert" message:@"object type list is empty" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+        [alertview show];
+    }
+    
+    else
+    {
+        resultArray=[[NSMutableArray alloc]init];
+        resultArray=[dict valueForKey:@"resAL"];
+        
+        resourceIdAry         = [NSMutableArray new];
+        resourceNameAry         = [NSMutableArray new];
+        
+        for (NSDictionary *fid in resultArray)
+        {
+            [resourceIdAry addObject:[fid valueForKey:@"resourceId"]];
+            [resourceNameAry addObject:[fid valueForKey:@"resourceName"]];
+        }
+        
+        NSLog(@"resource id is %@",resourceIdAry);
+        NSLog(@"resource name is %@",resourceNameAry);
+    }
 }
+
 -(void)complexitySpinnerListService
 {
     Servicecall = [[Webservices alloc]init];
@@ -401,8 +482,32 @@
     NSDictionary *dict=[[NSDictionary alloc]init];
     dict=requirementcomplexityresponse;
     NSLog(@"requirement complexity response is %@",requirementcomplexityresponse);
+
+    if([[dict valueForKey:@"statusMessage"]isEqualToString:@"No Data"])
+{
+    UIAlertView *alertview=[[UIAlertView alloc]initWithTitle:@"Alert" message:@"object type list is empty" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+    [alertview show];
 }
 
+else
+{
+    resultArray=[[NSMutableArray alloc]init];
+    resultArray=[dict valueForKey:@"resAL"];
+    
+    complexityCodeIdAry         = [[NSMutableArray alloc] init];
+    complexityAry         = [[NSMutableArray alloc] init];
+    
+    for (NSDictionary *fid in resultArray)
+    {
+        [complexityCodeIdAry addObject:[fid valueForKey:@"complexityId"]];
+        [complexityAry addObject:[fid valueForKey:@"complexity"]];
+    }
+    
+    NSLog(@"complexity id is %@",complexityCodeIdAry);
+    NSLog(@"complexityname  is %@",complexityAry);
+}
+
+}
 -(void)saveRequirement
 {
     NSLog(@"the resource id is %@",pkrResourceIDStr);
