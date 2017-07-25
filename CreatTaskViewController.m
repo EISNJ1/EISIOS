@@ -1308,7 +1308,6 @@
         UpDTaskId=[resultarrray valueForKey:@"taskId"];
         NSLog(@"saved data %@",UpDTaskId);
     }
-
     
     
 }
