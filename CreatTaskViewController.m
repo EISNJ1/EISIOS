@@ -502,7 +502,7 @@
             
         }
     }
-        if ([Prioritytxtfld.text length] == 0)
+        if ([Prioritytxtfld.text length] == 0 && [Priority_IDArray count]>0)
         {
             
             Prioritytxtfld.text = [Priority_NAMEArray objectAtIndex:0];

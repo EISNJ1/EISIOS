@@ -95,7 +95,7 @@
 {
     NSString *TaskFileurl  = @"TasksFilesList";
     NSDictionary *credentials = @{@"taskId":_TaskIdstr,@"fileType":fileType};
-    [Servicecall TaskFileListurl:TaskFileurl TaskFileListParameters:credentials];
+   // [Servicecall TaskFileListurl:TaskFileurl TaskFileListParameters:credentials];
     [Servicecall setDelegate:self];
 }
 -(IBAction)UploadBtnTapped:(id)sender
@@ -248,7 +248,7 @@
             
             NSString *UploadTaskUrl =@"UploadFilesForTasks";
             NSDictionary *credentials =@{@"taskId":_TaskIdstr,@"fileType":fileType,@"date":datestr,@"fileName":fileName,@"fileBytes":fileBytes,@"byteLenth":byteLenth,@"taskHistory":TaskHistorystr};
-            [Servicecall UploadTask:UploadTaskUrl UploadTaskParameters:credentials];
+            //[Servicecall UploadTask:UploadTaskUrl UploadTaskParameters:credentials];
             [Servicecall setDelegate:self];
             
             [picker dismissViewControllerAnimated:YES completion:nil];
@@ -609,7 +609,7 @@
 {
     NSString *TaskFileurl  = @"DownloadFileUrl";
     NSDictionary *credentials = @{@"taskUpdatedId":[TASK_UPDATE_IDArray objectAtIndex:indexPath.row],@"fileType":fileType};
-    [Servicecall Downloads:TaskFileurl Downloadparameters:credentials];
+    //[Servicecall Downloads:TaskFileurl Downloadparameters:credentials];
     [Servicecall setDelegate:self];
     
     Filenamestr = [FILE_NAMEArray objectAtIndex:indexPath.row];

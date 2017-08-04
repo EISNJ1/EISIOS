@@ -184,13 +184,49 @@
 -(void)assigntoSpinner
 {
     Servicecall = [[Webservices alloc]init];
-    NSString *projectLstForTask = @"TasksSpinnersListsService";
-    //NSDictionary *credentials2 = @{@"projectId":@"30"};
-    NSDictionary *credentials2 = @{@"projectId":projectIDStr};
-
-    [Servicecall resolutionAssignTo:projectLstForTask ParticipantsListParameters:credentials2];
+    NSString *projectLstForTask = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/issues/v1/issueEscalatedToSpinner?projectId=%@",projectIDStr];
+    [Servicecall issueresolutionescalteto:projectLstForTask];
     [Servicecall setDelegate:self];
     
+}
+-(void)resoulutionescalatetoservice:(id)resolutionescalatetoresponse
+{
+    NSDictionary *dict=[[NSDictionary alloc]init];
+    
+    dict=resolutionescalatetoresponse;
+    NSLog(@"the escalate to response is %@",dict);
+    
+    if ([[dict valueForKey:@"statusMessage"]isEqualToString:@"No Data"])
+    {
+        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"alert" message:@"esclated to spinner is empty" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+        [alert show];
+        [alert dismissWithClickedButtonIndex:0 animated:YES];
+    }
+    else
+    {
+        resourceIdArray   = [[NSMutableArray alloc]init];
+        resourceNameArray  = [[NSMutableArray alloc]init];
+        
+        NSArray *resultarray=[dict valueForKey:@"resAL"];
+        
+        for ( NSDictionary *fidd in resultarray)
+        {
+            [resourceIdArray addObject:[fidd valueForKey:@"escalatedResourceId"]];
+            [resourceNameArray addObject:[fidd valueForKey:@"escalatedResourceName"]];
+        }
+        NSString *tempString = escalatedToTblStr;
+        for(int i=0; i<[resourceNameArray count]; i++)
+        {
+            if([tempString isEqualToString:[resourceNameArray objectAtIndex:i]])
+            {
+                
+                selectEscalateIdStr = [resourceIdArray objectAtIndex:i];
+                
+                
+            }
+        }
+
+    }
 }
 -(void)didFinishService:(id)Userlogindetails
 {
@@ -203,12 +239,56 @@
 -(void)releaseImpactSpinner
 {
     Servicecall = [[Webservices alloc]init];
-    NSString *projectLstForTask = @"TasksSpinnersListsService";
+    NSString *projectLstForTask = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/issues/v1/issueReleaseImpactSpinner?orgId=%@",OrgIdStr];
    // NSDictionary *credentials2 = @{@"orgId":OrgIdStr,@"prjctId":@"30"};
-    NSDictionary *credentials2 = @{@"orgId":OrgIdStr};
+   
 
-    [Servicecall resolutionReleaseImpact:projectLstForTask ParticipantsListParameters:credentials2];
+    [Servicecall resolutionreleaseimpact:projectLstForTask];
     [Servicecall setDelegate:self];
+}
+-(void)resolutionreleaseimpactservice:(id)resolutionreleaseimpactresponse
+{
+    NSDictionary *dict=[[NSDictionary alloc]init];
+    
+    dict=resolutionreleaseimpactresponse;
+    
+    NSLog(@"relaseimpact response is %@",dict);
+    
+    if ([[dict valueForKey:@"statusMessage"]isEqualToString:@"No Data"])
+    {
+        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"alert" message:@"esclated to spinner is empty" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+        [alert show];
+        [alert dismissWithClickedButtonIndex:0 animated:YES];
+    }
+    else
+    {
+        statusIdArray =  [[NSMutableArray alloc]init];
+        StatusNameArray   = [[NSMutableArray alloc]init];
+        
+        NSArray *resultarray=[dict valueForKey:@"resAL"];
+        
+        for (NSDictionary *fidd in resultarray)
+        {
+            [statusIdArray addObject:[fidd valueForKey:@"releaseImpactId"]];
+            [StatusNameArray addObject:[fidd valueForKey:@"releaseImpact"]];
+        }
+        NSString *tempString = releaseImpactTblStr;
+        for(int i=0; i<[statusIdArray count];i++)
+        {
+            if([tempString isEqualToString:[StatusNameArray objectAtIndex:i]])
+            {
+                
+                selectReleaseImpactIdStr = [StatusNameArray objectAtIndex:i];
+                releaseImpactTfd.text=selectReleaseImpactIdStr;
+                NSLog(@"selectRelease impact id is %@",selectReleaseImpactIdStr);
+                
+                
+            }
+        }
+        
+
+        
+    }
 }
 -(void)didfinishactionitemlist :(id)actionitemlist
 {
@@ -220,13 +300,51 @@
 -(void)rejectReasonSpinner
 {
     Servicecall = [[Webservices alloc]init];
-    NSString *projectLstForTask = @"TasksSpinnersListsService";
-   // NSDictionary *credentials2 = @{@"orgId":OrgIdStr,@"prjctId":@"30"};
-    NSDictionary *credentials2 = @{@"orgId":OrgIdStr};
-
-    [Servicecall resolutionRejectReason:projectLstForTask ParticipantsListParameters:credentials2];
+    NSString *projectLstForTask = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/issues/v1/issueRejectReasonSpinner?orgId=%@",OrgIdStr];
+    [Servicecall rejectreasonclass:projectLstForTask];
     [Servicecall setDelegate:self];
     
+}
+-(void)rejectreasonservice:(id)rejectreasonresponse
+{
+    NSDictionary *dict=[[NSDictionary alloc]init];
+    dict=rejectreasonresponse;
+    NSLog(@"the rejectreason response is %@",dict);
+    
+    if ([[dict valueForKey:@"statusMessage"]isEqualToString:@"No Data"])
+    {
+        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Alert" message:@"reject reason list is empty" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:nil, nil];
+        [alert show];
+        [alert dismissWithClickedButtonIndex:0 animated:YES];
+    }
+    
+    else
+    {
+        NSArray *resultarray=[dict valueForKey:@"resAL"];
+        rejectstatusIdAry   = [[NSMutableArray alloc]init];
+        rejectStatusNameAry   = [[NSMutableArray alloc]init];
+    
+        for (NSDictionary *fidd in resultarray)
+        {
+            [rejectstatusIdAry addObject:[fidd valueForKey:@"rejectReasonId"]];
+            [rejectStatusNameAry addObject:[fidd valueForKey:@"rejectReason"]];
+        }
+        NSString *tempString = rejectReasonTblStr;
+        for(int i=0; i<[rejectstatusIdAry count];i++)
+        {
+            if([tempString isEqualToString:[rejectStatusNameAry objectAtIndex:i]])
+            {
+                
+                selectRejectIdStr = [rejectStatusNameAry objectAtIndex:i];
+                rejectReasonTfd.text=selectRejectIdStr;
+                NSLog(@"selectRelease impact id is %@",selectReleaseImpactIdStr);
+                
+                
+            }
+        }
+
+        
+    }
 }
 -(void)didNotesCountFinished :(id)Notescountlist
 {
@@ -238,12 +356,48 @@
 -(void)resolutionTypeSpinner
 {
     Servicecall = [[Webservices alloc]init];
-    NSString *projectLstForTask = @"TasksSpinnersListsService";
-   // NSDictionary *credentials2 = @{@"orgId":OrgIdStr,@"prjctId":@"30"};
-    NSDictionary *credentials2 = @{@"orgId":OrgIdStr};
-
-    [Servicecall resolutionResolutionType:projectLstForTask ParticipantsListParameters:credentials2];
+    NSString *projectLstForTask = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/issues/v1/issueResolutionTypeSpinner?orgId=%@",OrgIdStr];
+    
+    [Servicecall resolutiontypeclass:projectLstForTask];
     [Servicecall setDelegate:self];
+}
+-(void)resolutiontypeservice:(id)resolutiontyperesponse
+{
+    NSDictionary *dict=[[NSDictionary alloc]init];
+    dict=resolutiontyperesponse;
+    NSLog(@"the resolutiontype reponse is %@",dict);
+    if ([[dict valueForKey:@"statusMessage"]isEqualToString:@"No Data"])
+    {
+        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Alert" message:@"resolution type list is empty" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:nil, nil];
+        [alert show];
+        [alert dismissWithClickedButtonIndex:0 animated:YES];
+    }
+    else
+    {
+        resolutionTypeStatusIdAry = [[NSMutableArray alloc]init];
+        resolutionTypeStatusNameAry   = [[NSMutableArray alloc]init];
+        NSArray *resolutarray=[dict valueForKey:@"resAL"];
+        for (NSDictionary *fidd in resolutarray)
+        {
+            [resolutionTypeStatusIdAry addObject:[fidd valueForKey:@"resolutionType"]];
+            [resolutionTypeStatusNameAry addObject:[fidd valueForKey:@"resolutionTypeName"]];
+        }
+        NSString *tempString = resolutionTypeTblStr;
+        for(int i=0; i<[resolutionTypeStatusIdAry count];i++)
+        {
+            if([tempString isEqualToString:[resolutionTypeStatusNameAry objectAtIndex:i]])
+            {
+                
+                selectResolutionIdStr = [resolutionTypeStatusNameAry objectAtIndex:i];
+                resolutionTypeTfd.text=selectResolutionIdStr;
+                NSLog(@"selectRelease impact id is %@",selectReleaseImpactIdStr);
+                
+                
+            }
+        }
+
+        
+    }
 }
 -(void)Serviceactiondone : (id)result
 {
@@ -279,14 +433,32 @@
         NSLog(@"selectreleaseimpact %@",selectReleaseImpactIdStr);
          NSLog(@"selectreleaseimpact %@",selectResolutionIdStr);
     Servicecall = [[Webservices alloc]init];
-    NSString *projectLstForTask = @"SaveAndUpdateTaskService";
-    NSDictionary *credentials2 = @{@"escalatedToResrc":selectEscalateIdStr,@"releaseImpact":selectReleaseImpactIdStr,@"dateResolutionNededBy":drnbTfd.text,@"rejctRsn":selectRejectIdStr,@"resolutionTyp":selectResolutionIdStr,@"dateRslvd":dateResolvedTfd.text,@"dateClsd":dateClosedTfd.text,@"resolutionDtls":resolutionTypeTfd.text,@"issueId":issueIdStr};
+        NSString *projectLstForTask = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/issues/v1/saveIssueResolution"];
+    NSString *credentials2 = [NSString stringWithFormat:@"escalatedToResrc=%@&releaseImpact=%@&dateResolutionNededBy=%@&rejectReason=%@&dupIssueIdRef=%@&resolutionType=%@&dateResolved=%@&dateColsed=%@&resolutionDetails=%@",selectEscalateIdStr,selectReleaseImpactIdStr,drnbTfd.text,selectRejectIdStr,issueIdStr,selectResolutionIdStr,dateResolvedTfd.text,dateClosedTfd.text,resolutionDescriptionTfd.text];
+        
+        NSLog(@"the parameters are %@",credentials2);
 //    NSDictionary *credentials2 = @{@"escalatedToResrc":selectEscalateIdStr,@"releaseImpact":releaseImpactTfd.text,@"dateResolutionNededBy":drnbTfd.text,@"rejctRsn":rejectReasonTfd.text,@"dupIssueIdRef":@"nodata",@"resolutionTyp":resolutionTypeTfd.text,@"dateRslvd":dateResolvedTfd.text,@"dateClsd":dateClosedTfd.text,@"resolutionDtls":resolutionDescriptionTfd.text,@"issueId":issueIdStr};
 
-    [Servicecall resolutionUpdate:projectLstForTask ParticipantsListParameters:credentials2];
+    [Servicecall updateresolutionclass:projectLstForTask resolutionupdateparams:credentials2];
     [Servicecall setDelegate:self];
         
     }
+}
+-(void)resolutionupdate:(id)resolutionupdateresponse
+{
+    NSData *data=[[NSData alloc]initWithData:resolutionupdateresponse];
+    NSError *error;
+    
+    NSDictionary *dict=[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
+    NSLog(@"the dict value is %@",dict);
+    
+    if([[dict valueForKey:@"statusMessage"]isEqualToString:@"Inserted"])
+    {
+        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"alert" message:@"resolution updated successfully" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+        [alert show];
+        [alert dismissWithClickedButtonIndex:0 animated:YES];
+    }
+    
 }
 
 -(void)Serviceactiondone1 : (id)result

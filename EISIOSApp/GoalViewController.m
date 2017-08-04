@@ -223,16 +223,22 @@
    }
 
     else {
-    NSString *GoalsSavedurl = @"SaveGoalsService";
-    NSDictionary *credentials = @{@"meetingId":_MeetingId,@"objectDesc":GoalsDistextView.text,@"budgetedTym":Goalstimetxtfld.text};
-    [Servicecall GoalsSavedurl:GoalsSavedurl GoalsSavedParameters:credentials];
+        
+        NSString *agendaorgoalFlag=@"Goals";
+        
+        NSString *goalsaveurl =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/meeting/v1/saveAgendaGoal"];
+        NSString *credentials=[NSString stringWithFormat:@"meetingId=%@&objectDesc=%@&budgetedTym=%@&agendaGoalFlag=%@",_MeetingId,GoalsDistextView.text,Goalstimetxtfld.text,agendaorgoalFlag];
+    
+    [Servicecall agendameeting:goalsaveurl agendameetingparams:credentials];
     [Servicecall setDelegate:self];
     
         
-    NSDictionary *credentials1 = @{@"meetingId":_MeetingId};
-    NSString *AgendaGoalscounturl = @"AgendaGoalCountService";
-    [Servicecall AgendaGoalsCounturl:AgendaGoalscounturl AgendaGoalParameters:credentials1];
-    [Servicecall setDelegate:self];
+        NSString *credentials1 = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/meeting/v1/agendaGoalCount?meetingId=%@",_MeetingId];
+        NSString *encode=[credentials1 stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        Servicecall=[[Webservices alloc]init];
+        [Servicecall agendacount:encode];
+        [Servicecall setDelegate:self];
+
         
     GoalsDistextView.text = nil;
     Goalstimetxtfld.text  =nil;
@@ -241,7 +247,37 @@
 }
     
 }
+-(void)agendaGoalcount:(id)agnedacounturl
+{
+    NSDictionary *dict=[[NSDictionary alloc]init];
+    dict=agnedacounturl;
+    NSLog(@"the goal count is %@",dict);
+    
+    agendagoalstimebudgetint=[[dict valueForKey:@"agendaGoalCount"]intValue];
+    NSLog(@"the goal time is %d",agendagoalstimebudgetint);
+    
+}
 
+-(void)saveagenda:(id)saveagendameeting
+{
+    NSData *data=[[NSData alloc]initWithData:saveagendameeting];
+    NSError *error;
+    
+    NSDictionary *dict=[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
+    
+    NSLog(@"the goal saved response is %@",dict);
+    
+    if ([[dict valueForKey:@"statusMessage"]isEqualToString:@"Inserted"])
+    {
+        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Alert" message:@"goal saved successfully" delegate:self cancelButtonTitle:@"Cacnel" otherButtonTitles:nil, nil];
+        [alert show];
+        
+        [self GolasList];
+        
+        [GoalsTV reloadData];
+        
+    }
+}
 
 -(void)didFinishService:(id)Userlogindetails
 {

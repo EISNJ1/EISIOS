@@ -204,10 +204,14 @@
     {
         UIAlertView *alertview=[[UIAlertView alloc]initWithTitle:@"Alert" message:@"Timesheet list is empty" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
         [alertview show];
+        
+        createTimeSheetViewController *createTimeSheetView = [[createTimeSheetViewController alloc]init];
+        createTimeSheetView = [self.storyboard instantiateViewControllerWithIdentifier:@"CreateTimeSheetList"];
+        [self.navigationController pushViewController:createTimeSheetView animated:YES];
     }
     else
     {
-        NSArray *resultarray=[dict valueForKey:@"resAL"];
+        resultarray=[dict valueForKey:@"resAL"];
         NSLog(@"resultarray is %@",resultarray);
         DescrptonArray        = [[NSMutableArray alloc] init];
         TimeSheetLineIdArray  = [[NSMutableArray alloc] init];
@@ -225,27 +229,28 @@
              [SubmitionDateArray addObject:[fidd valueForKey:@"submissionDate"]];
              [HrsSpentArray addObject:[fidd valueForKey:@"hoursSpent"]];
             [IsTaskComplArray addObject:[fidd valueForKey:@"isTaskComplete"]];
-            [ReasonArray addObject:[fidd valueForKey:@"reason"]];
+            
+            if ([fidd valueForKey:@"reason"]!=nil)
+            {
+                [ReasonArray addObject:[fidd valueForKey:@"reason"]];
+                            }
+            else
+            {
+                [ReasonArray addObject:@"null"];
+
+            }
             
         }
         [timeSheetTbl reloadData];
-        for (int i=0; i<[ReasonArray count]; i++)
-        {
-            selectedReason=[ReasonArray objectAtIndex:i];
-        }
+//        for (int i=0; i<[ReasonArray count]; i++)
+//        {
+//            selectedReason=[ReasonArray objectAtIndex:i];
+//        }
         
     }
 }
 -(void)viewDidAppear:(BOOL)animated
 {
-    if ([TimeSheetLineIdArray count] == 0)
-    {
-        createTimeSheetViewController *createTimeSheetView = [[createTimeSheetViewController alloc]init];
-        createTimeSheetView = [self.storyboard instantiateViewControllerWithIdentifier:@"CreateTimeSheetList"];
-        [self.navigationController pushViewController:createTimeSheetView animated:YES];
-    }
-    
-  
 
     
 }
@@ -425,7 +430,7 @@
                     Servicecall = [[Webservices alloc]init];
                     NSString *projectLstForTask = @"SaveAndUpdateTaskService";
                     NSDictionary *credentials = @{@"timeSheetLineId":selectedLineId,@"approvedFlag":@"N",@"approvedBy":Useridstr,@"reason":alertReason};
-                    [Servicecall approveTimeshhet:projectLstForTask PublicDiscredentilas:credentials];
+                    //[Servicecall approveTimeshhet:projectLstForTask PublicDiscredentilas:credentials];
                     [Servicecall setDelegate:self];
                     [self tableServiceCall];
                 }
@@ -578,21 +583,12 @@
     
     selectedLineId = [TimeSheetLineIdArray objectAtIndex:indexPath.row];
     selectedReason = [ReasonArray objectAtIndex:indexPath.row];
-    if ([[IsTaskComplArray objectAtIndex:indexPath.row] isEqualToString:@"Y"])
-    {
+    
      alertView1 = [[UIAlertView alloc] initWithTitle:@"Message" message:@"Submit Status" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Approprove",@"DisApprove",@"Cancel",nil];
     [alertView1 show];
 
     
-    NSLog(@"the time sheet line id is %@",selectedLineId);
-    }
-    else
-    {
-      UIAlertView  *alertView2 = [[UIAlertView alloc] initWithTitle:@"u cant approve" message:@"Submit Status" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Cancel",nil];
-        [alertView2 show];
-
-    }
-}
+   }
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

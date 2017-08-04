@@ -110,7 +110,7 @@
     Servicecall = [[Webservices alloc]init];
     NSString *projectLstForTask = @"TasksSpinnersListsService";
     NSDictionary *credentials = @{@"userId":Useridstr};
-    [Servicecall timeSheetLstAll:projectLstForTask PublicDiscredentilas:credentials];
+    //[Servicecall timeSheetLstAll:projectLstForTask PublicDiscredentilas:credentials];
     [Servicecall setDelegate:self];
 
 }
