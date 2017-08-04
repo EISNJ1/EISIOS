@@ -38,7 +38,7 @@
     
     NSMutableString *TaskFalseString;
     NSMutableArray *DescrptonArray,*TimeSheetLineIdArray,*SubmitionDateArray,*HrsSpentArray,*EstHrsToCmplitedArray,*IsTaskComplArray,*ReasonArray;
-    NSArray *TimesheetSplitArray,*TimesheetdataArray;
+    NSArray *TimesheetSplitArray,*TimesheetdataArray,*resultarray;
     
     NSString *selectedLineId,*selectedReason;
     

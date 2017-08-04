@@ -327,12 +327,15 @@
         resultArray=[[NSMutableArray alloc]init];
         resultArray=[dict valueForKey:@"resAL"];
         
+        objLstIdAry         = [[NSMutableArray alloc] init];
         objLstTypeAry       = [[NSMutableArray alloc] init];
         objLstcomplexityAry       = [[NSMutableArray alloc] init];
         objLstPurposeAry       = [[NSMutableArray alloc] init];
+        objLstExistingNewAry       = [[NSMutableArray alloc] init];
         objLstResourceNameAry = [[NSMutableArray alloc] init];
-        objLstIdAry         = [[NSMutableArray alloc] init];
-        
+        objLstObjNameAry = [[NSMutableArray alloc] init];
+        tblLstAppAry = [[NSMutableArray alloc] init];
+        objLstCommentArry = [[NSMutableArray alloc] init];
         for (NSDictionary *fid in resultArray)
         {
             [objLstTypeAry addObject:[fid valueForKey:@"reqObjectType"]];
@@ -340,6 +343,10 @@
             [objLstPurposeAry addObject:[fid valueForKey:@"purpose"]];
             [objLstResourceNameAry addObject:[fid valueForKey:@"resourceName"]];
             [objLstIdAry addObject:[fid valueForKey:@"reqObjectId"]];
+            [tblLstAppAry addObject:[fid valueForKey:@"approval"]];
+            [objLstObjNameAry addObject:[fid valueForKey:@"reqObjectName"]];
+            [objLstCommentArry addObject:[fid valueForKey:@"comment"]];
+            [objLstExistingNewAry addObject:[fid valueForKey:@"existingNew"]];
         }
         [objectTblView reloadData];
 
@@ -458,12 +465,18 @@ else
         
         resourceIdAry         = [NSMutableArray new];
         resourceNameAry         = [NSMutableArray new];
+        resourcenamearray=[[NSMutableArray alloc]init];
+        resourceidarray=[[NSMutableArray alloc]init];
         
         for (NSDictionary *fid in resultArray)
         {
             [resourceIdAry addObject:[fid valueForKey:@"resourceId"]];
             [resourceNameAry addObject:[fid valueForKey:@"resourceName"]];
         }
+        
+        resourcenamearray=[NSMutableArray arrayWithArray:resourceNameAry];
+        resourceidarray=[NSMutableArray arrayWithArray:resourceIdAry];
+
         
         NSLog(@"resource id is %@",resourceIdAry);
         NSLog(@"resource name is %@",resourceNameAry);
@@ -510,26 +523,65 @@ else
 }
 -(void)saveRequirement
 {
-    NSLog(@"the resource id is %@",pkrResourceIDStr);
-    Servicecall = [[Webservices alloc]init];
-    NSString *projectLstForTask = @"RequirementGatheringService";
-    NSDictionary *credentials = @{@"objectType":pkrObjectTypeIDStr,@"objectName":objectNameTfd.text,@"complexity":pkrComplexityIDStr,@"purpose":pkrPurposeIDStr,@"existingNew":exixtingTfd.text,@"approval":approvalTfd.text,@"resourceName":pkrResourceIDStr,@"comments":commentsTextView.text,@"asisReqId":getAssignReqIdStr,@"isTaskCompl":@"",@"reqObjId":@"0",@"saveUpdateType":@"SaveObject"};
-    
-    [Servicecall saveRequirementObject:projectLstForTask TaskListParameters:credentials];
+   NSLog(@"the resource id is %@",pkrResourceIDStr);
+   
+    NSString *saverequirement = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/requirement/v1/saveorUpdateReqObject"];
+    NSString *credentials =[NSString stringWithFormat:@"objectType=%@&objectName=%@&complexity=%@&purpose=%@&existingNew=%@&approval=%@&resourceName=%@&comments=%@&asisReqId=%@&isTaskCompl=%@&reqObjId=%@&saveUpdateType=%@",pkrObjectTypeIDStr,objectNameTfd.text,pkrComplexityIDStr,pkrPurposeIDStr,exixtingTfd.text,approvalTfd.text,pkrResourceIDStr,commentsTextView.text,getAssignReqIdStr,@"",@"0",@"SaveObject"];
+     Servicecall = [[Webservices alloc]init];
+    [Servicecall saveRequirementobject:saverequirement saveRequirementobjectparams:credentials];
     [Servicecall setDelegate:self];
+}
+
+-(void)saverequirementobject:(id)saverequirementObject
+{
+    NSData *data=[[NSData alloc]initWithData:saverequirementObject];
+    NSError *error;
+    NSDictionary *dict=[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
+    NSLog(@"the response is %@",dict);
+    if ([[dict valueForKey:@"statusMessage"]isEqualToString:@"Inserted"])
+    {
+        UIAlertView *alertview=[[UIAlertView alloc]initWithTitle:@"Alert" message:@"requirement object saved successfully" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+        
+        [alertview show];
+        
+        objectTypeTfd.text = nil;
+        objectNameTfd.text = nil;
+        purposeTfd.text = nil;
+        exixtingTfd.text = nil;
+        
+        approvalTfd.text = nil;
+        resourceTfd.text = nil;
+        complexityTfd.text = nil;
+        commentsTextView.text = nil;
+    }
+    if ([[dict valueForKey:@"statusMessage"]isEqualToString:@"Updated"]) {
+        UIAlertView *alertview=[[UIAlertView alloc]initWithTitle:@"Alert" message:@"requirement object updated successfully" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+        
+        [alertview show];
+    }
+    
 }
 
 -(void)updateRequirement
 {
     
     NSLog(@"resource pkr str is %@",pkrResourceIDStr);
-    Servicecall = [[Webservices alloc]init];
-    NSString *projectLstForTask = @"RequirementGatheringService";
-    NSDictionary *credentials = @{@"objectType":pkrObjectTypeIDStr,@"objectName":objectNameTfd.text,@"complexity":pkrComplexityIDStr,@"purpose":pkrPurposeIDStr,@"existingNew":exixtingTfd.text,@"approval":approvalTfd.text,@"resourceName":pkrResourceIDStr,@"comments":commentsTextView.text,@"asisReqId":getAssignReqIdStr,@"isTaskCompl":@"",@"reqObjId":pkrReqProectIDStr,@"saveUpdateType":@"UpdateObject"};
+//    Servicecall = [[Webservices alloc]init];
+//    NSString *projectLstForTask = @"RequirementGatheringService";
+//    NSDictionary *credentials = @{@"objectType":pkrObjectTypeIDStr,@"objectName":objectNameTfd.text,@"complexity":pkrComplexityIDStr,@"purpose":pkrPurposeIDStr,@"existingNew":exixtingTfd.text,@"approval":approvalTfd.text,@"resourceName":pkrResourceIDStr,@"comments":commentsTextView.text,@"asisReqId":getAssignReqIdStr,@"isTaskCompl":@"",@"reqObjId":pkrReqProectIDStr,@"saveUpdateType":@"UpdateObject"};
+//    
+//    [Servicecall updateRequirementObject:projectLstForTask TaskListParameters:credentials];
+//    [Servicecall setDelegate:self];
+
+    NSString *saverequirement = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/requirement/v1/saveorUpdateReqObject"];
+    NSString *credentials =[NSString stringWithFormat:@"objectType=%@&objectName=%@&complexity=%@&purpose=%@&existingNew=%@&approval=%@&resourceName=%@&comments=%@&asisReqId=%@&isTaskCompl=%@&reqObjId=%@&saveUpdateType=%@",pkrObjectTypeIDStr,objectNameTfd.text,pkrComplexityIDStr,pkrPurposeIDStr,exixtingTfd.text,approvalTfd.text,pkrResourceIDStr,commentsTextView.text,getAssignReqIdStr,@"",pkrReqProectIDStr,@"UpdateObject"];
     
-    [Servicecall updateRequirementObject:projectLstForTask TaskListParameters:credentials];
+    NSLog(@"the dict is %@",credentials);
+    Servicecall = [[Webservices alloc]init];
+    [Servicecall saveRequirementobject:saverequirement saveRequirementobjectparams:credentials];
     [Servicecall setDelegate:self];
 }
+
 
 -(void)didFinishService :(id)Userlogindetails
 {

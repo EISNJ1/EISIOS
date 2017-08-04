@@ -652,7 +652,7 @@
     NSLog(@"attatchemnt id str is %@",fileBytes);
     NSString *SAveAttatchmentClassName=@"IssuesAttachment";
     NSDictionary *SaveAttachmentParameters=@{@"issueId":issueIdTblStr,@"attachmentName":fileName,@"attachmentBytes":fileBytes};
-[Servicecall SaveAttatchmentInIssue:SAveAttatchmentClassName SaveAttatchmentIssuesDictionary:SaveAttachmentParameters];
+//[Servicecall SaveAttatchmentInIssue:SAveAttatchmentClassName SaveAttatchmentIssuesDictionary:SaveAttachmentParameters];
 [Servicecall setDelegate:self];
     
     }
@@ -1127,7 +1127,7 @@
         Servicecall = [[Webservices alloc]init];
         NSString *projectLstForTask =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/issues/v1/saveAndUpdateIssue"];
         NSString *credentials = @{ @"issueNo":saveissueNumStr,@"issueStatus":issueNoStr,@"description":descriptionTfd.text,@"businessPriorty":businessPriortyStr,@"issueType":issueTypeStr,@"projectId":projectIdStr,@"teamImpact":teamImpactStr,@"resourceId":resourceIdStr,@"saveUpdateType":@"UpdateIssue",@"orgId":OrgIdStr,@"userId":Useridstr,@"issueId":saveissueIDStr,@"logDescription":str1/*issueEntryTfd.text*/};
-        [Servicecall updateIssue:projectLstForTask ParticipantsListParameters:credentials];
+        //[Servicecall updateIssue:projectLstForTask ParticipantsListParameters:credentials];
         [Servicecall setDelegate:self];
         
         issueEntryTfd.text = nil;

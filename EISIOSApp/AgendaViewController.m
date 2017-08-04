@@ -192,7 +192,12 @@
 }
 -(void)agendaGoalcount:(id)agnedacounturl
 {
-
+    NSDictionary *dict=[[NSDictionary alloc]init];
+    
+    dict=agnedacounturl;
+    
+    agendagoalstimebudgetint=[[dict valueForKey:@"agendaGoalCount"]intValue];
+    NSLog(@"the agenda goal count value is %d",agendagoalstimebudgetint);
 }
 
 -(IBAction)SaveAgendaTapped:(id)sender{

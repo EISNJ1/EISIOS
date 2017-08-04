@@ -151,7 +151,7 @@
     Servicecall=[[Webservices alloc]init];
     NSString *attatchmetnList=@"ProjectExpense";
     NSDictionary *attatchmentListParameters=@{@"projExpenseId":pkrProjectAmountIDStr};
-    [Servicecall projectExpensesAttatchmentList:attatchmetnList projectExpensesAttatchmentDictionary:attatchmentListParameters];
+    //[Servicecall projectExpensesAttatchmentList:attatchmetnList projectExpensesAttatchmentDictionary:attatchmentListParameters];
     [Servicecall setDelegate:self];
 }
 -(void)getBytesService
@@ -159,7 +159,7 @@
     Servicecall = [[Webservices alloc]init];
     NSString *projectLstForTask = @"ProjectExpense";
     NSDictionary *credentials = @{@"exp_attach_Id":tblExpAttachID,@"proj_amnt_Id":tblProjectAmountID};
-    [Servicecall projectExpancesBytesService:projectLstForTask TaskListParameters:credentials];
+    //[Servicecall projectExpancesBytesService:projectLstForTask TaskListParameters:credentials];
     [Servicecall setDelegate:self];
     NSLog(@"the service response is");
 }
@@ -636,7 +636,7 @@ NSLog(@"split  is %@ %@ ",projectIdArray,projectNameArray);
     Servicecall=[[Webservices alloc]init];
     NSString *SaveAttachmentClass=@"SaveExpenses";
     NSDictionary *SaveAttatchmentParameters=@{@"projExpenseId":pkrProjectAmountIDStr,@"fileName":fileName,@"fileBytes":byteArray};
-    [Servicecall saveAttatchmentInProjectExpenses:SaveAttachmentClass saveAttatchmentProjectExpensesParameters:SaveAttatchmentParameters];
+   // [Servicecall saveAttatchmentInProjectExpenses:SaveAttachmentClass saveAttatchmentProjectExpensesParameters:SaveAttatchmentParameters];
     [Servicecall setDelegate:self];
 }
 

@@ -76,7 +76,7 @@
     NSLog(@"meeting id %@",_MeetingId);
     NSString *MeetingInfourl = @"MeetingInfoService";
     NSDictionary *credentials = @{@"meetingId":_MeetingId};
-    [Servicecall MeetingInfourl:MeetingInfourl MeetingDetails:credentials];
+   // [Servicecall MeetingInfourl:MeetingInfourl MeetingDetails:credentials];
     [Servicecall setDelegate:self];
     
     a = [[NSArray alloc ]initWithObjects:@"Meeting",@"Time",@"Issues",@"Task",@"Requirement",@"Dash Board",@"Project Expenses", nil];

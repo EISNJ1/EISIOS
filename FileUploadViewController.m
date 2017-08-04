@@ -38,7 +38,7 @@
 
 - (void)viewDidLoad
 {
-    fileType = @"file";
+    fileType = @"Image";
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     Usernamestr = [defaults objectForKey:@"UserName"];
     Useridstr   = [defaults objectForKey:@"UserId"];
@@ -96,11 +96,43 @@
 
 -(void)ListOfFiles
 {
-    NSString *TaskFileurl  = @"TasksFilesList";
-    NSDictionary *credentials = @{@"taskId":_Taskidstr,@"fileType":fileType};
-    [Servicecall TaskFileListurl:TaskFileurl TaskFileListParameters:credentials];
+    NSString *filetype1=@"file";
+    NSString *TaskFileurl  = [NSString stringWithFormat:@"https://2-dot-eiswebservice1-173410.appspot.com/_ah/api/task/v1/taskFilesList?taskId=%@&fileType=%@",_Taskidstr,filetype1];
+    [Servicecall taskfileslist:TaskFileurl];
     [Servicecall setDelegate:self];
     
+}
+-(void)taskfilelistservice:(id)taskfilelistresponse
+{
+    NSDictionary *dict=[[NSDictionary alloc]init];
+    
+    dict=taskfilelistresponse;
+    NSLog(@"dict is %@",dict);
+    if ([[dict valueForKey:@"statusMessage"]isEqualToString:@"No Data"])
+    {
+        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Alert" message:@"files list is empty" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+        [alert show];
+        [alert dismissWithClickedButtonIndex:0 animated:YES];
+    }
+    else
+    {
+        FileNamesArray                 =[NSMutableArray new];
+        TaskUpdateIdArray              =[NSMutableArray new];
+        
+        
+        FileSplitArray                  =[NSArray new];
+        FILE_URL_Array=[NSMutableArray new];
+        
+        NSArray *resultarray=[dict valueForKey:@"beanData"];
+        for (NSDictionary *fidd in resultarray)
+        {
+            [FileNamesArray addObject:[fidd valueForKey:@"fileName"]];
+            [FILE_URL_Array addObject:[fidd valueForKey:@"taskURL"]];
+            [TaskUpdateIdArray addObject:[fidd valueForKey:@"taskFileId"]];
+        }
+        [FileTV reloadData];
+
+    }
 }
 
 -(IBAction)UploadBtnTapped:(id)sender
@@ -167,7 +199,7 @@
     }
     
     NSData* imageData = UIImageJPEGRepresentation(ImageforUpload, 1.0);
-    fileBytes = [imageData base64Encoding];
+    fileBytes = [imageData base64EncodedStringWithOptions:0];
     //NSLog(@"bytes %@",imageData);
     
     int len = [imageData length];
@@ -195,21 +227,35 @@
         
     };
     
-    fileName = [[NSMutableString alloc]initWithString:_Taskidstr];
+    fileName = [[NSMutableString alloc]initWithString:Usernamestr];
     NSDateFormatter *formatter1 = [[NSDateFormatter alloc] init];
-    [formatter1 setDateFormat:@"yyyy-MM-dd HH-mm-ss"];
+    [formatter1 setDateFormat:@"yyyy-MM-dd"];
     imagedatestr = [formatter1 stringFromDate:date];
+    [fileName appendString:Useridstr];
+    [fileName appendString:@"_"];
+    [fileName appendString:_Taskidstr];
     [fileName appendString:@"_"];
     [fileName appendString:imagedatestr];
     [fileName appendString:@"image.jpg"];
     
     TaskHistorystr = @"value";
     
-    NSString *UploadTaskUrl = @"UploadFilesForTasks";
-    NSDictionary *credentials = @{@"taskId":_Taskidstr,@"fileType":fileType,@"date":datestr,@"fileName":fileName,@"fileBytes":fileBytes,@"byteLenth":byteLenth,@"taskHistory":TaskHistorystr};
-    [Servicecall UploadTask:UploadTaskUrl UploadTaskParameters:credentials];
+    NSString *UploadTaskUrl = [NSString stringWithFormat:@"https://2-dot-eiswebservice1-173410.appspot.com/_ah/api/task/v1/taskUploadFile"];
+    
+    NSString *credentials1 =[NSString stringWithFormat:@"fileName=%@&fileType=%@&fileBytes=%@&taskId=%@&taskDate=%@&taskHistory=%@",fileName,fileType,fileBytes,_Taskidstr,datestr,@""];
+    [Servicecall uploadTextClass:UploadTaskUrl uploadTextparams:credentials1];
     [Servicecall setDelegate:self];
 
+    //[Servicecall UploadTask:UploadTaskUrl UploadTaskParameters:credentials];
+    [Servicecall setDelegate:self];
+
+}
+-(void)uploadtasktextservice:(id)uploadtasktextresponse
+{
+    NSData *data1=[[NSData alloc]initWithData:uploadtasktextresponse];
+    NSError *error;
+    NSDictionary *Dcittt=[NSJSONSerialization JSONObjectWithData:data1 options:NSJSONReadingMutableContainers error:&error];
+    NSLog(@"file uploading response is %@",Dcittt);
 }
 -(void)UpoloadImage
 {
@@ -446,19 +492,22 @@
     
     NSLog(@"wlcome to file uploading");
    fileurl=[FILE_URL_Array objectAtIndex:indexPath.row];
+    NSLog(@"file url is %@",fileurl);
     NSArray *parts = [fileurl componentsSeparatedByString:@"/"];
     NSString *filename = [parts lastObject];
     
     NSString *extn =[filename pathExtension];
     
-    NSLog(@"file extn is %@",extn);
+    NSString *extn1=[extn stringByReplacingOccurrencesOfString:@"?generation=1501653157040097&alt=media" withString:@""];
+    
+    NSLog(@"file extn is %@",extn1);
     
     url = [NSURL URLWithString:fileurl];
     
     //NSLog(@"not existing url is %@",url);
     NSData *urlData = [NSData dataWithContentsOfURL:url];
     
-    if ([extn isEqualToString:@"jpg"] || [extn isEqualToString:@"png"])
+    if ([extn1 isEqualToString:@"jpg"] || [extn1 isEqualToString:@"png"])
     {
         
         
@@ -501,7 +550,7 @@
         [self.view addSubview:ImgView];
         
     }
-   if([extn isEqualToString:@"pdf"]||[extn isEqualToString:@"pptx"]||[extn isEqualToString:@"docx"] ||[extn isEqualToString:@"xlsx"])
+   if([extn1 isEqualToString:@"pdf"]||[extn1 isEqualToString:@"pptx"]||[extn1 isEqualToString:@"docx"] ||[extn isEqualToString:@"xlsx"])
     {
         
         NSData *pdfData = [[NSData alloc]initWithContentsOfURL:url];
@@ -538,7 +587,7 @@
         
         [self.view addSubview:webView];
     }
-    if ([extn isEqualToString:@"ppt"])
+    if ([extn1 isEqualToString:@"ppt"])
     {
         NSURL *url=[NSURL URLWithString:[fileurl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
         NSData* responseData = [NSData dataWithContentsOfURL:url];

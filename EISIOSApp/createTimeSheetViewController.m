@@ -142,7 +142,7 @@
         
         for (int i=0; i<[PROJECT_IDArray count]; i++)
         {
-            projectidstr=[PROJECT_IDArray objectAtIndex:i];
+            pkrSelectionProjectId=[PROJECT_IDArray objectAtIndex:i];
         }
         
     }
@@ -562,7 +562,8 @@
     NSLog(@"userid str is %@",Useridstr);
     NSLog(@"orgid str is %@",OrgIdStr);
     Servicecall=[[Webservices alloc]init];
-    NSString *projectLstForTask =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/timesheet/v1/taskListForTimeSheetSpinner?userType=%@&userId=%@&orgId=%@&projectId=%@",UserTypestr,Useridstr,OrgIdStr,projectidstr];
+    NSString *projectLstForTask =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/timesheet/v1/taskListForTimeSheetSpinner?userType=%@&userId=%@&orgId=%@&projectId=%@",UserTypestr,Useridstr,OrgIdStr,pkrSelectionProjectId];
+    NSLog(@"the projectlstfortask is %@",projectLstForTask);
     [Servicecall tasklistfortimesheet:projectLstForTask];
     [Servicecall setDelegate:self];
 }
@@ -572,6 +573,32 @@
     dict=tasklistfortimesheetresponse;
     
     NSLog(@"the response is %@",dict);
+    
+    TimeTASK_IDArray     = [[NSMutableArray alloc] init];
+    
+    TimeTASK_NAMEArray   = [[NSMutableArray alloc] init];
+    
+    TimeSplitarray       = [[NSArray alloc] init];
+    
+    Timetaskdataarray    = [[NSArray alloc] init];
+    
+    TaskStartDateArray=[[NSMutableArray alloc]init];
+    
+    TaskEnddateArray=[[NSMutableArray alloc]init];
+    
+    if ([[dict valueForKey:@"statusMessage"]isEqualToString:@"OK"])
+    {
+        NSArray *resultarray=[dict valueForKey:@"resAL"];
+        
+        for (NSDictionary *fidd in resultarray)
+        {
+            [TimeTASK_IDArray addObject:[fidd valueForKey:@"taskId"]];
+            [TimeTASK_NAMEArray addObject:[fidd valueForKey:@"taskDescription"]];
+            [TaskStartDateArray addObject:[fidd valueForKey:@"taskStartDate"]];
+            [TaskEnddateArray addObject:[fidd valueForKey:@"taskEnDate"]];
+        }
+        
+    }
     
     
 }
@@ -903,14 +930,12 @@
             
             NSLog(@"service calling");
             
-            NSString *saveTimeSheet = @"SaveAndUpdateTaskService";
-            NSDictionary *credentials2 = @{@"taskId":pkrSelectionTaskId,@"submitDate":dateTfd.text,@"hoursSpent":hoursSpendTfd.text,@"estHrsCompl":estdHrsTfd.text,@"isTaskComplited":taskCompletedTfd.text,@"resourceId":Useridstr,@"projectId":pkrSelectionProjectId,@"reason":reasonsTfd.text };
-            [Servicecall saveTimeSheet:saveTimeSheet PublicDiscredentilas:credentials2];
+            NSString *saveTimeSheet =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/timesheet/v1/submitTimeSheet"];
+            NSString *credentials2 = [NSString stringWithFormat:@"taskId=%@&submitDate=%@&hoursSpent=%@&estHrsCompl=%@&isTaskComplited=%@&resourceId=%@&projectId=%@&reason=%@",pkrSelectionTaskId,dateTfd.text,hoursSpendTfd.text,estdHrsTfd.text,taskCompletedTfd.text,Useridstr,pkrSelectionProjectId,reasonsTfd.text];
+            [Servicecall savetimesheet:saveTimeSheet savetimesheetparams:credentials2];
             [Servicecall setDelegate:self];
             
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"Successfully Saved" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
-            [alertView show];
-            [alertView dismissWithClickedButtonIndex:0 animated:YES];
+            
             
 //            int a = [hoursSpendTfd.text intValue];
 //            int b = [estdHrsTfd.text intValue];
@@ -951,10 +976,11 @@
             
             NSLog(@"service Calling");
             
-            NSString *saveTimeSheet = @"SaveAndUpdateTaskService";
-            NSDictionary *credentials2 = @{@"taskId":pkrSelectionTaskId,@"submitDate":dateTfd.text,@"hoursSpent":hoursSpendTfd.text,@"estHrsCompl":estdHrsTfd.text,@"isTaskComplited":taskCompletedTfd.text,@"resourceId":Useridstr,@"projectId":pkrSelectionProjectId,@"reason":reasonsTfd.text };
-            [Servicecall saveTimeSheet:saveTimeSheet PublicDiscredentilas:credentials2];
+            NSString *saveTimeSheet =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/timesheet/v1/submitTimeSheet"];
+            NSString *credentials2 = [NSString stringWithFormat:@"taskId=%@&submitDate=%@&hoursSpent=%@&estHrsCompl=%@&isTaskComplited=%@&resourceId=%@&projectId=%@&reason=%@",pkrSelectionTaskId,dateTfd.text,hoursSpendTfd.text,estdHrsTfd.text,taskCompletedTfd.text,Useridstr,pkrSelectionProjectId,reasonsTfd.text];
+            [Servicecall savetimesheet:saveTimeSheet savetimesheetparams:credentials2];
             [Servicecall setDelegate:self];
+
             
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"Successfully Saved" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
             [alertView show];
@@ -967,6 +993,23 @@
     
 
 
+}
+
+-(void)savetimesheetservice:(id)savetimesheetresponse
+{
+    NSData *data=[[NSData alloc]initWithData:savetimesheetresponse];
+    NSError *error;
+    
+    NSDictionary *dict1=[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
+    NSLog(@"the save time sheet response is %@",dict1);
+    
+    if ([[dict1 valueForKey:@"statusMessage"]isEqualToString:@"TimeSheetSaved"])
+    {
+        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:@"Successfully Saved" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
+        [alertView show];
+        [alertView dismissWithClickedButtonIndex:0 animated:YES];
+    }
+    
 }
 
 

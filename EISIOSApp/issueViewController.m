@@ -1532,7 +1532,7 @@ else
     NSLog(@"attatchemnt id str is %@",fileBytes);
     NSString *SAveAttatchmentClassName=@"IssuesAttachment";
     NSDictionary *SaveAttachmentParameters=@{@"issueId":IssueIdStr,@"attachmentName":fileName,@"attachmentBytes":fileBytes};
-[Servicecall SaveAttatchmentInIssue:SAveAttatchmentClassName SaveAttatchmentIssuesDictionary:SaveAttachmentParameters];
+//[Servicecall SaveAttatchmentInIssue:SAveAttatchmentClassName SaveAttatchmentIssuesDictionary:SaveAttachmentParameters];
     [Servicecall setDelegate:self];
     
 //    saveIssueAttachment(String issueId,String attachmentName, String attachmentBytes){

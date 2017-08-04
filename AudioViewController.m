@@ -64,7 +64,7 @@
     orgIdstr    = [defaults objectForKey:@"OrgId"];
     Usertypestr = [defaults objectForKey:@"UserType"];
     
-    fileType = @"audio";
+    fileType = @"Audio";
     //data = [[NSData alloc]init];
     [super viewDidLoad];
     Servicecall =[[Webservices alloc]init];
@@ -127,13 +127,42 @@
 }
 -(void)ListOfAudios
 {
-    NSString *TaskFileurl  = @"TasksFilesList";
-    NSDictionary *credentials = @{@"taskId":_TaskIdstr,@"fileType":fileType};
-    [Servicecall TaskFileListurl:TaskFileurl TaskFileListParameters:credentials];
+    NSString *filetype1=@"Audio";
+    NSString *TaskFileurl  = [NSString stringWithFormat:@"https://2-dot-eiswebservice1-173410.appspot.com/_ah/api/task/v1/taskFilesList?taskId=%@&fileType=%@",_TaskIdstr,filetype1];
+    [Servicecall taskfileslist:TaskFileurl];
     [Servicecall setDelegate:self];
-    
 }
-
+-(void)taskfilelistservice:(id)taskfilelistresponse
+{
+    NSDictionary *dict=[[NSDictionary alloc]init];
+    dict=taskfilelistresponse;
+    NSLog(@"the dict is %@",dict);
+    
+    if ([[dict valueForKey:@"statusMessage"]isEqualToString:@"No Data"])
+    {
+        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Alert" message:@"audio list is empty" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+        [alert show];
+        [alert dismissWithClickedButtonIndex:0 animated:YES];
+    }
+    else
+    {
+        FILE_NAMEArray                  =[NSMutableArray new];
+        TASK_UPDATE_IDArray             =[NSMutableArray new];
+        
+        FILE_URL_Array                   =[NSMutableArray new];
+        
+        NSArray *resultarray=[dict valueForKey:@"beanData"];
+        for (NSDictionary *fidd in resultarray)
+        {
+            [FILE_URL_Array addObject:[fidd valueForKey:@"taskURL"]];
+            [TASK_UPDATE_IDArray addObject:[fidd valueForKey:@"taskFileId"]];
+            [FILE_NAMEArray addObject:[fidd valueForKey:@"fileName"]];
+        }
+        
+        [AudioTV reloadData];
+  
+    }
+}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -430,24 +459,38 @@
     NSDateFormatter *formatter1 = [[NSDateFormatter alloc] init];
     [formatter1 setDateFormat:@"yyyyMMdd_HHmmss"];
     audiodatestr = [formatter1 stringFromDate:date];
+    [fileName appendString:Usernamestr];
+    [fileName appendString:@"_"];
+    [fileName appendString:Useridstr];
     [fileName appendString:@"_"];
     [fileName appendString:audiodatestr];
     [fileName appendString:@".mp3"];
     
-    TaskHistorystr = @"value";
+    //TaskHistorystr = @"value";
     
-    NSString *UploadTaskUrl = @"UploadFilesForTasks";
-    NSDictionary *credentials = @{@"taskId":_TaskIdstr,@"fileType":fileType,@"date":datestr,@"fileName":fileName,@"fileBytes":fileBytes,@"byteLenth":byteLenth,@"taskHistory":TaskHistorystr};
-    [Servicecall UploadTask:UploadTaskUrl UploadTaskParameters:credentials];
+//    NSString *UploadTaskUrl = @"UploadFilesForTasks";
+//    NSDictionary *credentials = @{@"taskId":_TaskIdstr,@"fileType":fileType,@"date":datestr,@"fileName":fileName,@"fileBytes":fileBytes,@"byteLenth":byteLenth,@"taskHistory":TaskHistorystr};
+    
+    NSString *UploadTaskUrl = [NSString stringWithFormat:@"https://2-dot-eiswebservice1-173410.appspot.com/_ah/api/task/v1/taskUploadFile"];
+    
+    NSString *credentials1 =[NSString stringWithFormat:@"fileName=%@&fileType=%@&fileBytes=%@&taskId=%@&taskDate=%@&taskHistory=%@",fileName,fileType,fileBytes,_TaskIdstr,datestr,@""];
+    [Servicecall uploadTextClass:UploadTaskUrl uploadTextparams:credentials1];
     [Servicecall setDelegate:self];
     
 //    NSString *UploadTaskUrl = @"UploadFilesForTasks";
 //    NSDictionary *credentials = @{@"namey":@"sheik"};
 //    [Servicecall UploadTask:UploadTaskUrl UploadTaskParameters:credentials];
 //    [Servicecall setDelegate:self];
+    
+    
+}
 
-    
-    
+-(void)uploadtasktextservice:(id)uploadtasktextresponse
+{
+    NSData *data2=[[NSData alloc]initWithData:uploadtasktextresponse];
+    NSError *error;
+    NSDictionary *dict=[NSJSONSerialization JSONObjectWithData:data2 options:NSJSONReadingMutableContainers error:&error];
+    NSLog(@"the upload audio file is %@",dict);
 }
 
 
@@ -1105,7 +1148,7 @@ void myDeleteFile (NSString* path) {
         
         if ([string isEqualToString:@"Inserted"])
         {
-            [self ListOfAudios];
+            //[self ListOfAudios];
             [AudioTV reloadData];
         }
         else
@@ -1307,11 +1350,11 @@ void myDeleteFile (NSString* path) {
     
     //[self.view addSubview:activityView];
     
-    NSLog(@"updated id is %@",[TASK_UPDATE_IDArray objectAtIndex:indexPath.row]);
-    NSString *TaskFileurl  = @"DownloadFileUrl";
-    NSDictionary *credentials = @{@"taskUpdatedId":[TASK_UPDATE_IDArray objectAtIndex:indexPath.row],@"fileType":fileType};
-    [Servicecall Downloads:TaskFileurl Downloadparameters:credentials];
-    [Servicecall setDelegate:self];
+//    NSLog(@"updated id is %@",[TASK_UPDATE_IDArray objectAtIndex:indexPath.row]);
+//    NSString *TaskFileurl  = @"DownloadFileUrl";
+//    NSDictionary *credentials = @{@"taskUpdatedId":[TASK_UPDATE_IDArray objectAtIndex:indexPath.row],@"fileType":fileType};
+//    [Servicecall Downloads:TaskFileurl Downloadparameters:credentials];
+//    [Servicecall setDelegate:self];
     
     
     NSString *fileurl=[FILE_URL_Array objectAtIndex:indexPath.row];

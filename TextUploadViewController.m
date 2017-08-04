@@ -66,7 +66,7 @@
     
     
     fileName = @"fileName";
-    fileType = @"text";
+    fileType = @"Text";
     fileBytes = @"fileBytes";
     byteLenth = @"byteLenth";
     
@@ -106,7 +106,7 @@
     [Eisbutton setFrame:CGRectMake(0, 0, 53, 101)];
     UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(60, 10, 250, 80)];
     [label setFont:[UIFont fontWithName:@"Arial-BoldMT" size:15]];
-    NSMutableString *UserName  = [[NSMutableString alloc]initWithString:@"WelCome Mr/Ms "];
+    NSMutableString *UserName  = [[NSMutableString alloc]initWithString:@"WelCome Mr/Ms"];
     [UserName appendString:Usernamestr];
     [label setText:UserName];
     [label setTextColor:[UIColor blackColor]];
@@ -116,11 +116,10 @@
     self.navigationItem.leftBarButtonItem = barButton;
     
     
-    NSString *TaskFileurl  = @"TasksFilesList";
-    NSDictionary *credentials = @{@"taskId":_taskIdstr,@"fileType":fileType};
-    [Servicecall TaskFileListurl:TaskFileurl TaskFileListParameters:credentials];
+    NSString *filetype1=@"Text";
+    NSString *TaskFileurl  = [NSString stringWithFormat:@"https://2-dot-eiswebservice1-173410.appspot.com/_ah/api/task/v1/taskFilesList?taskId=%@&fileType=%@",_taskIdstr,filetype1];
+    [Servicecall taskfileslist:TaskFileurl];
     [Servicecall setDelegate:self];
-
     
     
 //    NSBubbleData *heyBubble = [NSBubbleData dataWithText:@"Hey, halloween is soon" date:[NSDate dateWithTimeIntervalSinceNow:-300] type:BubbleTypeSomeoneElse];
@@ -158,6 +157,23 @@
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillBeHidden:) name:UIKeyboardWillHideNotification object:nil];
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+}
+-(void)taskfilelistservice:(id)taskfilelistresponse
+{
+    NSDictionary *dict=[[NSDictionary alloc]init];
+    dict=taskfilelistresponse;
+    NSLog(@"the text file list is %@",dict);
+    
+    if ([[dict valueForKey:@"statusMessage"]isEqualToString:@"No Data"])
+    {
+        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Alert" message:@"text file list is empty" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+        [alert show];
+        [alert dismissWithClickedButtonIndex:0 animated:YES];
+    }
+    else
+    {
+        
+    }
 }
 
 -(void)didFinishData:(id)Data
@@ -455,11 +471,10 @@
         NSLog(@"enter text field text is %@",EnterTextFld.text);
         
         NSLog(@"file name is %@",fileName);
-    NSString *UploadTaskUrl = @"UploadFilesForTasks";
+    NSString *UploadTaskUrl = @"https://2-dot-eiswebservice1-173410.appspot.com/_ah/api/task/v1/taskUploadFile";
         
-        NSDictionary *credentials1 = @{@"taskId":_taskIdstr,@"fileType":fileType,@"date":datestr
-                                       ,@"fileName":fileName,@"fileBytes":fileBytes,@"byteLenth":byteLenth,@"taskHistory":EnterTextFld.text};
-    [Servicecall UploadTask:UploadTaskUrl UploadTaskParameters:credentials1];
+        NSString *credentials1 =[NSString stringWithFormat:@"fileName=%@&fileType=%@&fileBytes=%@&taskId=%@&taskDate=%@&taskHistory=%@",fileName,fileType,fileBytes,_taskIdstr,datestr,EnterTextFld.text];
+        [Servicecall uploadTextClass:UploadTaskUrl uploadTextparams:credentials1];
     [Servicecall setDelegate:self];
    
     [TextTableV reloadData];
@@ -467,6 +482,17 @@
     EnterTextFld.text = @"";
     [EnterTextFld resignFirstResponder];
     }
+}
+
+-(void)uploadtasktextservice:(id)uploadtasktextresponse
+{
+    NSData *data =[[NSData alloc]initWithData:uploadtasktextresponse];
+    
+    NSError *error;
+    
+    NSDictionary *dict=[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
+    
+    NSLog(@"the dict is %@",dict);
 }
 -(IBAction)Cancle:(id)sender
 {
