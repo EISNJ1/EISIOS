@@ -77,7 +77,7 @@
     Usertypestr = [defaults objectForKey:@"UserType"];
  
     EnterTextFld.delegate = self;
-   // TextData = [[NSMutableArray alloc] init];
+    
     Servicecall = [[Webservices alloc]init];
     [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:(240/255.0) green:(82/255.0) blue:(41/255.0) alpha:1.0f]];
     
@@ -115,11 +115,8 @@
     UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:Eisbutton];
     self.navigationItem.leftBarButtonItem = barButton;
     
-    
-    NSString *filetype1=@"Text";
-    NSString *TaskFileurl  = [NSString stringWithFormat:@"https://2-dot-eiswebservice1-173410.appspot.com/_ah/api/task/v1/taskFilesList?taskId=%@&fileType=%@",_taskIdstr,filetype1];
-    [Servicecall taskfileslist:TaskFileurl];
-    [Servicecall setDelegate:self];
+    [self tasktextfilelist];
+   
     
     
 //    NSBubbleData *heyBubble = [NSBubbleData dataWithText:@"Hey, halloween is soon" date:[NSDate dateWithTimeIntervalSinceNow:-300] type:BubbleTypeSomeoneElse];
@@ -158,6 +155,14 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 }
+-(void)tasktextfilelist
+{
+    NSString *filetype1=@"Text";
+    NSString *TaskFileurl  = [NSString stringWithFormat:@"https://2-dot-eiswebservice1-173410.appspot.com/_ah/api/task/v1/taskFilesList?taskId=%@&fileType=%@",_taskIdstr,filetype1];
+    [Servicecall taskfileslist:TaskFileurl];
+    [Servicecall setDelegate:self];
+}
+
 -(void)taskfilelistservice:(id)taskfilelistresponse
 {
     NSDictionary *dict=[[NSDictionary alloc]init];
@@ -172,8 +177,83 @@
     }
     else
     {
+        NSArray *resultarray=[dict valueForKey:@"beanData"];
+        NSString *htmlstring;
         
-    }
+        for (NSDictionary *fidd in resultarray)
+        {
+             htmlstring =[fidd valueForKey:@"newTextUpload"];
+        }
+        
+        //NSLog(@"the result html string is %@",a);
+        //NSString *a=[dict valueForKey:@"newTextUpload"];
+        
+        //htmlstring = [a stringByConvertingHTMLToPlainText];
+        
+        
+        NSData *htmlData = [htmlstring dataUsingEncoding:NSUnicodeStringEncoding];
+        NSAttributedString *attrString = [[NSAttributedString alloc]
+                                          initWithData:htmlData
+                                          options:@{
+                                                    NSDocumentTypeDocumentAttribute : NSHTMLTextDocumentType
+                                                    }
+                                          documentAttributes:nil
+                                          error:nil];
+        NSString *plainString = attrString.string;
+        
+        NSLog(@"text str iss %@",plainString);
+        
+        
+        NSString *notnullstring=plainString;
+        NSLog(@"string is %@",notnullstring);
+        
+        
+        
+        if ([notnullstring isEqualToString:@""])
+        {
+            
+            UIAlertView *alertview=[[UIAlertView alloc]initWithTitle:@"Text is Empty" message:@"No Text Data is Available" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+            
+            [alertview show];
+            
+            MyBubble.avatar = [UIImage imageNamed:nil];
+            
+        }
+        else
+        {
+            array=[[NSMutableArray alloc]init];
+            TextData = [[NSMutableArray alloc] init];
+            
+            array=[notnullstring componentsSeparatedByString:@"\n"];
+            [array removeLastObject];
+            //NSArray *htmlarray=[[NSArray alloc]init];
+            //htmlarray=[array replaceObjectAtIndex:<#(NSUInteger)#> withObject:<#(nonnull id)#>]
+           
+            //array=[notnullstring componentsSeparatedByString:@""];
+                //[array removeObject:@"null"];
+                //[array removeObject:@""];
+                NSLog(@"array is %@",array);
+                for (int j = 0; j<[array count]; j++)
+                {
+                    // NSString *text=[array objectAtIndex:j];
+                    
+                    MyBubble = [NSBubbleData dataWithText:[array objectAtIndex:j] date:[NSDate dateWithTimeIntervalSinceNow:0] type:BubbleTypeSomeoneElse];
+                    MyBubble.avatar = [UIImage imageNamed:@"homeicon.png"];
+                    TextTableV.showAvatars = YES;
+                    TextTableV.snapInterval = 12;
+                    
+                    TextTableV.bubbleDataSource = self;
+                    [TextData addObject:MyBubble];
+                    NSLog(@"text data is %@",TextData);
+                    
+                }
+            
+                
+                
+            }
+        [TextTableV reloadData];
+        }
+    
 }
 
 -(void)didFinishData:(id)Data
@@ -198,7 +278,7 @@
     {
         if([elementName isEqualToString:@"tasksFileTypesResponse"])
         {
-            TextData                   =[NSMutableArray new];
+           
             TasklistArray              =[NSMutableArray new];
             TaskSplitArray             =[NSArray new];
             array                      =[NSArray new];
@@ -474,7 +554,7 @@
     NSString *UploadTaskUrl = @"https://2-dot-eiswebservice1-173410.appspot.com/_ah/api/task/v1/taskUploadFile";
         
         NSString *credentials1 =[NSString stringWithFormat:@"fileName=%@&fileType=%@&fileBytes=%@&taskId=%@&taskDate=%@&taskHistory=%@",fileName,fileType,fileBytes,_taskIdstr,datestr,EnterTextFld.text];
-        [Servicecall uploadTextClass:UploadTaskUrl uploadTextparams:credentials1];
+        [Servicecall textuploadtask:UploadTaskUrl textuploadingtaskparams:credentials1];
     [Servicecall setDelegate:self];
    
     [TextTableV reloadData];
@@ -484,15 +564,32 @@
     }
 }
 
--(void)uploadtasktextservice:(id)uploadtasktextresponse
+-(void)textuploadingservice:(id)textuploadingresponse
 {
-    NSData *data =[[NSData alloc]initWithData:uploadtasktextresponse];
+    NSData *data =[[NSData alloc]initWithData:textuploadingresponse];
     
     NSError *error;
     
     NSDictionary *dict=[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
     
     NSLog(@"the dict is %@",dict);
+    
+    if([[dict valueForKey:@"statusMessage"]isEqualToString:@"Uploaded"])
+    {
+        UIAlertView *alert1=[[UIAlertView alloc]initWithTitle:@"Alert" message:@"the text uploaded successfully" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+        [alert1 show];
+        [alert1 dismissWithClickedButtonIndex:0 animated:YES];
+        [self tasktextfilelist];
+        [TextTableV reloadData];
+    }
+    else
+    {
+        UIAlertView *alert1=[[UIAlertView alloc]initWithTitle:@"Alert" message:@"the text not uploaded successfully" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+        [alert1 show];
+        [alert1 dismissWithClickedButtonIndex:0 animated:YES];
+        [TextTableV reloadData];
+ 
+    }
 }
 -(IBAction)Cancle:(id)sender
 {

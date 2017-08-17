@@ -427,6 +427,8 @@
             }
             case AVAssetExportSessionStatusCompleted: {
                 data =[NSData dataWithContentsOfFile:[myDocumentsDirectory() stringByAppendingPathComponent: @"exported.m4a"]];
+                
+                Servicecall.imgdata=data;
                 [self UploadAudio];
                 //NSLog (@"hai %@",data);
                 NSLog (@"AVAssetExportSessionStatusCompleted");
@@ -447,7 +449,7 @@
 -(void)UploadAudio
 {
     
-    fileBytes = [data base64Encoding];
+    fileBytes = [data base64EncodedDataWithOptions:0];
     
     int len = [data length];
     byteLenth = [NSString stringWithFormat:@"%d",len];
@@ -466,15 +468,15 @@
     [fileName appendString:audiodatestr];
     [fileName appendString:@".mp3"];
     
-    //TaskHistorystr = @"value";
+    Servicecall.filename=fileName;
+    NSLog(@"the file name is %@",fileName);
     
-//    NSString *UploadTaskUrl = @"UploadFilesForTasks";
-//    NSDictionary *credentials = @{@"taskId":_TaskIdstr,@"fileType":fileType,@"date":datestr,@"fileName":fileName,@"fileBytes":fileBytes,@"byteLenth":byteLenth,@"taskHistory":TaskHistorystr};
+    TaskHistorystr = @"";
     
-    NSString *UploadTaskUrl = [NSString stringWithFormat:@"https://2-dot-eiswebservice1-173410.appspot.com/_ah/api/task/v1/taskUploadFile"];
-    
-    NSString *credentials1 =[NSString stringWithFormat:@"fileName=%@&fileType=%@&fileBytes=%@&taskId=%@&taskDate=%@&taskHistory=%@",fileName,fileType,fileBytes,_TaskIdstr,datestr,@""];
-    [Servicecall uploadTextClass:UploadTaskUrl uploadTextparams:credentials1];
+    NSString *UploadTaskUrl = @"https://2-dot-eiswebservice1-173410.appspot.com/_ah/api/task/v1/taskUploadFile";
+    NSDictionary *credentials= @{@"fileName":fileName,@"fileType":fileType,@"fileBytes":fileBytes, @"taskId":_TaskIdstr,@"taskDate":datestr,@"taskHistory":@""};
+
+    [Servicecall audiouploading:UploadTaskUrl audiouploadingparams:credentials];
     [Servicecall setDelegate:self];
     
 //    NSString *UploadTaskUrl = @"UploadFilesForTasks";
@@ -487,10 +489,16 @@
 
 -(void)uploadtasktextservice:(id)uploadtasktextresponse
 {
-    NSData *data2=[[NSData alloc]initWithData:uploadtasktextresponse];
-    NSError *error;
-    NSDictionary *dict=[NSJSONSerialization JSONObjectWithData:data2 options:NSJSONReadingMutableContainers error:&error];
-    NSLog(@"the upload audio file is %@",dict);
+    NSDictionary *dict=uploadtasktextresponse;
+    NSLog(@"the dict is %@",dict);
+    
+    if ([[dict valueForKey:@"statusMessage"]isEqualToString:@"Uploaded"])
+    {
+        UIAlertView *alertview=[[UIAlertView alloc]initWithTitle:@"Alert" message:@"Audio uploaded successfully" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+        [alertview show];
+        [alertview dismissWithClickedButtonIndex:0 animated:YES];
+        [self ListOfAudios];
+    }
 }
 
 
@@ -787,6 +795,8 @@ void myDeleteFile (NSString* path) {
                      stringByAppendingPathComponent:@"tmp.m4a"];
     
     soundFileURL = [NSURL fileURLWithPath:soundFilePath];
+    
+    
     NSDictionary *recordSettings = [NSDictionary dictionaryWithObjectsAndKeys:
                                     [NSNumber numberWithInt: kAudioFormatMPEG4AAC], AVFormatIDKey,
                                     [NSNumber numberWithFloat:16000.0], AVSampleRateKey,
@@ -903,7 +913,7 @@ void myDeleteFile (NSString* path) {
     
     if (audioRecorder.recording)
     {
-        NSLog(@"Error: ");
+        //NSLog(@"Error: ");
         
         [audioRecorder stop];
         recordTimeLabel.hidden=YES;
@@ -914,7 +924,7 @@ void myDeleteFile (NSString* path) {
         [spinner stopAnimating];
         
         data = [NSData dataWithContentsOfURL:audioRecorder.url];
-        
+        Servicecall.imgdata=data;
         
         
         
@@ -937,10 +947,7 @@ void myDeleteFile (NSString* path) {
 - (BOOL) sendAudioToServer :(NSData *)data1
 {
     data= [NSData dataWithData:data1];
-    //AVAudioPlayer*  player = [[AVAudioPlayer alloc] initWithData:data  error:nil];
-    //[player prepareToPlay];
-    //[player play];
-    
+    //Servicecall.imgdata=data;
     
     
     //now you'll just have to send that NSData to your server
@@ -1348,14 +1355,6 @@ void myDeleteFile (NSString* path) {
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    //[self.view addSubview:activityView];
-    
-//    NSLog(@"updated id is %@",[TASK_UPDATE_IDArray objectAtIndex:indexPath.row]);
-//    NSString *TaskFileurl  = @"DownloadFileUrl";
-//    NSDictionary *credentials = @{@"taskUpdatedId":[TASK_UPDATE_IDArray objectAtIndex:indexPath.row],@"fileType":fileType};
-//    [Servicecall Downloads:TaskFileurl Downloadparameters:credentials];
-//    [Servicecall setDelegate:self];
-    
     
     NSString *fileurl=[FILE_URL_Array objectAtIndex:indexPath.row];
     NSArray *parts = [fileurl componentsSeparatedByString:@"/"];
@@ -1378,7 +1377,7 @@ void myDeleteFile (NSString* path) {
     if (fileExists)
     {
         
-        NSURL *audioURL = [NSURL fileURLWithPath:filePath];
+        NSURL *audioURL = [NSURL URLWithString:fileurl];
         NSLog(@"existig url is%@",audioURL);
         
         NSString *sourcePath =[audioURL path];
@@ -1418,7 +1417,6 @@ void myDeleteFile (NSString* path) {
         
         
     }
-    
     
     //    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:fileurl]];
     //    [NSURLConnection connectionWithRequest:request delegate:self];

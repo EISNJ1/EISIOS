@@ -71,6 +71,7 @@
 -(void)savetaskservice:(id)savetaskresponse;
 -(void)uploadtasktextservice:(id)uploadtasktextresponse;
 -(void)harddependencyservice:(id)harddependencylistresponse;
+-(void)textuploadingservice:(id)textuploadingresponse;
 -(void)taskfilelistservice:(id)taskfilelistresponse;
 
 
@@ -143,9 +144,13 @@
     NSMutableString *BaseURL;
     UIActivityIndicatorView *act;
     NSString *exp;
+    
 
 }
 @property(nonatomic,weak)id <WebserviceownProtocal> delegate;
+@property(nonatomic,weak)NSData *imgdata;
+@property(nonatomic,weak)NSString *filename;
+
 #define POST
 
 #pragma Meeting Module Json Services
@@ -212,8 +217,10 @@
 -(void)harddependencylist:(NSString *)harddependencyclass;
 -(void)enddateservice:(NSString *)enddateserviceclass;
 -(void)savetask:(NSString *)savetaskclass savetskparameters:(NSString *)savetaskparams;
--(void)uploadTextClass:(NSString *)uploadTaskText uploadTextparams:(NSString *)uplaodtextparameters;
+-(void)uploadTextClass:(NSString *)uploadTaskText uploadTextparams:(NSDictionary *)uplaodtextparameters;
+-(void)textuploadtask:(NSString *)textuploadingtaskclass textuploadingtaskparams:(NSString *)textuploadingparameters;
 -(void)taskfileslist:(NSString *)taskfileslistclass;
+-(void)audiouploading:(NSString *)audiouplaodingclass audiouploadingparams:(NSDictionary *)audiouploadingparameters;
 
 
 #pragma Requirement json services

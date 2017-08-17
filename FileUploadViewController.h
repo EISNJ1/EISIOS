@@ -16,7 +16,7 @@
     UIView *selectionView;
     IBOutlet UIButton *Uploadbtn;
     IBOutlet UITableView *FileTV;
-    UIImagePickerController *camImagePickerController,*GalleryImage;
+    UIImagePickerController *GalleryImage;
     UIImage *ImageforUpload;
     IBOutlet UIButton *homebtn;
     UIDocumentInteractionController *documentcontroller;
@@ -25,7 +25,10 @@
     NSURL *url;
     UITextView *textView;
     UIImageView *ImgView;
+    UIActivityIndicatorView *activityIndicator;
     
 }
 @property(nonatomic,strong)NSString *Taskidstr;
+//@property(nonatomic,strong)UIImage *ImageforUpload;
+@property(strong,nonatomic)UIImagePickerController *camImagePickerController;
 @end
