@@ -13,7 +13,9 @@
 #import "AFHTTPSessionManager.h"
 //#import "AFURLConnectionOperation.h"
 #import <Foundation/Foundation.h>
+#import "FileUploadViewController.h"
 #import "JSONKit.h"
+#import "LoginAppDelegate.h"
 
 
 
@@ -26,6 +28,7 @@
 
 @implementation Webservices
 {
+    FileUploadViewController *fileupload;
     
 }
 @synthesize delegate;
@@ -1263,42 +1266,93 @@
 
 }
 
--(void)uploadTextClass:(NSString *)uploadTaskText uploadTextparams:(NSString *)uplaodtextparameters
+-(void)uploadTextClass:(NSString *)uploadTaskText uploadTextparams:(NSDictionary *)uplaodtextparameters
 {
-    NSURL *urlstr=[NSURL URLWithString:uploadTaskText];
-    NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:urlstr];
-    //sets the receiver’s timeout interval, in seconds
-    [urlRequest setTimeoutInterval:30.0f];
-    //sets the receiver’s HTTP request method
-    [urlRequest setHTTPMethod:@"POST"];
-    //sets the request body of the receiver to the specified data.
-    [urlRequest setHTTPBody:[uplaodtextparameters dataUsingEncoding:NSUTF8StringEncoding]];
+    //LoginAppDelegate *appDelegate = (LoginAppDelegate *)[[UIApplication sharedApplication] delegate];
+    
+    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
     
-    //allocate a new operation queue
-    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
-    //Loads the data for a URL request and executes a handler block on an
-    //operation queue when the request completes or fails.
-    [NSURLConnection
-     sendAsynchronousRequest:urlRequest
-     queue:queue
-     completionHandler:^(NSURLResponse *response,
-                         NSData *data,
-                         NSError *error) {
-         if ([data length] >0 && error == nil){
-             //process the JSON response
-             //use the main queue so that we can interact with the screen
-             dispatch_async(dispatch_get_main_queue(), ^{
-                 [delegate uploadtasktextservice:data];             });
-         }
-         else if ([data length] == 0 && error == nil)
-         {
-             NSLog(@"Empty Response, not sure why?");
-         }
-         else if (error != nil){
-             NSLog(@"Not again, what is the error = %@", error);
-         }
-     }];
+    
+    manager.responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
+    NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:uploadTaskText parameters:uplaodtextparameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData)
+                                    {
+                                        
+                                        
+                                            
+                                            [formData appendPartWithFileData:_imgdata name:@"profile_pic" fileName:_filename mimeType:@"image/jpeg/mp3"];
+                                        
+                                        
+                                    } error:nil];
+    
+    NSURLSessionUploadTask *uploadTask;
+    uploadTask = [manager
+                  uploadTaskWithStreamedRequest:request
+                  progress:^(NSProgress * _Nonnull uploadProgress)
+              {
+                      // This is not called back on the main queue.
+                      // You are responsible for dispatching to the main queue for UI updates
+                     ;
+                  }
+                  completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
+                      if (error)
+                      {
+                          
+                          
+                      }
+                      else
+                      {
+                         [delegate uploadtasktextservice:responseObject];
+                          NSLog(@"response obje is %@",responseObject);
+                      }
+                  }];
+    
+    [uploadTask resume];
+    
+
+}
+-(void)textuploadtask:(NSString *)textuploadingtaskclass textuploadingtaskparams:(NSString *)textuploadingparameters
+{
+    
+        NSURL *urlstr=[NSURL URLWithString:textuploadingtaskclass];
+        NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:urlstr];
+        //sets the receiver’s timeout interval, in seconds
+        [urlRequest setTimeoutInterval:30.0f];
+        //sets the receiver’s HTTP request method
+    
+        //[urlRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+          [urlRequest setHTTPMethod:@"POST"];
+    
+            //sets the request body of the receiver to the specified data.
+        [urlRequest setHTTPBody:[textuploadingparameters dataUsingEncoding:NSUTF8StringEncoding]];
+    
+        //allocate a new operation queue
+        NSOperationQueue *queue = [[NSOperationQueue alloc] init];
+        //Loads the data for a URL request and executes a handler block on an
+        //operation queue when the request completes or fails.
+        [NSURLConnection
+         sendAsynchronousRequest:urlRequest
+         queue:queue
+         completionHandler:^(NSURLResponse *response,
+                             NSData *data,
+                             NSError *error)
+    
+        {
+    
+            if ([data length] >0 && error == nil){
+                 //process the JSON response
+                 //use the main queue so that we can interact with the screen
+                 dispatch_async(dispatch_get_main_queue(), ^{
+                     [delegate textuploadingservice:data];             });
+             }
+             else if ([data length] == 0 && error == nil)
+             {
+                 NSLog(@"Empty Response, not sure why?");
+             }
+             else if (error != nil){
+                 NSLog(@"Not again, what is the error = %@", error);
+             }
+         }];
 
 }
 
@@ -1320,6 +1374,48 @@
      {
          NSLog(@"Error: %@", error);
      }];
+
+}
+-(void)audiouploading:(NSString *)audiouplaodingclass audiouploadingparams:(NSDictionary *)audiouploadingparameters
+{
+    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+    
+    
+    
+    manager.responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
+    NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:audiouplaodingclass parameters:audiouploadingparameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData)
+                                    {
+                                        
+                                        
+                                        
+                                        [formData appendPartWithFileData:_imgdata name:@"files" fileName:_filename mimeType:@"audio/mpeg"];
+                                        
+                                        
+                                    } error:nil];
+    
+    NSURLSessionUploadTask *uploadTask;
+    uploadTask = [manager
+                  uploadTaskWithStreamedRequest:request
+                  progress:^(NSProgress * _Nonnull uploadProgress)
+                  {
+                      // This is not called back on the main queue.
+                      // You are responsible for dispatching to the main queue for UI updates
+                      ;
+                  }
+                  completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
+                      if (error)
+                      {
+                          NSLog(@"error occured");
+                          
+                      }
+                      else
+                      {
+                          [delegate uploadtasktextservice:responseObject];
+                          NSLog(@"response obje is %@",responseObject);
+                      }
+                  }];
+    
+    [uploadTask resume];
 
 }
 

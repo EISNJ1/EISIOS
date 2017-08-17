@@ -59,10 +59,10 @@
     [super viewDidLoad];
 	view1.layer.borderColor = [UIColor purpleColor].CGColor;
     view1.layer.borderWidth = 3.0f;
-    [Usernametxtfield setText:@"Ravivupp"];
+    [Usernametxtfield setText:@"srini1"];
     Usernametxtfield.delegate = self;
     Passwordtxtfield.secureTextEntry= YES;
-    [Passwordtxtfield setText:@"RVuppala1"];
+    [Passwordtxtfield setText:@"srini1"];
     Passwordtxtfield.delegate=self;
     
     
@@ -131,6 +131,11 @@
     LoginCredentials=[[NSMutableArray alloc]init];
     
   resultArray = [dict objectForKey:@"userDeatils"];
+    
+    
+   
+    
+    
     for(NSDictionary *fbId in resultArray)
     {
        [LoginCredentials addObject:[fbId valueForKey:@"userName"]];
@@ -138,6 +143,13 @@
         [LoginCredentials addObject:[fbId valueForKey:@"userId"]];
         [LoginCredentials addObject:[fbId valueForKey:@"orgId"]];
         [LoginCredentials addObject:[fbId valueForKey:@"userStatus"]];
+        NSString *firstname=[fbId valueForKey:@"firstName"];
+        NSString *lastname=[fbId valueForKey:@"lastName"];
+        NSString *namestr=[firstname stringByAppendingString:@" "];
+        NSString *namestr1 =[namestr stringByAppendingString:lastname];
+        NSLog(@"name str is %@",namestr1);
+        [LoginCredentials addObject:namestr1];
+        
     }
 
     NSLog(@"array is %@",LoginCredentials);
@@ -146,13 +158,14 @@
         [self SaveDatabase];
         
         NSUserDefaults *defaul =[ NSUserDefaults standardUserDefaults];
-        [defaul setObject:[LoginCredentials objectAtIndex:0]forKey:@"UserName"];
+        [defaul setObject:[LoginCredentials objectAtIndex:5]forKey:@"UserName"];
         [defaul setObject:[LoginCredentials objectAtIndex:2] forKey:@"UserId"];
         [defaul setObject:[LoginCredentials objectAtIndex:4] forKey:@"UserType"];
         [defaul setObject:[LoginCredentials objectAtIndex:3] forKey:@"OrgId"];
         [defaul synchronize];
         GridVC = [self.storyboard instantiateViewControllerWithIdentifier:@"GridView"];
-        GridVC.UserNamestr = [LoginCredentials objectAtIndex:0];
+        GridVC.UserNamestr = [LoginCredentials objectAtIndex:5
+                              ];
         [self.navigationController pushViewController:GridVC animated:YES];
         
 

@@ -93,11 +93,44 @@
 }
 -(void)ListofVideos
 {
-    NSString *TaskFileurl  = @"TasksFilesList";
-    NSDictionary *credentials = @{@"taskId":_TaskIdstr,@"fileType":fileType};
-   // [Servicecall TaskFileListurl:TaskFileurl TaskFileListParameters:credentials];
+    NSString *filetype1=@"Video";
+    NSString *TaskFileurl  = [NSString stringWithFormat:@"https://2-dot-eiswebservice1-173410.appspot.com/_ah/api/task/v1/taskFilesList?taskId=%@&fileType=%@",_TaskIdstr,filetype1];
+    [Servicecall taskfileslist:TaskFileurl];
     [Servicecall setDelegate:self];
 }
+-(void)taskfilelistservice:(id)taskfilelistresponse
+{
+    NSDictionary *dict=[[NSDictionary alloc]init];
+    dict=taskfilelistresponse;
+    NSLog(@"the dict is %@",dict);
+    
+    if ([[dict valueForKey:@"statusMessage"]isEqualToString:@"No Data"])
+    {
+        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Alert" message:@"audio list is empty" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+        [alert show];
+        [alert dismissWithClickedButtonIndex:0 animated:YES];
+    }
+    else
+    {
+        FILE_NAMEArray                  =[NSMutableArray new];
+        TASK_UPDATE_IDArray             =[NSMutableArray new];
+        
+        FILE_URL_Array                   =[NSMutableArray new];
+        
+        NSArray *resultarray=[dict valueForKey:@"beanData"];
+        for (NSDictionary *fidd in resultarray)
+        {
+            [FILE_URL_Array addObject:[fidd valueForKey:@"taskURL"]];
+            [TASK_UPDATE_IDArray addObject:[fidd valueForKey:@"taskFileId"]];
+            [FILE_NAMEArray addObject:[fidd valueForKey:@"fileName"]];
+        }
+        
+        [VideosTV reloadData];
+        
+    }
+}
+
+
 -(IBAction)UploadBtnTapped:(id)sender
 {
     selectionView = [[UIView alloc] initWithFrame:CGRectMake(87, 523, 606, 241)];
@@ -223,6 +256,7 @@
         {
             NSURL *videoURL = [info valueForKey:UIImagePickerControllerMediaURL];
             Videodata = [NSData dataWithContentsOfURL:videoURL];
+            Servicecall.imgdata=Videodata;
             NSString *urlString=[videoURL path];
             NSString *videoName = urlString.lastPathComponent;
             
@@ -242,15 +276,16 @@
             [fileName appendString:@"_"];
             [fileName appendString:videodatestr];
             [fileName appendString:videoName];
+            
+            Servicecall.filename=fileName;
             NSLog(@"chandu %@",fileName);
             
-            TaskHistorystr = @"value";
+            TaskHistorystr = @"";
             
-            NSString *UploadTaskUrl =@"UploadFilesForTasks";
-            NSDictionary *credentials =@{@"taskId":_TaskIdstr,@"fileType":fileType,@"date":datestr,@"fileName":fileName,@"fileBytes":fileBytes,@"byteLenth":byteLenth,@"taskHistory":TaskHistorystr};
-            //[Servicecall UploadTask:UploadTaskUrl UploadTaskParameters:credentials];
-            [Servicecall setDelegate:self];
+            NSString *UploadTaskUrl = [NSString stringWithFormat:@"https://2-dot-eiswebservice1-173410.appspot.com/_ah/api/task/v1/taskUploadFile"];
             
+            NSDictionary *credentials1 =@{@"fileName":fileName,@"fileType":fileType,@"fileBytes":fileBytes, @"taskId":_TaskIdstr,@"taskDate":datestr,@"taskHistory":@""};
+            [Servicecall audiouploading:UploadTaskUrl audiouploadingparams:credentials1];
             [picker dismissViewControllerAnimated:YES completion:nil];
         }
         
@@ -352,6 +387,20 @@
     //    //    NSLog(@"responseStatusCode %@",[request responseString]);
     //    //    progressIndicator.hidden=NO;
     //}
+}
+
+-(void)uploadtasktextservice:(id)uploadtasktextresponse
+{
+    NSDictionary *dict=uploadtasktextresponse;
+    NSLog(@"the dict is %@",dict);
+    
+    if ([[dict valueForKey:@"statusMessage"]isEqualToString:@"Uploaded"])
+    {
+        UIAlertView *alertview=[[UIAlertView alloc]initWithTitle:@"Alert" message:@"Audio uploaded successfully" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+        [alertview show];
+        [alertview dismissWithClickedButtonIndex:0 animated:YES];
+        [self ListofVideos];
+    }
 }
 
 -(void)Downloading:(float)Downloading
@@ -635,7 +684,7 @@
     if (fileExists)
     {
         
-        NSURL *videoURL = [NSURL fileURLWithPath:filePath];
+        NSURL *videoURL = [NSURL URLWithString:fileURL];
         NSLog(@"existig url is%@",videoURL);
         
         NSString *sourcePath =[videoURL path];
@@ -661,7 +710,7 @@
             
             NSLog(@"the file path is %@",filePath);
             
-            NSURL *audioURL = [NSURL fileURLWithPath:filePath];
+            NSURL *audioURL = [NSURL URLWithString:fileURL];
             
             NSString *sourcePath =[audioURL path];
             UISaveVideoAtPathToSavedPhotosAlbum(sourcePath,nil,nil,nil);

@@ -38,7 +38,7 @@
 
 - (void)viewDidLoad
 {
-    fileType = @"Image";
+    fileType = @"file";
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     Usernamestr = [defaults objectForKey:@"UserName"];
     Useridstr   = [defaults objectForKey:@"UserId"];
@@ -128,7 +128,7 @@
         {
             [FileNamesArray addObject:[fidd valueForKey:@"fileName"]];
             [FILE_URL_Array addObject:[fidd valueForKey:@"taskURL"]];
-            [TaskUpdateIdArray addObject:[fidd valueForKey:@"taskFileId"]];
+            [TaskUpdateIdArray addObject:[fidd valueForKey:@"taskId"]];
         }
         [FileTV reloadData];
 
@@ -162,11 +162,24 @@
 
 -(IBAction)atachmentsGalaryBtnClk:(id)sender
 {
-    [selectionView removeFromSuperview];
-    camImagePickerController = [[UIImagePickerController alloc] init];
-    camImagePickerController.delegate=self;
-    camImagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
-    [self presentViewController:camImagePickerController  animated:YES completion:nil];
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
+    {
+    
+      [selectionView removeFromSuperview];
+    _camImagePickerController = [[UIImagePickerController alloc] init];
+    _camImagePickerController.delegate=self;
+
+        _camImagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
+        [self presentViewController:_camImagePickerController  animated:YES completion:nil];
+    }
+    else
+    {
+        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Alert" message:@"please select camera source" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+        [alert show];
+        [alert dismissWithClickedButtonIndex:0 animated:YES];
+        
+    }
+  
 }
 
 - (IBAction)ChooseFromGallery:(id)sender
@@ -185,7 +198,7 @@
 {
     
     
-    if (picker == camImagePickerController)
+    if (picker == _camImagePickerController)
     {
         ImageforUpload=[info objectForKey:@"UIImagePickerControllerOriginalImage"];
          ImageforUpload = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
@@ -197,10 +210,18 @@
     ImageforUpload = [info valueForKey:UIImagePickerControllerOriginalImage];
         [picker dismissViewControllerAnimated:YES completion:nil];
     }
+    NSLog(@"the image name is %@",ImageforUpload);
     
-    NSData* imageData = UIImageJPEGRepresentation(ImageforUpload, 1.0);
-    fileBytes = [imageData base64EncodedStringWithOptions:0];
-    //NSLog(@"bytes %@",imageData);
+    
+    
+    NSData* imageData = UIImageJPEGRepresentation(ImageforUpload,1);
+    
+    Servicecall.imgdata=imageData;
+    
+    
+   
+    fileBytes = [imageData base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];
+    //NSLog(@"bytes %@",fileBytes);
     
     int len = [imageData length];
     byteLenth = [NSString stringWithFormat:@"%d",len];
@@ -210,52 +231,69 @@
     datestr = [formatter stringFromDate:date];
     
     
-    
-    //Or you can get the image url from AssetsLibrary
-    //NSString *path = [info valueForKey:UIImagePickerControllerReferenceURL];
-    
     NSURL *refURL = [info valueForKey:UIImagePickerControllerReferenceURL];
     
-    // define the block to call when we get the asset based on the url (below)
+    
     ALAssetsLibraryAssetForURLResultBlock resultblock = ^(ALAsset *imageAsset)
     {
         
         ALAssetRepresentation *imageRep = [imageAsset defaultRepresentation];
         NSLog(@"[imageRep filename] : %@", [imageRep filename]);
         
-        
-        
     };
     
     fileName = [[NSMutableString alloc]initWithString:Usernamestr];
+    [fileName appendString:@"_"];
+    NSLog(@"fil e name is %@",fileName);
     NSDateFormatter *formatter1 = [[NSDateFormatter alloc] init];
-    [formatter1 setDateFormat:@"yyyy-MM-dd"];
+    [formatter1 setDateFormat:@"yyyy-MM-ddHHmmss"];
     imagedatestr = [formatter1 stringFromDate:date];
+    
     [fileName appendString:Useridstr];
     [fileName appendString:@"_"];
     [fileName appendString:_Taskidstr];
     [fileName appendString:@"_"];
     [fileName appendString:imagedatestr];
+    [fileName appendString:@"-"];
     [fileName appendString:@"image.jpg"];
+    
+    Servicecall.filename=fileName;
+    NSLog(@"file name is %@",fileName);
+
     
     TaskHistorystr = @"value";
     
     NSString *UploadTaskUrl = [NSString stringWithFormat:@"https://2-dot-eiswebservice1-173410.appspot.com/_ah/api/task/v1/taskUploadFile"];
     
-    NSString *credentials1 =[NSString stringWithFormat:@"fileName=%@&fileType=%@&fileBytes=%@&taskId=%@&taskDate=%@&taskHistory=%@",fileName,fileType,fileBytes,_Taskidstr,datestr,@""];
+    NSDictionary *credentials1 =@{@"fileName":fileName,@"fileType":fileType,@"fileBytes":fileBytes, @"taskId":_Taskidstr,@"taskDate":datestr,@"taskHistory":@""};
+    
+    //NSLog(@"the credntials are %@",credentials1);
     [Servicecall uploadTextClass:UploadTaskUrl uploadTextparams:credentials1];
     [Servicecall setDelegate:self];
-
-    //[Servicecall UploadTask:UploadTaskUrl UploadTaskParameters:credentials];
-    [Servicecall setDelegate:self];
+    
+    activityIndicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    activityIndicator.frame = CGRectMake(10.0, 0.0, 100.0, 100.0);
+    activityIndicator.center = self.view.center;
+    [self.view addSubview: activityIndicator];
+    
+    [activityIndicator startAnimating];
 
 }
 -(void)uploadtasktextservice:(id)uploadtasktextresponse
 {
-    NSData *data1=[[NSData alloc]initWithData:uploadtasktextresponse];
+    [activityIndicator stopAnimating];
+    NSDictionary *data1=uploadtasktextresponse;
     NSError *error;
-    NSDictionary *Dcittt=[NSJSONSerialization JSONObjectWithData:data1 options:NSJSONReadingMutableContainers error:&error];
-    NSLog(@"file uploading response is %@",Dcittt);
+    //NSDictionary *Dcittt=[NSJSONSerialization JSONObjectWithData:data1 options:NSJSONReadingMutableContainers error:&error];
+    NSLog(@"file uploading response is %@",data1);
+    
+    if ([[data1 valueForKey:@"statusMessage"]isEqualToString:@"Uploaded"])
+    {
+        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Alert" message:@"File Uplaoded successfully" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+        [alert show];
+        [alert dismissWithClickedButtonIndex:0 animated:YES];
+        [self ListOfFiles];
+    }
 }
 -(void)UpoloadImage
 {
@@ -489,25 +527,22 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+    NSLog(@"the file url array is %@",FILE_URL_Array);
     NSLog(@"wlcome to file uploading");
    fileurl=[FILE_URL_Array objectAtIndex:indexPath.row];
+    //fileurl=[fileurl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSLog(@"file url is %@",fileurl);
     NSArray *parts = [fileurl componentsSeparatedByString:@"/"];
     NSString *filename = [parts lastObject];
     
-    NSString *extn =[filename pathExtension];
-    
-    NSString *extn1=[extn stringByReplacingOccurrencesOfString:@"?generation=1501653157040097&alt=media" withString:@""];
-    
-    NSLog(@"file extn is %@",extn1);
     
     url = [NSURL URLWithString:fileurl];
     
-    //NSLog(@"not existing url is %@",url);
+    //NSLog(@" existing url is %@",url);
     NSData *urlData = [NSData dataWithContentsOfURL:url];
+    //NSLog(@"data url is %@",urlData);
     
-    if ([extn1 isEqualToString:@"jpg"] || [extn1 isEqualToString:@"png"])
+    if ([fileurl containsString:@"jpg"] || [fileurl containsString:@"png"])
     {
         
         
@@ -518,14 +553,21 @@
         [urlData writeToFile:filePath atomically:YES];
         
         NSLog(@"the file path is %@",filePath);
+      
         
         NSURL *audioURL = [NSURL fileURLWithPath:filePath];
+        
+        NSLog(@"the audio url path is %@",audioURL);
+        
+        NSData *dataurl=[NSData dataWithContentsOfURL:audioURL];
+        
+     
         
         NSString *sourcePath =[audioURL path];
         UISaveVideoAtPathToSavedPhotosAlbum(sourcePath,nil,nil,nil);
         
+        UIImage *image=[[UIImage alloc]initWithData:urlData];
         
-        UIImage *image = [[UIImage alloc]initWithData:urlData];
         
         NSLog(@"image is %@",image);
         
@@ -546,11 +588,10 @@
         [ImgView addSubview:myButton];
         
         //[self.view addSubview:textView];
-
-        [self.view addSubview:ImgView];
         
+        [self.view addSubview:ImgView];
     }
-   if([extn1 isEqualToString:@"pdf"]||[extn1 isEqualToString:@"pptx"]||[extn1 isEqualToString:@"docx"] ||[extn isEqualToString:@"xlsx"])
+   if([fileurl containsString:@"pdf"]||[fileurl containsString:@"pptx"]||[fileurl containsString:@"docx"] ||[fileurl containsString:@"xlsx"])
     {
         
         NSData *pdfData = [[NSData alloc]initWithContentsOfURL:url];
@@ -587,7 +628,7 @@
         
         [self.view addSubview:webView];
     }
-    if ([extn1 isEqualToString:@"ppt"])
+    if ([fileurl containsString:@"ppt"])
     {
         NSURL *url=[NSURL URLWithString:[fileurl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
         NSData* responseData = [NSData dataWithContentsOfURL:url];
@@ -614,7 +655,7 @@
         //[fileUrlRequest release];
     }
     
-    else if ([extn isEqualToString:@"txt"])
+    else if ([fileurl containsString:@"txt"])
     {
         NSString *urlString = fileurl;
         NSURL *myURL = [NSURL URLWithString:[urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
