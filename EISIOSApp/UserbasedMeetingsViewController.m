@@ -74,7 +74,7 @@
     self.navigationItem.leftBarButtonItem = barButton;
     Servicecall = [[Webservices alloc]init];
     NSLog(@"meeting id %@",_MeetingId);
-    NSString *MeetingInfourl = [NSString stringWithFormat:@"https://2-dot-eiswebservice1-173410.appspot.com/_ah/api/meeting/v1/meetingInfoList?meetingId=%@",_MeetingId];
+    NSString *MeetingInfourl = [NSString stringWithFormat:@"meeting/v1/meetingInfoList?meetingId=%@",_MeetingId];
       [Servicecall userbasedmeetingdetails:MeetingInfourl];
     [Servicecall setDelegate:self];
     
