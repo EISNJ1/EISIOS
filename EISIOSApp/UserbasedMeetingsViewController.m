@@ -74,9 +74,8 @@
     self.navigationItem.leftBarButtonItem = barButton;
     Servicecall = [[Webservices alloc]init];
     NSLog(@"meeting id %@",_MeetingId);
-    NSString *MeetingInfourl = @"MeetingInfoService";
-    NSDictionary *credentials = @{@"meetingId":_MeetingId};
-   // [Servicecall MeetingInfourl:MeetingInfourl MeetingDetails:credentials];
+    NSString *MeetingInfourl = [NSString stringWithFormat:@"https://2-dot-eiswebservice1-173410.appspot.com/_ah/api/meeting/v1/meetingInfoList?meetingId=%@",_MeetingId];
+      [Servicecall userbasedmeetingdetails:MeetingInfourl];
     [Servicecall setDelegate:self];
     
     a = [[NSArray alloc ]initWithObjects:@"Meeting",@"Time",@"Issues",@"Task",@"Requirement",@"Dash Board",@"Project Expenses", nil];
@@ -89,315 +88,75 @@
     [super didReceiveMemoryWarning];
     
 }
--(void)didFinishData:(id)Data
+-(void)userbasedmeetingdetails:(id)userbasedmeetingdetailsservice
 {
-    InfoxmlParser = [[NSXMLParser alloc]initWithData:Data];
-    InfoxmlParser.delegate = self;
-    [InfoxmlParser parse];
-}
-
-
-
-
--(void) parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName
-  namespaceURI:(NSString *)namespaceURI qualifiedName:
-(NSString *)qName attributes:(NSDictionary *)attributeDict
-{
-    if ([elementName isEqualToString:@"meetingInfoResponse"])
+    NSDictionary *dict=[[NSDictionary alloc]init];
+    
+    dict=userbasedmeetingdetailsservice;
+    NSLog(@"the userbased meeting response is %@",dict);
+    
+    MeetingDescriptionArray=[[NSMutableArray alloc]init];
+    ProjectArray=[[NSMutableArray alloc]init];
+    MeetingOwnerArray=[[NSMutableArray alloc]init];
+    MeetingInfodataArray    = [[NSMutableArray alloc] init];
+    confroomarray           = [[NSMutableArray alloc] init];
+    participentarray        = [[NSMutableArray alloc] init];
+    MeetingInfo             = [[NSMutableArray alloc] init];
+    goalsArray              = [[NSMutableArray alloc] init];
+    ObjectiveTypearray = [[NSMutableArray alloc] init];
+    ObjectiveDescrptionarray =[[NSMutableArray alloc] init];
+    goalssplitarray =[[NSArray alloc] init];
+    Participentsplitarray =[[NSArray alloc] init];
+    Confsplitarray =[[NSArray alloc] init];
+    Roomnamearray = [[NSMutableArray alloc] init];
+    Datearray = [[NSMutableArray alloc] init];
+    ResourceNamearray = [[NSMutableArray alloc] init];
+    Rolearray = [[NSMutableArray alloc] init];
+    ConfTimearray = [[NSMutableArray alloc] init];
+    MeetingTitleArray = [[NSMutableArray alloc] init];
+    MeetingInfoSplitArray = [[NSArray alloc]init];
+    ObjectiveTypeArray=[[NSMutableArray alloc]init];
+    ObjectiveTimeArray=[[NSMutableArray alloc]init];
+    ConferenceDateArray=[[NSMutableArray alloc]init];
+    RoleArray=[[NSMutableArray alloc]init];
+    
+    NSArray *resultarrray=[dict valueForKey:@"meetAL"];
+    
+    for (NSDictionary *fidd in resultarrray)
     {
-        
-        MeetingSplitstr         = [[NSString alloc] init];
-        //serverdataarray         = [[NSArray alloc] init];
-        //serverdataarray1        = [[NSArray alloc] init];
-        MeetingDescriptionArray=[[NSMutableArray alloc]init];
-        ProjectArray=[[NSMutableArray alloc]init];
-        MeetingOwnerArray=[[NSMutableArray alloc]init];
-        MeetingInfodataArray    = [[NSMutableArray alloc] init];
-        confroomarray           = [[NSMutableArray alloc] init];
-        participentarray        = [[NSMutableArray alloc] init];
-        MeetingInfo             = [[NSMutableArray alloc] init];
-        goalsArray              = [[NSMutableArray alloc] init];
-        ObjectiveTypearray = [[NSMutableArray alloc] init];
-        ObjectiveDescrptionarray =[[NSMutableArray alloc] init];
-        goalssplitarray =[[NSArray alloc] init];
-        Participentsplitarray =[[NSArray alloc] init];
-        Confsplitarray =[[NSArray alloc] init];
-        Roomnamearray = [[NSMutableArray alloc] init];
-        Datearray = [[NSMutableArray alloc] init];
-        ResourceNamearray = [[NSMutableArray alloc] init];
-        Rolearray = [[NSMutableArray alloc] init];
-        ConfTimearray = [[NSMutableArray alloc] init];
-        MeetingTitleArray = [[NSMutableArray alloc] init];
-        MeetingInfoSplitArray = [[NSArray alloc]init];
-        ObjectiveTypeArray=[[NSMutableArray alloc]init];
-        ObjectiveTimeArray=[[NSMutableArray alloc]init];
-        ConferenceDateArray=[[NSMutableArray alloc]init];
-        RoleArray=[[NSMutableArray alloc]init];
-        //uniqueDescriptionArray=[[NSMutableArray alloc]init];
-        
-        
-        
-        
-        
+        [MeetingDescriptionArray addObject:[fidd valueForKey:@"meetingDescription"]];
+        [ProjectArray addObject:[fidd valueForKey:@"projectName"]];
+        [MeetingTitleArray addObject:[fidd valueForKey:@"meetingTitle"]];
     }
-}
-- (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string
-{
-    if ([string isEqualToString:@"False"])
+    NSArray *resultarray1=[dict valueForKey:@"objAL"];
+    
+    for (NSDictionary *fidd1 in resultarray1)
     {
-        
-        
+        [ObjectiveDescrptionarray addObject:[fidd1 valueForKey:@"objectiveName"]];
+        [ObjectiveTypeArray addObject:[fidd1 valueForKey:@"objectiveType"]];
+        [ObjectiveTimeArray addObject:[fidd1 valueForKey:@"time"]];
     }
-    else
+    NSArray *reslutarray2=[dict valueForKey:@"confAL"];
+    
+    for (NSDictionary *fidd2 in reslutarray2)
     {
-        [MeetingInfodataArray addObject:string];
-        
-        //NSLog(@"sheik kahajvali");
-        //NSLog(@"meeting info data %@",MeetingInfodataArray);
-        
-        
+        [confroomarray addObject:[fidd2 valueForKey:@"roomName"]];
+        [ConfTimearray addObject:[fidd2 valueForKey:@"hours"]];
+        [ConferenceDateArray addObject:[fidd2 valueForKey:@"date"]];
     }
     
-}
-- (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName
-  namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
-{
-    if ([elementName isEqualToString:@"meetingInfoResponse"])
+    NSArray *resultarray3=[dict valueForKey:@"participantAL"];
+    
+    for (NSDictionary *fidd3 in resultarray3)
     {
-        for (int i=0; i<[MeetingInfodataArray count]; i++)
-        {
-            
-MeetingSplitArray=[[MeetingInfodataArray objectAtIndex:i]componentsSeparatedByString:@"###"];
-            NSLog(@"meeting split array is %@",MeetingSplitArray);
-            
-            
-                if ([[MeetingSplitArray objectAtIndex:0] isEqualToString:@"MeetingInfo"])
-                {
-                    [MeetingTitleArray addObject:[[MeetingSplitArray objectAtIndex:2]stringByReplacingOccurrencesOfString:@"MeetingTitle==" withString:@""]];
-                    
-                    [MeetingDescriptionArray addObject:[[MeetingSplitArray objectAtIndex:3]stringByReplacingOccurrencesOfString:@"MeetingDescrption==" withString:@""]];
-                    
-                    
-                    [ProjectArray addObject:[[MeetingSplitArray objectAtIndex:5]stringByReplacingOccurrencesOfString:@"ProjectName==" withString:@""]];
-                }
-            if ([[MeetingSplitArray objectAtIndex:0] isEqualToString:@"GoalsAndAgendaInfo"])
-            {
-                [ObjectiveDescrptionarray addObject:[[MeetingSplitArray objectAtIndex:2]stringByReplacingOccurrencesOfString:@"ObjectiveDescrption==" withString:@""]];
-                [ObjectiveTypeArray addObject:[[MeetingSplitArray objectAtIndex:3]stringByReplacingOccurrencesOfString:@"ObjectiveType==" withString:@""]];
-                [ObjectiveTimeArray addObject:[[MeetingSplitArray objectAtIndex:4]stringByReplacingOccurrencesOfString:@"Time==" withString:@""]];
-            }
-           
-            if ([[MeetingSplitArray objectAtIndex:0] isEqualToString:@"ConferenceRoomInfo"])
-            {
-                [confroomarray addObject:[[MeetingSplitArray objectAtIndex:3]stringByReplacingOccurrencesOfString:@"RoomName==" withString:@""]];
-                [ConferenceDateArray addObject:[[MeetingSplitArray objectAtIndex:4]stringByReplacingOccurrencesOfString:@"Date==" withString:@""]];
-                [ConfTimearray addObject:[[MeetingSplitArray objectAtIndex:5]stringByReplacingOccurrencesOfString:@"Time==" withString:@""]];
-                
-            }
-            //            MeetingSplitstr=[MeetingInfodataArray objectAtIndex:i];
-////            str1 = [str1 stringByAppendingString:serverdataarray];
-//             NSLog(@"meeting split string is %@",MeetingSplitstr);
-            
-            if ([[MeetingSplitArray objectAtIndex:0]isEqualToString:@"ParticipantsInfo"])
-            {
-                
-                [ResourceNamearray addObject:[[MeetingSplitArray objectAtIndex:3]stringByReplacingOccurrencesOfString:@"ResourceName==" withString:@""]];
-                [RoleArray addObject:[[MeetingSplitArray objectAtIndex:4]stringByReplacingOccurrencesOfString:@"Role==" withString:@""]];
-            }
-            
-//            {
-//                
-//                [goalsArray addObject:MeetingSplitstr];
-//                for (int j=0; j<[goalsArray count]; j++)
-//                {
-//                 
-//                goalssplitarray = [[goalsArray objectAtIndex:j]componentsSeparatedByString:@"###"];
-//                [ObjectiveDescrptionarray addObject:[[goalssplitarray objectAtIndex:2] stringByReplacingOccurrencesOfString:@"ObjectiveDescrption==" withString:@""]];
-//                [ObjectiveTypearray addObject:[[goalssplitarray objectAtIndex:3] stringByReplacingOccurrencesOfString:@"ObjectiveType==" withString:@""]];
-//                
-//                    [ObjectiveTimeArray addObject:[[goalssplitarray objectAtIndex:4]stringByReplacingOccurrencesOfString:@"Time==" withString:@""]];
-//                    
-//                    NSLog(@"agenda description array is %@",ObjectiveDescrptionarray);
-//                    NSLog(@"agenda type array is %@",ObjectiveTypearray);
-//                    NSLog(@"agenda type array is %@",ObjectiveTimeArray);
-//                    
-//                    
-//                    uniqueDescriptionArray = [[NSMutableArray alloc]init];
-//                    
-//                    [uniqueDescriptionArray addObjectsFromArray:[[NSSet setWithArray:ObjectiveDescrptionarray] allObjects]];
-//                    uniqueObjeciteTypeArray = [[NSMutableArray alloc]init];
-//                    
-//                    [uniqueObjeciteTypeArray addObjectsFromArray:[[NSSet setWithArray:ObjectiveTypearray] allObjects]];
-//                    uniqueObjectiveTimeArry = [[NSMutableArray alloc]init];
-//                    
-//                    [uniqueObjectiveTimeArry addObjectsFromArray:[[NSSet setWithArray:ObjectiveTimeArray] allObjects]];
-//                    NSLog(@"unique array is %@",uniqueDescriptionArray);
-//                     NSLog(@"unique array is %@",uniqueObjectiveTimeArry);
-//                    
-//                }
-//                
-//
-//                
-//            }
-//            if ([MeetingSplitstr rangeOfString:@"ConferenceRoomInfo"].location == !NSNotFound)
-//            {
-//                
-//                [confroomarray addObject:MeetingSplitstr];
-//                for (int j=0; j<[confroomarray count]; j++)
-//            
-//                {
-//                
-//               Confsplitarray = [[confroomarray objectAtIndex:j] componentsSeparatedByString:@"###"];
-//               [Roomnamearray addObject:[[Confsplitarray objectAtIndex:3] stringByReplacingOccurrencesOfString:@"RoomName==" withString:@""]];
-//               [ConferenceDateArray addObject:[[Confsplitarray objectAtIndex:4] stringByReplacingOccurrencesOfString:@"Date==" withString:@""]];
-//               [ConfTimearray addObject:[[Confsplitarray objectAtIndex:5]  stringByReplacingOccurrencesOfString:@"Time==" withString:@""]];
-//                    NSLog(@"room is %@",Roomnamearray);
-//
-//                }
-//            }
-//            
-//            if ([MeetingSplitstr rangeOfString:@"ParticipantsInfo"].location == !NSNotFound)
-//            {
-//                
-//                [participentarray addObject:MeetingSplitstr];
-//                for (int j=0; j<[participentarray count]; j++)
-//                {
-//                           
-//                Participentsplitarray = [[participentarray objectAtIndex:j]componentsSeparatedByString:@"###"];
-//                    [Participentsplitarray removeObjectAtIndex:0];
-//                    // NSLog(@"split participants is %@",Participentsplitarray);
-//                    
-//                ResourceNameStr=[[Participentsplitarray objectAtIndex:2]stringByReplacingOccurrencesOfString:@"ResourceName==" withString:@""];
-//               RoleNameStr=[[Participentsplitarray objectAtIndex:3] stringByReplacingOccurrencesOfString:@"Role==" withString:@""];
-//                
-//                    
-//                    [ResourceNamearray addObject:ResourceNameStr];
-//                    [Rolearray addObject:RoleNameStr];
-//               // NSLog(@"goals is %@",Rolearray);
-//                    
-//                    //NSLog(@"Resource Name array %@",ResourceNamearray);
-//                    uniqueResourceName = [[NSMutableArray alloc]init];
-//                    
-//                    [uniqueResourceName addObjectsFromArray:[[NSSet setWithArray:ResourceNamearray] allObjects]];
-//                    
-//                    ResourceDitionary=[[NSDictionary alloc]initWithObjects:Rolearray  forKeys:ResourceNamearray];
-//                    
-//                    dictionaryArray=[[NSMutableArray alloc]initWithArray:[ResourceDitionary allKeys]];
-//                    NSLog(@"dictionary keys are %@",dictionaryArray);
-//                    dictionaryArray1Vaiues=[[NSMutableArray alloc]initWithArray:[ResourceDitionary allValues]];
-//                    NSLog(@"dicitionary values are %@",dictionaryArray1Vaiues);
-//                 }
-                [UserbasedMeetingTV reloadData];
-//            }
-//            NSLog(@"resource dictionary is %@",ResourceDitionary);
-//        }
-            //            NSLog(@"meeting description array is %@",MeetingDescriptionArray);
-          
-            //NSLog(@"meeting title array is %@",MeetingTitleArray);
-            
-        }
-        NSLog(@"meeting title array is %@",MeetingTitleArray);
-        NSLog(@"meeting description array is %@",MeetingDescriptionArray);
-        NSLog(@"project name array is %@",ProjectArray);
-        NSLog(@"objective description title array is %@",ObjectiveDescrptionarray);
-        NSLog(@"objective  type array is %@",ObjectiveTypeArray);
-        NSLog(@"objective time array is %@",ObjectiveTimeArray);
-        NSLog(@"confrence room array is %@",confroomarray);
-        NSLog(@"conference  date array is %@",ConferenceDateArray);
-        NSLog(@"conferen time array is %@",ConfTimearray);
-    NSLog(@"resource name array is %@",ResourceNamearray);
-    NSLog(@"role array is %@",RoleArray);
+        [ResourceNamearray addObject:[fidd3 valueForKey:@"participantName"]];
+        [RoleArray addObject:[fidd3 valueForKey:@"role"]];
+    }
     
-        
-//        for (int j=0; j<[goalsmeetingarray count]; j++)
-//        {
-//            // [goalssplitarray addObject:[goalsmeetingarray objectAtIndex:1]];
-//            goalssplitarray = [[goalsmeetingarray objectAtIndex:j] componentsSeparatedByString:@"###"];
-//            
-//            NSLog(@"log split is %@",goalssplitarray);
-//            
-//            
-//            for (int k=1; k<[goalssplitarray count]; k++)
-//                
-//            {
-//                
-//                ObjectiveDescrption = [goalssplitarray objectAtIndex:2];
-//                ObjectiveType = [goalssplitarray objectAtIndex:3];
-//                
-//                goalsagTimestr = [goalssplitarray objectAtIndex:4];
-//                
-//            }
-//            
-//            
-//            [ObjectiveDescrptionarray addObject:[ObjectiveDescrption stringByReplacingOccurrencesOfString:@"ObjectiveDescrption==" withString:@""]];
-//            [ObjectiveTypearray addObject:[ObjectiveType stringByReplacingOccurrencesOfString:@"ObjectiveType==" withString:@""]];
-//            [goalsagTimearray addObject:[goalsagTimestr stringByReplacingOccurrencesOfString:@"Time==" withString:@""]];
-//            NSLog(@"ObjectiveDescrptionarray is chandu %@",ObjectiveDescrptionarray);
-//        }
-//        [goalsAgendaDetailsTable reloadData];
-//                }
-//        
-//        for (int j=0; j<[confroomarray count]; j++)
-//            
-//        {
-//            // [goalssplitarray addObject:[goalsmeetingarray objectAtIndex:1]];
-//            Confsplitarray = [[confroomarray objectAtIndex:j] componentsSeparatedByString:@"###"];
-//            NSLog(@"log split is %@",Confsplitarray);
-//            
-//            
-//            for (int k=1; k<[Confsplitarray count]; k++)
-//                
-//            {
-//                
-//                RoomNamestr = [Confsplitarray objectAtIndex:3];
-//                Datestr = [Confsplitarray objectAtIndex:4];
-//                Conftimestr = [Confsplitarray objectAtIndex:5];
-//                
-//            }
-//            
-//            
-//            [Roomnamearray addObject:[RoomNamestr stringByReplacingOccurrencesOfString:@"RoomName==" withString:@""]];
-//            [Datearray addObject:[Datestr stringByReplacingOccurrencesOfString:@"Date==" withString:@""]];
-//            [ConfTimearray addObject:[Conftimestr stringByReplacingOccurrencesOfString:@"Time==" withString:@""]];
-//            //NSLog(@"ObjectiveDescrptionarray is chandu %@",ObjectiveDescrptionarray);
-//        }
-//        
-//        [conferenceRoomTable reloadData];
-//        
-//        
-//        for (int j=0; j<[participentarray count]; j++)
-//        {
-//            // [goalssplitarray addObject:[goalsmeetingarray objectAtIndex:1]];
-//            Participentsplitarray = [[participentarray objectAtIndex:j] componentsSeparatedByString:@"###"];
-//            NSLog(@"log split is %@",Participentsplitarray);
-//            
-//            
-//            for (int k=1; k<[Participentsplitarray count]; k++)
-//                
-//            {
-//                
-//                ResourceNamestr = [Participentsplitarray objectAtIndex:3];
-//                Rolestr = [Participentsplitarray objectAtIndex:4];
-//                
-//                
-//            }
-//            
-//            
-//            [ResourceNamearray addObject:[ResourceNamestr stringByReplacingOccurrencesOfString:@"ResourceName==" withString:@""]];
-//            [Rolearray addObject:[Rolestr stringByReplacingOccurrencesOfString:@"Role==" withString:@""]];
-//            NSLog(@"ObjectiveDescrptionarray is chandu %@",ObjectiveDescrptionarray);
-        }
-//        [participantsTable reloadData];
-//        
-    //      NSLog(@"meeting title array is %@",MeetingTitleArray);
-    
-//    
-//    
-//    
-//    
-
+     [UserbasedMeetingTV reloadData];
 
 }
+
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -460,7 +219,7 @@ MeetingSplitArray=[[MeetingInfodataArray objectAtIndex:i]componentsSeparatedBySt
         meetingDescription.font=[UIFont boldSystemFontOfSize:18];
         [cell.contentView addSubview:meetingDescription];
         NSLog(@"nslogggg1");
-        UILabel *projectName=[[UILabel alloc]initWithFrame:CGRectMake(10, meetingDescription.frame.origin.y+40, 180, 30)];
+        UILabel *projectName=[[UILabel alloc]initWithFrame:CGRectMake(10, meetingDescription.frame.origin.y+40, 220, 30)];
         projectName.text=@"Project Name:";
         projectName.font=[UIFont boldSystemFontOfSize:18];
         [cell.contentView addSubview:projectName];
@@ -473,11 +232,11 @@ MeetingSplitArray=[[MeetingInfodataArray objectAtIndex:i]componentsSeparatedBySt
         NSLog(@"nslogggg3");
         
         NSLog(@"owner name is %@",_ownerName);
-        UILabel *meetingtitleText=[[UILabel alloc]initWithFrame:CGRectMake(meetingtitleLabel.frame.origin.x+300, 10, 180, 30)];
+        UILabel *meetingtitleText=[[UILabel alloc]initWithFrame:CGRectMake(meetingtitleLabel.frame.origin.x+300, 10, 300, 30)];
         meetingtitleText.text=[MeetingTitleArray objectAtIndex:indexPath.row];
         [cell.contentView addSubview:meetingtitleText];
         
-        UILabel *meetingDescriptionText=[[UILabel alloc]initWithFrame:CGRectMake(meetingDescription.frame.origin.x+300, meetingtitleText.frame.origin.y+40, 180, 30)];
+        UILabel *meetingDescriptionText=[[UILabel alloc]initWithFrame:CGRectMake(meetingDescription.frame.origin.x+300, meetingtitleText.frame.origin.y+40, 260, 30)];
         meetingDescriptionText.text=[MeetingDescriptionArray objectAtIndex:indexPath.row];
         [cell.contentView addSubview:meetingDescriptionText];
         NSLog(@"nslogggg5");
@@ -496,18 +255,6 @@ MeetingSplitArray=[[MeetingInfodataArray objectAtIndex:i]componentsSeparatedBySt
         
 
 
-//
-//        UILabel *meetingDescriptionText=[[UILabel alloc]initWithFrame:CGRectMake(50, meetingtitleText.frame.origin.y+30, 180, 30)];
-//        meetingDescription.text=[MeetingDescriptionArray objectAtIndex:indexPath.row];
-//        [cell.contentView addSubview:meetingDescriptionText];
-//        
-//        UILabel *ProjectText=[[UILabel alloc]initWithFrame:CGRectMake(50, meetingDescriptionText.frame.origin.y+30, 180, 30)];
-//        ProjectText.text=[ProjectArray objectAtIndex:indexPath.row];
-//        [cell.contentView addSubview:ProjectText];
-
-        
-        
-        //return cell;
 
     }
    else if ([indexPath section]==1)

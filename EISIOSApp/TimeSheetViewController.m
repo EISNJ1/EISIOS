@@ -187,7 +187,7 @@
 -(void)tableServiceCall
 {
     Servicecall = [[Webservices alloc]init];
-    NSString *projectLstForTask =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/timesheet/v1/timeSheetList?userId=%@&userType=%@&orgId=%@",Useridstr,Usertypestr,orgIdstr];
+    NSString *projectLstForTask =[NSString stringWithFormat:@"https://2-dot-eiswebservice1-173410.appspot.com/_ah/api/timesheet/v1/timeSheetList?userId=%@&userType=%@&orgId=%@",Useridstr,Usertypestr,orgIdstr];
     [Servicecall timesheet:projectLstForTask];
     [Servicecall setDelegate:self];
 
@@ -458,7 +458,7 @@
         NSLog(@"clickedButtonAtIndex and button index is %d",buttonIndex);
         
         Servicecall = [[Webservices alloc]init];
-            NSString *projectLstForTask = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/timesheet/v1/approveTimeSheet"];
+        NSString *projectLstForTask = [NSString stringWithFormat:@"https://2-dot-eiswebservice1-173410.appspot.com/_ah/api/timesheet/v1/approveTimeSheet"];
 ;
         
         //timeSheetLineId, approvedFlag, approvedBy, reason

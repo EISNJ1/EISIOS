@@ -89,7 +89,7 @@
 
 -(IBAction)LoginBtnTapped:(id)sender
 {
-   NSString *stringurl=[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/bp/v1/userLogin?userName=%@&password=%@",Usernametxtfield.text,Passwordtxtfield.text];
+   NSString *stringurl=[NSString stringWithFormat:@"bp/v1/userLogin?userName=%@&password=%@",Usernametxtfield.text,Passwordtxtfield.text];
    NSString *encode=[stringurl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     Servicecall=[[Webservices alloc]init];
    [Servicecall loginUrl:encode];
@@ -134,7 +134,7 @@
     
     
    
-    
+    //NSLog(@"name str is %@",namestr1);
     
     for(NSDictionary *fbId in resultArray)
     {
@@ -147,7 +147,6 @@
         NSString *lastname=[fbId valueForKey:@"lastName"];
         NSString *namestr=[firstname stringByAppendingString:@" "];
         NSString *namestr1 =[namestr stringByAppendingString:lastname];
-        NSLog(@"name str is %@",namestr1);
         [LoginCredentials addObject:namestr1];
         
     }
@@ -158,14 +157,13 @@
         [self SaveDatabase];
         
         NSUserDefaults *defaul =[ NSUserDefaults standardUserDefaults];
-        [defaul setObject:[LoginCredentials objectAtIndex:5]forKey:@"UserName"];
+        [defaul setObject:[LoginCredentials objectAtIndex:0]forKey:@"UserName"];
         [defaul setObject:[LoginCredentials objectAtIndex:2] forKey:@"UserId"];
         [defaul setObject:[LoginCredentials objectAtIndex:4] forKey:@"UserType"];
         [defaul setObject:[LoginCredentials objectAtIndex:3] forKey:@"OrgId"];
         [defaul synchronize];
         GridVC = [self.storyboard instantiateViewControllerWithIdentifier:@"GridView"];
-        GridVC.UserNamestr = [LoginCredentials objectAtIndex:5
-                              ];
+        GridVC.UserNamestr = [LoginCredentials objectAtIndex:0];
         [self.navigationController pushViewController:GridVC animated:YES];
         
 

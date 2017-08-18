@@ -35,6 +35,7 @@
 -(void)saveactionitem:(id)actionitemresponse;
 -(void)savenotes:(id)saveNotes;
 -(void)savefeedback:(id)saveFeedback;
+-(void)userbasedmeetingdetails:(id)userbasedmeetingdetailsservice;
 
 //Timesheet
 
@@ -182,6 +183,7 @@
 -(void)saveactionitemUrl:(NSString *)saveactionitemclass saveactionitemparams:(NSString *)saveactionitemparameters;
 -(void)savenotesUrl:(NSString *)savenoteslist savenotesparams:(NSString *)savenotesurl;
 -(void)savefeedbackUrl:(NSString *)Savefeedback savefeedbackparams:(NSString *)saveFeedbackUrl;
+-(void)userbasedmeetingdetails:(NSString *)userbasedmeetingdetailsclass;
 
 
 #pragma Timesheet json services

@@ -346,7 +346,7 @@
 
 -(void)ConfRoomList
 {
-       NSString *ConfRoomListurl=[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/meeting/v1/conferenceRoomSpinner?orgId=%@",orgIdstr];
+       NSString *ConfRoomListurl=[NSString stringWithFormat:@"meeting/v1/conferenceRoomSpinner?orgId=%@",orgIdstr];
     
     NSString *encode=[ConfRoomListurl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     Servicecall=[[Webservices alloc]init];
@@ -384,7 +384,7 @@
 
 -(void)MeetingListPicker
 {
-    NSString *meetingtypeurl=[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/meeting/v1/meetingTypeSpinner?orgId=%@",orgIdstr];
+    NSString *meetingtypeurl=[NSString stringWithFormat:@"meeting/v1/meetingTypeSpinner?orgId=%@",orgIdstr];
     NSString *encode=[meetingtypeurl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     Servicecall=[[Webservices alloc]init];
     [Servicecall meetingTypeUrl:meetingtypeurl];
@@ -445,7 +445,7 @@
 
 -(void)ProjectList
 {
-    NSString *projectListurl=[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/meeting/v1/projectListSpinner?usertype=%@&userId=%@&orgId=%@",Usertypestr,Useridstr,orgIdstr];
+    NSString *projectListurl=[NSString stringWithFormat:@"meeting/v1/projectListSpinner?usertype=%@&userId=%@&orgId=%@",Usertypestr,Useridstr,orgIdstr];
     NSString *encode=[projectListurl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     Servicecall=[[Webservices alloc]init];
     [Servicecall projectlstspinrurl:encode];
@@ -584,7 +584,7 @@
         NSLog(@"Save");
         NSLog(@"meetin type id is %@",_MeetingTypeId);
         NSString *meetDate=[dateSplitArray objectAtIndex:0];
-        NSString *SaveMeetingurl= [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/meeting/v1/saveMeeting"];
+        NSString *SaveMeetingurl= @"meeting/v1/saveMeeting";
         NSString *dictionary=[NSString stringWithFormat:@"meetingTyp=%@&meetinTitle=%@&meetDescription=%@&startTym=%@&hours=%@&meetOwnId=%@&projectId=%@&meetDate=%@&ConferRoomId=%@",_MeetingTypeId,Meetingtitletxtfld.text,Meetingdistxtfld.text,_Starttimestr,Meetinglengthtxtfld.text,Useridstr,_ProjId,meetDate,_ConfOwnerId];
         [Servicecall savemeeting:SaveMeetingurl meetingparams:dictionary];
     [Servicecall setDelegate:self];
@@ -764,7 +764,7 @@
     Servicecall=[[Webservices alloc]init];
     
 NSLog(@"meeting length text field 1235124is %@",Meetinglengthtxtfld.text);
-NSString *updateMeetingurl=[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/meeting/v1/updateMeeting"];
+NSString *updateMeetingurl=[NSString stringWithFormat:@"meeting/v1/updateMeeting"];
     
     
     NSString *dictionary=[NSString stringWithFormat:@"meetingTyp=%@&meetinTitle=%@&meetDescription=%@&startTym=%@&hours=%@&meetOwnId=%@&projectId=%@&meetDate=%@&meetingId=%@&ConferRoomId=%@",_MeetingTypeId,Meetingtitletxtfld.text,Meetingdistxtfld.text,_Starttimestr,Meetinglengthtxtfld.text,Useridstr,_ProjId,meetdate,_MeetingId,_ConfOwnerId];
@@ -1526,7 +1526,7 @@ NSString *updateMeetingurl=[NSString stringWithFormat:@"https://2-dot-eiswebserv
 {
     
     NSLog(@"meeting id is %@",_MeetingId);
-    NSString *credentials1 = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/meeting/v1/agendaGoalCount?meetingId=%@",_MeetingId];
+    NSString *credentials1 = [NSString stringWithFormat:@"meeting/v1/agendaGoalCount?meetingId=%@",_MeetingId];
     NSString *encode=[credentials1 stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     Servicecall=[[Webservices alloc]init];
     [Servicecall agendacount:encode];

@@ -128,7 +128,7 @@
 -(void)tableService
 {
     Servicecall = [[Webservices alloc]init];
-    NSString *projectLstForTask = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/issues/v1/issuesList?usertype=%@&userId=%@&orgId=%@",UserTypestr,Useridstr,OrgIdStr];
+    NSString *projectLstForTask = [NSString stringWithFormat:@"https://2-dot-eiswebservice1-173410.appspot.com/_ah/api/issues/v1/issuesList?usertype=%@&userId=%@&orgId=%@",UserTypestr,Useridstr,OrgIdStr];
     //NSDictionary *credentials = @{ @"usertype":@"A",@"userID": @"1"  ,@"orgId":@"1"};
     
     //NSDictionary *credentials2 = @{@"usertype":UserTypestr,@"userID":Useridstr,@"orgId":OrgIdStr};

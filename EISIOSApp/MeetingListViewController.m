@@ -224,7 +224,7 @@
 {
     flagstr=meetingTypeLabel.text;
     
-    NSString *meetingurl=[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/meeting/v1/meetingList?userId=%@&flag=%@",Useridstr,flagstr];
+    NSString *meetingurl=[NSString stringWithFormat:@"meeting/v1/meetingList?userId=%@&flag=%@",Useridstr,flagstr];
     NSString *encode=[meetingurl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     Servicecall=[[Webservices alloc]init];
     [Servicecall meetingUrl:encode];
@@ -261,7 +261,7 @@
 -(void)actionItemTab
 {
     Servicecall=[[Webservices alloc]init];
-    NSString *Saveactionitemsurl = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/meeting/v1/actionItemHPList?userId=%@",Useridstr];
+    NSString *Saveactionitemsurl = [NSString stringWithFormat:@"meeting/v1/actionItemHPList?userId=%@",Useridstr];
     NSString *encode=[Saveactionitemsurl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     [Servicecall actionitemlist:encode];
     [Servicecall setDelegate:self];
@@ -404,6 +404,7 @@
             [MeetingTypeIdArray addObject:[fidd valueForKey:@"meetingTypeId"]];
             [OwnerIDArray addObject:[fidd valueForKey:@"meetingOwnerId"]];
             [HoursArrray addObject:[fidd valueForKey:@"meetingDuration"]];
+            [OwnerNameArray addObject:[fidd valueForKey:@"meetingOwnerName"]];
             
         }
         [MeetingListTV reloadData];
@@ -1536,13 +1537,13 @@
     NSLog(@"arow tag is %@",MeetingId);
     //[sender setImage:[UIImage imageNamed:@"btnclick.png"] forState:UIControlStateSelected];
     //[sender setSelected:YES];
-    NSString *notesactionfb=[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/meeting/v1/notesActionItemFbCount?meetingId=%@&userId=%@",MeetingId,Useridstr];
+    NSString *notesactionfb=[NSString stringWithFormat:@"meeting/v1/notesActionItemFbCount?meetingId=%@&userId=%@",MeetingId,Useridstr];
     NSString *encode=[notesactionfb stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     Servicecall=[[Webservices alloc]init];
     [Servicecall notesactionfbcountUrl:encode];
     [Servicecall setDelegate:self];
     
-    NSString *publicnotesdec =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/meeting/v1/publicNotesDescription?meetingId=%@",MeetingId];
+    NSString *publicnotesdec =[NSString stringWithFormat:@"meeting/v1/publicNotesDescription?meetingId=%@",MeetingId];
     NSString *encode1=[publicnotesdec stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     Servicecall=[[Webservices alloc]init];
     [Servicecall publicnotesdecurl:encode1];
@@ -1609,7 +1610,7 @@
     NSString *meetingidstr=[MeetingIdArray objectAtIndex:indexPath.row];
     NSLog(@"meetind id str is : %@",meetingidstr);
     
-    NSString *agendaurl=[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/meeting/v1/agendaList?meetingId=%@",meetingidstr];
+    NSString *agendaurl=[NSString stringWithFormat:@"meeting/v1/agendaList?meetingId=%@",meetingidstr];
     
     NSString *encode=[agendaurl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     Servicecall=[[Webservices alloc]init];
@@ -1916,7 +1917,7 @@
     NSLog(@"status str is %@",statusStr);
     Servicecall=[[Webservices alloc]init];
     
-    NSString *ActionItemKillClassName=@"https://2-dot-eiswebservice1.appspot.com/_ah/api/meeting/v1/approveActionItemStatus";
+    NSString *ActionItemKillClassName=@"meeting/v1/approveActionItemStatus";
     
     NSString *ActionItemKillParametersList=[NSString stringWithFormat:@"noteLineId=%@&actionItemStatus=%@",actionItemIdStr,statusStr];
     

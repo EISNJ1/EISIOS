@@ -21,14 +21,16 @@
 
 
 //#define  ParentUrl @"http://192.168.2.5:8099/EISWebservices/services/"
-#define ParentUrl @"http://mhotelsonline.com:8099/EISWebservices/services/"
+//#define ParentUrl @"http://mhotelsonline.com:8099/EISWebservices/services/"
  //#define ParentUrl @"http://192.168.2.109:8090/EISWebservices/services/"
+#define  ParentUrl @"https://2-dot-eiswebservice1-173410.appspot.com/_ah/api/"
 //#define POST
 //#define kDefaultErrorCode 12345
 
 @implementation Webservices
 {
     FileUploadViewController *fileupload;
+    
     
 }
 @synthesize delegate;
@@ -37,14 +39,18 @@
 
 -(void)loginUrl:(NSString *)LoginStrUrl
 {
-   
+    BaseURL=[[NSMutableString alloc]initWithString:ParentUrl];
+    [BaseURL appendString:LoginStrUrl];
+    
+    //NSURL *url=[NSURL URLWithString:BaseURL];
+    
        AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
     AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
     responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"text/html", nil];
     
     manager.responseSerializer = responseSerializer;
-    [manager GET:LoginStrUrl parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
+    [manager GET:BaseURL parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
      {
          [delegate didFinishService:responseObject];
          NSLog(@"JSON: %@", responseObject);
@@ -58,13 +64,16 @@
 
 -(void)meetingUrl:(NSString *)meetingurl
 {
+    BaseURL=[[NSMutableString alloc]initWithString:ParentUrl];
+    [BaseURL appendString:meetingurl];
+    
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
     AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
     responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
     
     manager.responseSerializer = responseSerializer;
-    [manager GET:meetingurl parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
+    [manager GET:BaseURL parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
      {
           //NSLog(@"JSON: %@",responseObject);
     [delegate meetingList:responseObject];
@@ -78,13 +87,16 @@
 
 -(void)agendaUrl :(NSString *)AgendaUrl
 {
+    BaseURL=[[NSMutableString alloc]initWithString:ParentUrl];
+    [BaseURL appendString:AgendaUrl];
+    
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
     AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
     responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
     
     manager.responseSerializer = responseSerializer;
-    [manager GET:AgendaUrl parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
+    [manager GET:BaseURL parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
      {
          NSLog(@"JSON: %@",responseObject);
          [delegate agendaList:responseObject];
@@ -96,13 +108,16 @@
 }
 -(void)actionitemlist:(NSString *)actionitemlisturl
 {
+    BaseURL=[[NSMutableString alloc]initWithString:ParentUrl];
+    [BaseURL appendString:actionitemlisturl];
+    
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
     AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
     responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
     
     manager.responseSerializer = responseSerializer;
-    [manager GET:actionitemlisturl parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
+    [manager GET:BaseURL parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
      {
          NSLog(@"JSON: %@",responseObject);
          [delegate actionitemList:responseObject];
@@ -116,13 +131,16 @@
 
 -(void)notesactionfbcountUrl:(NSString *)Notesactionfbcounturl
 {
+    BaseURL=[[NSMutableString alloc]initWithString:ParentUrl];
+    [BaseURL appendString:Notesactionfbcounturl];
+    
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
     AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
     responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
     
     manager.responseSerializer = responseSerializer;
-    [manager GET:Notesactionfbcounturl parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
+    [manager GET:BaseURL parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
      {
          NSLog(@"JSON: %@",responseObject);
          [delegate notesactionfbcount:responseObject];
@@ -136,13 +154,16 @@
 
 -(void)publicnotesdecurl:(NSString *)publicnotesdecUrl
 {
+    BaseURL=[[NSMutableString alloc]initWithString:ParentUrl];
+    [BaseURL appendString:publicnotesdecUrl];
+    
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
     AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
     responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
     
     manager.responseSerializer = responseSerializer;
-    [manager GET:publicnotesdecUrl parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
+    [manager GET:BaseURL parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
      {
          NSLog(@"JSON: %@",responseObject);
          [delegate publicnotesdec:responseObject];
@@ -155,13 +176,16 @@
 
 -(void)projectlstspinrurl:(NSString *)projectlstspinrUrl
 {
+    BaseURL=[[NSMutableString alloc]initWithString:ParentUrl];
+    [BaseURL appendString:projectlstspinrUrl];
+    
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
     AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
     responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
     
     manager.responseSerializer = responseSerializer;
-    [manager GET:projectlstspinrUrl parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
+    [manager GET:BaseURL parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
      {
          NSLog(@"JSON: %@",responseObject);
          [delegate projectlistspinner:responseObject];
@@ -174,13 +198,16 @@
 
 -(void)conferencermspinrurl:(NSString *)conferencermspinrUrl
 {
+    BaseURL=[[NSMutableString alloc]initWithString:ParentUrl];
+    [BaseURL appendString:conferencermspinrUrl];
+    
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
     AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
     responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
     
     manager.responseSerializer = responseSerializer;
-    [manager GET:conferencermspinrUrl parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
+    [manager GET:BaseURL parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
      {
          NSLog(@"JSON: %@",responseObject);
          [delegate conferencermspinner:responseObject];
@@ -192,13 +219,16 @@
 }
 -(void)meetingTypeUrl:(NSString *)Meetingtypeurlparams
 {
+    BaseURL=[[NSMutableString alloc]initWithString:ParentUrl];
+    [BaseURL appendString:Meetingtypeurlparams];
+    
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
     AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
     responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
     
     manager.responseSerializer = responseSerializer;
-    [manager GET:Meetingtypeurlparams parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
+    [manager GET:BaseURL parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
      {
          NSLog(@"JSON: %@",responseObject);
          [delegate meetingType:responseObject];
@@ -211,8 +241,10 @@
 }
 -(void)meetingupdate:(NSString *)meetingupdateurlparams meetingupdatedict:(NSString *)meetingdictparams
 {
+    BaseURL=[[NSMutableString alloc]initWithString:ParentUrl];
+    [BaseURL appendString:meetingupdateurlparams];
     
-    NSURL *urlstr=[NSURL URLWithString:meetingupdateurlparams];
+    NSURL *urlstr=[NSURL URLWithString:BaseURL];
     NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:urlstr];
     //sets the receiver’s timeout interval, in seconds
     [urlRequest setTimeoutInterval:30.0f];
@@ -249,14 +281,17 @@
 }
 -(void)agendacount:(NSString *)agendacounturl
 
- {
+{
+     BaseURL=[[NSMutableString alloc]initWithString:ParentUrl];
+    [BaseURL appendString:agendacounturl];
+     
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
     AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
     responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
     
     manager.responseSerializer = responseSerializer;
-    [manager GET:agendacounturl parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
+    [manager GET:BaseURL parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
      {
          NSLog(@"JSON: %@",responseObject);
          [delegate agendaGoalcount:responseObject];
@@ -270,7 +305,10 @@
 
 -(void)savemeeting:(NSString *)savemeetingurl meetingparams:(NSString *)meetingsavedict
 {
-    NSURL *urlstr=[NSURL URLWithString:savemeetingurl];
+    BaseURL=[[NSMutableString alloc]initWithString:ParentUrl];
+    [BaseURL appendString:savemeetingurl];
+    
+    NSURL *urlstr=[NSURL URLWithString:BaseURL];
     NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:urlstr];
     //sets the receiver’s timeout interval, in seconds
     [urlRequest setTimeoutInterval:30.0f];
@@ -306,7 +344,10 @@
 
 -(void)actionitemkill:(NSString *)actionitemclose actionitemkillurl:(NSString *)actionitemkillparams
 {
-    NSURL *urlstr=[NSURL URLWithString:actionitemclose];
+    BaseURL=[[NSMutableString alloc]initWithString:ParentUrl];
+    [BaseURL appendString:actionitemclose];
+    
+    NSURL *urlstr=[NSURL URLWithString:BaseURL];
     NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:urlstr];
     //sets the receiver’s timeout interval, in seconds
     [urlRequest setTimeoutInterval:30.0f];
@@ -343,13 +384,16 @@
 
 -(void)AgendaListUrl:(NSString *)AgendalistUrl
 {
+    BaseURL=[[NSMutableString alloc]initWithString:ParentUrl];
+    [BaseURL appendString:AgendalistUrl];
+    
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
     AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
     responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
     
     manager.responseSerializer = responseSerializer;
-    [manager GET:AgendalistUrl parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
+    [manager GET:BaseURL parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
      {
          NSLog(@"JSON: %@",responseObject);
          [delegate AgendaList:responseObject];
@@ -363,13 +407,16 @@
 
 -(void)goallistUrl:(NSString *)GoallistUrl
 {
+    BaseURL=[[NSMutableString alloc]initWithString:ParentUrl];
+    [BaseURL appendString:GoallistUrl];
+    
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
     AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
     responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
     
     manager.responseSerializer = responseSerializer;
-    [manager GET:GoallistUrl parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
+    [manager GET:BaseURL parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
      {
          NSLog(@"JSON: %@",responseObject);
          [delegate GoalList:responseObject];
@@ -381,7 +428,9 @@
 }
 -(void)agendameeting:(NSString *)saveagenda agendameetingparams:(NSString *)saveagendameeting
 {
-    NSURL *urlstr=[NSURL URLWithString:saveagenda];
+    BaseURL=[[NSMutableString alloc]initWithString:ParentUrl];
+    [BaseURL appendString:saveagenda];
+    NSURL *urlstr=[NSURL URLWithString:BaseURL];
     NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:urlstr];
     //sets the receiver’s timeout interval, in seconds
     [urlRequest setTimeoutInterval:30.0f];
@@ -420,13 +469,16 @@
 
 -(void)ParticipantlistUrl:(NSString *)ParticipantListUrl
 {
+    BaseURL=[[NSMutableString alloc]initWithString:ParentUrl];
+    [BaseURL appendString:ParticipantListUrl];
+    
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
     AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
     responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
     
     manager.responseSerializer = responseSerializer;
-    [manager GET:ParticipantListUrl parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
+    [manager GET:BaseURL parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
      {
          NSLog(@"JSON: %@",responseObject);
          [delegate participantslist:responseObject];
@@ -439,13 +491,16 @@
 
 -(void)participantsresourcename:(NSString *)participantsresourcenamelist
 {
+    BaseURL=[[NSMutableString alloc]initWithString:ParentUrl];
+    [BaseURL appendString:participantsresourcenamelist];
+    
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
     AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
     responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
     
     manager.responseSerializer = responseSerializer;
-    [manager GET:participantsresourcenamelist parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
+    [manager GET:BaseURL parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
      {
          NSLog(@"JSON: %@",responseObject);
          [delegate participantresourcename:responseObject];
@@ -458,13 +513,15 @@
 }
 -(void)participantrole:(NSString *)participantsrolestring
 {
+    BaseURL=[[NSMutableString alloc]initWithString:ParentUrl];
+    [BaseURL appendString:participantsrolestring];
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
     AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
     responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
     
     manager.responseSerializer = responseSerializer;
-    [manager GET:participantsrolestring parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
+    [manager GET:BaseURL parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
      {
          NSLog(@"JSON: %@",responseObject);
          [delegate participantsrole:responseObject];
@@ -478,7 +535,10 @@
 }
 -(void)saveparticipant:(NSString *)saveparticipantmeeting saveparticipantparams:(NSString *)saveparticipantsurl
 {
-    NSURL *urlstr=[NSURL URLWithString:saveparticipantmeeting];
+    BaseURL=[[NSMutableString alloc]initWithString:ParentUrl];
+    [BaseURL appendString:saveparticipantmeeting];
+    
+    NSURL *urlstr=[NSURL URLWithString:BaseURL];
     NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:urlstr];
     //sets the receiver’s timeout interval, in seconds
     [urlRequest setTimeoutInterval:30.0f];
@@ -515,13 +575,16 @@
 
 -(void)noteslistUrl:(NSString *)notesListUrl
 {
+    BaseURL=[[NSMutableString alloc]initWithString:ParentUrl];
+    [BaseURL appendString:notesListUrl];
+    
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
     AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
     responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
     
     manager.responseSerializer = responseSerializer;
-    [manager GET:notesListUrl parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
+    [manager GET:BaseURL parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
      {
          NSLog(@"JSON: %@",responseObject);
          [delegate noteslist:responseObject];
@@ -535,13 +598,16 @@
 
 -(void)actionItemListUrl:(NSString *)actionItemlistUrl
 {
+    BaseURL=[[NSMutableString alloc]initWithString:ParentUrl];
+    [BaseURL appendString:actionItemlistUrl];
+    
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
     AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
     responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
     
     manager.responseSerializer = responseSerializer;
-    [manager GET:actionItemlistUrl parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
+    [manager GET:BaseURL parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
      {
          NSLog(@"JSON: %@",responseObject);
          [delegate actionItemList:responseObject];
@@ -555,13 +621,16 @@
 
 -(void)feedbackListUrl:(NSString *)feedbacklistUrl
 {
+    BaseURL=[[NSMutableString alloc]initWithString:ParentUrl];
+    [BaseURL appendString:feedbacklistUrl];
+    
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
     AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
     responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
     
     manager.responseSerializer = responseSerializer;
-    [manager GET:feedbacklistUrl parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
+    [manager GET:BaseURL parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
      {
          NSLog(@"JSON: %@",responseObject);
          [delegate feedbackList:responseObject];
@@ -575,7 +644,10 @@
 
 -(void)saveactionitemUrl:(NSString *)saveactionitemclass saveactionitemparams:(NSString *)saveactionitemparameters
 {
-    NSURL *urlstr=[NSURL URLWithString:saveactionitemclass];
+    BaseURL=[[NSMutableString alloc]initWithString:ParentUrl];
+    [BaseURL appendString:saveactionitemclass];
+    
+    NSURL *urlstr=[NSURL URLWithString:BaseURL];
     NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:urlstr];
     //sets the receiver’s timeout interval, in seconds
     [urlRequest setTimeoutInterval:30.0f];
@@ -613,13 +685,16 @@
 }
 -(void)actionitemassignedto:(NSString *)actiontiemassignedtospinner
 {
+    BaseURL=[[NSMutableString alloc]initWithString:ParentUrl];
+    [BaseURL appendString:actiontiemassignedtospinner];
+    
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
     AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
     responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
     
     manager.responseSerializer = responseSerializer;
-    [manager GET:actiontiemassignedtospinner parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
+    [manager GET:BaseURL parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
      {
          NSLog(@"JSON: %@",responseObject);
          [delegate actionitemassigned:responseObject];
@@ -634,7 +709,10 @@
 
 -(void)savenotesUrl:(NSString *)savenoteslist savenotesparams:(NSString *)savenotesurl
 {
-    NSURL *urlstr=[NSURL URLWithString:savenoteslist];
+    BaseURL=[[NSMutableString alloc]initWithString:ParentUrl];
+    [BaseURL appendString:savenoteslist];
+    
+    NSURL *urlstr=[NSURL URLWithString:BaseURL];
     NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:urlstr];
     [urlRequest setTimeoutInterval:30.0f];
     [urlRequest setHTTPMethod:@"POST"];
@@ -665,7 +743,10 @@
 
 -(void)savefeedbackUrl:(NSString *)Savefeedback savefeedbackparams:(NSString *)saveFeedbackUrl
 {
-    NSURL *urlstr=[NSURL URLWithString:Savefeedback];
+    BaseURL=[[NSMutableString alloc]initWithString:ParentUrl];
+    [BaseURL appendString:Savefeedback];
+    
+    NSURL *urlstr=[NSURL URLWithString:BaseURL];
     NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:urlstr];
     [urlRequest setTimeoutInterval:30.0f];
     [urlRequest setHTTPMethod:@"POST"];
@@ -693,17 +774,43 @@
      }];
 }
 
-#pragma Timesheet Json services mark
-
--(void)timesheet:(NSString *)timesheetlist
+-(void)userbasedmeetingdetails:(NSString *)userbasedmeetingdetailsclass
 {
+    BaseURL=[[NSMutableString alloc]initWithString:ParentUrl];
+    [BaseURL appendString:userbasedmeetingdetailsclass];
+    
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
     AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
     responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
     
     manager.responseSerializer = responseSerializer;
-    [manager GET:timesheetlist parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
+    [manager GET:BaseURL parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
+     {
+         NSLog(@"JSON: %@",responseObject);
+         [delegate userbasedmeetingdetails:responseObject];
+     }
+         failure:^(NSURLSessionTask *operation, NSError *error)
+     {
+         NSLog(@"Error: %@", error);
+     }];
+
+}
+
+#pragma Timesheet Json services mark
+
+-(void)timesheet:(NSString *)timesheetlist
+{
+    BaseURL=[[NSMutableString alloc]initWithString:ParentUrl];
+    [BaseURL appendString:timesheetlist];
+    
+    AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+    
+    AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
+    responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
+    
+    manager.responseSerializer = responseSerializer;
+    [manager GET:BaseURL parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
      {
          NSLog(@"JSON: %@",responseObject);
          [delegate timesheetlist:responseObject];
@@ -716,7 +823,10 @@
 }
 -(void)approvetimesheet:(NSString *)approvetimesheetclass approvetimesheetparams:(NSString *)approvetimesheetprameters
 {
-    NSURL *urlstr=[NSURL URLWithString:approvetimesheetclass];
+    BaseURL=[[NSMutableString alloc]initWithString:ParentUrl];
+    [BaseURL appendString:approvetimesheetclass];
+    
+    NSURL *urlstr=[NSURL URLWithString:BaseURL];
     NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:urlstr];
     //sets the receiver’s timeout interval, in seconds
     [urlRequest setTimeoutInterval:30.0f];
@@ -752,13 +862,16 @@
 
 -(void)tasklistfortimesheet:(NSString *)tasklistfortimesheetclass
 {
+    BaseURL=[[NSMutableString alloc]initWithString:ParentUrl];
+    [BaseURL appendString:tasklistfortimesheetclass];
+    
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
     AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
     responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
     
     manager.responseSerializer = responseSerializer;
-    [manager GET:tasklistfortimesheetclass parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
+    [manager GET:BaseURL parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
      {
          NSLog(@"JSON: %@",responseObject);
          [delegate tasklistfortimesheet:responseObject];
@@ -773,7 +886,10 @@
 
 -(void)savetimesheet:(NSString *)savetimesheetclass savetimesheetparams:(NSString *)savetimesheetparameters
 {
-    NSURL *urlstr=[NSURL URLWithString:savetimesheetclass];
+    BaseURL=[[NSMutableString alloc]initWithString:ParentUrl];
+    [BaseURL appendString:savetimesheetclass];
+    
+    NSURL *urlstr=[NSURL URLWithString:BaseURL];
     NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:urlstr];
     //sets the receiver’s timeout interval, in seconds
     [urlRequest setTimeoutInterval:30.0f];
@@ -812,13 +928,16 @@
 
 -(void)issueslist:(NSString *)issueslistclass
 {
+    BaseURL=[[NSMutableString alloc]initWithString:ParentUrl];
+    [BaseURL appendString:issueslistclass];
+    
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
     AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
     responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
     
     manager.responseSerializer = responseSerializer;
-    [manager GET:issueslistclass parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
+    [manager GET:BaseURL parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
      {
          NSLog(@"JSON: %@",responseObject);
          [delegate issuelist:responseObject];
@@ -830,13 +949,16 @@
 }
 -(void)issuestatusclass:(NSString *)issuestatusparams
 {
+    BaseURL=[[NSMutableString alloc]initWithString:ParentUrl];
+    [BaseURL appendString:issuestatusparams];
+    
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
     AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
     responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
     
     manager.responseSerializer = responseSerializer;
-    [manager GET:issuestatusparams parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
+    [manager GET:BaseURL parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
      {
          NSLog(@"JSON: %@",responseObject);
          [delegate issuestatus:responseObject];
@@ -849,13 +971,16 @@
 }
 -(void)issuetypeservice:(NSString *)issuetypeserviceclass
 {
+    BaseURL=[[NSMutableString alloc]initWithString:ParentUrl];
+    [BaseURL appendString:issuetypeserviceclass];
+    
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
     AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
     responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
     
     manager.responseSerializer = responseSerializer;
-    [manager GET:issuetypeserviceclass parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
+    [manager GET:BaseURL parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
      {
          NSLog(@"JSON: %@",responseObject);
          [delegate issuetype:responseObject];
@@ -869,13 +994,16 @@
 
 -(void)assigntoservice:(NSString *)assigntoserviceclass
 {
+    BaseURL=[[NSMutableString alloc]initWithString:ParentUrl];
+    [BaseURL appendString:assigntoserviceclass];
+    
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
     AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
     responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
     
     manager.responseSerializer = responseSerializer;
-    [manager GET:assigntoserviceclass parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
+    [manager GET:BaseURL parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
      {
          NSLog(@"JSON: %@",responseObject);
          [delegate assigntoservice:responseObject];
@@ -889,13 +1017,16 @@
 }
 -(void)teamsubmittedservice:(NSString *)teamsubmittedserviceclass
 {
+    BaseURL=[[NSMutableString alloc]initWithString:ParentUrl];
+    [BaseURL appendString:teamsubmittedserviceclass];
+    
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
     AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
     responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
     
     manager.responseSerializer = responseSerializer;
-    [manager GET:teamsubmittedserviceclass parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
+    [manager GET:BaseURL parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
      {
          NSLog(@"JSON: %@",responseObject);
          [delegate teamsubmittedservice:responseObject];
@@ -909,13 +1040,16 @@
 
 -(void)servityservice:(NSString *)servityserviceclass
 {
+    BaseURL=[[NSMutableString alloc]initWithString:ParentUrl];
+    [BaseURL appendString:servityserviceclass];
+    
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
     AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
     responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
     
     manager.responseSerializer = responseSerializer;
-    [manager GET:servityserviceclass parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
+    [manager GET:BaseURL parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
      {
          NSLog(@"JSON: %@",responseObject);
          [delegate servityservice:responseObject];
@@ -929,7 +1063,10 @@
 
 -(void)saveissue:(NSString *)saveissueclass saveissueparams:(NSString *)saveissueparameters
 {
-    NSURL *urlstr=[NSURL URLWithString:saveissueclass];
+    BaseURL=[[NSMutableString alloc]initWithString:ParentUrl];
+    [BaseURL appendString:saveissueclass];
+    
+    NSURL *urlstr=[NSURL URLWithString:BaseURL];
     NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:urlstr];
     //sets the receiver’s timeout interval, in seconds
     [urlRequest setTimeoutInterval:30.0f];
@@ -966,13 +1103,16 @@
 
 -(void)issueresolutionescalteto:(NSString *)issueresolutionescalatetoparameters
 {
+    BaseURL=[[NSMutableString alloc]initWithString:ParentUrl];
+    [BaseURL appendString:issueresolutionescalatetoparameters];
+    
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
     AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
     responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
     
     manager.responseSerializer = responseSerializer;
-    [manager GET:issueresolutionescalatetoparameters parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
+    [manager GET:BaseURL parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
      {
          NSLog(@"JSON: %@",responseObject);
          
@@ -987,13 +1127,16 @@
 }
 -(void)resolutionreleaseimpact:(NSString *)resolutionreleaseimpactparameters
 {
+    BaseURL=[[NSMutableString alloc]initWithString:ParentUrl];
+    [BaseURL appendString:resolutionreleaseimpactparameters];
+    
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
     AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
     responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
     
     manager.responseSerializer = responseSerializer;
-    [manager GET:resolutionreleaseimpactparameters parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
+    [manager GET:BaseURL parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
      {
          NSLog(@"JSON: %@",responseObject);
          
@@ -1009,13 +1152,16 @@
 }
 -(void)rejectreasonclass:(NSString *)rejectreasonparameters
 {
+    BaseURL=[[NSMutableString alloc]initWithString:ParentUrl];
+    [BaseURL appendString:rejectreasonparameters];
+    
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
     AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
     responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
     
     manager.responseSerializer = responseSerializer;
-    [manager GET:rejectreasonparameters parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
+    [manager GET:BaseURL parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
      {
          NSLog(@"JSON: %@",responseObject);
          
@@ -1028,13 +1174,16 @@
 }
 -(void)resolutiontypeclass:(NSString *)resolutiontypeparameters
 {
+    BaseURL=[[NSMutableString alloc]initWithString:ParentUrl];
+    [BaseURL appendString:resolutiontypeparameters];
+    
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
     AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
     responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
     
     manager.responseSerializer = responseSerializer;
-    [manager GET:resolutiontypeparameters parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
+    [manager GET:BaseURL parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
      {
          NSLog(@"JSON: %@",responseObject);
          
@@ -1048,8 +1197,10 @@
 }
 -(void)updateresolutionclass:(NSString *)resolutionupdate resolutionupdateparams:(NSString *)resolutionupdateparameters
 {
+    BaseURL=[[NSMutableString alloc]initWithString:ParentUrl];
+    [BaseURL appendString:resolutionupdate];
     
-    NSURL *urlstr=[NSURL URLWithString:resolutionupdate];
+    NSURL *urlstr=[NSURL URLWithString:BaseURL];
     NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:urlstr];
     //sets the receiver’s timeout interval, in seconds
     [urlRequest setTimeoutInterval:30.0f];
@@ -1090,13 +1241,16 @@
 
 -(void)tasklistUrl:(NSString *)taskListUrl
 {
+    BaseURL=[[NSMutableString alloc]initWithString:ParentUrl];
+    [BaseURL appendString:taskListUrl];
+    
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
     AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
     responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
     
     manager.responseSerializer = responseSerializer;
-    [manager GET:taskListUrl parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
+    [manager GET:BaseURL parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
      {
          NSLog(@"JSON: %@",responseObject);
          
@@ -1111,13 +1265,16 @@
 
 -(void)prioritylistUrl:(NSString *)priorityListUrl
 {
+    BaseURL=[[NSMutableString alloc]initWithString:ParentUrl];
+    [BaseURL appendString:priorityListUrl];
+    
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
     AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
     responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
     
     manager.responseSerializer = responseSerializer;
-    [manager GET:priorityListUrl parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
+    [manager GET:BaseURL parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
      {
          NSLog(@"JSON: %@",responseObject);
          
@@ -1131,13 +1288,16 @@
 
 -(void)categorylistUrl:(NSString *)categoryListUrl
 {
+    BaseURL=[[NSMutableString alloc]initWithString:ParentUrl];
+    [BaseURL appendString:categoryListUrl];
+    
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
     AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
     responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
     
     manager.responseSerializer = responseSerializer;
-    [manager GET:categoryListUrl parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
+    [manager GET:BaseURL parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
      {
          NSLog(@"JSON: %@",responseObject);
          
@@ -1150,13 +1310,16 @@
 
 -(void)holidaysListUrl:(NSString *)holidaysListUrl
 {
+    BaseURL=[[NSMutableString alloc]initWithString:ParentUrl];
+    [BaseURL appendString:holidaysListUrl];
+    
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
     AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
     responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
     
     manager.responseSerializer = responseSerializer;
-    [manager GET:holidaysListUrl parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
+    [manager GET:BaseURL parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
      {
          NSLog(@"JSON: %@",responseObject);
          
@@ -1169,13 +1332,16 @@
 }
 -(void)resourcespinner:(NSString *)resourcespinnerclass
 {
+    BaseURL=[[NSMutableString alloc]initWithString:ParentUrl];
+    [BaseURL appendString:resourcespinnerclass];
+    
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
     AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
     responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
     
     manager.responseSerializer = responseSerializer;
-    [manager GET:resourcespinnerclass parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
+    [manager GET:BaseURL parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
      {
          NSLog(@"JSON: %@",responseObject);
          
@@ -1189,13 +1355,16 @@
 }
 -(void)harddependencylist:(NSString *)harddependencyclass
 {
+    BaseURL=[[NSMutableString alloc]initWithString:ParentUrl];
+    [BaseURL appendString:harddependencyclass];
+    
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
     AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
     responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
     
     manager.responseSerializer = responseSerializer;
-    [manager GET:harddependencyclass parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
+    [manager GET:BaseURL parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
      {
          NSLog(@"JSON: %@",responseObject);
          
@@ -1209,13 +1378,16 @@
 }
 -(void)enddateservice:(NSString *)enddateserviceclass
 {
+    BaseURL=[[NSMutableString alloc]initWithString:ParentUrl];
+    [BaseURL appendString:enddateserviceclass];
+    
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
     AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
     responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
     
     manager.responseSerializer = responseSerializer;
-    [manager GET:enddateserviceclass parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
+    [manager GET:BaseURL parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
      {
          NSLog(@"JSON: %@",responseObject);
          
@@ -1230,7 +1402,10 @@
 }
 -(void)savetask:(NSString *)savetaskclass savetskparameters:(NSString *)savetaskparams
 {
-    NSURL *urlstr=[NSURL URLWithString:savetaskclass];
+    BaseURL=[[NSMutableString alloc]initWithString:ParentUrl];
+    [BaseURL appendString:savetaskclass];
+    
+    NSURL *urlstr=[NSURL URLWithString:BaseURL];
     NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:urlstr];
     //sets the receiver’s timeout interval, in seconds
     [urlRequest setTimeoutInterval:30.0f];
@@ -1269,13 +1444,15 @@
 -(void)uploadTextClass:(NSString *)uploadTaskText uploadTextparams:(NSDictionary *)uplaodtextparameters
 {
     //LoginAppDelegate *appDelegate = (LoginAppDelegate *)[[UIApplication sharedApplication] delegate];
+    BaseURL=[[NSMutableString alloc]initWithString:ParentUrl];
+    [BaseURL appendString:uploadTaskText];
     
     AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
     
     
     manager.responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
-    NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:uploadTaskText parameters:uplaodtextparameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData)
+    NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:BaseURL parameters:uplaodtextparameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData)
                                     {
                                         
                                         
@@ -1314,7 +1491,10 @@
 -(void)textuploadtask:(NSString *)textuploadingtaskclass textuploadingtaskparams:(NSString *)textuploadingparameters
 {
     
-        NSURL *urlstr=[NSURL URLWithString:textuploadingtaskclass];
+    BaseURL=[[NSMutableString alloc]initWithString:ParentUrl];
+    [BaseURL appendString:textuploadingtaskclass];
+    
+        NSURL *urlstr=[NSURL URLWithString:BaseURL];
         NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:urlstr];
         //sets the receiver’s timeout interval, in seconds
         [urlRequest setTimeoutInterval:30.0f];
@@ -1358,13 +1538,16 @@
 
 -(void)taskfileslist:(NSString *)taskfileslistclass
 {
+    BaseURL=[[NSMutableString alloc]initWithString:ParentUrl];
+    [BaseURL appendString:taskfileslistclass];
+    
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
     AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
     responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
     
     manager.responseSerializer = responseSerializer;
-    [manager GET:taskfileslistclass parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
+    [manager GET:BaseURL parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
      {
          NSLog(@"JSON: %@",responseObject);
          
@@ -1378,12 +1561,15 @@
 }
 -(void)audiouploading:(NSString *)audiouplaodingclass audiouploadingparams:(NSDictionary *)audiouploadingparameters
 {
+    BaseURL=[[NSMutableString alloc]initWithString:ParentUrl];
+    [BaseURL appendString:audiouplaodingclass];
+    
     AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
     
     
     manager.responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
-    NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:audiouplaodingclass parameters:audiouploadingparameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData)
+    NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:BaseURL parameters:audiouploadingparameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData)
                                     {
                                         
                                         
@@ -1423,13 +1609,16 @@
 
 -(void)requirementListUrl:(NSString *)requirementlistUrl
 {
+    BaseURL=[[NSMutableString alloc]initWithString:ParentUrl];
+    [BaseURL appendString:requirementlistUrl];
+    
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
     AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
     responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
     
     manager.responseSerializer = responseSerializer;
-    [manager GET:requirementlistUrl parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
+    [manager GET:BaseURL parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
      {
          NSLog(@"JSON: %@",responseObject);
          
@@ -1442,13 +1631,16 @@
 }
 -(void)contacttypelistUrl:(NSString *)contacttypelistclass
 {
+    BaseURL=[[NSMutableString alloc]initWithString:ParentUrl];
+    [BaseURL appendString:contacttypelistclass];
+    
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
     AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
     responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
     
     manager.responseSerializer = responseSerializer;
-    [manager GET:contacttypelistclass parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
+    [manager GET:BaseURL parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
      {
          NSLog(@"JSON: %@",responseObject);
          
@@ -1462,13 +1654,16 @@
 }
 -(void)coreprocesslisturl:(NSString *)coreprocessclass
 {
+    BaseURL=[[NSMutableString alloc]initWithString:ParentUrl];
+    [BaseURL appendString:coreprocessclass];
+    
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
     AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
     responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
     
     manager.responseSerializer = responseSerializer;
-    [manager GET:coreprocessclass parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
+    [manager GET:BaseURL parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
      {
          NSLog(@"JSON: %@",responseObject);
          
@@ -1483,13 +1678,16 @@
 }
 -(void)processlisturl:(NSString *)processclass
 {
+    BaseURL=[[NSMutableString alloc]initWithString:ParentUrl];
+    [BaseURL appendString:processclass];
+    
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
     AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
     responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
     
     manager.responseSerializer = responseSerializer;
-    [manager GET:processclass parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
+    [manager GET:BaseURL parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
      {
          NSLog(@"JSON: %@",responseObject);
          
@@ -1504,13 +1702,16 @@
 }
 -(void)subprocessurl:(NSString *)subprocessclass
 {
+    BaseURL=[[NSMutableString alloc]initWithString:ParentUrl];
+    [BaseURL appendString:subprocessclass];
+    
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
     AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
     responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
     
     manager.responseSerializer = responseSerializer;
-    [manager GET:subprocessclass parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
+    [manager GET:BaseURL parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
      {
          NSLog(@"JSON: %@",responseObject);
          
@@ -1524,13 +1725,16 @@
 }
 -(void)activityserviceurl:(NSString *)activityserviceclass
 {
+    BaseURL=[[NSMutableString alloc]initWithString:ParentUrl];
+    [BaseURL appendString:activityserviceclass];
+    
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
     AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
     responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
     
     manager.responseSerializer = responseSerializer;
-    [manager GET:activityserviceclass parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
+    [manager GET:BaseURL parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
      {
          NSLog(@"JSON: %@",responseObject);
          
@@ -1544,13 +1748,16 @@
 }
 -(void)requirementtypeurl:(NSString *)requirementclass
 {
+    BaseURL=[[NSMutableString alloc]initWithString:ParentUrl];
+    [BaseURL appendString:requirementclass];
+    
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
     AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
     responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
     
     manager.responseSerializer = responseSerializer;
-    [manager GET:requirementclass parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
+    [manager GET:BaseURL parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
      {
          NSLog(@"JSON: %@",responseObject);
          
@@ -1564,13 +1771,16 @@
 }
 -(void)criticaliryurl:(NSString *)criticalityclass
 {
+    BaseURL=[[NSMutableString alloc]initWithString:ParentUrl];
+    [BaseURL appendString:criticalityclass];
+    
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
     AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
     responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
     
     manager.responseSerializer = responseSerializer;
-    [manager GET:criticalityclass parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
+    [manager GET:BaseURL parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
      {
          NSLog(@"JSON: %@",responseObject);
          
@@ -1584,13 +1794,16 @@
 }
 -(void)systemurl:(NSString *)systemclass
 {
+    BaseURL=[[NSMutableString alloc]initWithString:ParentUrl];
+    [BaseURL appendString:systemclass];
+    
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
     AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
     responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
     
     manager.responseSerializer = responseSerializer;
-    [manager GET:systemclass parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
+    [manager GET:BaseURL parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
      {
          NSLog(@"JSON: %@",responseObject);
          
@@ -1604,7 +1817,10 @@
 }
 -(void)saverequirement:(NSString *)saverequirementclass saverequirementparams:(NSString *)saverequirementparameters
 {
-    NSURL *urlstr=[NSURL URLWithString:saverequirementclass];
+    BaseURL=[[NSMutableString alloc]initWithString:ParentUrl];
+    [BaseURL appendString:saverequirementclass];
+    
+    NSURL *urlstr=[NSURL URLWithString:BaseURL];
     NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:urlstr];
     //sets the receiver’s timeout interval, in seconds
     [urlRequest setTimeoutInterval:30.0f];
@@ -1640,13 +1856,17 @@
 }
 -(void)requirementobjectlist:(NSString *)requirementobjectlistparams
 {
+    BaseURL=[[NSMutableString alloc]initWithString:ParentUrl];
+    [BaseURL appendString:requirementobjectlistparams];
+    
+    
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
     AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
     responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
     
     manager.responseSerializer = responseSerializer;
-    [manager GET:requirementobjectlistparams parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
+    [manager GET:BaseURL parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
      {
          NSLog(@"JSON: %@",responseObject);
          
@@ -1660,13 +1880,16 @@
 }
 -(void)requirementobjectspinner:(NSString *)requirementobjectspinnerclass
 {
+    BaseURL=[[NSMutableString alloc]initWithString:ParentUrl];
+    [BaseURL appendString:requirementobjectspinnerclass];
+    
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
     AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
     responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
     
     manager.responseSerializer = responseSerializer;
-    [manager GET:requirementobjectspinnerclass parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
+    [manager GET:BaseURL parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
      {
          NSLog(@"JSON: %@",responseObject);
          
@@ -1680,13 +1903,16 @@
 }
 -(void)requirementpurpose:(NSString *)requirementpurposeclass
 {
+    BaseURL=[[NSMutableString alloc]initWithString:ParentUrl];
+    [BaseURL appendString:requirementpurposeclass];
+    
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
     AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
     responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
     
     manager.responseSerializer = responseSerializer;
-    [manager GET:requirementpurposeclass parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
+    [manager GET:BaseURL parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
      {
          NSLog(@"JSON: %@",responseObject);
          
@@ -1700,13 +1926,16 @@
 }
 -(void)requirementcomplexity:(NSString *)requirementcomplexityclass
 {
+    BaseURL=[[NSMutableString alloc]initWithString:ParentUrl];
+    [BaseURL appendString:requirementcomplexityclass];
+    
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
     AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
     responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
     
     manager.responseSerializer = responseSerializer;
-    [manager GET:requirementcomplexityclass parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
+    [manager GET:BaseURL parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
      {
          NSLog(@"JSON: %@",responseObject);
          
@@ -1722,7 +1951,10 @@
 
 -(void)saveRequirementobject:(NSString *)saveRequirementobjectclass saveRequirementobjectparams:(NSString *)saveRequirementobjectparameters
 {
-    NSURL *urlstr=[NSURL URLWithString:saveRequirementobjectclass];
+    BaseURL=[[NSMutableString alloc]initWithString:ParentUrl];
+    [BaseURL appendString:saveRequirementobjectclass];
+    
+    NSURL *urlstr=[NSURL URLWithString:BaseURL];
     NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:urlstr];
     //sets the receiver’s timeout interval, in seconds
     [urlRequest setTimeoutInterval:30.0f];
@@ -1762,13 +1994,16 @@
 
 -(void)ProjectExpenseslist:(NSString *)projectexpenses
 {
+    BaseURL=[[NSMutableString alloc]initWithString:ParentUrl];
+    [BaseURL appendString:projectexpenses];
+    
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
     AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
     responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
     
     manager.responseSerializer = responseSerializer;
-    [manager GET:projectexpenses parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
+    [manager GET:BaseURL parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
      {
          NSLog(@"JSON: %@",responseObject);
          
@@ -1784,13 +2019,16 @@
 -(void)categoryspinnerlist:(NSString *)categorylist
 {
     
+    BaseURL=[[NSMutableString alloc]initWithString:ParentUrl];
+    [BaseURL appendString:categorylist];
+    
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
     AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
     responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
     
     manager.responseSerializer = responseSerializer;
-    [manager GET:categorylist parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
+    [manager GET:BaseURL parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
      {
          NSLog(@"JSON: %@",responseObject);
          
@@ -1805,7 +2043,9 @@
 }
 -(void)saveprojectexpenses:(NSString *)projectexpensesparams projectexpensesservice:(NSString *)projectexpensesparameters
 {
-    NSURL *urlstr=[NSURL URLWithString:projectexpensesparams];
+    BaseURL=[[NSMutableString alloc]initWithString:ParentUrl];
+    [BaseURL appendString:projectexpensesparams];
+    NSURL *urlstr=[NSURL URLWithString:BaseURL];
     NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:urlstr];
     //sets the receiver’s timeout interval, in seconds
     [urlRequest setTimeoutInterval:30.0f];
@@ -1842,7 +2082,11 @@
 }
 -(void)updateprojectexpenses:(NSString *)updateprojectexpensesclass updateprojectexpensesparams:(NSString *)updateprojectexpensesparameters
 {
-    NSURL *urlstr=[NSURL URLWithString:updateprojectexpensesclass];
+    BaseURL=[[NSMutableString alloc]initWithString:ParentUrl];
+    [BaseURL appendString:updateprojectexpensesclass];
+    
+    
+    NSURL *urlstr=[NSURL URLWithString:BaseURL];
     NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:urlstr];
     //sets the receiver’s timeout interval, in seconds
     [urlRequest setTimeoutInterval:30.0f];
@@ -1881,13 +2125,16 @@
 
 -(void)oganizationresourcereport:(NSString *)oganizationresourcereportparams
 {
+    BaseURL=[[NSMutableString alloc]initWithString:ParentUrl];
+    [BaseURL appendString:oganizationresourcereportparams];
+    
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
     AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
     responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
     
     manager.responseSerializer = responseSerializer;
-    [manager GET:oganizationresourcereportparams parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
+    [manager GET:BaseURL parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
      {
          NSLog(@"JSON: %@",responseObject);
          
@@ -1901,13 +2148,16 @@
 }
 -(void)peoplebyskill:(NSString *)peoplebyskillparams
 {
+    BaseURL=[[NSMutableString alloc]initWithString:ParentUrl];
+    [BaseURL appendString:peoplebyskillparams];
+    
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
     AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
     responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
     
     manager.responseSerializer = responseSerializer;
-    [manager GET:peoplebyskillparams parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
+    [manager GET:BaseURL parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
      {
          NSLog(@"JSON: %@",responseObject);
          
@@ -1922,13 +2172,16 @@
 
 -(void)numofprojectsbyResourcereportsUrl:(NSString *)numofprojectsbyresourcereportUrl
 {
+    BaseURL=[[NSMutableString alloc]initWithString:ParentUrl];
+    [BaseURL appendString:numofprojectsbyresourcereportUrl];
+    
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
     AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
     responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
     
     manager.responseSerializer = responseSerializer;
-    [manager GET:numofprojectsbyresourcereportUrl parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
+    [manager GET:BaseURL parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
      {
          NSLog(@"JSON: %@",responseObject);
          
@@ -1942,13 +2195,16 @@
 
 -(void)averagebillingratebyOrganisationUrl:(NSString *)averagebillingratebyorganisationUrl
 {
+    BaseURL=[[NSMutableString alloc]initWithString:ParentUrl];
+    [BaseURL appendString:averagebillingratebyorganisationUrl];
+    
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
     AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
     responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
     
     manager.responseSerializer = responseSerializer;
-    [manager GET:averagebillingratebyorganisationUrl parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
+    [manager GET:BaseURL parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
      {
          NSLog(@"JSON: %@",responseObject);
          
@@ -1963,13 +2219,16 @@
 
 -(void)numofresourcesbyProgramUrl:(NSString *)numofresourcesbyprogramUrl
 {
+    BaseURL=[[NSMutableString alloc]initWithString:ParentUrl];
+    [BaseURL appendString:numofresourcesbyprogramUrl];
+    
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
     AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
     responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
     
     manager.responseSerializer = responseSerializer;
-    [manager GET:numofresourcesbyprogramUrl parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
+    [manager GET:BaseURL parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
      {
          NSLog(@"JSON: %@",responseObject);
          
@@ -1984,13 +2243,16 @@
 
 -(void)allocatedcapacitytoProgramUrl:(NSString *)allocatedcapacitytoprogramUrl
 {
+    BaseURL=[[NSMutableString alloc]initWithString:ParentUrl];
+    [BaseURL appendString:allocatedcapacitytoprogramUrl];
+    
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
     AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
     responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
     
     manager.responseSerializer = responseSerializer;
-    [manager GET:allocatedcapacitytoprogramUrl parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
+    [manager GET:BaseURL parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
      {
          NSLog(@"JSON: %@",responseObject);
          
@@ -2005,13 +2267,16 @@
 
 -(void)allocatedcapacitytoProjectUrl:(NSString *)allocatedcapacitytoprojectUrl
 {
+    BaseURL=[[NSMutableString alloc]initWithString:ParentUrl];
+    [BaseURL appendString:allocatedcapacitytoprojectUrl];
+    
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
     AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
     responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
     
     manager.responseSerializer = responseSerializer;
-    [manager GET:allocatedcapacitytoprojectUrl parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
+    [manager GET:BaseURL parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
      {
          NSLog(@"JSON: %@",responseObject);
          
@@ -2026,13 +2291,17 @@
 
 -(void)assignedcapacitytoProgramUrl:(NSString *)assignedcapacitytoprogramUrl
 {
+    BaseURL=[[NSMutableString alloc]initWithString:ParentUrl];
+    [BaseURL appendString:assignedcapacitytoprogramUrl];
+    
+    
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
     AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
     responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
     
     manager.responseSerializer = responseSerializer;
-    [manager GET:assignedcapacitytoprogramUrl parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
+    [manager GET:BaseURL parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
      {
          NSLog(@"JSON: %@",responseObject);
          
@@ -2047,13 +2316,16 @@
 
 -(void)assignedcapacitytoProjectUrl:(NSString *)assignedcapacitytoprojectUrl
 {
+    BaseURL=[[NSMutableString alloc]initWithString:ParentUrl];
+    [BaseURL appendString:assignedcapacitytoprojectUrl];
+    
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
     AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
     responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
     
     manager.responseSerializer = responseSerializer;
-    [manager GET:assignedcapacitytoprojectUrl parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
+    [manager GET:BaseURL parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
      {
          NSLog(@"JSON: %@",responseObject);
          
@@ -2068,13 +2340,16 @@
 
 -(void)averagecostofresourceofProgramUrl:(NSString *)averagecostofresourceofprogramUrl
 {
+    BaseURL=[[NSMutableString alloc]initWithString:ParentUrl];
+    [BaseURL appendString:averagecostofresourceofprogramUrl];
+    
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
     AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
     responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
     
     manager.responseSerializer = responseSerializer;
-    [manager GET:averagecostofresourceofprogramUrl parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
+    [manager GET:BaseURL parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
      {
          NSLog(@"JSON: %@",responseObject);
          
@@ -2089,13 +2364,16 @@
 
 -(void)numofresourcesbyprojectUrl:(NSString *)numofresourcesbyProjectUrl
 {
+    BaseURL=[[NSMutableString alloc]initWithString:ParentUrl];
+    [BaseURL appendString:numofresourcesbyProjectUrl];
+    
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
     AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
     responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
     
     manager.responseSerializer = responseSerializer;
-    [manager GET:numofresourcesbyProjectUrl parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
+    [manager GET:BaseURL parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
      {
          NSLog(@"JSON: %@",responseObject);
          
@@ -2110,13 +2388,16 @@
 
 -(void)numofresourcesbyteamUrl:(NSString *)numofresourcesbyTeamUrl
 {
+    BaseURL=[[NSMutableString alloc]initWithString:ParentUrl];
+    [BaseURL appendString:numofresourcesbyTeamUrl];
+    
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
     AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
     responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
     
     manager.responseSerializer = responseSerializer;
-    [manager GET:numofresourcesbyTeamUrl parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
+    [manager GET:BaseURL parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
      {
          NSLog(@"JSON: %@",responseObject);
          
@@ -2131,13 +2412,16 @@
 
 -(void)programchartsbudgetcostUrl:(NSString *)programchartsbudgetCostUrl
 {
+    BaseURL=[[NSMutableString alloc]initWithString:ParentUrl];
+    [BaseURL appendString:programchartsbudgetCostUrl];
+    
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
     AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
     responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
     
     manager.responseSerializer = responseSerializer;
-    [manager GET:programchartsbudgetCostUrl parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
+    [manager GET:BaseURL parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
      {
          NSLog(@"JSON: %@",responseObject);
          
@@ -2152,13 +2436,16 @@
 
 -(void)programspinnerUrl:(NSString *)programSpinnerUrl
 {
+    BaseURL=[[NSMutableString alloc]initWithString:ParentUrl];
+    [BaseURL appendString:programSpinnerUrl];
+    
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
     AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
     responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
     
     manager.responseSerializer = responseSerializer;
-    [manager GET:programSpinnerUrl parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
+    [manager GET:BaseURL parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
      {
          NSLog(@"JSON: %@",responseObject);
          
@@ -2172,13 +2459,16 @@
 
 -(void)programbyownerlistUrl:(NSString *)programbyownerListUrl
 {
+    BaseURL=[[NSMutableString alloc]initWithString:ParentUrl];
+    [BaseURL appendString:programbyownerListUrl];
+    
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
     AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
     responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
     
     manager.responseSerializer = responseSerializer;
-    [manager GET:programbyownerListUrl parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
+    [manager GET:BaseURL parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
      {
          NSLog(@"JSON: %@",responseObject);
          
@@ -2193,13 +2483,16 @@
 
 -(void)programownerchartUrl:(NSString *)programownerChartUrl
 {
+    BaseURL=[[NSMutableString alloc]initWithString:ParentUrl];
+    [BaseURL appendString:programownerChartUrl];
+    
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
     AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
     responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
     
     manager.responseSerializer = responseSerializer;
-    [manager GET:programownerChartUrl parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
+    [manager GET:BaseURL parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
      {
          NSLog(@"JSON: %@",responseObject);
          
@@ -2214,13 +2507,16 @@
 
 -(void)taskoverviewlistUrl:(NSString *)taskoverviewListUrl
 {
+    BaseURL=[[NSMutableString alloc]initWithString:ParentUrl];
+    [BaseURL appendString:taskoverviewListUrl];
+    
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
     AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
     responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
     
     manager.responseSerializer = responseSerializer;
-    [manager GET:taskoverviewListUrl parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
+    [manager GET:BaseURL parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
      {
          NSLog(@"JSON: %@",responseObject);
          
@@ -2235,13 +2531,16 @@
 
 -(void)effortandbookedtimeUrl:(NSString *)effortandbookedTimeUrl
 {
+    BaseURL=[[NSMutableString alloc]initWithString:ParentUrl];
+    [BaseURL appendString:effortandbookedTimeUrl];
+    
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
     AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
     responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
     
     manager.responseSerializer = responseSerializer;
-    [manager GET:effortandbookedTimeUrl parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
+    [manager GET:BaseURL parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
      {
          NSLog(@"JSON: %@",responseObject);
          
@@ -2256,13 +2555,16 @@
 
 -(void)issueoverviewUrl:(NSString *)issueoverViewUrl
 {
+    BaseURL=[[NSMutableString alloc]initWithString:ParentUrl];
+    [BaseURL appendString:issueoverViewUrl];
+    
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
     AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
     responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
     
     manager.responseSerializer = responseSerializer;
-    [manager GET:issueoverViewUrl parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
+    [manager GET:BaseURL parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
      {
          NSLog(@"JSON: %@",responseObject);
          
@@ -2276,13 +2578,16 @@
 
 -(void)taskoverviewUrl:(NSString *)taskoverViewUrl
 {
+    BaseURL=[[NSMutableString alloc]initWithString:ParentUrl];
+    [BaseURL appendString:taskoverViewUrl];
+    
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
     AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
     responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
     
     manager.responseSerializer = responseSerializer;
-    [manager GET:taskoverViewUrl parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
+    [manager GET:BaseURL parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
      {
          NSLog(@"JSON: %@",responseObject);
          
