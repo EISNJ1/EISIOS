@@ -282,7 +282,7 @@
 -(void)organaizationResourcrReporService
 {
     Servicecall = [[Webservices alloc]init];
-    NSString *projectLstForTask =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/dashboard/v1/orgResourceReportList?usertype=%@&userId=%@&orgId=%@",UserTypestr,Useridstr,OrgIdStr];
+    NSString *projectLstForTask =[NSString stringWithFormat:@"dashboard/v1/orgResourceReportList?usertype=%@&userId=%@&orgId=%@",UserTypestr,Useridstr,OrgIdStr];
     [Servicecall oganizationresourcereport:projectLstForTask];
     [Servicecall setDelegate:self];
 
@@ -320,7 +320,7 @@
 -(void)peopleBySkillsReportService
 {
     Servicecall = [[Webservices alloc]init];
-    NSString *projectLstForTask =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/dashboard/v1/peopleBySkillsReportList?usertype=%@&orgId=%@",UserTypestr,OrgIdStr];
+    NSString *projectLstForTask =[NSString stringWithFormat:@"dashboard/v1/peopleBySkillsReportList?usertype=%@&orgId=%@",UserTypestr,OrgIdStr];
     [Servicecall peoplebyskill:projectLstForTask];
     [Servicecall setDelegate:self];
     
@@ -363,7 +363,7 @@
 //    [Servicecall setDelegate:self];
 
     Servicecall = [[Webservices alloc]init];
-    NSString *projectLstForTask =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/dashboard/v1/noofProjectsByResourceReportList?usertype=%@&orgId=%@&userId=%@",UserTypestr,OrgIdStr,Useridstr];
+    NSString *projectLstForTask =[NSString stringWithFormat:@"dashboard/v1/noofProjectsByResourceReportList?usertype=%@&orgId=%@&userId=%@",UserTypestr,OrgIdStr,Useridstr];
     [Servicecall numofprojectsbyResourcereportsUrl:projectLstForTask];
     [Servicecall setDelegate:self];
 }
@@ -406,7 +406,7 @@
 //    [Servicecall setDelegate:self];
 
     Servicecall = [[Webservices alloc]init];
-    NSString *projectLstForTask =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/dashboard/v1/avgBillingRateByOrgReportList?usertype=%@&orgId=%@",UserTypestr,OrgIdStr];
+    NSString *projectLstForTask =[NSString stringWithFormat:@"dashboard/v1/avgBillingRateByOrgReportList?usertype=%@&orgId=%@",UserTypestr,OrgIdStr];
     [Servicecall averagebillingratebyOrganisationUrl:projectLstForTask];
     [Servicecall setDelegate:self];
     
@@ -451,7 +451,7 @@
 
     
     Servicecall = [[Webservices alloc]init];
-    NSString *projectLstForTask =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/dashboard/v1/noofResByProgramsReportList?usertype=%@&orgId=%@&userId=%@",UserTypestr,OrgIdStr,Useridstr];
+    NSString *projectLstForTask =[NSString stringWithFormat:@"dashboard/v1/noofResByProgramsReportList?usertype=%@&orgId=%@&userId=%@",UserTypestr,OrgIdStr,Useridstr];
     [Servicecall numofresourcesbyProgramUrl:projectLstForTask];
     [Servicecall setDelegate:self];
 
@@ -499,7 +499,7 @@
 -(void)AllocatedcapacitytoProgramService
 {
     Servicecall = [[Webservices alloc]init];
-    NSString *projectLstForTask =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/dashboard/v1/allocatedCapacityToProgramReportList?usertype=%@&orgId=%@",UserTypestr,OrgIdStr];
+    NSString *projectLstForTask =[NSString stringWithFormat:@"dashboard/v1/allocatedCapacityToProgramReportList?usertype=%@&orgId=%@",UserTypestr,OrgIdStr];
     [Servicecall allocatedcapacitytoProgramUrl:projectLstForTask];
     [Servicecall setDelegate:self];
 }
@@ -542,7 +542,7 @@
 //    [Servicecall setDelegate:self];
     
     Servicecall = [[Webservices alloc]init];
-    NSString *projectLstForTask =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/dashboard/v1/allocatedCapacityToProjectReportList?usertype=%@&orgId=%@",UserTypestr,OrgIdStr];
+    NSString *projectLstForTask =[NSString stringWithFormat:@"dashboard/v1/allocatedCapacityToProjectReportList?usertype=%@&orgId=%@",UserTypestr,OrgIdStr];
     [Servicecall allocatedcapacitytoProjectUrl:projectLstForTask];
     [Servicecall setDelegate:self];
 
@@ -583,7 +583,7 @@
 //    [Servicecall assignedCapacityToProgram:projectLstForTask TaskListParameters:credentials];
 //    [Servicecall setDelegate:self];
     Servicecall = [[Webservices alloc]init];
-    NSString *projectLstForTask =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/dashboard/v1/assignedCapacityToProgReportList?usertype=%@&orgId=%@",UserTypestr,OrgIdStr];
+    NSString *projectLstForTask =[NSString stringWithFormat:@"dashboard/v1/assignedCapacityToProgReportList?usertype=%@&orgId=%@",UserTypestr,OrgIdStr];
     [Servicecall assignedcapacitytoProgramUrl:projectLstForTask];
     [Servicecall setDelegate:self];
 }
@@ -625,7 +625,7 @@
 //    [Servicecall setDelegate:self];
     
     Servicecall = [[Webservices alloc]init];
-    NSString *projectLstForTask =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/dashboard/v1/assignedCapacityToProjectReportList?usertype=%@&orgId=%@",UserTypestr,OrgIdStr];
+    NSString *projectLstForTask =[NSString stringWithFormat:@"dashboard/v1/assignedCapacityToProjectReportList?usertype=%@&orgId=%@",UserTypestr,OrgIdStr];
     [Servicecall assignedcapacitytoProjectUrl:projectLstForTask];
     [Servicecall setDelegate:self];
 }
@@ -667,7 +667,7 @@
 //    [Servicecall setDelegate:self];
     
     Servicecall = [[Webservices alloc]init];
-    NSString *projectLstForTask =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/dashboard/v1/averageCostResProgramList?usertype=%@&orgId=%@",UserTypestr,OrgIdStr];
+    NSString *projectLstForTask =[NSString stringWithFormat:@"dashboard/v1/averageCostResProgramList?usertype=%@&orgId=%@",UserTypestr,OrgIdStr];
     [Servicecall averagecostofresourceofProgramUrl:projectLstForTask];
     [Servicecall setDelegate:self];
 }
@@ -709,7 +709,7 @@
 //    [Servicecall setDelegate:self];
 
     Servicecall = [[Webservices alloc]init];
-    NSString *projectLstForTask =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/dashboard/v1/ownerResDetsChart?programOwner=%@",programOwnerStr];
+    NSString *projectLstForTask =[NSString stringWithFormat:@"dashboard/v1/ownerResDetsChart?programOwner=%@",programOwnerStr];
     [Servicecall programownerchartUrl:projectLstForTask];
     [Servicecall setDelegate:self];
    }
@@ -750,7 +750,7 @@
 //    NSLog(@"the dictionary is %@",TeamResourceForAdminParametrs1);
 
     Servicecall = [[Webservices alloc]init];
-    NSString *projectLstForTask =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/dashboard/v1/teamResourceChart?userType=%@&orgId=%@&userId=%@",UserTypestr,OrgIdStr,Useridstr];
+    NSString *projectLstForTask =[NSString stringWithFormat:@"dashboard/v1/teamResourceChart?userType=%@&orgId=%@&userId=%@",UserTypestr,OrgIdStr,Useridstr];
     [Servicecall numofresourcesbyteamUrl:projectLstForTask];
     [Servicecall setDelegate:self];
 }
@@ -786,7 +786,7 @@
 //    [Servicecall ProejctsForAll:ProejctsForAllClass1 ProjectsForAllParameters:ProejctsForAllDictionary1];
 //    [Servicecall setDelegate:self];
     Servicecall = [[Webservices alloc]init];
-    NSString *projectLstForTask =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/dashboard/v1/projectsForAll?userType=%@&orgId=%@&userId=%@",UserTypestr,OrgIdStr,Useridstr];
+    NSString *projectLstForTask =[NSString stringWithFormat:@"dashboard/v1/projectsForAll?userType=%@&orgId=%@&userId=%@",UserTypestr,OrgIdStr,Useridstr];
     [Servicecall numofresourcesbyprojectUrl:projectLstForTask];
     [Servicecall setDelegate:self];
     

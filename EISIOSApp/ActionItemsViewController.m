@@ -283,7 +283,7 @@
 }
 -(void)ActionitemsList
 {
-    NSString *publicnotesdec =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/meeting/v1/actionItemsTabList?agendaId=%@&userId=%@",_ObjIdstr,Useridstr];
+    NSString *publicnotesdec =[NSString stringWithFormat:@"meeting/v1/actionItemsTabList?agendaId=%@&userId=%@",_ObjIdstr,Useridstr];
     NSString *encode1=[publicnotesdec stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     Servicecall=[[Webservices alloc]init];
     [Servicecall actionItemListUrl:encode1];
@@ -331,7 +331,7 @@
 //    [Servicecall NotesList:Saveactionitemsurl NotesListParametrs:credentials];
 //    [Servicecall setDelegate:self];
     
-    NSString *publicnotesdec =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/meeting/v1/notesTabList?agendaId=%@&userId=%@",_ObjIdstr,Useridstr];
+    NSString *publicnotesdec =[NSString stringWithFormat:@"meeting/v1/notesTabList?agendaId=%@&userId=%@",_ObjIdstr,Useridstr];
     NSString *encode1=[publicnotesdec stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     Servicecall=[[Webservices alloc]init];
     [Servicecall noteslistUrl:encode1];
@@ -379,7 +379,7 @@
 //    [Servicecall Feedbacklisturl:Feedbackurl FeedbackCredentials:credentials];
 //    [Servicecall setDelegate:self];
 
-    NSString *publicnotesdec =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/meeting/v1/feedabackTabList?meetingId=%@&userId=%@",_meetingid,Useridstr];
+    NSString *publicnotesdec =[NSString stringWithFormat:@"meeting/v1/feedabackTabList?meetingId=%@&userId=%@",_meetingid,Useridstr];
     NSString *encode1=[publicnotesdec stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     Servicecall=[[Webservices alloc]init];
     [Servicecall feedbackListUrl:encode1];
@@ -418,7 +418,7 @@
 -(void)AssignToPickerTapped
 {
     [DatePicker removeFromSuperview];
-    NSString *AssignedTourl = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/meeting/v1/actionItemAssignToSpinner?projectId=%@",projectId1];
+    NSString *AssignedTourl = [NSString stringWithFormat:@"meeting/v1/actionItemAssignToSpinner?projectId=%@",projectId1];
         NSLog(@"hai%@",projectId1);
     [Servicecall actionitemassignedto:AssignedTourl];
     [Servicecall setDelegate:self];
@@ -636,7 +636,7 @@
 //        [Servicecall setDelegate:self];
             
 
-            NSString *actionitemsaveurl = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/meeting/v1/saveactionItems"];
+            NSString *actionitemsaveurl = [NSString stringWithFormat:@"meeting/v1/saveactionItems"];
 NSString *credentials = [NSString stringWithFormat:@"ObjId=%@&ObjDesc=%@&category=%@&actionItemDesc=%@&assignedId=%@&dueDate=%@&priority=%@&effortReq=%@&effortUom=%@&created_by=%@",_ObjIdstr,_ObjDistr,category,ActiondisTextView.text,ResourceIdstr,Duedatetxtfld.text,Prioritytxtfld.text,Effortrequiredtxtfld.text,EffortUomtxtfld.text,Useridstr];
             
             NSLog(@"params are %@",credentials);
@@ -675,7 +675,7 @@ NSString *credentials = [NSString stringWithFormat:@"ObjId=%@&ObjDesc=%@&categor
 //        [Servicecall SaveNotes:SaveaNotesurl NotesparametrsForSave:credentials];
 //        [Servicecall setDelegate:self];
 
-            NSString *notesurl = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/meeting/v1/saveNotes"];
+            NSString *notesurl = [NSString stringWithFormat:@"meeting/v1/saveNotes"];
             NSString *credentials = [NSString stringWithFormat:@"ObjId=%@&noteCategory=%@&noteRef=%@&noteDesc=%@&assignedId=%@&publicPriv=%@",_ObjIdstr,noteCategory,_ObjDistr,EnterNotesTxtView.text,Useridstr,publicPriv];
             
             NSLog(@"params are %@",credentials);
@@ -705,7 +705,7 @@ NSString *credentials = [NSString stringWithFormat:@"ObjId=%@&ObjDesc=%@&categor
 //        [Servicecall SaveFeedbackurl:SaveFeedBackurl SaveFeedBackCredentials:credentials];
 //        [Servicecall setDelegate:self];
 
-           NSString *feedbackUrl = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/meeting/v1/savefeedback"];
+           NSString *feedbackUrl = [NSString stringWithFormat:@"meeting/v1/savefeedback"];
            NSString *credentials = [NSString stringWithFormat:@"meetingId=%@&userId=%@&positiveComments=%@&negativeComm=%@",_meetingid,Useridstr,PositiveFeedBacltxtview.text,NegativefeedbacktxtView.text];
            
            NSLog(@"params are %@",credentials);

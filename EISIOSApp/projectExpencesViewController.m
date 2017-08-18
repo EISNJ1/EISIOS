@@ -100,7 +100,7 @@
 {
     
     Servicecall = [[Webservices alloc]init];
-    NSString *projectLstForTask = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/meeting/v1/projectListSpinner?usertype=%@&userId=%@&orgId=%@",UserTypestr,Useridstr,OrgIdStr];
+    NSString *projectLstForTask = [NSString stringWithFormat:@"meeting/v1/projectListSpinner?usertype=%@&userId=%@&orgId=%@",UserTypestr,Useridstr,OrgIdStr];
     [Servicecall projectlstspinrurl:projectLstForTask];
     [Servicecall setDelegate:self];
 }
@@ -149,7 +149,7 @@
 {
     NSLog(@"the proejct id str is %@",pkrProjectIDStr);
     Servicecall = [[Webservices alloc]init];
-    NSString *projectLstForTask = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/projectexpenses/v1/projectExpensesList?projId=%@&userId=%@&orgId=%@&userType=%@",pkrProjectIDStr,Useridstr,OrgIdStr,UserTypestr];
+    NSString *projectLstForTask = [NSString stringWithFormat:@"projectexpenses/v1/projectExpensesList?projId=%@&userId=%@&orgId=%@&userType=%@",pkrProjectIDStr,Useridstr,OrgIdStr,UserTypestr];
     
     NSLog(@"projectist for task is %@",projectLstForTask);
     [Servicecall ProjectExpenseslist:projectLstForTask];

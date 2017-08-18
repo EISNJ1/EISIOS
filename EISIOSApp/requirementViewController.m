@@ -129,7 +129,7 @@
 -(void)projectSpinnerService
 {
     Servicecall = [[Webservices alloc]init];
-    NSString *projectLstForTask = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/meeting/v1/projectListSpinner?usertype=%@&userId=%@&orgId=%@",UserTypestr,Useridstr,OrgIdStr];
+    NSString *projectLstForTask = [NSString stringWithFormat:@"meeting/v1/projectListSpinner?usertype=%@&userId=%@&orgId=%@",UserTypestr,Useridstr,OrgIdStr];
     [Servicecall projectlstspinrurl:projectLstForTask];
     [Servicecall setDelegate:self];
     
@@ -159,7 +159,7 @@
 //    [Servicecall reqList:projectLstForTask TaskListParameters:credentials];
 //    [Servicecall setDelegate:self];
     
-    NSString *reqlst =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/requirement/v1/requirementList?orgVp=%@&userId=%@&userType=%@",OrgIdStr,Useridstr,UserTypestr];
+    NSString *reqlst =[NSString stringWithFormat:@"requirement/v1/requirementList?orgVp=%@&userId=%@&userType=%@",OrgIdStr,Useridstr,UserTypestr];
     NSString *encode1=[reqlst stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     Servicecall=[[Webservices alloc]init];
     [Servicecall requirementListUrl:encode1];

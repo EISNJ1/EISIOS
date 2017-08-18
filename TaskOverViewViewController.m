@@ -143,7 +143,7 @@
 //    [serviceCall setDelegate:self];
 
     serviceCall = [[Webservices alloc]init];
-    NSString *projectLstForTask =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/dashboard/v1/taskoverviewlist?usertype=%@&userId=%@&orgId=%@",Usertypestr,Useridstr,orgIdstr];
+    NSString *projectLstForTask =[NSString stringWithFormat:@"dashboard/v1/taskoverviewlist?usertype=%@&userId=%@&orgId=%@",Usertypestr,Useridstr,orgIdstr];
     [serviceCall taskoverviewlistUrl:projectLstForTask];
     [serviceCall setDelegate:self];
 }

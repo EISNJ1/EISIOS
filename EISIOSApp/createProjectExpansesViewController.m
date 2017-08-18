@@ -168,7 +168,7 @@
 {
     
     Servicecall = [[Webservices alloc]init];
-    NSString *projectLstForTask = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/meeting/v1/projectListSpinner?usertype=%@&userId=%@&orgId=%@",UserTypestr,Useridstr,OrgIdStr];
+    NSString *projectLstForTask = [NSString stringWithFormat:@"meeting/v1/projectListSpinner?usertype=%@&userId=%@&orgId=%@",UserTypestr,Useridstr,OrgIdStr];
     [Servicecall projectlstspinrurl:projectLstForTask];
     [Servicecall setDelegate:self];
 }
@@ -224,7 +224,7 @@ NSLog(@"split  is %@ %@ ",projectIdArray,projectNameArray);
 {
     NSLog(@"welcome to %@",pkrProjectIDStr);
     Servicecall = [[Webservices alloc]init];
-    NSString *projectLstForTask = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/projectexpenses/v1/projectExpensesCategorySpinner?projectId=%@",pkrProjectIDStr];
+    NSString *projectLstForTask = [NSString stringWithFormat:@"projectexpenses/v1/projectExpensesCategorySpinner?projectId=%@",pkrProjectIDStr];
     [Servicecall categoryspinnerlist:projectLstForTask];
     [Servicecall setDelegate:self];
     
@@ -273,7 +273,7 @@ NSLog(@"split  is %@ %@ ",projectIdArray,projectNameArray);
 {
     //NSLog(@"byte array string is in save %@",byteArray);
     Servicecall = [[Webservices alloc]init];
-    NSString *projectLstForTask = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/projectexpenses/v1/saveProjectExpenses"];
+    NSString *projectLstForTask = [NSString stringWithFormat:@"projectexpenses/v1/saveProjectExpenses"];
     NSString *credentials = [NSString stringWithFormat:@"date=%@&amount=%@&budgtCatgry=%@&projId=%@",dateTfd.text,amountTfd.text,pkrCategoryIDStr,pkrProjectIDStr];
    // NSLog(@"the dict is %@",credentials);
     
@@ -318,7 +318,7 @@ NSLog(@"split  is %@ %@ ",projectIdArray,projectNameArray);
     NSLog(@"budget category id is %@",pkrCategoryIDStr);
     //NSLog(@"the file byte array stringis %@",byteArray);
     Servicecall = [[Webservices alloc]init];
-    NSString *projectLstForTask = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/projectexpenses/v1/updateProjectExpenses"];
+    NSString *projectLstForTask = [NSString stringWithFormat:@"projectexpenses/v1/updateProjectExpenses"];
     NSString *credentials = [NSString stringWithFormat:@"proj_amnt_Id=%@&date=%@&amount=%@&budgtCatgry=%@&projId=%@",pkrProjectAmountIDStr,dateTfd.text,amountTfd.text,pkrCategoryIDStr,pkrProjectIDStr];
 
     [Servicecall updateprojectexpenses:projectLstForTask updateprojectexpensesparams:credentials];

@@ -306,7 +306,7 @@
     NSLog(@"the id is %@",getAssignReqIdStr);
     
     Servicecall = [[Webservices alloc]init];
-    NSString *projectLstForTask = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/requirement/v1/requirementObjectList?requirementId=%@",getAssignReqIdStr];
+    NSString *projectLstForTask = [NSString stringWithFormat:@"requirement/v1/requirementObjectList?requirementId=%@",getAssignReqIdStr];
     //NSDictionary *credentials = @{@"assignReqId":getAssignReqIdStr};
     [Servicecall requirementobjectlist:projectLstForTask];
     [Servicecall setDelegate:self];
@@ -363,7 +363,7 @@
 -(void)objectSpinnerListService
 {
     Servicecall = [[Webservices alloc]init];
-    NSString *projectLstForTask = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/requirement/v1/requirementObjectTypeSpinner?orgId=%@",OrgIdStr];
+    NSString *projectLstForTask = [NSString stringWithFormat:@"requirement/v1/requirementObjectTypeSpinner?orgId=%@",OrgIdStr];
     [Servicecall requirementobjectspinner:projectLstForTask];
     [Servicecall setDelegate:self];
 }
@@ -400,7 +400,7 @@
 -(void)purposeSpinnerListService
 {
     Servicecall = [[Webservices alloc]init];
-    NSString *projectLstForTask = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/requirement/v1/requirementObjPurposeSpinner?orgId=%@",OrgIdStr];
+    NSString *projectLstForTask = [NSString stringWithFormat:@"requirement/v1/requirementObjPurposeSpinner?orgId=%@",OrgIdStr];
     //NSDictionary *credentials = @{@"orgId":OrgIdStr};
     [Servicecall requirementpurpose:projectLstForTask];
     [Servicecall setDelegate:self];
@@ -442,7 +442,7 @@ else
     NSLog(@"resource list display");
     NSLog(@"the project id is %@",_ProjectIdStr2);
     
-    NSString *TaskListUrl = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/requirement/v1/reqGathContactSpinner?projectId=%@",_ProjectIdStr2];
+    NSString *TaskListUrl = [NSString stringWithFormat:@"requirement/v1/reqGathContactSpinner?projectId=%@",_ProjectIdStr2];
     [Servicecall contacttypelistUrl:TaskListUrl];
     [Servicecall setDelegate:self];
 }
@@ -486,7 +486,7 @@ else
 -(void)complexitySpinnerListService
 {
     Servicecall = [[Webservices alloc]init];
-    NSString *projectLstForTask = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/requirement/v1/requirementObjComplexitySpinner?orgId=%@",OrgIdStr];
+    NSString *projectLstForTask = [NSString stringWithFormat:@"requirement/v1/requirementObjComplexitySpinner?orgId=%@",OrgIdStr];
     [Servicecall requirementcomplexity:projectLstForTask];
     [Servicecall setDelegate:self];
 }
@@ -525,7 +525,7 @@ else
 {
    NSLog(@"the resource id is %@",pkrResourceIDStr);
    
-    NSString *saverequirement = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/requirement/v1/saveorUpdateReqObject"];
+    NSString *saverequirement = [NSString stringWithFormat:@"requirement/v1/saveorUpdateReqObject"];
     NSString *credentials =[NSString stringWithFormat:@"objectType=%@&objectName=%@&complexity=%@&purpose=%@&existingNew=%@&approval=%@&resourceName=%@&comments=%@&asisReqId=%@&isTaskCompl=%@&reqObjId=%@&saveUpdateType=%@",pkrObjectTypeIDStr,objectNameTfd.text,pkrComplexityIDStr,pkrPurposeIDStr,exixtingTfd.text,approvalTfd.text,pkrResourceIDStr,commentsTextView.text,getAssignReqIdStr,@"",@"0",@"SaveObject"];
      Servicecall = [[Webservices alloc]init];
     [Servicecall saveRequirementobject:saverequirement saveRequirementobjectparams:credentials];
@@ -573,7 +573,7 @@ else
 //    [Servicecall updateRequirementObject:projectLstForTask TaskListParameters:credentials];
 //    [Servicecall setDelegate:self];
 
-    NSString *saverequirement = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/requirement/v1/saveorUpdateReqObject"];
+    NSString *saverequirement = [NSString stringWithFormat:@"requirement/v1/saveorUpdateReqObject"];
     NSString *credentials =[NSString stringWithFormat:@"objectType=%@&objectName=%@&complexity=%@&purpose=%@&existingNew=%@&approval=%@&resourceName=%@&comments=%@&asisReqId=%@&isTaskCompl=%@&reqObjId=%@&saveUpdateType=%@",pkrObjectTypeIDStr,objectNameTfd.text,pkrComplexityIDStr,pkrPurposeIDStr,exixtingTfd.text,approvalTfd.text,pkrResourceIDStr,commentsTextView.text,getAssignReqIdStr,@"",pkrReqProectIDStr,@"UpdateObject"];
     
     NSLog(@"the dict is %@",credentials);

@@ -121,7 +121,7 @@
     
     //------------Project Spinner  Calling-------------//
     
-    NSString *projectListurl=[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/meeting/v1/projectListSpinner?usertype=%@&userId=%@&orgId=%@",UserTypestr,Useridstr,OrgIdStr];
+    NSString *projectListurl=[NSString stringWithFormat:@"meeting/v1/projectListSpinner?usertype=%@&userId=%@&orgId=%@",UserTypestr,Useridstr,OrgIdStr];
     NSString *encode=[projectListurl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     Servicecall=[[Webservices alloc]init];
     [Servicecall projectlstspinrurl:encode];
@@ -313,7 +313,7 @@
 -(void)statusService
 {
     Servicecall = [[Webservices alloc]init];
-    NSString *projectLstForTask =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/issues/v1/issueStatusSpinner?orgId=%@",OrgIdStr];
+    NSString *projectLstForTask =[NSString stringWithFormat:@"issues/v1/issueStatusSpinner?orgId=%@",OrgIdStr];
     [Servicecall issuestatusclass:projectLstForTask];
     [Servicecall setDelegate:self];
 }
@@ -359,7 +359,7 @@
 -(void)typeService
 {
     Servicecall = [[Webservices alloc]init];
-    NSString *projectLstForTask =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/issues/v1/issueTypeSpinner?orgId=%@",OrgIdStr];
+    NSString *projectLstForTask =[NSString stringWithFormat:@"issues/v1/issueTypeSpinner?orgId=%@",OrgIdStr];
     [Servicecall issuetypeservice:projectLstForTask];
     [Servicecall setDelegate:self];
 
@@ -402,7 +402,7 @@
 -(void)assignToService
 {
     Servicecall = [[Webservices alloc]init];
-    NSString *projectLstForTask =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/task/v1/taskResourceSpinner?projectId=%@",projectIdStr];
+    NSString *projectLstForTask =[NSString stringWithFormat:@"task/v1/taskResourceSpinner?projectId=%@",projectIdStr];
    // NSDictionary *credentials = @{ @"prjctId":projectIdStr};
     [Servicecall assigntoservice:projectLstForTask];
     [Servicecall setDelegate:self];
@@ -450,7 +450,7 @@
 -(void)teamSubmittedService
 {
     Servicecall = [[Webservices alloc]init];
-    NSString *projectLstForTask = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/issues/v1/issueteamSubmittedSpinner?projectId=%@",projectIdStr];
+    NSString *projectLstForTask = [NSString stringWithFormat:@"issues/v1/issueteamSubmittedSpinner?projectId=%@",projectIdStr];
     [Servicecall teamsubmittedservice:projectLstForTask];
     [Servicecall setDelegate:self];
 }
@@ -488,7 +488,7 @@
 -(void)severityService
 {
     Servicecall = [[Webservices alloc]init];
-    NSString *projectLstForTask = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/issues/v1/issueBusinessPrioritySpinner?orgId=%@",OrgIdStr];
+    NSString *projectLstForTask = [NSString stringWithFormat:@"issues/v1/issueBusinessPrioritySpinner?orgId=%@",OrgIdStr];
     [Servicecall servityservice:projectLstForTask];
     [Servicecall setDelegate:self];
 
@@ -781,7 +781,7 @@
     issueHistoryTextView.text = nil;
     
     //------------Project Spinner  Calling-------------//
-    NSString *projectListurl=[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/meeting/v1/projectListSpinner?usertype=%@&userId=%@&orgId=%@",UserTypestr,Useridstr,OrgIdStr];
+    NSString *projectListurl=[NSString stringWithFormat:@"meeting/v1/projectListSpinner?usertype=%@&userId=%@&orgId=%@",UserTypestr,Useridstr,OrgIdStr];
     NSString *encode=[projectListurl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     Servicecall=[[Webservices alloc]init];
     [Servicecall projectlstspinrurl:encode];
@@ -945,7 +945,7 @@
         
         Servicecall = [[Webservices alloc]init];
         
-        NSString *projectLstForTask =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/issues/v1/saveAndUpdateIssue"];
+        NSString *projectLstForTask =[NSString stringWithFormat:@"issues/v1/saveAndUpdateIssue"];
         NSString *credentials=[NSString stringWithFormat:@"issueNo=%@&issueStatus=%@&issueType=%@&description=%@&businessPriorty=%@&projectId=%@&teamImpact=%@&resourceId=%@&saveUpdateType=%@&orgId=%@&userId=%@&issueId=%@&logDescription=%@",@"0",issueNoStr,issueTypeStr,descriptionTfd.text,businessPriortyStr,projectIdStr,teamImpactStr,resourceIdStr,@"SaveIssues",OrgIdStr,Useridstr,@"0",str];
         [Servicecall saveissue:projectLstForTask saveissueparams:credentials];
         [Servicecall setDelegate:self];
@@ -1081,7 +1081,7 @@
         NSLog(@"assign id issssssss %@",resourceIdStr);
         Servicecall = [[Webservices alloc]init];
         
-        NSString *projectLstForTask = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/issues/v1/saveAndUpdateIssue"];
+        NSString *projectLstForTask = [NSString stringWithFormat:@"issues/v1/saveAndUpdateIssue"];
         NSString *credentials=[NSString stringWithFormat:@"issueNo=%@&issueStatus=%@&issueType=%@&description=%@&businessPriorty=%@&projectId=%@&teamImpact=%@&resourceId=%@&saveUpdateType=%@&orgId=%@&userId=%@&issueId=%@&logDescription=%@",issueNoTblStr,issueNoStr,issueTypeStr,descriptionTfd.text,businessPriortyStr,projectIdStr,teamImpactStr,resourceIdStr,@"UpdateIssues",OrgIdStr,Useridstr,issueIdTblStr,str1];
         
         NSLog(@"credentials are %@",credentials);
@@ -1125,7 +1125,7 @@
         
         NSLog(@"assign id isisisisisisi %@",resourceIdStr);
         Servicecall = [[Webservices alloc]init];
-        NSString *projectLstForTask =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/issues/v1/saveAndUpdateIssue"];
+        NSString *projectLstForTask =[NSString stringWithFormat:@"issues/v1/saveAndUpdateIssue"];
         NSString *credentials = @{ @"issueNo":saveissueNumStr,@"issueStatus":issueNoStr,@"description":descriptionTfd.text,@"businessPriorty":businessPriortyStr,@"issueType":issueTypeStr,@"projectId":projectIdStr,@"teamImpact":teamImpactStr,@"resourceId":resourceIdStr,@"saveUpdateType":@"UpdateIssue",@"orgId":OrgIdStr,@"userId":Useridstr,@"issueId":saveissueIDStr,@"logDescription":str1/*issueEntryTfd.text*/};
         //[Servicecall updateIssue:projectLstForTask ParticipantsListParameters:credentials];
         [Servicecall setDelegate:self];

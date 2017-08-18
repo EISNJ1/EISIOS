@@ -97,7 +97,7 @@
 -(void)ListOfFiles
 {
     NSString *filetype1=@"file";
-    NSString *TaskFileurl  = [NSString stringWithFormat:@"https://2-dot-eiswebservice1-173410.appspot.com/_ah/api/task/v1/taskFilesList?taskId=%@&fileType=%@",_Taskidstr,filetype1];
+    NSString *TaskFileurl  = [NSString stringWithFormat:@"task/v1/taskFilesList?taskId=%@&fileType=%@",_Taskidstr,filetype1];
     [Servicecall taskfileslist:TaskFileurl];
     [Servicecall setDelegate:self];
     
@@ -263,7 +263,7 @@
     
     TaskHistorystr = @"value";
     
-    NSString *UploadTaskUrl = [NSString stringWithFormat:@"https://2-dot-eiswebservice1-173410.appspot.com/_ah/api/task/v1/taskUploadFile"];
+    NSString *UploadTaskUrl = [NSString stringWithFormat:@"task/v1/taskUploadFile"];
     
     NSDictionary *credentials1 =@{@"fileName":fileName,@"fileType":fileType,@"fileBytes":fileBytes, @"taskId":_Taskidstr,@"taskDate":datestr,@"taskHistory":@""};
     

@@ -191,7 +191,7 @@
 //    [servicesCall setDelegate:self];
     
     servicesCall = [[Webservices alloc]init];
-    NSString *projectLstForTask =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/dashboard/v1/effortAndBookedTimeChart?usertype=%@&userId=%@&orgId=%@",Usertypestr,Useridstr,orgIdstr];
+    NSString *projectLstForTask =[NSString stringWithFormat:@"dashboard/v1/effortAndBookedTimeChart?usertype=%@&userId=%@&orgId=%@",Usertypestr,Useridstr,orgIdstr];
     [servicesCall effortandbookedtimeUrl:projectLstForTask];
     [servicesCall setDelegate:self];
 }
@@ -229,7 +229,7 @@
 //    [servicesCall setDelegate:self];
 
     servicesCall = [[Webservices alloc]init];
-    NSString *projectLstForTask =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/dashboard/v1/taskoverViewChart?usertype=%@&userId=%@&orgId=%@",Usertypestr,Useridstr,orgIdstr];
+    NSString *projectLstForTask =[NSString stringWithFormat:@"dashboard/v1/taskoverViewChart?usertype=%@&userId=%@&orgId=%@",Usertypestr,Useridstr,orgIdstr];
     [servicesCall taskoverviewUrl:projectLstForTask];
     [servicesCall setDelegate:self];
 }
@@ -278,7 +278,7 @@
 //    [servicesCall setDelegate:self];
 
     servicesCall = [[Webservices alloc]init];
-    NSString *projectLstForTask =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/dashboard/v1/issueoverViewChart?usertype=%@&userId=%@&orgId=%@",Usertypestr,Useridstr,orgIdstr];
+    NSString *projectLstForTask =[NSString stringWithFormat:@"dashboard/v1/issueoverViewChart?usertype=%@&userId=%@&orgId=%@",Usertypestr,Useridstr,orgIdstr];
     [servicesCall issueoverviewUrl:projectLstForTask];
     [servicesCall setDelegate:self];
 }

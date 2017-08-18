@@ -162,7 +162,7 @@
 //    [Servicecall setDelegate:self];
 //    [Servicecall setDelegate:self];
     
-    NSString *publicnotesdec =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/meeting/v1/goalsList?meetingId=%@",_MeetingId];
+    NSString *publicnotesdec =[NSString stringWithFormat:@"meeting/v1/goalsList?meetingId=%@",_MeetingId];
     NSString *encode1=[publicnotesdec stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     Servicecall=[[Webservices alloc]init];
     [Servicecall goallistUrl:encode1];
@@ -226,14 +226,14 @@
         
         NSString *agendaorgoalFlag=@"Goals";
         
-        NSString *goalsaveurl =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/meeting/v1/saveAgendaGoal"];
+        NSString *goalsaveurl =[NSString stringWithFormat:@"meeting/v1/saveAgendaGoal"];
         NSString *credentials=[NSString stringWithFormat:@"meetingId=%@&objectDesc=%@&budgetedTym=%@&agendaGoalFlag=%@",_MeetingId,GoalsDistextView.text,Goalstimetxtfld.text,agendaorgoalFlag];
     
     [Servicecall agendameeting:goalsaveurl agendameetingparams:credentials];
     [Servicecall setDelegate:self];
     
         
-        NSString *credentials1 = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/meeting/v1/agendaGoalCount?meetingId=%@",_MeetingId];
+        NSString *credentials1 = [NSString stringWithFormat:@"meeting/v1/agendaGoalCount?meetingId=%@",_MeetingId];
         NSString *encode=[credentials1 stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         Servicecall=[[Webservices alloc]init];
         [Servicecall agendacount:encode];

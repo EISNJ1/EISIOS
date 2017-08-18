@@ -184,7 +184,7 @@
 -(void)assigntoSpinner
 {
     Servicecall = [[Webservices alloc]init];
-    NSString *projectLstForTask = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/issues/v1/issueEscalatedToSpinner?projectId=%@",projectIDStr];
+    NSString *projectLstForTask = [NSString stringWithFormat:@"issues/v1/issueEscalatedToSpinner?projectId=%@",projectIDStr];
     [Servicecall issueresolutionescalteto:projectLstForTask];
     [Servicecall setDelegate:self];
     
@@ -239,7 +239,7 @@
 -(void)releaseImpactSpinner
 {
     Servicecall = [[Webservices alloc]init];
-    NSString *projectLstForTask = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/issues/v1/issueReleaseImpactSpinner?orgId=%@",OrgIdStr];
+    NSString *projectLstForTask = [NSString stringWithFormat:@"issues/v1/issueReleaseImpactSpinner?orgId=%@",OrgIdStr];
    // NSDictionary *credentials2 = @{@"orgId":OrgIdStr,@"prjctId":@"30"};
    
 
@@ -300,7 +300,7 @@
 -(void)rejectReasonSpinner
 {
     Servicecall = [[Webservices alloc]init];
-    NSString *projectLstForTask = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/issues/v1/issueRejectReasonSpinner?orgId=%@",OrgIdStr];
+    NSString *projectLstForTask = [NSString stringWithFormat:@"issues/v1/issueRejectReasonSpinner?orgId=%@",OrgIdStr];
     [Servicecall rejectreasonclass:projectLstForTask];
     [Servicecall setDelegate:self];
     
@@ -356,7 +356,7 @@
 -(void)resolutionTypeSpinner
 {
     Servicecall = [[Webservices alloc]init];
-    NSString *projectLstForTask = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/issues/v1/issueResolutionTypeSpinner?orgId=%@",OrgIdStr];
+    NSString *projectLstForTask = [NSString stringWithFormat:@"issues/v1/issueResolutionTypeSpinner?orgId=%@",OrgIdStr];
     
     [Servicecall resolutiontypeclass:projectLstForTask];
     [Servicecall setDelegate:self];
@@ -433,7 +433,7 @@
         NSLog(@"selectreleaseimpact %@",selectReleaseImpactIdStr);
          NSLog(@"selectreleaseimpact %@",selectResolutionIdStr);
     Servicecall = [[Webservices alloc]init];
-        NSString *projectLstForTask = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/issues/v1/saveIssueResolution"];
+        NSString *projectLstForTask = [NSString stringWithFormat:@"issues/v1/saveIssueResolution"];
     NSString *credentials2 = [NSString stringWithFormat:@"escalatedToResrc=%@&releaseImpact=%@&dateResolutionNededBy=%@&rejectReason=%@&dupIssueIdRef=%@&resolutionType=%@&dateResolved=%@&dateColsed=%@&resolutionDetails=%@",selectEscalateIdStr,selectReleaseImpactIdStr,drnbTfd.text,selectRejectIdStr,issueIdStr,selectResolutionIdStr,dateResolvedTfd.text,dateClosedTfd.text,resolutionDescriptionTfd.text];
         
         NSLog(@"the parameters are %@",credentials2);

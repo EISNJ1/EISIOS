@@ -163,7 +163,7 @@ int i=1;
 //    [serviceCall ProjectCostDetails:ProgramClass ProjectCostParameters:ProgramDetailsDictionary];
 //    [serviceCall setDelegate:self];
     serviceCall = [[Webservices alloc]init];
-    NSString *projectLstForTask =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/dashboard/v1/budgetofEachProgramList?orgId=%@",orgIdstr];
+    NSString *projectLstForTask =[NSString stringWithFormat:@"dashboard/v1/budgetofEachProgramList?orgId=%@",orgIdstr];
     [serviceCall programspinnerUrl:projectLstForTask];
     [serviceCall setDelegate:self];
 
@@ -195,7 +195,7 @@ int i=1;
 -(void)budgetcostservice
 {
     serviceCall = [[Webservices alloc]init];
-    NSString *projectLstForTask =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/dashboard/v1/projectBudgetCostList?programId=%@",programIdstr];
+    NSString *projectLstForTask =[NSString stringWithFormat:@"dashboard/v1/projectBudgetCostList?programId=%@",programIdstr];
     [serviceCall programchartsbudgetcostUrl:projectLstForTask];
     [serviceCall setDelegate:self];
 }

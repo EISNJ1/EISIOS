@@ -158,7 +158,7 @@
 -(void)tasktextfilelist
 {
     NSString *filetype1=@"Text";
-    NSString *TaskFileurl  = [NSString stringWithFormat:@"https://2-dot-eiswebservice1-173410.appspot.com/_ah/api/task/v1/taskFilesList?taskId=%@&fileType=%@",_taskIdstr,filetype1];
+    NSString *TaskFileurl  = [NSString stringWithFormat:@"task/v1/taskFilesList?taskId=%@&fileType=%@",_taskIdstr,filetype1];
     [Servicecall taskfileslist:TaskFileurl];
     [Servicecall setDelegate:self];
 }
@@ -551,7 +551,7 @@
         NSLog(@"enter text field text is %@",EnterTextFld.text);
         
         NSLog(@"file name is %@",fileName);
-    NSString *UploadTaskUrl = @"https://2-dot-eiswebservice1-173410.appspot.com/_ah/api/task/v1/taskUploadFile";
+    NSString *UploadTaskUrl = @"task/v1/taskUploadFile";
         
         NSString *credentials1 =[NSString stringWithFormat:@"fileName=%@&fileType=%@&fileBytes=%@&taskId=%@&taskDate=%@&taskHistory=%@",fileName,fileType,fileBytes,_taskIdstr,datestr,EnterTextFld.text];
         [Servicecall textuploadtask:UploadTaskUrl textuploadingtaskparams:credentials1];

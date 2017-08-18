@@ -290,7 +290,7 @@
 //    [Servicecall TasksHPListServiceurl:TaskListUrl TaskListParameters:credentials];
 //    [Servicecall setDelegate:self];
 
-    NSString *publicnotesdec =[NSString stringWithFormat:@"https://2-dot-eiswebservice1-173410.appspot.com/_ah/api/task/v1/taskList?orgVp=%@&userId=%@&userType=%@",orgIdstr,Useridstr,Usertypestr];
+    NSString *publicnotesdec =[NSString stringWithFormat:@"task/v1/taskList?orgVp=%@&userId=%@&userType=%@",orgIdstr,Useridstr,Usertypestr];
     NSString *encode1=[publicnotesdec stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     Servicecall=[[Webservices alloc]init];
     [Servicecall tasklistUrl:encode1];

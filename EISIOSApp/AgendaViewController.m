@@ -147,13 +147,13 @@
 {
 
     NSLog(@"meeting id is %@",_MeetingId);
-    NSString *credentials1 = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/meeting/v1/agendaGoalCount?meetingId=%@",_MeetingId];
+    NSString *credentials1 = [NSString stringWithFormat:@"meeting/v1/agendaGoalCount?meetingId=%@",_MeetingId];
     NSString *encode=[credentials1 stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     Servicecall=[[Webservices alloc]init];
     [Servicecall agendacount:encode];
     [Servicecall setDelegate:self];
     
-    NSString *credentials2=[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/meeting/v1/agendaList?meetingId=%@",_MeetingId];
+    NSString *credentials2=[NSString stringWithFormat:@"meeting/v1/agendaList?meetingId=%@",_MeetingId];
     NSString *encode1=[credentials2 stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     Servicecall=[[Webservices alloc]init];
     [Servicecall AgendaListUrl:encode1];
@@ -232,7 +232,7 @@
         
         agendaorgoalFlag=@"Agenda";
         agendatimestr=Agendtimetxtfld.text;
-        NSString *AgendaSaveurl =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/meeting/v1/saveAgendaGoal"];
+        NSString *AgendaSaveurl =[NSString stringWithFormat:@"meeting/v1/saveAgendaGoal"];
      NSString *credentials=[NSString stringWithFormat:@"meetingId=%@&objectDesc=%@&budgetedTym=%@&agendaGoalFlag=%@",_MeetingId,AgendaDistextView.text,Agendtimetxtfld.text,agendaorgoalFlag];
         
         NSLog(@"credentials is %@",credentials);
@@ -241,7 +241,7 @@
     
         
     
-        NSString *credentials2=[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/meeting/v1/agendaList?meetingId=%@",_MeetingId];
+        NSString *credentials2=[NSString stringWithFormat:@"meeting/v1/agendaList?meetingId=%@",_MeetingId];
         NSString *encode1=[credentials2 stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         Servicecall=[[Webservices alloc]init];
         [Servicecall AgendaListUrl:encode1];

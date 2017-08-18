@@ -128,7 +128,7 @@
 -(void)ListOfAudios
 {
     NSString *filetype1=@"Audio";
-    NSString *TaskFileurl  = [NSString stringWithFormat:@"https://2-dot-eiswebservice1-173410.appspot.com/_ah/api/task/v1/taskFilesList?taskId=%@&fileType=%@",_TaskIdstr,filetype1];
+    NSString *TaskFileurl  = [NSString stringWithFormat:@"task/v1/taskFilesList?taskId=%@&fileType=%@",_TaskIdstr,filetype1];
     [Servicecall taskfileslist:TaskFileurl];
     [Servicecall setDelegate:self];
 }
@@ -473,7 +473,7 @@
     
     TaskHistorystr = @"";
     
-    NSString *UploadTaskUrl = @"https://2-dot-eiswebservice1-173410.appspot.com/_ah/api/task/v1/taskUploadFile";
+    NSString *UploadTaskUrl = @"task/v1/taskUploadFile";
     NSDictionary *credentials= @{@"fileName":fileName,@"fileType":fileType,@"fileBytes":fileBytes, @"taskId":_TaskIdstr,@"taskDate":datestr,@"taskHistory":@""};
 
     [Servicecall audiouploading:UploadTaskUrl audiouploadingparams:credentials];

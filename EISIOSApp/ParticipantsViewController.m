@@ -231,7 +231,7 @@
 //    [Servicecall ParticipantsListurl:ParticipantsListurl ParticipantsListParameters:credentials];
 //    [Servicecall setDelegate:self];
 
-    NSString *publicnotesdec =[NSString stringWithFormat:@"https://2-dot-eiswebservice1-173410.appspot.com/_ah/api/meeting/v1/participantsList?meetingId=%@",MeetingId];
+    NSString *publicnotesdec =[NSString stringWithFormat:@"meeting/v1/participantsList?meetingId=%@",MeetingId];
     NSString *encode1=[publicnotesdec stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     Servicecall=[[Webservices alloc]init];
     [Servicecall ParticipantlistUrl:encode1];
@@ -295,7 +295,7 @@
 }
 -(void)RoleButtonPkrTapped
 {
-    NSString *Rolenameturl =[NSString stringWithFormat:@"https://2-dot-eiswebservice1-173410.appspot.com/_ah/api/meeting/v1/participantRoleSpinner?orgId=%@",orgIdstr];
+    NSString *Rolenameturl =[NSString stringWithFormat:@"meeting/v1/participantRoleSpinner?orgId=%@",orgIdstr];
    
     [Servicecall participantrole:Rolenameturl];
     [Servicecall setDelegate:self];
@@ -348,7 +348,7 @@
 -(void)ParticipantNameButtonPkrTapped
 {NSLog(@"project id is 25145122222%@",_ProjectIdStr);
     
-    NSString *ParticipantNameurl = [NSString stringWithFormat:@"https://2-dot-eiswebservice1-173410.appspot.com/_ah/api/meeting/v1/participantResourceSpinner?projectId=%@",_ProjectIdStr];
+    NSString *ParticipantNameurl = [NSString stringWithFormat:@"meeting/v1/participantResourceSpinner?projectId=%@",_ProjectIdStr];
     //NSDictionary *credentials = @{@"projectId":_ProjectIdStr};
     [Servicecall participantsresourcename:ParticipantNameurl];
     [Servicecall setDelegate:self];
@@ -423,7 +423,7 @@
         
         NSLog(@"meeting id is %@",MeetingId);
         NSLog(@"resource id is %@",ResourceIdstr);
-    NSString *ParticipantSaveurl = [NSString stringWithFormat:@"https://2-dot-eiswebservice1-173410.appspot.com/_ah/api/meeting/v1/saveParticipant"];
+    NSString *ParticipantSaveurl = [NSString stringWithFormat:@"meeting/v1/saveParticipant"];
     NSString *credentials = [NSString stringWithFormat:@"meetingId=%@&resourceId=%@&participantRole=%@&flag=%@",MeetingId,ResourceIdstr,RoleCodestr,Flagstr];
     [Servicecall saveparticipant:ParticipantSaveurl saveparticipantparams:credentials];
     [Servicecall setDelegate:self];

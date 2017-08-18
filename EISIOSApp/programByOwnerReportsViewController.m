@@ -67,7 +67,7 @@
 //    [Servicecall setDelegate:self];
 
     Servicecall = [[Webservices alloc]init];
-    NSString *projectLstForTask =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/dashboard/v1/noOfPrgmsForOwner?orgId=%@",OrgIdStr];
+    NSString *projectLstForTask =[NSString stringWithFormat:@"dashboard/v1/noOfPrgmsForOwner?orgId=%@",OrgIdStr];
     [Servicecall programbyownerlistUrl:projectLstForTask];
     [Servicecall setDelegate:self];
 

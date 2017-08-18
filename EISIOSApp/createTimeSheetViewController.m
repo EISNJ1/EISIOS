@@ -96,7 +96,7 @@
     
     
     Servicecall = [[Webservices alloc]init];
-    NSString *projectLstForTask = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/meeting/v1/projectListSpinner?usertype=%@&userId=%@&orgId=%@",UserTypestr,Useridstr,OrgIdStr];
+    NSString *projectLstForTask = [NSString stringWithFormat:@"meeting/v1/projectListSpinner?usertype=%@&userId=%@&orgId=%@",UserTypestr,Useridstr,OrgIdStr];
     //NSDictionary *credentials = @{@"userType":UserTypestr, @"userId":Useridstr,@"orgID":OrgIdStr};
     [Servicecall projectlstspinrurl:projectLstForTask];
     [Servicecall setDelegate:self];
@@ -562,7 +562,7 @@
     NSLog(@"userid str is %@",Useridstr);
     NSLog(@"orgid str is %@",OrgIdStr);
     Servicecall=[[Webservices alloc]init];
-    NSString *projectLstForTask =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/timesheet/v1/taskListForTimeSheetSpinner?userType=%@&userId=%@&orgId=%@&projectId=%@",UserTypestr,Useridstr,OrgIdStr,pkrSelectionProjectId];
+    NSString *projectLstForTask =[NSString stringWithFormat:@"timesheet/v1/taskListForTimeSheetSpinner?userType=%@&userId=%@&orgId=%@&projectId=%@",UserTypestr,Useridstr,OrgIdStr,pkrSelectionProjectId];
     NSLog(@"the projectlstfortask is %@",projectLstForTask);
     [Servicecall tasklistfortimesheet:projectLstForTask];
     [Servicecall setDelegate:self];
@@ -930,7 +930,7 @@
             
             NSLog(@"service calling");
             
-            NSString *saveTimeSheet =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/timesheet/v1/submitTimeSheet"];
+            NSString *saveTimeSheet =[NSString stringWithFormat:@"timesheet/v1/submitTimeSheet"];
             NSString *credentials2 = [NSString stringWithFormat:@"taskId=%@&submitDate=%@&hoursSpent=%@&estHrsCompl=%@&isTaskComplited=%@&resourceId=%@&projectId=%@&reason=%@",pkrSelectionTaskId,dateTfd.text,hoursSpendTfd.text,estdHrsTfd.text,taskCompletedTfd.text,Useridstr,pkrSelectionProjectId,reasonsTfd.text];
             [Servicecall savetimesheet:saveTimeSheet savetimesheetparams:credentials2];
             [Servicecall setDelegate:self];
@@ -976,7 +976,7 @@
             
             NSLog(@"service Calling");
             
-            NSString *saveTimeSheet =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/timesheet/v1/submitTimeSheet"];
+            NSString *saveTimeSheet =[NSString stringWithFormat:@"timesheet/v1/submitTimeSheet"];
             NSString *credentials2 = [NSString stringWithFormat:@"taskId=%@&submitDate=%@&hoursSpent=%@&estHrsCompl=%@&isTaskComplited=%@&resourceId=%@&projectId=%@&reason=%@",pkrSelectionTaskId,dateTfd.text,hoursSpendTfd.text,estdHrsTfd.text,taskCompletedTfd.text,Useridstr,pkrSelectionProjectId,reasonsTfd.text];
             [Servicecall savetimesheet:saveTimeSheet savetimesheetparams:credentials2];
             [Servicecall setDelegate:self];

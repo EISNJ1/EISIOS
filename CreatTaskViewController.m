@@ -332,7 +332,7 @@
     //    [Servicecall HolidaysList:holidayClass HolidaysListParametersDetails:holidaysDictionary];
     //    [Servicecall setDelegate:self];
     
-    NSString *publicnotesdec =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/task/v1/holidaysList?orgId=%@",orgIdstr];
+    NSString *publicnotesdec =[NSString stringWithFormat:@"task/v1/holidaysList?orgId=%@",orgIdstr];
     NSString *encode1=[publicnotesdec stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     Servicecall=[[Webservices alloc]init];
     [Servicecall holidaysListUrl:encode1];
@@ -346,7 +346,7 @@
 -(void)ProjectsList
 {
     Servicecall=[[Webservices alloc]init];
-    NSString *publicnotesdec =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/meeting/v1/projectListSpinner?usertype=%@&userId=%@&orgId=%@",Usertypestr,Useridstr,orgIdstr];
+    NSString *publicnotesdec =[NSString stringWithFormat:@"meeting/v1/projectListSpinner?usertype=%@&userId=%@&orgId=%@",Usertypestr,Useridstr,orgIdstr];
     NSString *encode1=[publicnotesdec stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     [Servicecall projectlstspinrurl:encode1];
     [Servicecall setDelegate:self];
@@ -405,7 +405,7 @@
 -(void)CategoryList
 {
     Servicecall=[[Webservices alloc]init];
-    NSString *publicnotesdec =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/task/v1/taskcategorySpinner?orgId=%@",orgIdstr];
+    NSString *publicnotesdec =[NSString stringWithFormat:@"task/v1/taskcategorySpinner?orgId=%@",orgIdstr];
     NSString *encode1=[publicnotesdec stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     [Servicecall categorylistUrl:encode1];
     [Servicecall setDelegate:self];
@@ -473,7 +473,7 @@
     //    [Servicecall setDelegate:self];
     
     Servicecall=[[Webservices alloc]init];
-    NSString *publicnotesdec =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/task/v1/taskPrioritySpinner?orgId=%@",orgIdstr];
+    NSString *publicnotesdec =[NSString stringWithFormat:@"task/v1/taskPrioritySpinner?orgId=%@",orgIdstr];
     NSString *encode1=[publicnotesdec stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     [Servicecall prioritylistUrl:encode1];
     [Servicecall setDelegate:self];
@@ -906,7 +906,7 @@
     NSLog(@"the effort days is %@",effortdays);
     
     NSLog(@"hours per day text field text is %@",hoursPerDaytxtfld.text);
-    NSString *HolidaysListClass=[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/task/v1/taskendDate?orgId=%@&planedStartDate=%@&effortDays=%@",orgIdstr,StartDatetxtfld.text,effortdays];
+    NSString *HolidaysListClass=[NSString stringWithFormat:@"task/v1/taskendDate?orgId=%@&planedStartDate=%@&effortDays=%@",orgIdstr,StartDatetxtfld.text,effortdays];
     
     [Servicecall enddateservice:HolidaysListClass];
     [Servicecall setDelegate:self];
@@ -1278,7 +1278,7 @@
         NSLog(@"start date text field text is %@",StartDatetxtfld.text);
         NSLog(@"End Date text field text is %@",Enddatetxtfld.text);
         NSLog(@"resource id id %@",_ResourceIdstr);
-        NSString *TaskSaveUrl = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/task/v1/saveOrUpdateTask"];
+        NSString *TaskSaveUrl = [NSString stringWithFormat:@"task/v1/saveOrUpdateTask"];
        NSString *credentials =[NSString stringWithFormat:@"orgId=%@&taskcat=%@&tskPriority=%@&taskDescription=%@&taskEffort=%@&plStartDate=%@&plEndDate=%@&tskAssinTo=%@&tskAssinBy=%@&projectId=%@&taskId=%@&saveUpdateType=%@&hardDependcyId=%@&hourPerDay=%@",orgIdstr,_CategoryIdstr,_PriorityIdstr,Descriptionxtfld.text,Efforttxtfld.text,StartDatetxtfld.text,Enddatetxtfld.text,_ResourceIdstr,Useridstr,_ProjectIdstr,taskId,saveUpdateType,hardDependencyText,hoursPerDaytxtfld.text];
         [Servicecall savetask:TaskSaveUrl savetskparameters:credentials];
         [Servicecall setDelegate:self];
@@ -1357,7 +1357,7 @@
     
     Servicecall=[[Webservices alloc]init];
     
-    NSString *HardDependencyClass=[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/task/v1/taskDependencyList?projId=%@&taskId=%@",_ProjectIdstr,taskId];
+    NSString *HardDependencyClass=[NSString stringWithFormat:@"task/v1/taskDependencyList?projId=%@&taskId=%@",_ProjectIdstr,taskId];
     
     [Servicecall harddependencylist:HardDependencyClass];
     [Servicecall setDelegate:self];
@@ -2177,7 +2177,7 @@
 -(void)ResourceList
 {
     NSLog(@"project id is %@",_ProjectIdstr);
-    NSString *TaskListUrl =[NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/task/v1/taskResourceSpinner?projectId=%@",_ProjectIdstr];
+    NSString *TaskListUrl =[NSString stringWithFormat:@"task/v1/taskResourceSpinner?projectId=%@",_ProjectIdstr];
     [Servicecall resourcespinner:TaskListUrl];
     [Servicecall setDelegate:self];
     

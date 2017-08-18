@@ -455,7 +455,7 @@
 -(void)projectSpinnerService
 {
     Servicecall = [[Webservices alloc]init];
-    NSString *projectLstForTask = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/meeting/v1/projectListSpinner?usertype=%@&userId=%@&orgId=%@",UserTypestr,Useridstr,OrgIdStr];
+    NSString *projectLstForTask = [NSString stringWithFormat:@"meeting/v1/projectListSpinner?usertype=%@&userId=%@&orgId=%@",UserTypestr,Useridstr,OrgIdStr];
     [Servicecall projectlstspinrurl:projectLstForTask];
     [Servicecall setDelegate:self];
 
@@ -494,7 +494,7 @@
 -(void)contactSpinnerService
 {
     Servicecall = [[Webservices alloc]init];
-    NSString *projectLstForTask = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/requirement/v1/reqGathContactSpinner?projectId=%@",pkrProjectIDStr];
+    NSString *projectLstForTask = [NSString stringWithFormat:@"requirement/v1/reqGathContactSpinner?projectId=%@",pkrProjectIDStr];
     [Servicecall contacttypelistUrl:projectLstForTask];
     [Servicecall setDelegate:self];
 }
@@ -527,7 +527,7 @@
 -(void)coreProcessSpinnerService
 {
     Servicecall = [[Webservices alloc]init];
-    NSString *projectLstForTask = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/requirement/v1/reqcoreProcessSpinner?orgId=%@",OrgIdStr];
+    NSString *projectLstForTask = [NSString stringWithFormat:@"requirement/v1/reqcoreProcessSpinner?orgId=%@",OrgIdStr];
     [Servicecall coreprocesslisturl:projectLstForTask];
     [Servicecall setDelegate:self];
 }
@@ -569,7 +569,7 @@
 -(void)processSpinnerService
 {
     Servicecall = [[Webservices alloc]init];
-    NSString *projectLstForTask = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/requirement/v1/reqProcessSpinner?coreProcessId=%@",pkrCoreProcessIDStr];
+    NSString *projectLstForTask = [NSString stringWithFormat:@"requirement/v1/reqProcessSpinner?coreProcessId=%@",pkrCoreProcessIDStr];
     [Servicecall processlisturl:projectLstForTask];
     [Servicecall setDelegate:self];
 }
@@ -618,7 +618,7 @@
 -(void)subProcessSpinner
 {
     Servicecall = [[Webservices alloc]init];
-    NSString *projectLstForTask = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/requirement/v1/reqSubProcessSpinner?processId=%@",pkrprocessIDStr];
+    NSString *projectLstForTask = [NSString stringWithFormat:@"requirement/v1/reqSubProcessSpinner?processId=%@",pkrprocessIDStr];
    
     [Servicecall subprocessurl:projectLstForTask];
 [Servicecall setDelegate:self];
@@ -669,7 +669,7 @@
 -(void)activitySpinner
 {
     Servicecall = [[Webservices alloc]init];
-    NSString *projectLstForTask = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/requirement/v1/reqActivitySpinner?subProcessId=%@",pkrSubProcessIDStr];
+    NSString *projectLstForTask = [NSString stringWithFormat:@"requirement/v1/reqActivitySpinner?subProcessId=%@",pkrSubProcessIDStr];
     [Servicecall activityserviceurl:projectLstForTask];
     [Servicecall setDelegate:self];
     
@@ -727,7 +727,7 @@
 -(void)typeSpinner
 {
     Servicecall = [[Webservices alloc]init];
-    NSString *projectLstForTask = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/requirement/v1/reqTypeSpinner?orgId=%@",OrgIdStr];
+    NSString *projectLstForTask = [NSString stringWithFormat:@"requirement/v1/reqTypeSpinner?orgId=%@",OrgIdStr];
     [Servicecall requirementtypeurl:projectLstForTask];
     [Servicecall setDelegate:self];
     
@@ -769,7 +769,7 @@
 -(void)Criticality1Spinner
 {
     Servicecall = [[Webservices alloc]init];
-    NSString *projectLstForTask = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/requirement/v1/reqCriticalitySpinner?orgId=%@",OrgIdStr];
+    NSString *projectLstForTask = [NSString stringWithFormat:@"requirement/v1/reqCriticalitySpinner?orgId=%@",OrgIdStr];
     [Servicecall criticaliryurl:projectLstForTask];
     [Servicecall setDelegate:self];
     
@@ -811,7 +811,7 @@
 -(void)systemspinner
 {
     Servicecall = [[Webservices alloc]init];
-    NSString *projectLstForTask = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/requirement/v1/reqSystemSpinner?orgId=%@",OrgIdStr];
+    NSString *projectLstForTask = [NSString stringWithFormat:@"requirement/v1/reqSystemSpinner?orgId=%@",OrgIdStr];
     [Servicecall systemurl:projectLstForTask];
     [Servicecall setDelegate:self];
 }
@@ -885,7 +885,7 @@
     NSLog(@"resource id str is %@",pkrResourceIDStr);
     Servicecall = [[Webservices alloc]init];
     
-    NSString *projectLstForTask = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/requirement/v1/saveorUpdateReqGathering"];
+    NSString *projectLstForTask = [NSString stringWithFormat:@"requirement/v1/saveorUpdateReqGathering"];
     
     
     
@@ -1041,7 +1041,7 @@
 //    [Servicecall setDelegate:self];
 //    reqDesTxtView.text = nil;
         
-        NSString *projectLstForTask = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/requirement/v1/saveorUpdateReqGathering"];
+        NSString *projectLstForTask = [NSString stringWithFormat:@"requirement/v1/saveorUpdateReqGathering"];
 
         
         
@@ -1056,7 +1056,7 @@
     else
     {
         Servicecall = [[Webservices alloc]init];
-        NSString *projectLstForTask = [NSString stringWithFormat:@"https://2-dot-eiswebservice1.appspot.com/_ah/api/requirement/v1/saveorUpdateReqGathering"];
+        NSString *projectLstForTask = [NSString stringWithFormat:@"requirement/v1/saveorUpdateReqGathering"];
         
         
         
