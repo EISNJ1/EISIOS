@@ -17,6 +17,8 @@
     IBOutlet UITableView *VideosTV;
     UIProgressView *activeindicator;
     IBOutlet UIButton *homebtn;
+    UITapGestureRecognizer *geusture;
+    UIActivityIndicatorView *spinner;
 }
 @property(nonatomic,strong)NSString *TaskIdstr;
 @end

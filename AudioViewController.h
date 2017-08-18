@@ -26,6 +26,7 @@
     //UIBarButtonItem *stopButton;
     UILabel *recStateLabel;
     
+    UITapGestureRecognizer *geusture;
     NSTimer *myTimer;
     
     UIActivityIndicatorView *spinner;

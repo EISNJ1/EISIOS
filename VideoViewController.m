@@ -87,6 +87,9 @@
     
     [self ListofVideos];
     
+    geusture=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(guestureclicked)];
+    [self.view addGestureRecognizer:geusture];
+    
     
     [super viewDidLoad];
     
@@ -145,12 +148,12 @@
     [self.view addSubview:selectionView];
     
     UIButton *Musicbtn = [[UIButton alloc]initWithFrame:CGRectMake(125, 96, 107, 85)];
-    [Musicbtn setImage:[UIImage imageNamed:@"music.png"] forState:UIControlStateNormal];
+    [Musicbtn setImage:[UIImage imageNamed:@"Video-File-icon"] forState:UIControlStateNormal];
     [Musicbtn addTarget:self action:@selector(ChooseFromGallery:) forControlEvents:UIControlEventTouchUpInside];
     [selectionView addSubview:Musicbtn];
     
     UIButton *SoundRecordbtn = [[UIButton alloc]initWithFrame:CGRectMake(445, 95 , 107, 85)];
-    [SoundRecordbtn setImage:[UIImage imageNamed:@"soundrecord.png"] forState:UIControlStateNormal];
+    [SoundRecordbtn setImage:[UIImage imageNamed:@"videorecord"] forState:UIControlStateNormal];
     [SoundRecordbtn addTarget:self action:@selector(RecordAndPlay:) forControlEvents:UIControlEventTouchUpInside];
     [selectionView addSubview:SoundRecordbtn];
     
@@ -770,6 +773,9 @@
     }
 }
 
-
+-(void)guestureclicked
+{
+    [selectionView setHidden:YES];
+}
 
 @end

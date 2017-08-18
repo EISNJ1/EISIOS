@@ -655,10 +655,12 @@ void myDeleteFile (NSString* path) {
 
 -(void)RecordAudio:(id)sender
 {
-//    spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-//    [spinner setCenter:CGPointMake(250,200)]; // I do this because I'm in landscape mode
-//    [AudioTV addSubview:spinner];
-//    [spinner startAnimating];
+spinner=[[UIActivityIndicatorView alloc]initWithFrame:
+               CGRectMake(142.00, 212.00, 80.0, 80.0)];
+    [spinner setCenter:CGPointMake(250,200)];
+    spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhiteLarge;// I do this because I'm in landscape mode
+    [AudioTV addSubview:spinner];
+    [spinner startAnimating];
     
     //[self.view addSubview:myTimer];
     
