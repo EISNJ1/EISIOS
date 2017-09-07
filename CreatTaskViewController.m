@@ -2457,7 +2457,7 @@
     l=[hoursPerDaytxtfld.text floatValue];
     if (theTextField==hoursPerDaytxtfld)
     {
-        if (l<25)
+        if (l<9)
         {
             [self doneButton];
         }
@@ -2465,7 +2465,7 @@
         {
             MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
             hud.mode = MBProgressHUDModeText;
-            hud.detailsLabel.text = @"Please enter hours per day with in 24";
+            hud.detailsLabel.text = @"Please enter hours per day with in 8";
             //hud.tintColor=[UIColor blueColor];
             hud.detailsLabel.font=[UIFont fontWithName:@"Roboto-Black" size:22];
             hud.removeFromSuperViewOnHide = YES;
