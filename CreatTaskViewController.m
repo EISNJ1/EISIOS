@@ -2203,7 +2203,7 @@
             [Resource_NAMEArray addObject:[fid valueForKey:@"resourceName"]];
             [Resource_IDArray addObject:[fid valueForKey:@"resourceId"]];
         }
-        if ([_Resourcenamestr length]==0 ||[_Projectnamestr isEqualToString:@"null"])
+        if ([Resource_NAMEArray count]>0)
         {
             Resourcetxtfld.text = [Resource_NAMEArray objectAtIndex:0];
             _ResourceIdstr = [Resource_IDArray objectAtIndex:0];

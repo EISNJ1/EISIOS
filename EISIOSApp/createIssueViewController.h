@@ -19,7 +19,7 @@
     IBOutlet UIView *createIssueView;
     IBOutlet UITextField *projectTfd,*statusTfd,*typeTfd,*assignToTfd,*teamSubmittedTfd,*severityTfd,*descriptionTfd,*issueEntryTfd;
     IBOutlet UITextView *issueHistoryTextView;
-    IBOutlet UIButton *updateBtn,*saveBtn,*projectListBtn;
+    IBOutlet UIButton *updateBtn,*saveBtn,*projectListBtn,*uploadButton;
     UIImagePickerController *camImagePickerController,*GalleryImage;
     UIImage *ImageforUpload;
     UITableView *attatchmentTableView;
@@ -27,6 +27,7 @@
     NSURL *url;
     UITextView *textView;
     UIImageView *ImgView;
+    UILabel *attatchmentsLabel;
     
     
     Webservices *Servicecall;
@@ -66,8 +67,9 @@
     
     NSString *TaskDetailsstr7,*issuehistryStr,*issuehistryStr1,*issuehistrStr2;
     NSMutableArray *Taskdataarray7,*Taskdataarray8;
-    NSString *saveissueIDStr,*saveissueNumStr,*saveAttatchmentStr,*issueDescStr;
+    NSString *saveissueIDStr,*saveAttatchmentStr,*issueDescStr;
 
+    NSMutableString *saveissueNumStr;
     UIPickerView *questionpkr;
     
     UIView *selectionView;

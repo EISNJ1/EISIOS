@@ -167,7 +167,7 @@
     NSLog(@"dict is :%@",dict);
     if ([[dict valueForKey:@"statusMessage"]isEqualToString:@"No Data"])
         {
-            UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Warning" message:@"Empty list" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:nil, nil];
+            UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Warning" message:@"Agenda list is empty" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:nil, nil];
             [alert show];
         }
         else

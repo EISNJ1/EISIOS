@@ -10,6 +10,7 @@
 #import "LoginAppDelegate.h"
 #import "UserData.h"
 #import "Toast+UIView.h"
+#import "MBProgressHUD.h"
 //#import "SWRevealViewController.h"
 
 
@@ -275,21 +276,22 @@
     
     if ([[dict valueForKey:@"statusMessage"]isEqualToString:@"No Data"])
     {
-        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Warning" message:@"Empty list" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:nil, nil];
+        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Warning" message:@"Action Item list is Empty" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:nil, nil];
         [alert show];
+        //[ActionItemListTV reloadData];
     }
     else
     {
         
-        actionitemmeetingidarray=[NSMutableArray new];
-        actionItemStausArray=[NSMutableArray new];
-        actionitemdescarray=[NSMutableArray new];
-        ActionItemMeetingTitleArray=[NSMutableArray new];
-        ActionITemMeetingOwnerNameArray=[NSMutableArray new];
-        actionitemdescarray=[NSMutableArray new];
-        actionitemCreatedbyIdArray=[NSMutableArray new];
-        actionitemAssignedIdArray=[NSMutableArray new];
-        actionitemmeetingowneridarray=[NSMutableArray new];
+        actionitemmeetingidarray=[[NSMutableArray alloc]init];
+        actionItemStausArray=[[NSMutableArray alloc]init];
+        actionitemdescarray=[[NSMutableArray alloc]init];
+        ActionItemMeetingTitleArray=[[NSMutableArray alloc]init];
+        ActionITemMeetingOwnerNameArray=[[NSMutableArray alloc]init];
+        actionitemdescarray=[[NSMutableArray alloc]init];
+        actionitemCreatedbyIdArray=[[NSMutableArray alloc]init];
+        actionitemAssignedIdArray=[[NSMutableArray alloc]init];
+        actionitemmeetingowneridarray=[[NSMutableArray alloc]init];
         actionitemidarray=[NSMutableArray new];
         
         NSMutableArray *resultarray3=[[NSMutableArray alloc]init];
@@ -314,9 +316,11 @@
         for (int i=0; i<[actionitemidarray count]; i++)
         {
             actionItemIdStr=[actionitemidarray objectAtIndex:i];
-        }
-        [ActionItemListTV reloadData];
+            actionItemCreatedIdStr=[actionitemCreatedbyIdArray objectAtIndex:i];
+         [ActionItemListTV reloadData];}
+       
     }
+    
 }
 
 //-(void)DatafromDB
@@ -432,7 +436,7 @@
     
     if ([[dict valueForKey:@"statusMessage"]isEqualToString:@"No Data"])
     {
-        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Warning" message:@"Empty list" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:nil, nil];
+        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Warning" message:@"Agenda List is Empty list" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:nil, nil];
         [alert show];
     }
     else
@@ -524,509 +528,7 @@
         
     }
 }
-//-(void)didFinishService:(id)Userlogindetails
-//{
-//
-//    xmlParser = [[NSXMLParser alloc]initWithData:Userlogindetails];
-//    xmlParser.delegate = self;
-//    [xmlParser parse];
-//
-//    actionItemKillXmlParser=[[NSXMLParser alloc]initWithData:Userlogindetails];
-//    actionItemKillXmlParser.delegate=self;
-//    [actionItemKillXmlParser parse];
-//
-//    xmlParser1 = [[NSXMLParser alloc]initWithData:Userlogindetails];
-//    xmlParser1.delegate = self;
-//    [xmlParser1 parse];
-//
-//
-//}
-////-(void)didfinishactionitemlist:(id)actionitemlist
-////{
-////    }
-//-(void)didNotesCountFinished:(id)Notescountlist
-//{
-//    xmlParser2 = [[NSXMLParser alloc]initWithData:Notescountlist];
-//    xmlParser2.delegate = self;
-//    [xmlParser2 parse];
-//
-//}
-//
-//-(void)Serviceactiondone:(id)result
-//{
-//    xmlParser3 = [[NSXMLParser alloc]initWithData:result];
-//    xmlParser3.delegate = self;
-//    [xmlParser3 parse];
-//}
-//-(void)Serviceactiondone1:(id)result
-//{
-//    xmlParser4 =[[NSXMLParser alloc]initWithData:result];
-//    xmlParser4.delegate = self;
-//    [xmlParser4 parse];
-//
-//    xmlParser5=[[NSXMLParser alloc]initWithData:result];
-//    xmlParser5.delegate=self;
-//    [xmlParser5 parse];
-//}
-//
-//-(void) parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName
-//  namespaceURI:(NSString *)namespaceURI qualifiedName:
-//(NSString *)qName attributes:(NSDictionary *)attributeDict
-//{
-//    if (parser==xmlParser)
-//    {
-//        if([elementName isEqualToString:@"userMeetingsListResponse"])
-//        {
-//
-//            MeetingListArray   = [[NSMutableArray alloc] init];
-//            SplitmeetingList   = [[NSArray alloc] init];
-//            MeetingIdArray     = [[NSMutableArray alloc] init];
-//            StartTimeArray     = [[NSMutableArray alloc] init];
-//            ProjectIdArray     = [[NSMutableArray alloc] init];
-//            MeetingtitleArray  = [NSMutableArray new];
-//            HoursArrray        = [NSMutableArray new];
-//            MeetingDescriptionArray= [NSMutableArray new];
-//            MeetingTypeArray   = [NSMutableArray new];
-//            ProjectNameArray   = [NSMutableArray new];
-//            MeetingDateArray   = [NSMutableArray new];
-//            ConferenceRoomNameArray= [NSMutableArray new];
-//            MeetingTypeIdArray  = [NSMutableArray new];
-//            OwnerIDArray       = [NSMutableArray new];
-//            OwnerNameArray=[NSMutableArray new];
-//            meetingidStr=[NSString new];
-//            meetingdateArray=[NSMutableArray new];
-//            AssendingDateArray=[NSMutableArray new];
-//
-//
-//
-//        }
-//    }
-//
-//    if (parser==xmlParser1)
-//    {
-//        if([elementName isEqualToString:@"agendaListDataResponse"])
-//        {
-//
-//            Actionitemsarray        = [NSMutableArray new];
-//            ActionitemsSplitarray   = [NSArray new];
-//            ActitemlisttitleArray   = [NSMutableArray new];
-//            MeetingdesArray         = [NSMutableArray new];
-//            ObjeIdArray             = [NSMutableArray new];
-//            AgendaMeetingIdArray    = [NSMutableArray new];
-//            agendaMeetingIdStr      =[NSMutableString new];
-//            AgendaTimeBudgetedAray    =[NSMutableArray new];
-//            AgendaMeetingDate=[NSMutableArray new];
-//            AgendaMeetingProjId=[NSMutableArray new];
-//            AgendaMeetingMeetingID=[NSMutableArray new];
-//        }
-//    }
-//    if (parser == xmlParser2)
-//    {
-//        if([elementName isEqualToString:@"countListResponse"])
-//        {
-//            NotesListresponce      = [NSMutableArray new];
-//            ActionitemCountArray   = [NSMutableArray new];
-//            FeedbackCountArray     = [NSMutableArray new];
-//            NotesListresponce      = [NSMutableArray new];
-//            NotesSplitarray        = [NSArray new];
-//            actionlistcountstr     = [[NSMutableString alloc] init];
-//            noteslistcountstr      = [[NSMutableString alloc] init];
-//            Feedbackcountstr       = [[NSMutableString alloc] init];
-//        }
-//    }
-//    if (parser == xmlParser4)
-//    {
-//        if([elementName isEqualToString:@"descriptionResponse"])
-//        {
-//            PublicNoteslistarray         = [NSMutableArray new];
-//            PublicNote_DescriptionArray  = [NSMutableArray new];
-//            PublicNotesSplitarray        =[NSArray new];
-//            publicdescString=[[NSMutableString alloc]init];
-//        }
-//    }
-//    else
-//    {
-//        if ([elementName isEqualToString:@"actionItemBasedOnUserIdResponse"])
-//        {
-//            ActionItemTabListArray=[NSMutableArray new];
-//            ActionItemTabListSplitArray=[NSMutableArray new];
-//            ActionItemTabListDisplayArray=[NSMutableArray new];
-//            actionItemCreatedIdStr=[NSMutableString new];
-//            actionItemAssignedIdStr=[NSMutableString new];
-//            actionItemIdStr=[NSMutableString new];
-//            actionItemStatusStr=[NSMutableString new];
-//            actionItemStausArray=[NSMutableArray new];
-//            actionItemMeetingTitleStr=[NSMutableString new];
-//            ActionItemOwnernameStr=[NSMutableString new];
-//            ActionItemMeetingTitleArray=[NSMutableArray new];
-//            ActionITemMeetingOwnerNameArray=[NSMutableArray new];
-//        }
-//    }
-//
-//
-//}
-//- (void)parser:(NSXMLParser *)parser foundCharacters:(NSMutableString *)string
-//{
-//    if (parser == xmlParser)
-//    {
-//        if ([string isEqualToString:@"Flase"])
-//
-//        {
-////            UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"List Empty" message:@"Meeting List Empty" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:nil, nil];
-////
-////            [alert show];
-//
-//        }
-//
-//        else
-//        {
-//
-//            [MeetingListArray addObject:string];
-//        }
-//
-//
-//    }
-//   else if (parser == xmlParser1)
-//    {
-//        if ([string isEqualToString:@"Flase"])
-//
-//        {
-//            UIAlertView *alert3=[[UIAlertView alloc] initWithTitle:@"" message:@"Agenda List Empty" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:nil, nil];
-//
-//            [alert3 show];
-//            NSLog(@"action items list is");
-//
-//        }
-//
-//        else
-//        {
-//
-//            [Actionitemsarray addObject:string];
-//
-//        }
-//    }
-//
-//    if (parser == xmlParser2)
-//    {
-//        [NotesListresponce addObject:string];
-//        // NSLog(@"notescount LIST %@" ,NotesListresponce);
-//
-//    }
-//    if (parser == xmlParser3)
-//    {
-//        //[NotesListresponce addObject:string];
-//        // NSLog(@"publiccount LIST %@" ,string);
-//        PublicCountlbl.text = [string stringByReplacingOccurrencesOfString:@"###COUNT=" withString:@""];
-//    }
-//    if (parser == xmlParser4)
-//    {
-//        if ([string isEqualToString:@"Flase"])
-//        {
-//            //            UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"List Empty" message:@"Public List Empty" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:nil, nil];
-//            //
-//            //            [alert show];
-//        }
-//        else
-//        {
-//            [PublicNoteslistarray addObject:string];
-//            NSLog(@"publicdis LIST %@" ,PublicNoteslistarray);
-//        }
-//
-//    }
-//    if(parser==xmlParser5)
-//    {
-//        if ([string isEqualToString:@"Flase"])
-//        {
-//            NSLog(@"response is Flase");
-//
-//        }
-//        else
-//        {
-//            [ActionItemTabListArray addObject:string];
-//        }
-//    }
-//    else
-//    {
-//        if ([string isEqualToString:@"Inserted"])
-//        {
-//            [self actionItemTab];
-//            [ActionItemListTV reloadData];
-//            NSLog(@"welcome to action item list kill service");
-//        }
-//        else
-//        {
-//
-//        }
-//
-//
-//    }
-//}
-//
-//- (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName
-//  namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
-//{
-//    if (parser == xmlParser)
-//    {
-//        if([elementName isEqualToString:@"userMeetingsListResponse"])
-//        {
-//            for (int i = 0; i<[MeetingListArray count]; i++)
-//            {
-//                SplitmeetingList=[[MeetingListArray objectAtIndex:i] componentsSeparatedByString:@"###"];
-//
-//
-//                [MeetingtitleArray addObject:[[SplitmeetingList objectAtIndex:2] stringByReplacingOccurrencesOfString: @"MeetingTitle==" withString:@""]];
-//                meetingidStr =[[SplitmeetingList objectAtIndex:1] stringByReplacingOccurrencesOfString: @"MeetingId==" withString:@""];
-//                [StartTimeArray addObject:[[SplitmeetingList objectAtIndex:3] stringByReplacingOccurrencesOfString: @"StartTime==" withString:@""]];
-//                [ProjectIdArray addObject:[[SplitmeetingList objectAtIndex:8] stringByReplacingOccurrencesOfString: @"ProjectId=" withString:@""]];
-//                [HoursArrray addObject:[[SplitmeetingList objectAtIndex:4] stringByReplacingOccurrencesOfString: @"Hours=" withString:@""]];
-//                [MeetingTypeArray addObject:[[SplitmeetingList objectAtIndex:5] stringByReplacingOccurrencesOfString: @"MeetingType=" withString:@""]];
-//                [ProjectNameArray addObject:[[SplitmeetingList objectAtIndex:6] stringByReplacingOccurrencesOfString: @"ProjectName=" withString:@""]];
-//                [MeetingDateArray addObject:[[SplitmeetingList objectAtIndex:7] stringByReplacingOccurrencesOfString: @"MeetingDate=" withString:@""]];
-//                [ConferenceRoomNameArray addObject:[[SplitmeetingList objectAtIndex:9] stringByReplacingOccurrencesOfString: @"ConferenceRoom=" withString:@""]];
-//
-//                [MeetingDescriptionArray addObject:[[SplitmeetingList objectAtIndex:14] stringByReplacingOccurrencesOfString: @"MeetingDescription=" withString:@""]];
-//
-//                [MeetingTypeIdArray addObject:[[SplitmeetingList objectAtIndex:13]
-//                                               stringByReplacingOccurrencesOfString: @"MeetingTypeId=" withString:@""]];
-//
-//                [OwnerIDArray addObject:[[SplitmeetingList objectAtIndex:10] stringByReplacingOccurrencesOfString: @"OwnerId=" withString:@""]];
-//                [OwnerNameArray addObject:[[SplitmeetingList objectAtIndex:15]stringByReplacingOccurrencesOfString:@"meetingOwnerName==" withString:@""]];
-//
-//
-//                [MeetingIdArray addObject:meetingidStr];
-//                NSLog(@"date array is %@",MeetingDateArray);
-//                NSLog(@"start time array is %@",StartTimeArray);
-//                NSLog(@"hours array is %@",HoursArrray);
-//                NSLog(@"meeting owner array is %@",OwnerNameArray);
-//                NSLog(@"meeting type id are %@",MeetingTypeIdArray);
-//                NSLog(@"meeting description array is %@",MeetingDescriptionArray);
-//                NSLog(@"meeting id developing array is %@",meetingidStr);
-//
-//            }
-//
-//            NSLog(@"meeing idstrrrrr12222 %@",meetingidStr);
-//            int totalList=[MeetingTypeIdArray count];
-//
-//            NSString *meetingList=[NSString stringWithFormat:@"%d",totalList];
-//
-//            totalListLabel.text=meetingList;
-//
-//
-//
-//
-//            uniqueMeetingDateArray = [[NSMutableArray alloc]init];
-//
-//            [uniqueMeetingDateArray addObjectsFromArray:[[NSSet setWithArray:MeetingDateArray] allObjects]];
-//            [uniqueMeetingDateArray insertObject:@"All" atIndex:0];
-//
-//
-//
-//            NSLog(@"unique meeting date array %@",uniqueMeetingDateArray);
-//
-//
-//
-//
-//            A=[[NSMutableArray alloc]init];
-//            searcharray1=[[NSMutableArray alloc]init];
-//            refarray1=[[NSMutableArray alloc]initWithArray:MeetingDateArray];
-//            A=MeetingDateArray;
-//
-//            B=[[NSMutableArray alloc]init];
-//
-//            [MeetingListTV reloadData];
-//
-//
-//        }
-//
-//
-//    }
-//
-//    if (parser == xmlParser1)
-//    {
-//        if([elementName isEqualToString:@"agendaListDataResponse"])
-//        {
-//            for (int i = 0; i<[Actionitemsarray count]; i++)
-//            {
-//                ActionitemsSplitarray=[[Actionitemsarray objectAtIndex:i] componentsSeparatedByString:@"###"];
-//
-//                //[ActitemlisttitleArray addObject:[[ActionitemsSplitarray objectAtIndex:2] stringByReplacingOccurrencesOfString: @"MeetingTitle==" withString:@""]];
-//
-//                [MeetingdesArray addObject:[[ActionitemsSplitarray objectAtIndex:2]stringByReplacingOccurrencesOfString: @"ObjectiveDescription==" withString:@""]];
-//
-//                agendaIdStr=[[ActionitemsSplitarray objectAtIndex:1]stringByReplacingOccurrencesOfString: @"ObjectiveId==" withString:@""];
-//
-//                agendaMeetingIdStr=[[ActionitemsSplitarray objectAtIndex:4] stringByReplacingOccurrencesOfString: @"meetingOwnerId==" withString:@""];
-//
-//                [AgendaTimeBudgetedAray addObject:[[ActionitemsSplitarray objectAtIndex:3]stringByReplacingOccurrencesOfString:@"TimeBudgeted==" withString:@""]];
-//
-//                [AgendaMeetingDate addObject:[[ActionitemsSplitarray objectAtIndex:5]stringByReplacingOccurrencesOfString:@"meetingDate==" withString:@""]];
-//                [AgendaMeetingMeetingID addObject:[[ActionitemsSplitarray objectAtIndex:8]stringByReplacingOccurrencesOfString:@"meetingId==" withString:@""]];
-//                [AgendaMeetingProjId addObject:[[ActionitemsSplitarray objectAtIndex:7]stringByReplacingOccurrencesOfString:@"meetingProjectid==" withString:@""]];
-//                NSLog(@"data %@" ,MeetingIdArray);
-//
-//                [ObjeIdArray addObject:agendaIdStr];
-//                [AgendaMeetingIdArray addObject:agendaMeetingIdStr];
-//                NSLog(@"object id str is %@",ObjeIdArray);
-//                NSLog(@"agenda meeting array %@",AgendaMeetingIdArray);
-//                NSLog(@"object description is %@",MeetingdesArray);
-//                NSLog(@"agenda project id array is %@",AgendaTimeBudgetedAray);
-//                NSLog(@"agenda meeting date is %@",AgendaMeetingDate);
-//
-//
-//
-//            }
-//            NSLog(@"the object id str is 1111111%@",agendaIdStr);
-//
-//
-//            [AgendaListTv reloadData];
-//
-//
-//
-//        }
-//
-//
-//    }
-//    if (parser == xmlParser2)
-//    {
-//        if([elementName isEqualToString:@"countListResponse"])
-//        {
-//            Feedbacklbl.text = @"0";
-//            Notescountlbl.text = @"0";
-//            Actionitemlbl.text = @"0";
-//
-//            NSString *splitcountstr;
-//            for (int i = 0; i<[NotesListresponce count]; i++)
-//            {
-//
-//                // NotesSplitarray = [[NotesListresponce objectAtIndex:i]componentsSeparatedByString:@"###"];
-//                //NSLog(@"notes data %@",NotesSplitarray);
-//                splitcountstr =[NotesListresponce objectAtIndex:i];
-//                if ([splitcountstr rangeOfString:@"###actionItem"].location != NSNotFound)
-//                {
-//
-//
-//                    [actionlistcountstr  appendString:splitcountstr];
-//                    if ([actionlistcountstr length]==0)
-//                    {
-//                        [actionlistcountstr appendString:@"0"];
-//                        //NSLog(@"action is ddd%@",actionlistcountstr);
-//                        Actionitemlbl.text = actionlistcountstr;
-//                    }
-//                    else
-//                    {
-//
-//
-//                        actionlistcountstr = [actionlistcountstr stringByReplacingOccurrencesOfString:@"###actionItem==" withString:@""];
-//                        // NSLog(@"avtion is the %@",actionlistcountstr);
-//                        Actionitemlbl.text =actionlistcountstr;
-//                    }
-//                }
-//                else if ([splitcountstr rangeOfString:@"###addNotes"].location != NSNotFound)
-//                {
-//                    [noteslistcountstr appendString:splitcountstr];
-//                    if ([noteslistcountstr length]==0)
-//                    {
-//                        [noteslistcountstr appendString:@"0"];
-//
-//
-//                        Notescountlbl.text = noteslistcountstr;
-//                    }
-//                    else
-//                    {
-//                        noteslistcountstr = [noteslistcountstr stringByReplacingOccurrencesOfString:@"###addNotes==" withString:@""];
-//                        //NSLog(@"action is ddd %@",noteslistcountstr);
-//                        Notescountlbl.text = noteslistcountstr ;
-//                    }
-//
-//
-//
-//
-//
-//
-//                }
-//
-//
-//                else if ([splitcountstr rangeOfString:@"###feedback"].location != NSNotFound)
-//                {
-//                    [Feedbackcountstr appendString:splitcountstr];
-//                    if ([Feedbackcountstr length]==0)
-//                    {
-//                        [Feedbackcountstr appendString:@"0"];
-//                        NSLog(@"action is ddd%@",Feedbackcountstr);
-//
-//                        Feedbacklbl.text = Feedbackcountstr;
-//                    }
-//                    else
-//                    {
-//                        Feedbackcountstr = [Feedbackcountstr stringByReplacingOccurrencesOfString:@"###feedback==" withString:@""];
-//                        NSLog(@"feedback is the %@",Feedbackcountstr);
-//                        Feedbacklbl.text = Feedbackcountstr;
-//                    }
-//
-//                }
-//            }
-//
-//        }
-//    }
-//
-//    if (parser == xmlParser4)
-//    {
-//        if([elementName isEqualToString:@"descriptionResponse"])
-//        {
-//            for (int i = 0; i<[PublicNoteslistarray count]; i++)
-//            {
-//                PublicNotesSplitarray=[[PublicNoteslistarray objectAtIndex:i]componentsSeparatedByString:@"###"];
-//
-//                NSLog(@"the%@",PublicNotesSplitarray);
-//                publicdescString=[[PublicNotesSplitarray objectAtIndex:1]stringByReplacingOccurrencesOfString: @"Note_Description=" withString:@""];
-//
-//                [PublicNote_DescriptionArray addObject:publicdescString];
-//                NSLog(@"public description array is %@",PublicNote_DescriptionArray);
-//            }
-//
-//            [PublicCountTV reloadData];
-//
-//        }
-//
-//    }
-//    if (parser==xmlParser5)
-//    {
-//        if ([elementName isEqualToString:@"actionItemBasedOnUserIdResponse"])
-//        {
-//            for (int i=0; i<[ActionItemTabListArray count]; i++)
-//            {
-//                ActionItemTabListSplitArray=[[ActionItemTabListArray objectAtIndex:i]componentsSeparatedByString:@"###"];
-//                [ActionItemTabListDisplayArray addObject:[[ActionItemTabListSplitArray objectAtIndex:3]stringByReplacingOccurrencesOfString:@"Description==" withString:@""]];
-//
-//                actionItemCreatedIdStr=[[ActionItemTabListSplitArray objectAtIndex:6]stringByReplacingOccurrencesOfString:@"createdBy==" withString:@""];
-//
-//                actionItemAssignedIdStr=[[ActionItemTabListSplitArray objectAtIndex:5]stringByReplacingOccurrencesOfString:@"assignedTo==" withString:@""];
-//
-//                actionItemIdStr=[[ActionItemTabListSplitArray objectAtIndex:1]stringByReplacingOccurrencesOfString:@"ActionItemId==" withString:@""];
-//
-//                actionItemStatusStr=[[ActionItemTabListSplitArray objectAtIndex:4]stringByReplacingOccurrencesOfString:@"actionItemStatus==" withString:@""];
-//                [actionItemStausArray addObject:actionItemStatusStr];
-//
-//                actionItemMeetingTitleStr=[[ActionItemTabListSplitArray objectAtIndex:8]stringByReplacingOccurrencesOfString:@"meetingTitle==" withString:@""];
-//                [ActionItemMeetingTitleArray addObject:actionItemMeetingTitleStr];
-//
-//                ActionItemOwnernameStr=[[ActionItemTabListSplitArray objectAtIndex:10]stringByReplacingOccurrencesOfString:@"meetingOwnerName==" withString:@""];
-//
-//                [ActionITemMeetingOwnerNameArray addObject:ActionItemOwnernameStr];
-//            }
-//            NSLog(@"action item description array is %@",ActionItemTabListDisplayArray);
-//            NSLog(@"action item status array is %@",actionItemStausArray);
-//
-//
-//
-//
-//            [ActionItemListTV reloadData];
-//        }
-//
-//
-//
-//    }
-//}
+
 
 
 - (IBAction)meetingselectTypeButton:(id)sender
@@ -1117,7 +619,8 @@
     meetingTypeLabel.text=@"Today";
     // [self agendaBtnClicked];
     
-    [ActionItemListTV reloadData];
+   //[ActionItemListTV reloadData];
+    
     [AgendaListTv reloadData];
     
     [MeetingListTV reloadData];
@@ -1137,7 +640,7 @@
     }
     else if (tableView==ActionItemListTV)
     {
-        return [actionitemidarray count];
+        return [actionItemStausArray count];
     }
     
     return [PublicNote_DescriptionArray count];
@@ -1396,27 +899,6 @@
         cell.contentView.layer.cornerRadius = 8;
         cell.contentView.clipsToBounds = YES;
         
-        //        cell.contentView.backgroundColor = [UIColor whiteColor];
-        //        cell.textLabel.text = [ActitemlisttitleArray objectAtIndex:indexPath.row];
-        //
-        //        [cell.contentView.layer setBorderColor:[UIColor blackColor].CGColor];
-        //        [cell.contentView.layer setBorderWidth:1.0f];
-        //        cell.contentView.layer.cornerRadius = 8;
-        //        cell.contentView.clipsToBounds = YES;
-        
-        
-        /*UITextField *descriptiontxtfiled = (UITextField*)[cell viewWithTag:2005];
-         descriptiontxtfiled.textColor = [UIColor blackColor];
-         descriptiontxtfiled=[[UITextField alloc] initWithFrame:CGRectMake(400, 200, 80, 30)];
-         [[descriptiontxtfiled layer] setBorderWidth:2.0f];
-         [[descriptiontxtfiled layer] setBorderColor:[UIColor blackColor].CGColor];
-         descriptiontxtfiled.layer.cornerRadius = 8;
-         descriptiontxtfiled.clipsToBounds = YES;
-         descriptiontxtfiled.font=[UIFont systemFontOfSize:15];
-         
-         descriptiontxtfiled.text=[MeetingdesArray objectAtIndex:indexPath.row];
-         //[cell addSubview:descriptiontxtfiled];
-         [cell.contentView addSubview:descriptiontxtfiled];*/
         
         
         CGFloat desWidth = 150;
@@ -1447,7 +929,7 @@
         if (cell==nil)
         {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
-                                          reuseIdentifier:TableIdentifier1];
+                                          reuseIdentifier:nil];
         }
         cell.contentView.backgroundColor = [UIColor clearColor];
         cell.textLabel.text = [actionitemdescarray objectAtIndex:indexPath.row];
@@ -1456,6 +938,7 @@
         [cell.contentView.layer setBorderWidth:1.0f];
         cell.contentView.layer.cornerRadius = 8;
         cell.contentView.clipsToBounds = YES;
+        
         
         
         if ([[actionItemStausArray objectAtIndex:indexPath.row]isEqualToString:@"C"])
@@ -1495,8 +978,8 @@
         [cell.contentView addSubview:ownernameTxtfld];
         
         return  cell;
-        
-        [ActionItemListTV reloadData];
+        cell.backgroundColor=[UIColor clearColor];
+        //[ActionItemListTV reloadData];
     }
     
     else
@@ -1770,6 +1253,7 @@
     }
     if (tableView==ActionItemListTV)
     {
+        NSLog(@"action item created id str is %@",actionItemCreatedIdStr);
         if ([Useridstr isEqualToString:actionItemCreatedIdStr])
         {
             alertView1=[[UIAlertView alloc]initWithTitle:@"" message:@"if you want to kill the action item" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Close", nil];
@@ -1779,7 +1263,7 @@
         }
         else
         {
-            alertView2=[[UIAlertView alloc]initWithTitle:@"" message:@"if you want to close the action item" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"CLOSE", nil];
+            alertView2=[[UIAlertView alloc]initWithTitle:@"" message:@"if you want to close the action item" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Close", nil];
             [alertView2 show];
             statusStr=@"Close";
         }
@@ -1886,7 +1370,7 @@
             
             
             [self actionItemListKill];
-            [ActionItemListTV reloadData];
+            //[ActionItemListTV reloadData];
         }
         
     }
@@ -1903,7 +1387,7 @@
             
             
             [self actionItemListKill];
-            [ActionItemListTV reloadData];
+            //[ActionItemListTV reloadData];
         }
         
     }
@@ -1938,14 +1422,24 @@
     NSDictionary *json = [NSJSONSerialization JSONObjectWithData:jsonData
                                                          options:NSJSONReadingMutableContainers
                                                            error:&error];
-    //NSLog(@"my data is %@",json);
+    NSLog(@"my data is %@",json);
     
     if ([[json valueForKey:@"statusMessage"]isEqualToString:@"Inserted"])
     {
-         [self actionItemTab];
-        [ActionItemListTV reloadData];
-        NSLog(@"status message ise is %@",[json valueForKey:@"statusMessage"]);
+        
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+        
+        // Configure for text only and offset down
+        hud.mode = MBProgressHUDModeText;
+        hud.label.text = @"Action Item Closed";
+        hud.margin = 10.f;
+        hud.yOffset = 150.f;
+        hud.removeFromSuperViewOnHide = YES;
+        
+        [hud hideAnimated:YES afterDelay:3];
        
+        [self actionItemTab];
+        [ActionItemListTV reloadData];
         
     }
 }
@@ -1966,14 +1460,6 @@
         }
     }
 }
-//- (BOOL)textFieldShouldReturn:(UITextField *)textField
-//{
-//    if (textField==meetingDesTxtFld)
-//    {
-//        [meetingDesTxtFld resignFirstResponder];
-//    }
-//    return YES;
-//}
 
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {

@@ -123,7 +123,7 @@
         [projectIdArray addObject:[fidd valueForKey:@"projectId"]];
         [projectNameArray addObject:[fidd valueForKey:@"projectName"]];
     }
-    if ([projectNmaeTfd.text length]==0)
+    if ([projectNmaeTfd.text length]==0 && [projectNameArray count]>0)
     {
         projectNmaeTfd.text=[projectNameArray objectAtIndex:0];
         pkrProjectIDStr=[projectIdArray objectAtIndex:0];

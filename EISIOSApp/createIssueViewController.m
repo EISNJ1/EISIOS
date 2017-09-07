@@ -92,7 +92,7 @@
     //issueHistoryTextView.editable=YES;
     issueHistoryTextView.scrollEnabled=YES;
     issueHistoryTextView.showsVerticalScrollIndicator=YES;
-    issueHistoryTextView.userInteractionEnabled=YES;
+    //issueHistoryTextView.userInteractionEnabled=YES;
     
     
     //------------Bar Buttons----------------------//
@@ -162,19 +162,19 @@
         [projectListBtn setEnabled:NO];
         
         
-        UIButton *uploadButton=[[UIButton alloc]initWithFrame:CGRectMake(issueHistoryTextView.frame.origin.x+400,issueHistoryTextView.frame.origin.y+220,80,40)];
+        uploadButton=[[UIButton alloc]initWithFrame:CGRectMake(issueHistoryTextView.frame.origin.x+400,issueHistoryTextView.frame.origin.y+220,80,40)];
         
         [uploadButton setTitle:@"Uplaod" forState:UIControlStateNormal];
         [uploadButton addTarget:self action:@selector(uploadButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
         [uploadButton setBackgroundColor:[UIColor grayColor]];
         [createIssueView addSubview:uploadButton];
         
-        UILabel *attatchmentsLabel=[[UILabel alloc]initWithFrame:CGRectMake(issueHistoryTextView.frame.origin.x-200, issueHistoryTextView.frame.origin.y+200, 150, 40)];
+       attatchmentsLabel=[[UILabel alloc]initWithFrame:CGRectMake(issueHistoryTextView.frame.origin.x-200, issueHistoryTextView.frame.origin.y+200, 150, 40)];
         
         attatchmentsLabel.text=@"Attatchments";
         attatchmentsLabel.tag=155;
         [createIssueView addSubview:attatchmentsLabel];
-        //[self AttatchmentList];
+        [self AttatchmentList];
         
         
         attatchmentTableView=[[UITableView alloc]initWithFrame:CGRectMake(attatchmentsLabel.frame.origin.x+200, attatchmentsLabel.frame.origin.y-20, issueHistoryTextView.frame.size.width, 100) ];
@@ -242,7 +242,7 @@
         [newprojectidstrArray addObject:[fidd valueForKey:@"projectId"]];
         
     }
-    if ([projectTblStr length] == 0 && [newprojectidstrArray count]>0)
+    if ([titleLabel.text isEqualToString:@"Update Issue Detail"])
     {
         
         projectTfd.text = [projectnameArray objectAtIndex:0];
@@ -297,19 +297,45 @@
 {
     [issueEntryTfd resignFirstResponder];
     [descriptionTfd resignFirstResponder];
-    
-
 }
 
-//-(void)AttatchmentList
-//{
-//    Servicecall=[[Webservices alloc]init];
-//    NSString *IssueAttatchmentClass=@"IssuesAttachment";
-//    NSDictionary *IssueAttatchmentDictionary=@{@"issueId":issueIdTblStr};
-//    [Servicecall IssueAttatchmentsList:IssueAttatchmentClass IssueAttatchmentsListDictionary:IssueAttatchmentDictionary];
-//    [Servicecall setDelegate:self];
-//
-//}
+-(void)AttatchmentList
+{
+    Servicecall=[[Webservices alloc]init];
+    NSString *IssueAttatchmentClass=[NSString stringWithFormat:@"issues/v1/issueFilesList?issueId=%@",issueIdTblStr];
+    [Servicecall issuesfilelistclass:IssueAttatchmentClass];
+     [Servicecall setDelegate:self];
+
+}
+-(void)issuesfilelist:(id)issuesfilelistresponse
+{
+    NSDictionary *dict=[[NSDictionary alloc]init];
+    
+    dict=issuesfilelistresponse;
+    
+    NSLog(@"the files response is %@",dict);
+    
+    AttatchmentFileNameArray=[NSMutableArray new];
+    AttatchmentFileUrlArray=[NSMutableArray new];
+    if ([[dict valueForKey:@"statusMessage"]isEqualToString:@"No Data"])
+    {
+        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Alert" message:@"the attatchment list is empty" delegate:self cancelButtonTitle:@"CAncel" otherButtonTitles:nil, nil];
+        [alert show];
+        [alert dismissWithClickedButtonIndex:0 animated:YES];
+        
+    }
+    NSArray *resultarray=[[NSArray alloc]init];
+    resultarray=[dict valueForKey:@"beanData"];
+    
+    for (NSDictionary *fiddd in resultarray)
+    {
+        [AttatchmentFileNameArray addObject:[fiddd valueForKey:@"fileName"]];
+        [AttatchmentFileUrlArray addObject:[fiddd valueForKey:@"attachmentUrl"]];
+        
+    }
+    [attatchmentTableView reloadData];
+    
+}
 -(void)statusService
 {
     Servicecall = [[Webservices alloc]init];
@@ -334,7 +360,7 @@
         [statusnameArray addObject:[fidd valueForKey:@"issueStatus"]];
         [STATUS_IDArray addObject:[fidd valueForKey:@"issueStatusId"]];
     }
-    if ([issueStatusTblStr length] == 0)
+    if ([issueStatusTblStr length] == 0&&[STATUS_IDArray count]>0)
     {
         
         statusTfd.text = [statusnameArray objectAtIndex:0];
@@ -425,7 +451,7 @@
         [ResourceIdArray addObject:[fidd valueForKey:@"resourceId"]];
     }
     
-    if ([assignToTblStr length] == 0)
+    if ([assignToTblStr length] == 0 &&[ResourceIdArray count]>0)
     {
         
         assignToTfd.text = [resourcenamearray objectAtIndex:0];
@@ -510,7 +536,7 @@
         [businessnameArray addObject:[fidd valueForKey:@"businessPriority"]];
         [BUSINESS_PRIORITY_IDArray addObject:[fidd valueForKey:@"businessPriorityId"]];
     }
-    if ([severityTblStr length] == 0)
+    if ([severityTblStr length] == 0 &&[BUSINESS_PRIORITY_IDArray count]>0)
     {
         
         severityTfd.text = [businessnameArray objectAtIndex:0];
@@ -612,6 +638,8 @@
     }
     
     NSData* imageData = UIImageJPEGRepresentation(ImageforUpload, 1.0);
+    
+    Servicecall.imgdata=imageData;
     fileBytes = [imageData base64Encoding];
     //NSLog(@"bytes %@",imageData);
     
@@ -645,17 +673,35 @@
     [fileName appendString:imagedatestr];
     [fileName appendString:@"image.jpg"];
     
-    Servicecall=[[Webservices alloc]init];
+    Servicecall.filename=fileName;
     
-    NSLog(@"nslog file name is %@",fileName);
+    
+    //NSLog(@"nslog file name is %@",fileName);
     NSLog(@"issue id str is %@",issueIdTblStr);
-    NSLog(@"attatchemnt id str is %@",fileBytes);
-    NSString *SAveAttatchmentClassName=@"IssuesAttachment";
+    //NSLog(@"attatchemnt id str is %@",fileBytes);
+    NSString *SAveAttatchmentClassName=[NSString stringWithFormat:@"issues/v1/issueUploadFile"];
     NSDictionary *SaveAttachmentParameters=@{@"issueId":issueIdTblStr,@"attachmentName":fileName,@"attachmentBytes":fileBytes};
-//[Servicecall SaveAttatchmentInIssue:SAveAttatchmentClassName SaveAttatchmentIssuesDictionary:SaveAttachmentParameters];
+[Servicecall uploadTextClass:SAveAttatchmentClassName uploadTextparams:SaveAttachmentParameters];
 [Servicecall setDelegate:self];
     
+}
+-(void)uploadtasktextservice:(id)uploadtasktextresponse
+{
+    NSDictionary *dict=[[NSDictionary alloc]init];
+    
+    dict=uploadtasktextresponse;
+    
+    NSLog(@"the uploaded image is %@",dict);
+    if ([[dict valueForKey:@"statusMessage"]isEqualToString:@"Uploaded"])
+    {
+        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Alert" message:@"Image uploaded successfully" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+        
+        [alert show];
+        [alert dismissWithClickedButtonIndex:0 animated:YES];
+        [self AttatchmentList];
+        [attatchmentTableView reloadData];
     }
+}
 
 //-(void)DatafromDB
 //{
@@ -769,7 +815,7 @@
     severityTblStr = nil;
     descriptionTblStr = nil;
     isueHistoryTblStr = nil;
-
+    issueIdTblStr=nil;
     
     projectTfd.text = nil;
     statusTfd.text = nil;
@@ -793,6 +839,9 @@
     [updateBtn setHidden:YES];
     [saveBtn setHidden:NO];
     [projectListBtn setEnabled:YES];
+    [uploadButton setHidden:YES];
+    [titleLabel setText:@"Create Issue"];
+    [attatchmentsLabel setHidden:YES];
     
     [attatchmentTableView setHidden:YES];
     
@@ -975,26 +1024,29 @@
     {
         UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Alert" message:@"issue saved successfully" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
         [alert show];
+        NSArray *resultarray=[dict valueForKey:@"beanData"];
         
-        saveissueIDStr=[dict valueForKey:@"issueId"];
-        saveissueNumStr=[dict valueForKey:@"issueNumber"];
+        saveissueIDStr=[resultarray valueForKey:@"issueId"];
+        saveissueNumStr=[resultarray valueForKey:@"issueNumber"];
         
        issueIdTblStr=saveissueIDStr;
        issueNoTblStr=saveissueNumStr;
+        
+        NSLog(@"issue no tbl str is %@",issueNoTblStr);
         
         [saveBtn setHidden:YES];
         [updateBtn setHidden:NO];
         [projectListBtn setEnabled:NO];
         
         
-        UIButton *uploadButton=[[UIButton alloc]initWithFrame:CGRectMake(issueHistoryTextView.frame.origin.x+400,issueHistoryTextView.frame.origin.y+220,80,40)];
+        uploadButton=[[UIButton alloc]initWithFrame:CGRectMake(issueHistoryTextView.frame.origin.x+400,issueHistoryTextView.frame.origin.y+220,80,40)];
         
         [uploadButton setTitle:@"Uplaod" forState:UIControlStateNormal];
         [uploadButton addTarget:self action:@selector(uploadButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
         [uploadButton setBackgroundColor:[UIColor grayColor]];
         [createIssueView addSubview:uploadButton];
         
-        UILabel *attatchmentsLabel=[[UILabel alloc]initWithFrame:CGRectMake(issueHistoryTextView.frame.origin.x-200, issueHistoryTextView.frame.origin.y+200, 150, 40)];
+    attatchmentsLabel=[[UILabel alloc]initWithFrame:CGRectMake(issueHistoryTextView.frame.origin.x-200, issueHistoryTextView.frame.origin.y+200, 150, 40)];
         
         attatchmentsLabel.text=@"Attatchments";
         attatchmentsLabel.tag=155;
@@ -1017,6 +1069,14 @@
        [createIssueView addSubview:attatchmentTableView];
         
     }
+     if ([[dict valueForKey:@"statusMessage"]isEqualToString:@"IssueUpdated"])
+     {
+         UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Alert" message:@"issue updated successfully" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+         [alert show];
+         [alert dismissWithClickedButtonIndex:0 animated:YES];
+
+         
+     }
 }
 
 -(IBAction)issueHomeBtnClk:(id)sender
@@ -1030,7 +1090,7 @@
 -(IBAction)issueUpdateClk:(id)sender
 {
     
-    if ( ([projectTfd.text length] == 0) || ([statusTfd.text length] == 0) || ([typeTfd.text length] == 0)||([assignToTfd.text length] == 0) ||([teamSubmittedTfd.text length] == 0)||([severityTfd.text length] == 0)||([descriptionTfd.text length] == 0)/*|| ([issueEntryTfd.text length] == 0) */  )
+    if (([projectTfd.text length] == 0) || ([statusTfd.text length] == 0) || ([typeTfd.text length] == 0)||([assignToTfd.text length] == 0) ||([teamSubmittedTfd.text length] == 0)||([severityTfd.text length] == 0)||([descriptionTfd.text length] == 0)/*|| ([issueEntryTfd.text length] == 0) */  )
         
     {
         //Alert View
@@ -1045,10 +1105,11 @@
     {
         NSLog(@"welcome to eis");
         
-    if ([projectTblStr length]>0)
+    if ([projectTfd.text length]>0)
     {
         NSMutableString *str1 = [[NSMutableString alloc]init];
         [str1 setString:issueHistoryTextView.text];
+        [str1 appendString:@" "];
         if ([issueEntryTfd.text length]>0)
         {
             [str1 appendString:@" "];
@@ -1073,68 +1134,30 @@
         }
         else
         {
-            str1=@"null";
+            [str1 appendString:@"null"];
+            //[str1 appendString:@"null"];
         }
-        
         
         NSLog(@"%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@",issueNoTblStr,issueNoStr,descriptionTfd.text,businessPriortyStr,issueTypeStr,projectIdStr,teamImpactStr,assignToTblStr,OrgIdStr,Useridstr,issueIdTblStr,issueEntryTfd.text);
         NSLog(@"assign id issssssss %@",resourceIdStr);
         Servicecall = [[Webservices alloc]init];
         
         NSString *projectLstForTask = [NSString stringWithFormat:@"issues/v1/saveAndUpdateIssue"];
-        NSString *credentials=[NSString stringWithFormat:@"issueNo=%@&issueStatus=%@&issueType=%@&description=%@&businessPriorty=%@&projectId=%@&teamImpact=%@&resourceId=%@&saveUpdateType=%@&orgId=%@&userId=%@&issueId=%@&logDescription=%@",issueNoTblStr,issueNoStr,issueTypeStr,descriptionTfd.text,businessPriortyStr,projectIdStr,teamImpactStr,resourceIdStr,@"UpdateIssues",OrgIdStr,Useridstr,issueIdTblStr,str1];
+        NSString *credentials=[NSString stringWithFormat:@"issueNo=%@&issueStatus=%@&issueType=%@&description=%@&businessPriorty=%@&projectId=%@&teamImpact=%@&resourceId=%@&saveUpdateType=%@&orgId=%@&userId=%@&issueId=%@&logDescription=%@",issueNoTblStr,issueNoStr,issueTypeStr,descriptionTfd.text,businessPriortyStr,projectIdStr,teamImpactStr,resourceIdStr,@"UpdateIssue",OrgIdStr,Useridstr,issueIdTblStr,str1];
+        
+        NSString *encode=[credentials stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         
         NSLog(@"credentials are %@",credentials);
-        [Servicecall saveissue:projectLstForTask saveissueparams:credentials];
-        [Servicecall setDelegate:self];
-        
-        //issueEntryTfd.text = nil;
-
-        //
-//        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@" successfully Updated" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
-//        [alertView show];
-//        [alertView dismissWithClickedButtonIndex:0 animated:YES];
-    }
-    else
-    {
-        NSMutableString *str1 = [[NSMutableString alloc]init];
-        //[str1 setString:issueHistoryTextView.text];
-        if ([issueEntryTfd.text length]>0)
-        {
-            [str1 appendString:@" "];
-            
-            
-            NSDate *aDate = [NSDate date];
-            //converting Date to String
-            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-            [formatter setDateStyle:NSDateFormatterShortStyle];
-            [formatter setTimeStyle:NSDateFormatterNoStyle];
-            [formatter setDateFormat:@"dd/MM/yyyy HH:mm:ss"];
-            NSString *dateStr  = [formatter stringFromDate:aDate];
-            
-            [str1 appendString:Usernamestr];
-            [str1 appendString:@":"];
-            [str1 appendString:dateStr];//[formatter stringFromDate:aDate]];
-            [str1 appendString:@"::"];
-            [str1 appendString:issueEntryTfd.text];
-            
-            //[str1 appendString:issueEntryTfd.text];
-            //issueHistoryTextView.text = str1;
-            issueHistoryTextView.editable=YES;
-        }
-        
-        NSLog(@"assign id isisisisisisi %@",resourceIdStr);
-        Servicecall = [[Webservices alloc]init];
-        NSString *projectLstForTask =[NSString stringWithFormat:@"issues/v1/saveAndUpdateIssue"];
-        NSString *credentials = @{ @"issueNo":saveissueNumStr,@"issueStatus":issueNoStr,@"description":descriptionTfd.text,@"businessPriorty":businessPriortyStr,@"issueType":issueTypeStr,@"projectId":projectIdStr,@"teamImpact":teamImpactStr,@"resourceId":resourceIdStr,@"saveUpdateType":@"UpdateIssue",@"orgId":OrgIdStr,@"userId":Useridstr,@"issueId":saveissueIDStr,@"logDescription":str1/*issueEntryTfd.text*/};
-        //[Servicecall updateIssue:projectLstForTask ParticipantsListParameters:credentials];
+        [Servicecall saveissue:projectLstForTask saveissueparams:encode];
         [Servicecall setDelegate:self];
         
         issueEntryTfd.text = nil;
-    }
+
+        
 
     }
-    
+}
+
 }
 
 
@@ -1571,14 +1594,14 @@
             [projectListBtn setEnabled:NO];
             
             
-            UIButton *uploadButton=[[UIButton alloc]initWithFrame:CGRectMake(issueHistoryTextView.frame.origin.x+400,issueHistoryTextView.frame.origin.y+220,80,40)];
+            uploadButton=[[UIButton alloc]initWithFrame:CGRectMake(issueHistoryTextView.frame.origin.x+400,issueHistoryTextView.frame.origin.y+220,80,40)];
             
             [uploadButton setTitle:@"Uplaod" forState:UIControlStateNormal];
             [uploadButton addTarget:self action:@selector(uploadButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
             [uploadButton setBackgroundColor:[UIColor grayColor]];
             [createIssueView addSubview:uploadButton];
             
-            UILabel *attatchmentsLabel=[[UILabel alloc]initWithFrame:CGRectMake(issueHistoryTextView.frame.origin.x-200, issueHistoryTextView.frame.origin.y+200, 150, 40)];
+            attatchmentsLabel=[[UILabel alloc]initWithFrame:CGRectMake(issueHistoryTextView.frame.origin.x-200, issueHistoryTextView.frame.origin.y+200, 150, 40)];
             
             attatchmentsLabel.text=@"Attatchments";
             attatchmentsLabel.tag=155;
@@ -2156,7 +2179,7 @@
     //NSLog(@"not existing url is %@",url);
     NSData *urlData = [NSData dataWithContentsOfURL:url];
     
-    if([extn isEqualToString:@"jpg"]||[extn isEqualToString:@"png"])
+    if([fileurl containsString:@"jpg"]||[fileurl containsString:@"png"])
     {
                
         NSArray   *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -2200,7 +2223,7 @@
         [createIssueView addSubview:ImgView];
         
     }
-    else if([extn isEqualToString:@"pdf"]||[extn isEqualToString:@"pptx"]||[extn isEqualToString:@"docx"] ||[extn isEqualToString:@"xlsx"])
+    else if([fileurl containsString:@"pdf"]||[fileurl containsString:@"pptx"]||[fileurl containsString:@"docx"] ||[fileurl containsString:@"xlsx"])
     {
         
         NSData *pdfData = [[NSData alloc]initWithContentsOfURL:[NSURL URLWithString:fileurl]];
@@ -2238,7 +2261,7 @@
         [self.view addSubview:webView];
     }
    
-    else if ([extn isEqualToString:@"txt"])
+    else if ([extn containsString:@"txt"])
     {
         NSString *urlString = fileurl;
         NSURL *myURL = [NSURL URLWithString:[urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
@@ -2262,7 +2285,7 @@
         
         [self.view addSubview:textView];
     }
-    else if ([extn isEqualToString:@"csv"])
+    else if ([fileurl containsString:@"csv"])
     {
       
         NSMutableArray *colA = [NSMutableArray array];

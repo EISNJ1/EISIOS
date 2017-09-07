@@ -59,6 +59,7 @@
 -(void)rejectreasonservice:(id)rejectreasonresponse;
 -(void)resolutiontypeservice:(id)resolutiontyperesponse;
 -(void)resolutionupdate:(id)resolutionupdateresponse;
+-(void)issuesfilelist:(id)issuesfilelistresponse;
 
 
 //Task
@@ -99,6 +100,7 @@
 -(void)categoryspinner:(id)categoryresponse;
 -(void)saveprojectexpenses:(id)saveprojectexpensesresponse;
 -(void)updateprojectexpenses:(id)updateprojectexpensesresponse;
+-(void)projectexpensesattatchmentlistclass:(id)projectexpensesattatchmentlistresponse;
 
 //DASH BOARD
 -(void)oganizationresourcereport:(id)oganizationresourcereportresponse;
@@ -209,6 +211,8 @@
 -(void)resolutiontypeclass:(NSString *)resolutiontypeparameters;
 -(void)updateresolutionclass:(NSString *)resolutionupdate resolutionupdateparams:(NSString *)resolutionupdateparameters;
 
+-(void)issuesfilelistclass:(NSString *)issuesfilelistparams;
+
 #pragma Task json services
 
 -(void)tasklistUrl:(NSString *)taskListUrl;
@@ -250,6 +254,7 @@
 -(void)categoryspinnerlist:(NSString *)categorylist;
 -(void)saveprojectexpenses:(NSString *)projectexpensesparams projectexpensesservice:(NSString *)projectexpensesparameters;
 -(void)updateprojectexpenses:(NSString *)updateprojectexpensesclass updateprojectexpensesparams:(NSString *)updateprojectexpensesparameters;
+-(void)projectexpensesattatchmentlist:(NSString *)projectexpensesattatchmentlistparams;
 
 
 #pragma Dashboard json services

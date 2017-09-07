@@ -175,9 +175,9 @@
     NSDictionary *dict=Goallist;
     NSLog(@"dict is: %@",dict);
     
-    if ([[dict valueForKey:@"StatusMessage"]isEqualToString:@"No Data"])
+    if ([[dict valueForKey:@"statusMessage"]isEqualToString:@"No Data"])
     {
-        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Warning" message:@"Goals are empty" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Warning" message:@"Goals list is empty" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
         [alert show];
     }
     else
