@@ -818,11 +818,7 @@
     xmlParser10 = [[NSXMLParser alloc]initWithData:ServiceCal1];
     xmlParser10.delegate = self;
     [xmlParser10 parse];
-
 }
-
-
-
 
 
 

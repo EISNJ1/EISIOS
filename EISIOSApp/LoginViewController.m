@@ -9,6 +9,7 @@
 #import "LoginViewController.h"
 #import "LoginAppDelegate.h"
 #import "UserData.h"
+#import "MBProgressHUD.h"
 @interface LoginViewController ()
 {
     NSXMLParser *xmlParser;
@@ -127,10 +128,25 @@
     NSDictionary *dict=[[NSDictionary alloc]init];
     dict=Userlogindetails;
     
+    if ([dict valueForKey:@"status"]==500)
+    {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+        
+        // Configure for text only and offset down
+        hud.mode = MBProgressHUDModeText;
+        hud.label.text = @"Server Problem";
+        hud.margin = 10.f;
+        hud.yOffset = 150.f;
+        hud.removeFromSuperViewOnHide = YES;
+        
+        [hud hideAnimated:YES afterDelay:3];
+    }
+    
     resultArray=[[NSMutableArray alloc]init];
     LoginCredentials=[[NSMutableArray alloc]init];
     
   resultArray = [dict objectForKey:@"userDeatils"];
+    
     
     
    
@@ -157,13 +173,13 @@
         [self SaveDatabase];
         
         NSUserDefaults *defaul =[ NSUserDefaults standardUserDefaults];
-        [defaul setObject:[LoginCredentials objectAtIndex:0]forKey:@"UserName"];
+        [defaul setObject:[LoginCredentials objectAtIndex:5]forKey:@"UserName"];
         [defaul setObject:[LoginCredentials objectAtIndex:2] forKey:@"UserId"];
         [defaul setObject:[LoginCredentials objectAtIndex:4] forKey:@"UserType"];
         [defaul setObject:[LoginCredentials objectAtIndex:3] forKey:@"OrgId"];
         [defaul synchronize];
         GridVC = [self.storyboard instantiateViewControllerWithIdentifier:@"GridView"];
-        GridVC.UserNamestr = [LoginCredentials objectAtIndex:0];
+        GridVC.UserNamestr = [LoginCredentials objectAtIndex:5];
         [self.navigationController pushViewController:GridVC animated:YES];
         
 

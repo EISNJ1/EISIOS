@@ -1009,7 +1009,14 @@
         [alertView show];
         [alertView dismissWithClickedButtonIndex:0 animated:YES];
     }
-    
+    if ([[dict1 valueForKey:@"statusMessage"]isEqualToString:@"Weekend"])
+    {
+        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"Alert" message:@"Timesheet cant submitted on Weekend" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:nil, nil];
+        
+        [alert show];
+
+    }
+
 }
 
 

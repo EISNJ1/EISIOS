@@ -297,7 +297,7 @@
     
     if ([[dict valueForKey:@"statusMessage"]isEqualToString:@"No Data"])
     {
-        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Warning" message:@"counts are empty" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:nil, nil];
+        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Warning" message:@"Actionitem list is empty" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:nil, nil];
         [alert show];
     }
     else
@@ -346,7 +346,7 @@
     
     if ([[dict valueForKey:@"statusMessage"]isEqualToString:@"No Data"])
     {
-        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Warning" message:@"counts are empty" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:nil, nil];
+        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Warning" message:@"notes list is empty" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:nil, nil];
         [alert show];
     }
     else
@@ -393,7 +393,7 @@
     
     if ([[dict valueForKey:@"statusMessage"]isEqualToString:@"No Data"])
     {
-        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Warning" message:@"counts are empty" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:nil, nil];
+        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Warning" message:@"feedback list is empty" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:nil, nil];
         [alert show];
     }
     else
@@ -754,7 +754,7 @@ NSString *credentials = [NSString stringWithFormat:@"ObjId=%@&ObjDesc=%@&categor
     
     if ([[dict valueForKey:@"statusMessage"]isEqualToString:@"Inserted"])
     {
-        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Alert" message:@"actionitem saved successfully" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Alert" message:@"note saved successfully" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
         [alert show];
         
         [self NotesList];
@@ -772,7 +772,7 @@ NSString *credentials = [NSString stringWithFormat:@"ObjId=%@&ObjDesc=%@&categor
     
     if ([[dict valueForKey:@"statusMessage"]isEqualToString:@"Inserted"])
     {
-        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Alert" message:@"actionitem saved successfully" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Alert" message:@"feedback saved successfully" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
         [alert show];
         
         [self FeedbackList];
@@ -1755,13 +1755,13 @@ NSString *credentials = [NSString stringWithFormat:@"ObjId=%@&ObjDesc=%@&categor
 {
     if (textField == Effortrequiredtxtfld ) {
         
-        NSLog(@"textViewDidBeginEditing:");
-        [UIView beginAnimations:nil context:NULL];
-        [UIView setAnimationDuration:0.25f];
-        CGRect frame = self.view.frame;
-        frame.origin.y =frame.origin.y -180;
-        [self.view setFrame:frame];
-        [UIView commitAnimations];
+//        NSLog(@"textViewDidBeginEditing:");
+//        [UIView beginAnimations:nil context:NULL];
+//        [UIView setAnimationDuration:0.25f];
+//        CGRect frame = self.view.frame;
+//        frame.origin.y =frame.origin.y -180;
+//        [self.view setFrame:frame];
+//        [UIView commitAnimations];
     }
     if (textField == EffortUomtxtfld ) {
         

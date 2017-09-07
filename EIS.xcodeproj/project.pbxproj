@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		231A2C6D1AB00CB500F1DB1A /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5769CC381A01FF6D0069A432 /* Main_iPad.storyboard */; };
 		2348F1C01AA579F7003111B7 /* AudioViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2348F1A51AA579F6003111B7 /* AudioViewController.m */; };
 		2348F1C21AA579F7003111B7 /* FileUploadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2348F1A91AA579F6003111B7 /* FileUploadViewController.m */; };
 		2348F1C31AA579F7003111B7 /* NSBubbleData.m in Sources */ = {isa = PBXBuildFile; fileRef = 2348F1AC1AA579F7003111B7 /* NSBubbleData.m */; };
@@ -103,6 +102,7 @@
 		846B59711DF964880070D537 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 846B59701DF964880070D537 /* MBProgressHUD.m */; };
 		848D60721DB4CD56009C3AF0 /* ChartNew.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 848D60711DB4CD56009C3AF0 /* ChartNew.min.js */; };
 		848D60851DB4CE23009C3AF0 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 848D60731DB4CE23009C3AF0 /* index.html */; };
+		8495142F1F46FC340098998C /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8495142E1F46FC340098998C /* Main_iPad.storyboard */; };
 		84B6C2201DFEA9640049E572 /* gallery.png in Resources */ = {isa = PBXBuildFile; fileRef = 84B6C21F1DFEA9640049E572 /* gallery.png */; };
 		84B6C2241DFFC27D0049E572 /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5769CC351A01FF6D0069A432 /* Main_iPhone.storyboard */; };
 		84F2B8B21E9CFDD4003DF2F9 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84F2B8B11E9CFDD4003DF2F9 /* Launch Screen.storyboard */; };
@@ -220,7 +220,6 @@
 		5769CC321A01FF6D0069A432 /* LoginAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginAppDelegate.h; sourceTree = "<group>"; };
 		5769CC331A01FF6D0069A432 /* LoginAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginAppDelegate.m; sourceTree = "<group>"; };
 		5769CC361A01FF6D0069A432 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
-		5769CC391A01FF6D0069A432 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
 		5769CC3B1A01FF6D0069A432 /* LoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		5769CC3C1A01FF6D0069A432 /* LoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		5769CC3E1A01FF6D0069A432 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -311,6 +310,7 @@
 		846B59701DF964880070D537 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		848D60711DB4CD56009C3AF0 /* ChartNew.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = ChartNew.min.js; sourceTree = "<group>"; };
 		848D60731DB4CE23009C3AF0 /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
+		8495142E1F46FC340098998C /* Main_iPad.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main_iPad.storyboard; path = ../Main_iPad.storyboard; sourceTree = "<group>"; };
 		84A80C151D13B82C0070B875 /* en */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = en; path = FSLineChart.h; sourceTree = "<group>"; };
 		84A80C171D13B82C0070B875 /* en */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = en; path = FSLineChart.m; sourceTree = "<group>"; };
 		84A80C191D13B82C0070B875 /* en */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = en; path = "UIColor+FSPalette.h"; sourceTree = "<group>"; };
@@ -575,7 +575,7 @@
 				5769CC321A01FF6D0069A432 /* LoginAppDelegate.h */,
 				5769CC331A01FF6D0069A432 /* LoginAppDelegate.m */,
 				5769CC351A01FF6D0069A432 /* Main_iPhone.storyboard */,
-				5769CC381A01FF6D0069A432 /* Main_iPad.storyboard */,
+				8495142E1F46FC340098998C /* Main_iPad.storyboard */,
 				5769CC3E1A01FF6D0069A432 /* Images.xcassets */,
 				84B6C21F1DFEA9640049E572 /* gallery.png */,
 				5769CC5C1A01FFA70069A432 /* WebServices */,
@@ -707,6 +707,11 @@
 				TargetAttributes = {
 					5769CC1F1A01FF6C0069A432 = {
 						DevelopmentTeam = Z6SNLFG7AQ;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -734,7 +739,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				8451B1B01E092EE100715079 /* lobstor.otf in Resources */,
-				231A2C6D1AB00CB500F1DB1A /* Main_iPad.storyboard in Resources */,
 				5769CC3F1A01FF6D0069A432 /* Images.xcassets in Resources */,
 				848D60721DB4CD56009C3AF0 /* ChartNew.min.js in Resources */,
 				848D60851DB4CE23009C3AF0 /* index.html in Resources */,
@@ -742,6 +746,7 @@
 				84F2B8B21E9CFDD4003DF2F9 /* Launch Screen.storyboard in Resources */,
 				8451B1AC1E04082A00715079 /* Roboto-Black.ttf in Resources */,
 				2348F2231AA57A1B003111B7 /* InfoPlist.strings in Resources */,
+				8495142F1F46FC340098998C /* Main_iPad.storyboard in Resources */,
 				5769CC2E1A01FF6D0069A432 /* InfoPlist.strings in Resources */,
 				84B6C2201DFEA9640049E572 /* gallery.png in Resources */,
 			);
@@ -862,14 +867,6 @@
 				5769CC361A01FF6D0069A432 /* Base */,
 			);
 			name = Main_iPhone.storyboard;
-			sourceTree = "<group>";
-		};
-		5769CC381A01FF6D0069A432 /* Main_iPad.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				5769CC391A01FF6D0069A432 /* Base */,
-			);
-			name = Main_iPad.storyboard;
 			sourceTree = "<group>";
 		};
 		5769CC4E1A01FF6D0069A432 /* InfoPlist.strings */ = {

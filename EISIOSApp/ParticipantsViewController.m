@@ -247,7 +247,7 @@
     
     if ([[dict valueForKey:@"statusMessage"]isEqualToString:@"No Data"])
     {
-        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Warning" message:@"counts are empty" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:nil, nil];
+        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Warning" message:@"Participants list is empty" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:nil, nil];
         [alert show];
     }
     else

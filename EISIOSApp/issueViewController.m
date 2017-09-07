@@ -207,7 +207,7 @@
         pickerAry1=issuetypeArray;
         newpickerAry1=buspriorityArray;
         
-        NSLog(@"issue type array is %@",issuetypeArray);
+        NSLog(@"issue type array is %@",TeamNameArray);
         NSLog(@"long desc newpicker array is %@",longDesArray);
 //        [pickerAry1 addObject:issuetype];
 //        [newpickerAry1 addObject:buspriority];
@@ -627,37 +627,27 @@ NSString *totalIssueToast=[NSString stringWithFormat:@"%d",total];
     {
 
         
+        
     static NSString *CellIdentifier = @"Cell";
         
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil)
     {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-        //imageView = [[UIImageView alloc]init];
-        //imageView.frame=CGRectMake(500, 50, 30, 30);
+        
+
+        
     }
   
     [cell.contentView.layer setBorderColor:[UIColor blackColor].CGColor];
     [cell.contentView.layer setBorderWidth:1.0f];
     cell.contentView.layer.cornerRadius = 8;
     cell.contentView.clipsToBounds = YES;
-        imageView = [[UIImageView alloc]init];
-        imageView.frame=CGRectMake(500, 50, 30, 30);
-       
-        //backgroundCellImage1=[[UIImageView alloc] initWithFrame:CGRectMake(650, 15, 60, 60)];
-        //backgroundCellImage=[[UIImageView alloc] initWithFrame:CGRectMake(600, 50, 40, 40)];
-        
-        
-        
-        NSLog(@"isfileattatched array string is %@",[isFileAttatchedArray objectAtIndex:indexPath.row]);
-        
-        if (![[isFileAttatchedArray objectAtIndex:indexPath.row] isEqualToString:@"No attachment"])
+            
+        if (![[searchIsFileAttatchedArray objectAtIndex:indexPath.row] isEqualToString:@"No attachment"])
         {
-            
-            imageView.image=[UIImage imageNamed:@"attatchment"];
-            //cell.imageView.image =imageView.image;
-            [cell.contentView addSubview:imageView];
-            
+            //imageView=[[UIImageView alloc]initWithFrame:CGRectMake(500, 50, 50, 80)];
+            [[cell imageView]setImage:[UIImage imageNamed:@"attatchment"]];
         }
         else
         {
@@ -667,6 +657,8 @@ NSString *totalIssueToast=[NSString stringWithFormat:@"%d",total];
             
         }
 
+
+      
     
     UILabel *nameLbl = (UILabel*)[cell viewWithTag:1];
     nameLbl.font=[UIFont systemFontOfSize:17];
@@ -707,7 +699,7 @@ NSString *totalIssueToast=[NSString stringWithFormat:@"%d",total];
         
         UILabel *nameLbl9 = (UILabel*)[cell viewWithTag:9];
         nameLbl9.font=[UIFont systemFontOfSize:17];
-        nameLbl9.text= [searchIssueNoArray objectAtIndex:indexPath.row];
+        nameLbl9.text= [searchIssuenoArray objectAtIndex:indexPath.row];
     
 
     if ([searcescalatedArray count]>0 &&![[searcescalatedArray objectAtIndex:indexPath.row] isEqualToString:@"null"])
@@ -716,10 +708,7 @@ NSString *totalIssueToast=[NSString stringWithFormat:@"%d",total];
         [esclateLabel setHidden:NO];
         [escalateTextLabel setHidden:NO];
         escalateTextLabel.text=[searcescalatedArray objectAtIndex:indexPath.row];
-        UIImageView *imgView = [[UIImageView alloc]init];
-        imgView.frame=CGRectMake(560, 50, 60, 50);
-        imgView.image=[UIImage imageNamed:@"Escalated1"];
-        [cell.contentView addSubview:imgView];
+         [[cell imageView]setImage:[UIImage imageNamed:@"Escalated1"]];
      }
     
         
@@ -734,8 +723,7 @@ NSString *totalIssueToast=[NSString stringWithFormat:@"%d",total];
     }
     else
     {
-        imageView = [[UIImageView alloc]init];
-        imageView.frame=CGRectMake(500, 50, 30, 30);
+        
         static NSString *CellIdentifier = @"Cell";
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         
@@ -744,6 +732,8 @@ NSString *totalIssueToast=[NSString stringWithFormat:@"%d",total];
             
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
             
+            
+            
         }
         
         [cell.contentView.layer setBorderColor:[UIColor blackColor].CGColor];
@@ -751,19 +741,15 @@ NSString *totalIssueToast=[NSString stringWithFormat:@"%d",total];
         cell.contentView.layer.cornerRadius = 8;
         cell.contentView.clipsToBounds = YES;
         cell.imageView.bounds = CGRectMake(300,7,32,32);
-       //long row = [indexPath row];
-        
-        
-        
-        
-        
-        
+      
         if (![[isFileAttatchedArray objectAtIndex:indexPath.row] isEqualToString:@"No attachment"])
         {
+            //imageView=[[UIImageView alloc]initWithFrame:CGRectMake(500, 50, 50, 80)];
+         
+            [[cell imageView]setImage:[UIImage imageNamed:@"attatchment"]];
             
-            imageView.image=[UIImage imageNamed:@"attatchment"];
-            //cell.imageView.image =imageView.image;
-             [cell.contentView addSubview:imageView];
+          
+            
         }
         else
         {
@@ -773,10 +759,6 @@ NSString *totalIssueToast=[NSString stringWithFormat:@"%d",total];
             
         }
 
-        
-        
-
-       
         
         UILabel *nameLbl = (UILabel*)[cell viewWithTag:1];
         nameLbl.font=[UIFont systemFontOfSize:17];
@@ -826,10 +808,9 @@ NSString *totalIssueToast=[NSString stringWithFormat:@"%d",total];
             [escalateTextLabel setHidden:NO];
             
             escalateTextLabel.text=[escalatedRescrcAry objectAtIndex:indexPath.row];
-            UIImageView *imgView = [[UIImageView alloc]init];
-            imgView.frame=CGRectMake(560, 50, 60, 50);
-            imgView.image=[UIImage imageNamed:@"Escalated1"];
-           [cell.contentView addSubview:imgView];
+            
+            //imgView.image=[UIImage imageNamed:@"Escalated1"];
+            [[cell imageView]setImage:[UIImage imageNamed:@"Escalated1"]];
         }
         
 
@@ -1225,6 +1206,7 @@ else
          [searchIssueTeamNameArray removeAllObjects];
          [searchProjectidArray removeAllObjects];
         [searchProjectNameArray removeAllObjects];
+        [searchIssuenoArray removeAllObjects];
         statusSearch.text=[pickerAry objectAtIndex:row];
         NSLog(@"the project id isssssssss  %@ ",[pickerAry objectAtIndex:row]);
         //        [questionpkr removeFromSuperview];
@@ -1417,14 +1399,9 @@ else
     [view1 addSubview:statusBtn];
     
     
-//    [popController presentPopoverFromBarButtonItem:createTimeSheetActionBarBtn permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+
     
     [popController presentPopoverFromRect:btn1.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES ];
-    
-    
-    
-    
-
 }
 
 - (IBAction)upLoadFile:(id)sender

@@ -1236,6 +1236,29 @@
 
 }
 
+-(void)issuesfilelistclass:(NSString *)issuesfilelistparams
+{
+    BaseURL=[[NSMutableString alloc]initWithString:ParentUrl];
+    [BaseURL appendString:issuesfilelistparams];
+    
+    AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+    
+    AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
+    responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
+    
+    manager.responseSerializer = responseSerializer;
+    [manager GET:BaseURL parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
+     {
+         NSLog(@"JSON: %@",responseObject);
+         
+         [delegate issuesfilelist:responseObject];
+     }
+         failure:^(NSURLSessionTask *operation, NSError *error)
+     {
+         NSLog(@"Error: %@", error);
+     }];
+}
+
 
 #pragma Task Module json services
 
@@ -1457,10 +1480,10 @@
                                         
                                         
                                             
-                                            [formData appendPartWithFileData:_imgdata name:@"profile_pic" fileName:_filename mimeType:@"image/jpeg/mp3"];
+                                            [formData appendPartWithFileData:_imgdata name:@"profile_pic" fileName:_filename mimeType:@"image/jpeg"];
                                         
                                         
-                                    } error:nil];
+                                    }error:nil];
     
     NSURLSessionUploadTask *uploadTask;
     uploadTask = [manager
@@ -2120,7 +2143,29 @@
      }];
 
 }
-
+-(void)projectexpensesattatchmentlist:(NSString *)projectexpensesattatchmentlistparams
+{
+    BaseURL=[[NSMutableString alloc]initWithString:ParentUrl];
+    [BaseURL appendString:projectexpensesattatchmentlistparams];
+    
+    AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+    
+    AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
+    responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
+    
+    manager.responseSerializer = responseSerializer;
+    [manager GET:BaseURL parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
+     {
+         NSLog(@"JSON: %@",responseObject);
+         
+         [delegate projectexpensesattatchmentlistclass:responseObject];
+     }
+         failure:^(NSURLSessionTask *operation, NSError *error)
+     {
+         NSLog(@"Error: %@", error);
+     }];
+ 
+}
 #pragma Dashboard Module json services
 
 -(void)oganizationresourcereport:(NSString *)oganizationresourcereportparams

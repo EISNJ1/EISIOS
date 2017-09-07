@@ -7,6 +7,8 @@
 //
 
 #import "createProjectExpansesViewController.h"
+#import <AVFoundation/AVFoundation.h>
+#import <MediaPlayer/MediaPlayer.h>
 
 @interface createProjectExpansesViewController ()
 
@@ -106,7 +108,7 @@
         [attatchmentlabel setHidden:NO];
         
         [self projectSpinnerService];
-        //[self attatchmentList];
+        [self attatchmentList];
         [self categorySpinnerListService];
         
         //[self downloadFilesUrl];
@@ -149,20 +151,41 @@
 {
     NSLog(@"pkr project id str is %@",pkrProjectAmountIDStr);
     Servicecall=[[Webservices alloc]init];
-    NSString *attatchmetnList=@"ProjectExpense";
-    NSDictionary *attatchmentListParameters=@{@"projExpenseId":pkrProjectAmountIDStr};
-    //[Servicecall projectExpensesAttatchmentList:attatchmetnList projectExpensesAttatchmentDictionary:attatchmentListParameters];
+    NSString *attatchmetnList=[NSString stringWithFormat:@"projectexpenses/v1/projectExpensesFilesList?projExpenseId=%@",pkrProjectAmountIDStr];
+    
+    [Servicecall projectexpensesattatchmentlist:attatchmetnList];
     [Servicecall setDelegate:self];
 }
--(void)getBytesService
+-(void)projectexpensesattatchmentlistclass:(id)projectexpensesattatchmentlistresponse
 {
-    Servicecall = [[Webservices alloc]init];
-    NSString *projectLstForTask = @"ProjectExpense";
-    NSDictionary *credentials = @{@"exp_attach_Id":tblExpAttachID,@"proj_amnt_Id":tblProjectAmountID};
-    //[Servicecall projectExpancesBytesService:projectLstForTask TaskListParameters:credentials];
-    [Servicecall setDelegate:self];
-    NSLog(@"the service response is");
+    NSDictionary *dict=[[NSDictionary alloc]init];
+    dict=projectexpensesattatchmentlistresponse;
+    NSLog(@"the project expanses attatchment list is %@",dict);
+    
+    attatchmentnameArray    = [[NSMutableArray alloc] init];
+    attatchemntListFileurlArray    = [[NSMutableArray alloc] init];
+    
+    NSArray *resultarray=[[NSArray alloc]init];
+    resultarray=[dict valueForKey:@"beanData"];
+    
+    for (NSDictionary *fidd in resultarray)
+    {
+        [attatchmentnameArray addObject:[fidd valueForKey:@"projectExpenseattachmentName"]];
+        [attatchemntListFileurlArray addObject:[fidd valueForKey:@"projectExpenseUrl"]];
+        
+    }
+    [projectlisttableview reloadData];
+    
 }
+//-(void)getBytesService
+//{
+//    Servicecall = [[Webservices alloc]init];
+//    NSString *projectLstForTask = @"ProjectExpense";
+//    NSDictionary *credentials = @{@"exp_attach_Id":tblExpAttachID,@"proj_amnt_Id":tblProjectAmountID};
+//    //[Servicecall projectExpancesBytesService:projectLstForTask TaskListParameters:credentials];
+//    [Servicecall setDelegate:self];
+//    NSLog(@"the service response is");
+//}
 
 -(void)projectSpinnerService
 {
@@ -568,12 +591,6 @@ NSLog(@"split  is %@ %@ ",projectIdArray,projectNameArray);
         UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
         [picker dismissViewControllerAnimated:YES completion:nil];
 
-//        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-//        NSString *documentsDirectory = [paths objectAtIndex:0];
-//        NSString *localFilePath = [documentsDirectory stringByAppendingString:@"/images.png"];
-//        NSLog(@"localFilePath %@",localFilePath);
-//        imageNameLbl.text = localFilePath;
-        
         
         NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
         [dateFormat setDateFormat:@"yyyyMMdd_HHmmss"];
@@ -584,9 +601,12 @@ NSLog(@"split  is %@ %@ ",projectIdArray,projectNameArray);
         [theDate appendString:[dateFormat stringFromDate:now]];
         [theDate appendString:@".jpg"];
         NSLog(@"theDate: %@ ", theDate);
-        imageNameLbl.text = theDate;
+        fileName = theDate;
+        Servicecall.filename=fileName;
 
         NSData *data =  UIImagePNGRepresentation(image);
+        
+        Servicecall.imgdata=data;
         byteArray  = [data base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
         
         [self saveAttatchment];
@@ -601,11 +621,7 @@ NSLog(@"split  is %@ %@ ",projectIdArray,projectNameArray);
         UIImage* image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
         [picker dismissViewControllerAnimated:YES completion:nil];
         
-//        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-//        NSString *documentsDirectory = [paths objectAtIndex:0];
-//        NSString *localFilePath = [documentsDirectory stringByAppendingString:@"/images.png"];
-//        NSLog(@"localFilePath.%@",localFilePath);
-//        imageNameLbl.text = localFilePath;
+
         
         NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
         [dateFormat setDateFormat:@"yyyyMMdd_HHmmss"];
@@ -617,8 +633,11 @@ NSLog(@"split  is %@ %@ ",projectIdArray,projectNameArray);
         [theDate appendString:@".jpg"];
         NSLog(@"theDate: %@ ", theDate);
          fileName= theDate;
+        Servicecall.filename=fileName;
         
         NSData *data = UIImageJPEGRepresentation(image,1.0);
+        
+        Servicecall.imgdata=data;
         byteArray  = [data base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
         
          [self saveAttatchment];
@@ -633,11 +652,24 @@ NSLog(@"split  is %@ %@ ",projectIdArray,projectNameArray);
 -(void)saveAttatchment
 {
     NSLog(@"pkr project amount id is %@",pkrProjectAmountIDStr);
-    Servicecall=[[Webservices alloc]init];
-    NSString *SaveAttachmentClass=@"SaveExpenses";
-    NSDictionary *SaveAttatchmentParameters=@{@"projExpenseId":pkrProjectAmountIDStr,@"fileName":fileName,@"fileBytes":byteArray};
-   // [Servicecall saveAttatchmentInProjectExpenses:SaveAttachmentClass saveAttatchmentProjectExpensesParameters:SaveAttatchmentParameters];
+    //Servicecall=[[Webservices alloc]init];
+    NSString *SaveAttachmentClass=[NSString stringWithFormat:@"projectexpenses/v1/projectExpensesUploadFile"];
+    NSDictionary *SaveAttatchmentParameters=@{@"projExpenseId":pkrProjectAmountIDStr,@"attachmentName":fileName,@"attachmentBytes":byteArray};
+   [Servicecall uploadTextClass:SaveAttachmentClass uploadTextparams:SaveAttatchmentParameters];
     [Servicecall setDelegate:self];
+}
+-(void)uploadtasktextservice:(id)uploadtasktextresponse
+{
+    NSDictionary *dict=[[NSDictionary alloc]init];
+    dict=uploadtasktextresponse;
+    NSLog(@"the response is %@",dict);
+    if ([dict valueForKey:@"Uploaded"])
+    {
+        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Alert" message:@"image uploaded successfully" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+        [alert show];
+        [alert dismissWithClickedButtonIndex:0 animated:self];
+    }
+    [self attatchmentList];
 }
 
 -(void) parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName
@@ -819,9 +851,7 @@ NSLog(@"split  is %@ %@ ",projectIdArray,projectNameArray);
         
         if ([string isEqualToString:@"Problem"])
         {
-//            UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"Warning" message:@"The List is Empty" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:nil, nil];
-//            
-//            [alert show];
+
         }
         else{
             
@@ -1202,7 +1232,7 @@ NSLog(@"split  is %@ %@ ",projectIdArray,projectNameArray);
     //NSLog(@"not existing url is %@",url);
     NSData *urlData = [NSData dataWithContentsOfURL:url];
     
-    if([extn isEqualToString:@"jpg"]||[extn isEqualToString:@"png"])
+    if([fileurl containsString:@"jpg"]||[fileurl containsString:@"png"])
     {
         
         NSArray   *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -1246,7 +1276,7 @@ NSLog(@"split  is %@ %@ ",projectIdArray,projectNameArray);
         [self.view addSubview:atachmentsImageView];
         
     }
-    else if([extn isEqualToString:@"pdf"]||[extn isEqualToString:@"pptx"]||[extn isEqualToString:@"docx"] ||[extn isEqualToString:@"xlsx"])
+    else if([fileurl containsString:@"pdf"]||[fileurl containsString:@"pptx"]||[fileurl containsString:@"docx"] ||[fileurl containsString:@"xlsx"])
     {
         
         NSData *pdfData = [[NSData alloc]initWithContentsOfURL:[NSURL URLWithString:fileurl]];
@@ -1283,8 +1313,20 @@ NSLog(@"split  is %@ %@ ",projectIdArray,projectNameArray);
         
         [self.view addSubview:displayWebview];
     }
+    else if ([fileurl containsString:@".mp3"])
+    {
+        NSURL *audioURL = [NSURL URLWithString:fileurl];
+        NSLog(@"existig url is%@",audioURL);
+        
+        NSString *sourcePath =[audioURL path];
+        UISaveVideoAtPathToSavedPhotosAlbum(sourcePath,nil,nil,nil);
+        
+        
+        MPMoviePlayerController* moviePlayer = [[MPMoviePlayerViewController alloc]initWithContentURL:audioURL];
+        [self presentModalViewController:moviePlayer animated:NO];
+    }
     
-    else if ([extn isEqualToString:@"txt"])
+    else if ([fileurl containsString:@"txt"])
     {
         NSString *urlString = fileurl;
         NSURL *myURL = [NSURL URLWithString:[urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
@@ -1302,7 +1344,7 @@ NSLog(@"split  is %@ %@ ",projectIdArray,projectNameArray);
         myButton.frame      =   CGRectMake(200, 250, 50.0, 30.0);
         [myButton setTitle:@"Cancel" forState:UIControlStateNormal];
         
-        [myButton addTarget:self action:@selector(cancelPressed555)forControlEvents:UIControlEventTouchUpInside];
+        [myButton addTarget:self action:@selector(cancelPressed541254)forControlEvents:UIControlEventTouchUpInside];
         myButton.backgroundColor=[UIColor grayColor];
         [attatchmentTxtview1 addSubview:myButton];
         
@@ -1328,7 +1370,7 @@ NSLog(@"split  is %@ %@ ",projectIdArray,projectNameArray);
 {
     [displayWebview removeFromSuperview];
 }
--(void)cancelPressed555
+-(void)cancelPressed541254
 {
     [attatchmentTxtview1 removeFromSuperview];
 }

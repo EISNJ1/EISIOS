@@ -87,8 +87,8 @@
     
     [self ListofVideos];
     
-    geusture=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(guestureclicked)];
-    [self.view addGestureRecognizer:geusture];
+//    geusture=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(guestureclicked)];
+//    [self.view addGestureRecognizer:geusture];
     
     
     [super viewDidLoad];
@@ -775,7 +775,7 @@
 
 -(void)guestureclicked
 {
-    [selectionView setHidden:YES];
+    //[selectionView setHidden:YES];
 }
 
 @end

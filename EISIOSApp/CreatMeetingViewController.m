@@ -629,7 +629,7 @@
         
             NSString *dateString = UpdateDateTime;
             NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
-            [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
+            //[dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
             [dateFormatter setDateFormat:@"MM/dd/yyyy hh:mm a"];
             MeetingDate = [dateFormatter dateFromString:dateString];
             
@@ -769,6 +769,8 @@ NSString *updateMeetingurl=[NSString stringWithFormat:@"meeting/v1/updateMeeting
     
     NSString *dictionary=[NSString stringWithFormat:@"meetingTyp=%@&meetinTitle=%@&meetDescription=%@&startTym=%@&hours=%@&meetOwnId=%@&projectId=%@&meetDate=%@&meetingId=%@&ConferRoomId=%@",_MeetingTypeId,Meetingtitletxtfld.text,Meetingdistxtfld.text,_Starttimestr,Meetinglengthtxtfld.text,Useridstr,_ProjId,meetdate,_MeetingId,_ConfOwnerId];
     
+    NSLog(@"the meeting update dict is %@",dictionary);
+    
     [Servicecall meetingupdate:updateMeetingurl meetingupdatedict:dictionary];
     [Servicecall setDelegate:self];
     
@@ -781,7 +783,7 @@ NSString *updateMeetingurl=[NSString stringWithFormat:@"meeting/v1/updateMeeting
     NSDictionary *dict=[NSJSONSerialization JSONObjectWithData:resdata options:NSJSONReadingMutableContainers error:&error];
     NSLog(@"meeting update is %@",dict);
     
-    if ([[dict valueForKey:@"statusMessage"] isEqualToString:@"CREATED"])
+    if ([[dict valueForKey:@"statusMessage"]isEqualToString:@"CREATED"])
     {
         UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Alert" message:@"meeting updated successfully" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:nil, nil];
         [alert show];
@@ -823,12 +825,12 @@ NSString *updateMeetingurl=[NSString stringWithFormat:@"meeting/v1/updateMeeting
     NSString *date = [formatter stringFromDate:currentDate];
     dateSplitArray = [date componentsSeparatedByString:@" "];
     
+    //NSLog(@"the current date is %@",dateSplitArray);
+    
     NSDateFormatter *dateformate=[[NSDateFormatter alloc]init];
     [dateformate setDateFormat:@"hh:mm a"];
-    [dateformate setTimeStyle:NSDateFormatterShortStyle];
-    
-    _Starttimestr=[_Starttimestr componentsSeparatedByString:@" "];
-    _Starttimestr=[NSString stringWithFormat:@"%@",[dateformate stringFromDate:DatePicker.date]];
+
+    _Starttimestr=[NSString stringWithFormat:@"%@",[dateformate stringFromDate:currentDate]];
     
     NSLog(@"start time is %@",_Starttimestr);
     

@@ -145,9 +145,10 @@
     
     for (NSDictionary *fidd in resultarray)
     {
-        [PROJECT_IDArray addObject:[fidd valueForKey:@"projectId"]];
+        [projectIDArray addObject:[fidd valueForKey:@"projectId"]];
         [PROJECT_NAMEArray addObject:[fidd valueForKey:@"projectName"]];
     }
+    [PROJECT_NAMEArray addObject:@"All"];
 }
 
 
@@ -627,6 +628,7 @@
         [ReqHistoryTempArray removeAllObjects];
         [requirementNameTempArray removeAllObjects];
         
+        //[PROJECT_NAMEArray addObject:@"All"];
         
         req1SearchBar.text=[PROJECT_NAMEArray objectAtIndex:row];
         [questionpkr removeFromSuperview];
@@ -1644,10 +1646,11 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if(![req1SearchBar.text isEqualToString:@"All"]&&[req2SearchBar.text isEqualToString:@""])
+    if((![req1SearchBar.text isEqualToString:@"All"]&&[req2SearchBar.text isEqualToString:@""])||[req2SearchBar.text isEqualToString:@"Requirement Type(All)"])
     {
         return [requirementTypeTempArray count];
     }
+    
     if(([req1SearchBar.text isEqualToString:@"All"] && [req2SearchBar.text length]>0) &&
         ![req2SearchBar.text isEqualToString:@"Requirement Type(All)"])
     {
@@ -1673,7 +1676,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-     if(![req1SearchBar.text isEqualToString:@"All"]&&[req2SearchBar.text isEqualToString:@""])
+     if((![req1SearchBar.text isEqualToString:@"All"]&&[req2SearchBar.text isEqualToString:@""])||[req2SearchBar.text isEqualToString:@"Requirement Type(All)"])
     {
         
         static NSString *CellIdentifier =@"Cell";
